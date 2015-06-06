@@ -150,6 +150,7 @@ pulseaudio_notify_notify (PulseaudioNotify *notify)
   gdouble      volume;
   gint         volume_i;
   gboolean     muted;
+  gboolean     connected;
   gchar       *title = NULL;
   const gchar *icon = NULL;
 
@@ -158,14 +159,22 @@ pulseaudio_notify_notify (PulseaudioNotify *notify)
 
   volume = pulseaudio_volume_get_volume (notify->volume);
   muted = pulseaudio_volume_get_muted (notify->volume);
+  connected = pulseaudio_volume_get_connected (notify->volume);
   volume_i = (gint) round (volume * 100);
 
-  if (muted)
+  if (!connected)
+    volume_i = 0;
+
+  if (!connected)
+    title = g_strdup_printf ( _("Not connected to the PulseAudio server"));
+  else if (muted)
     title = g_strdup_printf ( _("Volume %d%c (muted)"), volume_i, '%');
   else
     title = g_strdup_printf ( _("Volume %d%c"), volume_i, '%');
 
-  if (muted)
+  if (!connected)
+    icon = icons[V_MUTED];
+  else if (muted)
     icon = icons[V_MUTED];
   else if (volume <= 0.0)
     icon = icons[V_MUTED];

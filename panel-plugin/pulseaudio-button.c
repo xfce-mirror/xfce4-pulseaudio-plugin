@@ -280,6 +280,7 @@ pulseaudio_button_update (PulseaudioButton *button,
                           gboolean          force_update)
 {
   gdouble      volume;
+  gboolean     connected;
   gboolean     muted;
   gchar       *tip_text;
   const gchar *icon_name;
@@ -289,7 +290,10 @@ pulseaudio_button_update (PulseaudioButton *button,
 
   volume = pulseaudio_volume_get_volume (button->volume);
   muted = pulseaudio_volume_get_muted (button->volume);
-  if (muted)
+  connected = pulseaudio_volume_get_connected (button->volume);
+  if (!connected)
+    icon_name = icons[V_MUTED];
+  else if (muted)
     icon_name = icons[V_MUTED];
   else if (volume <= 0.0)
     icon_name = icons[V_MUTED];
@@ -300,7 +304,9 @@ pulseaudio_button_update (PulseaudioButton *button,
   else
     icon_name = icons[V_HIGH];
 
-  if (muted)
+  if (!connected)
+    tip_text = g_strdup_printf (_("Not connected to the PulseAudio server"));
+  else if (muted)
     tip_text = g_strdup_printf (_("Volume %d%% (muted)"), (gint) round (volume * 100));
   else
     tip_text = g_strdup_printf (_("Volume %d%%"), (gint) round (volume * 100));
