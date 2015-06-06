@@ -306,7 +306,6 @@ pulseaudio_plugin_volume_key_pressed (const char            *keystring,
     pulseaudio_volume_set_volume (pulseaudio_plugin->volume, MIN (volume + volume_step, MAX (volume, 1.0)));
   else if (strcmp (keystring, PULSEAUDIO_PLUGIN_LOWER_VOLUME_KEY) == 0)
     pulseaudio_volume_set_volume (pulseaudio_plugin->volume, volume - volume_step);
-  pulseaudio_notify (pulseaudio_plugin);
 }
 
 
@@ -319,19 +318,8 @@ pulseaudio_plugin_mute_pressed (const char            *keystring,
   pulseaudio_debug ("%s pressed", keystring);
 
   pulseaudio_volume_toggle_muted (pulseaudio_plugin->volume);
-  pulseaudio_notify (pulseaudio_plugin);
 }
 #endif
-
-
-void
-pulseaudio_notify (PulseaudioPlugin *pulseaudio_plugin)
-{
-#ifdef HAVE_LIBNOTIFY
-  pulseaudio_notify_notify (pulseaudio_plugin->notify);
-#endif
-}
-
 
 
 static void

@@ -71,6 +71,8 @@ struct _PulseaudioNotify
 
   gboolean              gauge_notifications;
   NotifyNotification   *notification;
+
+  gulong                volume_changed_id;
 };
 
 struct _PulseaudioNotifyClass
@@ -102,6 +104,7 @@ pulseaudio_notify_init (PulseaudioNotify *notify)
 
   notify->gauge_notifications = TRUE;
   notify->notification = NULL;
+  notify->volume_changed_id = 0;
 
   //g_set_application_name ("Xfce volume control");
   notify_init ("Xfce volume control");
@@ -119,7 +122,7 @@ pulseaudio_notify_init (PulseaudioNotify *notify)
       g_list_free (caps_list);
     }
   notify->notification = notify_notification_new ("xfce4-pulseaudio-plugin", NULL, NULL);
-  notify_notification_set_timeout (notify->notification, 1500);
+  notify_notification_set_timeout (notify->notification, 2000);
 }
 
 
@@ -198,6 +201,17 @@ pulseaudio_notify_notify (PulseaudioNotify *notify)
 
 
 
+static void
+pulseaudio_notify_volume_changed (PulseaudioNotify  *notify,
+                                  PulseaudioVolume  *volume)
+{
+  g_return_if_fail (IS_PULSEAUDIO_NOTIFY (notify));
+
+  pulseaudio_notify_notify (notify);
+}
+
+
+
 PulseaudioNotify *
 pulseaudio_notify_new (PulseaudioConfig *config,
                        PulseaudioVolume *volume)
@@ -211,6 +225,9 @@ pulseaudio_notify_new (PulseaudioConfig *config,
 
   notify->config = config;
   notify->volume = volume;
+  notify->volume_changed_id =
+    g_signal_connect_swapped (G_OBJECT (notify->volume), "volume-changed",
+                              G_CALLBACK (pulseaudio_notify_volume_changed), notify);
 
   return notify;
 }

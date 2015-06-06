@@ -42,8 +42,6 @@ GType                   pulseaudio_notify_get_type        (void) G_GNUC_CONST;
 PulseaudioNotify       *pulseaudio_notify_new             (PulseaudioConfig *config,
                                                            PulseaudioVolume *volume);
 
-void                    pulseaudio_notify_notify          (PulseaudioNotify *notify);
-
 G_END_DECLS
 
 #endif /* HAVE_LIBNOTIFY */

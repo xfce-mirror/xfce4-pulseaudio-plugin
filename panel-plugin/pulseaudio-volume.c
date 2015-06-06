@@ -245,7 +245,8 @@ pulseaudio_volume_context_state_cb (pa_context *context,
 
     case PA_CONTEXT_FAILED       :
     case PA_CONTEXT_TERMINATED   :
-      g_warning ("Disconected from PulseAudio server");
+      g_warning ("Disconected from PulseAudio server.");
+      volume->pa_context = NULL;
       break;
 
     case PA_CONTEXT_CONNECTING   :
@@ -383,6 +384,7 @@ pulseaudio_volume_set_muted (PulseaudioVolume *volume,
                              gboolean          muted)
 {
   g_return_if_fail (IS_PULSEAUDIO_VOLUME (volume));
+  g_return_if_fail (volume->pa_context != NULL);
   g_return_if_fail (pa_context_get_state (volume->pa_context) == PA_CONTEXT_READY);
 
   if (volume->muted != muted)
@@ -456,6 +458,7 @@ pulseaudio_volume_set_volume (PulseaudioVolume *volume,
   gdouble vol_trim;
 
   g_return_if_fail (IS_PULSEAUDIO_VOLUME (volume));
+  g_return_if_fail (volume->pa_context != NULL);
   g_return_if_fail (pa_context_get_state (volume->pa_context) == PA_CONTEXT_READY);
 
   vol_max = pulseaudio_config_get_volume_max (volume->config) / 100.0;
