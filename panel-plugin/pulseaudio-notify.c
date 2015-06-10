@@ -143,7 +143,7 @@ pulseaudio_notify_finalize (GObject *object)
 
 
 
-void
+static void
 pulseaudio_notify_notify (PulseaudioNotify *notify)
 {
   GError      *error = NULL;
@@ -156,6 +156,9 @@ pulseaudio_notify_notify (PulseaudioNotify *notify)
 
   g_return_if_fail (IS_PULSEAUDIO_NOTIFY (notify));
   g_return_if_fail (IS_PULSEAUDIO_VOLUME (notify->volume));
+
+  if (!pulseaudio_config_get_show_notifications (notify->config))
+    return;
 
   volume = pulseaudio_volume_get_volume (notify->volume);
   muted = pulseaudio_volume_get_muted (notify->volume);
