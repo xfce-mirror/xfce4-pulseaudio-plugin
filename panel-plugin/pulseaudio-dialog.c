@@ -182,6 +182,16 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
                               G_OBJECT (object), "active",
                               G_BINDING_SYNC_CREATE | G_BINDING_BIDIRECTIONAL);
 
+      object = gtk_builder_get_object (builder, "checkbutton-show-notifications");
+      g_return_if_fail (GTK_IS_CHECK_BUTTON (object));
+#ifdef HAVE_LIBNOTIFY
+      g_object_bind_property (G_OBJECT (dialog->config), "show-notifications",
+                              G_OBJECT (object), "active",
+                              G_BINDING_SYNC_CREATE | G_BINDING_BIDIRECTIONAL);
+#else
+      gtk_widget_set_visible (GTK_WIDGET (object), FALSE);
+#endif
+
       object = gtk_builder_get_object (builder, "entry-mixer-command");
       g_return_if_fail (GTK_IS_ENTRY (object));
       g_object_bind_property (G_OBJECT (dialog->config), "mixer-command",
