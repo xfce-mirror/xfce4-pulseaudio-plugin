@@ -215,11 +215,13 @@ pulseaudio_notify_notify (PulseaudioNotify *notify)
 
 static void
 pulseaudio_notify_volume_changed (PulseaudioNotify  *notify,
+                                  gboolean           should_notify,
                                   PulseaudioVolume  *volume)
 {
   g_return_if_fail (IS_PULSEAUDIO_NOTIFY (notify));
 
-  pulseaudio_notify_notify (notify);
+  if (should_notify)
+    pulseaudio_notify_notify (notify);
 }
 
 

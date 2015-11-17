@@ -366,6 +366,7 @@ pulseaudio_button_set_size (PulseaudioButton *button,
 
 static void
 pulseaudio_button_volume_changed (PulseaudioButton  *button,
+                                  gboolean           should_notify,
                                   PulseaudioVolume  *volume)
 {
   g_return_if_fail (IS_PULSEAUDIO_BUTTON (button));
