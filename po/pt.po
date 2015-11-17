@@ -73,7 +73,7 @@ msgid "Sound settings"
 msgstr "Definições de som"
 
 #: ../panel-plugin/pulseaudio-plugin.c:214
-msgid "Copyright © 2014 Andrzej Radecki\n"
+msgid "Copyright © 2014-2015 Andrzej Radecki\n"
 msgstr ""
 
 #: ../panel-plugin/pulseaudio-dialog.c:136

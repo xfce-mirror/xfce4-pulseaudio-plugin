@@ -74,8 +74,8 @@ msgid "Sound settings"
 msgstr "声音设置"
 
 #: ../panel-plugin/pulseaudio-plugin.c:214
-msgid "Copyright © 2014 Andrzej Radecki\n"
-msgstr "版权所有 © 2014 Andrzej Radecki\n"
+msgid "Copyright © 2014-2015 Andrzej Radecki\n"
+msgstr "版权所有 © 2014-2015 Andrzej Radecki\n"
 
 #: ../panel-plugin/pulseaudio-dialog.c:136
 #: ../panel-plugin/pulseaudio-menu.c:169
