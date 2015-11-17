@@ -1,0 +1,130 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Sergey Alyoshin <alyoshin.s@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Xfce Panel Plugins\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-10-05 22:18+0200\n"
+"PO-Revision-Date: 2015-10-17 15:23+0000\n"
+"Last-Translator: Sergey Alyoshin <alyoshin.s@gmail.com>\n"
+"Language-Team: Russian (http://www.transifex.com/xfce/xfce-panel-plugins/language/ru/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: ../panel-plugin/pulseaudio.desktop.in.in.h:1
+msgid "PulseAudio Plugin"
+msgstr "Модуль PulseAudio"
+
+#: ../panel-plugin/pulseaudio.desktop.in.in.h:2
+#: ../panel-plugin/pulseaudio-plugin.c:212
+msgid "Adjust the audio volume of the PulseAudio sound system"
+msgstr "Управление громкостью звука системы PulseAudio"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:1
+msgid "PulseAudio Panel Plugin"
+msgstr "Модуль PulseAudio для панели"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:2
+msgid "Enable keyboard _shortcuts for volume control"
+msgstr "Управлять громкостью _клавиатурными комбинациями"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:3
+msgid ""
+"Enables volume control using multimedia keys. Make sure no other application"
+" that listens to these keys (e.g. xfce4-volumed) is running in the "
+"background."
+msgstr "Разрешить управление громкостью мультимедийными клавишами. Проверьте, что никакие другие приложения работающие с этими клавишами (например, xfce4-volumed) не запущенны в фоновом режиме."
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:4
+msgid "Show _notifications when volume changes"
+msgstr "Отображать _уведомления при изменении громкости"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:5
+msgid "Enables on-screen volume notifications."
+msgstr "Включить экранные уведомления о громкости."
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:6
+msgid "Behaviour"
+msgstr "Поведение"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:7
+msgid "Audio _Mixer"
+msgstr "Звуковой _микшер"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:8
+msgid ""
+"Audio mixer command that can be executed from the context menu, e.g. "
+"\"pavucontrol\", \"unity-control-center sound\"."
+msgstr "Команда звукового микшера для запуска из контекстного меню, например «pavucontrol», «unity-control-center sound»."
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:9
+msgid "_Run Audio Mixer..."
+msgstr "Звуковой _микшер..."
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:10
+msgid "Sound settings"
+msgstr "Настройки звука"
+
+#: ../panel-plugin/pulseaudio-plugin.c:214
+msgid "Copyright © 2014 Andrzej Radecki\n"
+msgstr "Copyright © 2014 Andrzej Radecki\n"
+
+#: ../panel-plugin/pulseaudio-dialog.c:136
+#: ../panel-plugin/pulseaudio-menu.c:169
+#, c-format
+msgid ""
+"<big><b>Failed to execute command \"%s\".</b></big>\n"
+"\n"
+"%s"
+msgstr "<big><b>Ошибка при выполнении команды \"%s\".</b></big>\n\n%s"
+
+#: ../panel-plugin/pulseaudio-dialog.c:139
+#: ../panel-plugin/pulseaudio-menu.c:172
+msgid "Error"
+msgstr "Ошибка"
+
+#: ../panel-plugin/pulseaudio-button.c:308
+#: ../panel-plugin/pulseaudio-notify.c:172
+#, c-format
+msgid "Not connected to the PulseAudio server"
+msgstr "Нет соединения с сервером PulseAudio"
+
+#: ../panel-plugin/pulseaudio-button.c:310
+#, c-format
+msgid "Volume %d%% (muted)"
+msgstr "Громкость %d%% (откл.)"
+
+#: ../panel-plugin/pulseaudio-button.c:312
+#, c-format
+msgid "Volume %d%%"
+msgstr "Громкость %d%%"
+
+#: ../panel-plugin/pulseaudio-menu.c:243
+msgid "<b>Audio output volume</b>"
+msgstr "<b>Громкость звукового выхода</b>"
+
+#: ../panel-plugin/pulseaudio-menu.c:257
+msgid "_Mute audio output"
+msgstr "О_тключить звук"
+
+#. Audio mixers
+#: ../panel-plugin/pulseaudio-menu.c:268
+msgid "_Audio mixer..."
+msgstr "Звуковой _микшер..."
+
+#: ../panel-plugin/pulseaudio-notify.c:174
+#, c-format
+msgid "Volume %d%c (muted)"
+msgstr "Громкость %d%c (откл.)"
+
+#: ../panel-plugin/pulseaudio-notify.c:176
+#, c-format
+msgid "Volume %d%c"
+msgstr "Громкость %d%c"
