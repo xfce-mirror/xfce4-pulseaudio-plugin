@@ -182,6 +182,7 @@ pulseaudio_menu_run_audio_mixer (PulseaudioMenu   *menu,
 
 static void
 pulseaudio_menu_volume_changed (PulseaudioMenu   *menu,
+                                gboolean          should_notify,
                                 PulseaudioVolume *volume)
 {
   g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
@@ -270,7 +271,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
   g_signal_connect_swapped (G_OBJECT (mi), "activate", G_CALLBACK (pulseaudio_menu_run_audio_mixer), menu);
 
-  pulseaudio_menu_volume_changed (menu, menu->volume);
+  pulseaudio_menu_volume_changed (menu, FALSE, menu->volume);
 
 
   return GTK_WIDGET (menu);
