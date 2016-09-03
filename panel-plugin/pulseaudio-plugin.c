@@ -266,7 +266,7 @@ static gboolean
 pulseaudio_plugin_bind_keys (PulseaudioPlugin      *pulseaudio_plugin)
 {
   gboolean success;
-  g_return_if_fail (IS_PULSEAUDIO_PLUGIN (pulseaudio_plugin));
+  g_return_val_if_fail (IS_PULSEAUDIO_PLUGIN (pulseaudio_plugin), FALSE);
   pulseaudio_debug ("Grabbing volume control keys");
 
   success = (keybinder_bind (PULSEAUDIO_PLUGIN_LOWER_VOLUME_KEY, pulseaudio_plugin_volume_key_pressed, pulseaudio_plugin) &&
@@ -359,16 +359,17 @@ pulseaudio_plugin_construct (XfcePanelPlugin *plugin)
   /* volume controller */
   pulseaudio_plugin->volume = pulseaudio_volume_new (pulseaudio_plugin->config);
 
-  /* initialize notify wrapper */
-#ifdef HAVE_LIBNOTIFY
-  pulseaudio_plugin->notify = pulseaudio_notify_new (pulseaudio_plugin->config,
-                                                     pulseaudio_plugin->volume);
-#endif
-
   /* instantiate a button box */
   pulseaudio_plugin->button = pulseaudio_button_new (pulseaudio_plugin,
                                                      pulseaudio_plugin->config,
                                                      pulseaudio_plugin->volume);
+  /* initialize notify wrapper */
+#ifdef HAVE_LIBNOTIFY
+  pulseaudio_plugin->notify = pulseaudio_notify_new (pulseaudio_plugin->config,
+                                                     pulseaudio_plugin->volume,
+                                                     pulseaudio_plugin->button);
+#endif
+
   gtk_container_add (GTK_CONTAINER (plugin), GTK_WIDGET (pulseaudio_plugin->button));
   gtk_widget_show (GTK_WIDGET (pulseaudio_plugin->button));
 

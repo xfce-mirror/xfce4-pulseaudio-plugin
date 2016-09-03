@@ -21,9 +21,10 @@
 #include <glib.h>
 #include <gtk/gtk.h>
 
+#include "pulseaudio-plugin.h"
+#include "pulseaudio-config.h"
 #include "pulseaudio-volume.h"
 #include "pulseaudio-menu.h"
-//#include "pulseaudio-config.h"
 
 G_BEGIN_DECLS
 
@@ -45,6 +46,8 @@ PulseaudioButton       *pulseaudio_button_new         (PulseaudioPlugin *plugin,
 
 void                    pulseaudio_button_set_size    (PulseaudioButton *button,
                                                        gint              size);
+
+PulseaudioMenu         *pulseaudio_button_get_menu    (PulseaudioButton *button);
 
 G_END_DECLS
 

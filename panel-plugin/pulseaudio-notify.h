@@ -24,6 +24,7 @@
 #include <glib-object.h>
 #include "pulseaudio-config.h"
 #include "pulseaudio-volume.h"
+#include "pulseaudio-button.h"
 
 G_BEGIN_DECLS
 
@@ -40,7 +41,8 @@ typedef struct          _PulseaudioNotifyClass            PulseaudioNotifyClass;
 GType                   pulseaudio_notify_get_type        (void) G_GNUC_CONST;
 
 PulseaudioNotify       *pulseaudio_notify_new             (PulseaudioConfig *config,
-                                                           PulseaudioVolume *volume);
+                                                           PulseaudioVolume *volume,
+                                                           PulseaudioButton *button);
 
 G_END_DECLS
 

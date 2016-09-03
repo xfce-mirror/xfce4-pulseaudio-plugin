@@ -68,6 +68,7 @@ struct _PulseaudioNotify
 
   PulseaudioConfig     *config;
   PulseaudioVolume     *volume;
+  PulseaudioButton     *button;
 
   gboolean              gauge_notifications;
   NotifyNotification   *notification;
@@ -157,7 +158,8 @@ pulseaudio_notify_notify (PulseaudioNotify *notify)
   g_return_if_fail (IS_PULSEAUDIO_NOTIFY (notify));
   g_return_if_fail (IS_PULSEAUDIO_VOLUME (notify->volume));
 
-  if (!pulseaudio_config_get_show_notifications (notify->config))
+  if (!pulseaudio_config_get_show_notifications (notify->config) ||
+      pulseaudio_button_get_menu (notify->button) != NULL)
     return;
 
   volume = pulseaudio_volume_get_volume (notify->volume);
@@ -228,17 +230,20 @@ pulseaudio_notify_volume_changed (PulseaudioNotify  *notify,
 
 PulseaudioNotify *
 pulseaudio_notify_new (PulseaudioConfig *config,
-                       PulseaudioVolume *volume)
+                       PulseaudioVolume *volume,
+                       PulseaudioButton *button)
 {
   PulseaudioNotify *notify;
 
   g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), NULL);
   g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), NULL);
+  g_return_val_if_fail (IS_PULSEAUDIO_BUTTON (button), NULL);
 
   notify = g_object_new (TYPE_PULSEAUDIO_NOTIFY, NULL);
 
   notify->config = config;
   notify->volume = volume;
+  notify->button = button;
   notify->volume_changed_id =
     g_signal_connect_swapped (G_OBJECT (notify->volume), "volume-changed",
                               G_CALLBACK (pulseaudio_notify_volume_changed), notify);
