@@ -202,7 +202,7 @@ pulseaudio_menu_volume_changed (PulseaudioMenu   *menu,
 
 
 
-GtkWidget *
+PulseaudioMenu *
 pulseaudio_menu_new (PulseaudioVolume *volume,
                      PulseaudioConfig *config,
                      GtkWidget        *widget)
@@ -274,7 +274,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
   pulseaudio_menu_volume_changed (menu, FALSE, menu->volume);
 
 
-  return GTK_WIDGET (menu);
+  return menu;
 }
 
 

@@ -88,7 +88,7 @@ struct _PulseaudioButton
   gint                  icon_size;
   const gchar          *icon_name;
 
-  GtkWidget            *menu;
+  PulseaudioMenu       *menu;
 
   gulong                volume_changed_id;
   gulong                deactivate_id;

@@ -22,6 +22,7 @@
 #include <gtk/gtk.h>
 
 #include "pulseaudio-volume.h"
+#include "pulseaudio-menu.h"
 //#include "pulseaudio-config.h"
 
 G_BEGIN_DECLS

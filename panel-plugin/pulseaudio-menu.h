@@ -38,7 +38,7 @@ GType pulseaudio_menu_get_type (void);
 typedef struct          _PulseaudioMenu              PulseaudioMenu;
 typedef struct          _PulseaudioMenuClass         PulseaudioMenuClass;
 
-GtkWidget              *pulseaudio_menu_new         (PulseaudioVolume *volume,
+PulseaudioMenu         *pulseaudio_menu_new         (PulseaudioVolume *volume,
                                                      PulseaudioConfig *config,
                                                      GtkWidget        *widget);
 
