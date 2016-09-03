@@ -376,7 +376,7 @@ pulseaudio_button_volume_changed (PulseaudioButton  *button,
 
 
 
-GtkWidget *
+PulseaudioButton *
 pulseaudio_button_new (PulseaudioPlugin *plugin,
                        PulseaudioConfig *config,
                        PulseaudioVolume *volume)
@@ -398,7 +398,7 @@ pulseaudio_button_new (PulseaudioPlugin *plugin,
 
   pulseaudio_button_update (button, TRUE);
 
-  return GTK_WIDGET (button);
+  return button;
 }
 
 

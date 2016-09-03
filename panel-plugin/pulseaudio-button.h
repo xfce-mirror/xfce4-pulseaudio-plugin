@@ -38,7 +38,7 @@ GType pulseaudio_button_get_type (void);
 typedef struct          _PulseaudioButton              PulseaudioButton;
 typedef struct          _PulseaudioButtonClass         PulseaudioButtonClass;
 
-GtkWidget              *pulseaudio_button_new         (PulseaudioPlugin *plugin,
+PulseaudioButton       *pulseaudio_button_new         (PulseaudioPlugin *plugin,
                                                        PulseaudioConfig *config,
                                                        PulseaudioVolume *volume);
 

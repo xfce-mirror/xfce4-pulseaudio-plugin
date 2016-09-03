@@ -95,7 +95,7 @@ struct _PulseaudioPlugin
 #endif
 
   /* panel widgets */
-  GtkWidget           *button;
+  PulseaudioButton    *button;
 
   /* config dialog builder */
   PulseaudioDialog    *dialog;
@@ -241,7 +241,7 @@ pulseaudio_plugin_size_changed (XfcePanelPlugin *plugin,
   /* The plugin only occupies a single row */
   size /= xfce_panel_plugin_get_nrows (plugin);
 
-  pulseaudio_button_set_size (PULSEAUDIO_BUTTON (pulseaudio_plugin->button), size);
+  pulseaudio_button_set_size (pulseaudio_plugin->button, size);
 
   return TRUE;
 }
