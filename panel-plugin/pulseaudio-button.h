@@ -45,7 +45,8 @@ PulseaudioButton       *pulseaudio_button_new         (PulseaudioPlugin *plugin,
                                                        PulseaudioVolume *volume);
 
 void                    pulseaudio_button_set_size    (PulseaudioButton *button,
-                                                       gint              size);
+                                                       gint              size,
+                                                       gint              icon_size);
 
 PulseaudioMenu         *pulseaudio_button_get_menu    (PulseaudioButton *button);
 
