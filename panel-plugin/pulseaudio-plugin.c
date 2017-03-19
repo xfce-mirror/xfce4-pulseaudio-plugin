@@ -242,7 +242,7 @@ pulseaudio_plugin_size_changed (XfcePanelPlugin *plugin,
   /* The plugin only occupies a single row */
   size /= xfce_panel_plugin_get_nrows (plugin);
 #if LIBXFCE4PANEL_CHECK_VERSION (4,13,0)
-  icon_size = xfce_panel_plugin_get_icon_size (plugin, GTK_WIDGET (pulseaudio_plugin->button));
+  icon_size = xfce_panel_plugin_get_icon_size (plugin);
 #else
   icon_size = size - 2; // fall-back for older panel versions
 #endif
