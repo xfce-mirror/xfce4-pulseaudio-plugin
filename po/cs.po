@@ -1,0 +1,131 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Michal Várady <miko.vaji@gmail.com>, 2015,2017
+# Petr Šimáček <petr.simacek@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Xfce Panel Plugins\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-04-15 00:31+0200\n"
+"PO-Revision-Date: 2017-04-15 12:24+0000\n"
+"Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
+"Language-Team: Czech (http://www.transifex.com/xfce/xfce-panel-plugins/language/cs/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#: ../panel-plugin/pulseaudio.desktop.in.in.h:1
+msgid "PulseAudio Plugin"
+msgstr "Zásuvný modul PulseAudio"
+
+#: ../panel-plugin/pulseaudio.desktop.in.in.h:2
+#: ../panel-plugin/pulseaudio-plugin.c:212
+msgid "Adjust the audio volume of the PulseAudio sound system"
+msgstr "Nastavení hlasitosti zvukového systému PulseAudio"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:1
+msgid "PulseAudio Panel Plugin"
+msgstr "Zásuvný modul pro panel PulseAudio"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:2
+msgid "Enable keyboard _shortcuts for volume control"
+msgstr "Povolit klávesové _zkratky pro ovládání hlasitosti"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:3
+msgid ""
+"Enables volume control using multimedia keys. Make sure no other application"
+" that listens to these keys (e.g. xfce4-volumed) is running in the "
+"background."
+msgstr "Umožňuje ovládání hlasitosti multimediálními klávesami. Ujistěte se, že na pozadí neběží žádná další aplikace, která sleduje tyto klávesy (např. xfce4-volumed)."
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:4
+msgid "Show _notifications when volume changes"
+msgstr "Při _změně hlasitosti zobrazit oznámení"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:5
+msgid "Enables on-screen volume notifications."
+msgstr "Povolí oznámení hlasitosti na obrazovce."
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:6
+msgid "Behaviour"
+msgstr "Chování"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:7
+msgid "Audio _Mixer"
+msgstr "_Směšovač zvuku"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:8
+msgid ""
+"Audio mixer command that can be executed from the context menu, e.g. "
+"\"pavucontrol\", \"unity-control-center sound\"."
+msgstr "Příkaz Směšovače zvuku spustitelný z kontextové nabídky, např. \"pavucontrol\", \"unity-control-center sound\"."
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:9
+msgid "_Run Audio Mixer..."
+msgstr "_Spustit Směšovač zvuku..."
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:10
+msgid "Sound settings"
+msgstr "Nastavení zvuku"
+
+#: ../panel-plugin/pulseaudio-plugin.c:214
+msgid "Copyright © 2014-2017 Andrzej Radecki\n"
+msgstr "Copyright © 2014-2017 Andrzej Radecki\n"
+
+#: ../panel-plugin/pulseaudio-dialog.c:136
+#: ../panel-plugin/pulseaudio-menu.c:169
+#, c-format
+msgid ""
+"<big><b>Failed to execute command \"%s\".</b></big>\n"
+"\n"
+"%s"
+msgstr "<big><b>Nepodařilo se spustit příkaz \"%s\".</b></big>\n\n%s"
+
+#: ../panel-plugin/pulseaudio-dialog.c:139
+#: ../panel-plugin/pulseaudio-menu.c:172
+msgid "Error"
+msgstr "Chyba"
+
+#: ../panel-plugin/pulseaudio-button.c:310
+#: ../panel-plugin/pulseaudio-notify.c:174
+#, c-format
+msgid "Not connected to the PulseAudio server"
+msgstr "Nepřipojeno k serveru PulseAudio"
+
+#: ../panel-plugin/pulseaudio-button.c:312
+#, c-format
+msgid "Volume %d%% (muted)"
+msgstr "Hlasitost %d%% (ztlumeno)"
+
+#: ../panel-plugin/pulseaudio-button.c:314
+#, c-format
+msgid "Volume %d%%"
+msgstr "Hlasitost %d%%"
+
+#: ../panel-plugin/pulseaudio-menu.c:244
+msgid "<b>Audio output volume</b>"
+msgstr "<b>Hlasitost zvukového výstupu</b>"
+
+#: ../panel-plugin/pulseaudio-menu.c:258
+msgid "_Mute audio output"
+msgstr "_Ztlumit zvukový výstup"
+
+#. Audio mixers
+#: ../panel-plugin/pulseaudio-menu.c:269
+msgid "_Audio mixer..."
+msgstr "_Mixer zvuku"
+
+#: ../panel-plugin/pulseaudio-notify.c:176
+#, c-format
+msgid "Volume %d%c (muted)"
+msgstr "Hlasitost %d%c (ztlumeno)"
+
+#: ../panel-plugin/pulseaudio-notify.c:178
+#, c-format
+msgid "Volume %d%c"
+msgstr "Hlasitost %d%c"
