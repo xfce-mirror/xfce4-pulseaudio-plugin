@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Elishai Eliyahu <e1907@mm.st>, 2017
 # GenghisKhan <genghiskhan@gmx.ca>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-04-15 00:31+0200\n"
-"PO-Revision-Date: 2017-04-14 22:31+0000\n"
-"Last-Translator: Xfce Bot <transifex@xfce.org>\n"
+"PO-Revision-Date: 2017-04-16 13:06+0000\n"
+"Last-Translator: Elishai Eliyahu <e1907@mm.st>\n"
 "Language-Team: Hebrew (http://www.transifex.com/xfce/xfce-panel-plugins/language/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -74,7 +75,7 @@ msgstr "הגדרות צליל"
 
 #: ../panel-plugin/pulseaudio-plugin.c:214
 msgid "Copyright © 2014-2017 Andrzej Radecki\n"
-msgstr ""
+msgstr "זכות יוצרים © 2014-2017 Andrzej Radecki\n"
 
 #: ../panel-plugin/pulseaudio-dialog.c:136
 #: ../panel-plugin/pulseaudio-menu.c:169
