@@ -221,6 +221,11 @@ pulseaudio_volume_subscribe_cb (pa_context                   *context,
       pulseaudio_debug ("received source output event");
       break;
 
+    case PA_SUBSCRIPTION_EVENT_SERVER        :
+      pulseaudio_volume_sink_check (volume, context);
+      pulseaudio_debug ("received server event");
+      break;
+
     default                                  :
       pulseaudio_debug ("received unknown pulseaudio event");
       break;
@@ -239,7 +244,7 @@ pulseaudio_volume_context_state_cb (pa_context *context,
   switch (pa_context_get_state (context))
     {
     case PA_CONTEXT_READY        :
-      pa_context_subscribe (context, PA_SUBSCRIPTION_MASK_SINK | PA_SUBSCRIPTION_MASK_SOURCE | PA_SUBSCRIPTION_MASK_SOURCE_OUTPUT, NULL, NULL);
+      pa_context_subscribe (context, PA_SUBSCRIPTION_MASK_SINK | PA_SUBSCRIPTION_MASK_SOURCE | PA_SUBSCRIPTION_MASK_SOURCE_OUTPUT | PA_SUBSCRIPTION_MASK_SERVER , NULL, NULL);
       pa_context_set_subscribe_callback (context, pulseaudio_volume_subscribe_cb, volume);
 
       pulseaudio_debug ("PulseAudio connection established");
