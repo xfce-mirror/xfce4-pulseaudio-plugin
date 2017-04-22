@@ -1,4 +1,75 @@
 # created with git log --pretty=format:"%ad %h %s %aN <%aE>" --no-merges --date=short
+2017-04-22 470660b make distcheck fix Andrzej <andrzejr@xfce.org>
+2017-04-21 898b00d Update volume on server events such as change of default output device Kévin Bernard-Allies <kevin.bernard.allies@gmail.com>
+2017-03-15 88f554e Fix menu translation Mikhail Efremov <sem@altlinux.org>
+2017-04-20 837b92c I18n: Add new translation gl (100%). Dani MF <dani@damufo.com>
+2017-04-19 4f4f48e I18n: Update translation de (100%). Tobias Bannert <tobannert@gmail.com>
+2017-04-19 9178111 I18n: Update translation nb (100%). Allan Nordhøy <epost@anotheragency.no>
+2017-04-18 4d34b3d I18n: Update translation pt_BR (95%). André Miranda <andre42m@gmail.com>
+2017-04-17 d43cf34 I18n: Update translation nl (100%). Pjotr <pjotrvertaalt@gmail.com>
+2017-04-16 bdd10d7 I18n: Update translation he (100%). Elishai Eliyahu <e1907@mm.st>
+2017-04-16 d9c6a29 I18n: Add new translation tr (95%). Xfce Bot <transifex@xfce.org>
+2017-04-16 559d53f I18n: Add new translation th (95%). Xfce Bot <transifex@xfce.org>
+2017-04-16 65bf76c I18n: Add new translation sv (95%). Xfce Bot <transifex@xfce.org>
+2017-04-16 a9ebae7 I18n: Add new translation pl (100%). m4sk1n <m4sk1n@vivaldi.net>
+2017-04-16 695f700 I18n: Add new translation oc (95%). Xfce Bot <transifex@xfce.org>
+2017-04-16 5dc4330 I18n: Add new translation kk (95%). Xfce Bot <transifex@xfce.org>
+2017-04-16 c962eb2 I18n: Add new translation is (60%). Xfce Bot <transifex@xfce.org>
+2017-04-16 f4fbe04 I18n: Add new translation hu (86%). Xfce Bot <transifex@xfce.org>
+2017-04-16 d3ffc24 I18n: Add new translation el (95%). Xfce Bot <transifex@xfce.org>
+2017-04-16 3cc4ed9 I18n: Add new translation de (95%). Xfce Bot <transifex@xfce.org>
+2017-04-16 92c6a84 I18n: Add new translation da (100%). Anonymous <noreply@xfce.org>
+2017-04-16 8ede429 I18n: Add new translation ca (100%). Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>
+2017-04-16 0ead22b I18n: Update translation sk (100%). Dušan Kazik <prescott66@gmail.com>
+2017-04-15 7383511 I18n: Add new translation zh_TW (100%). Jeff Huang <s8321414@gmail.com>
+2017-04-15 a679440 I18n: Add new translation zh_CN (95%). Xfce Bot <transifex@xfce.org>
+2017-04-15 28036c3 I18n: Add new translation uk (95%). Xfce Bot <transifex@xfce.org>
+2017-04-15 a395055 I18n: Add new translation sr (95%). Xfce Bot <transifex@xfce.org>
+2017-04-15 1599c08 I18n: Add new translation sk (95%). Xfce Bot <transifex@xfce.org>
+2017-04-15 6295502 I18n: Add new translation ru (100%). Igor <f2404@yandex.ru>
+2017-04-15 0cd1abb I18n: Add new translation pt (100%). José Vieira <jvieira33@sapo.pt>
+2017-04-15 1489304 I18n: Add new translation pt_BR (95%). Xfce Bot <transifex@xfce.org>
+2017-04-15 392b7da I18n: Add new translation nl (95%). Xfce Bot <transifex@xfce.org>
+2017-04-15 5ec03d9 I18n: Add new translation nb (95%). Xfce Bot <transifex@xfce.org>
+2017-04-15 c06edeb I18n: Add new translation ms (95%). Xfce Bot <transifex@xfce.org>
+2017-04-15 b3d7b44 I18n: Add new translation lt (100%). Anonymous <noreply@xfce.org>
+2017-04-15 32a07ee I18n: Add new translation ko (95%). Xfce Bot <transifex@xfce.org>
+2017-04-15 4fb9cc8 I18n: Add new translation it (95%). Xfce Bot <transifex@xfce.org>
+2017-04-15 ebc5469 I18n: Add new translation hr (100%). Edin Veskovic <edin.veskovic@openmailbox.org>
+2017-04-15 dde18e3 I18n: Add new translation he (95%). Xfce Bot <transifex@xfce.org>
+2017-04-15 6cde33c I18n: Add new translation fr (100%). Yannick Le Guen <leguen.yannick@gmail.com>
+2017-04-15 7ef2e68 I18n: Add new translation es (100%). Anonymous <noreply@xfce.org>
+2017-04-15 3805e34 I18n: Add new translation en_AU (95%). Xfce Bot <transifex@xfce.org>
+2017-04-15 aa017eb I18n: Add new translation cs (100%). Michal Várady <miko.vaji@gmail.com>
+2017-04-15 bdad98e I18n: Add new translation bg (100%). Kiril Kirilov <cybercop_montana@abv.bg>
+2017-04-15 85d9dc3 Removed all .po files to redo the tx sync Andrzej <ndrwrdck@gmail.com>
+2017-04-15 c98faf7 Deleting manually added .po files in hope they will be synced with tx Andrzej <ndrwrdck@gmail.com>
+2017-04-15 46dcaa3 I18n: Update translation pl (100%). m4sk1n <m4sk1n@vivaldi.net>
+2017-04-15 35e07cf I18n: Update translation pl (100%). m4sk1n <m4sk1n@vivaldi.net>
+2017-04-14 b93ddae Updated copyright years Andrzej <ndrwrdck@gmail.com>
+2017-04-14 f71ee3b I18n: Add new translation tr (95%). Xfce Bot <transifex@xfce.org>
+2017-04-14 1aea3b5 I18n: Add new translation th (95%). Xfce Bot <transifex@xfce.org>
+2017-04-14 2b35025 I18n: Add new translation sv (95%). Xfce Bot <transifex@xfce.org>
+2017-04-14 17fee2b I18n: Add new translation pl (95%). Xfce Bot <transifex@xfce.org>
+2017-04-14 ec738ab I18n: Add new translation oc (95%). Xfce Bot <transifex@xfce.org>
+2017-04-14 f6eb563 I18n: Add new translation kk (95%). Xfce Bot <transifex@xfce.org>
+2017-04-14 ce0a1d5 I18n: Add new translation is (60%). Xfce Bot <transifex@xfce.org>
+2017-04-14 7af45f3 I18n: Add new translation hu (86%). Xfce Bot <transifex@xfce.org>
+2017-04-14 ff72320 I18n: Add new translation el (95%). Xfce Bot <transifex@xfce.org>
+2017-04-14 b80d5e9 I18n: Add new translation de (95%). Xfce Bot <transifex@xfce.org>
+2017-04-14 b38aae0 I18n: Add new translation da (95%). Xfce Bot <transifex@xfce.org>
+2017-04-14 2c078d6 I18n: Add new translation ca (95%). Xfce Bot <transifex@xfce.org>
+2017-03-19 7763980 Adapt to a panel API change Andrzej <ndrwrdck@gmail.com>
+2017-03-18 a9ded20 Button layout fixes Andrzej <ndrwrdck@gmail.com>
+2016-09-03 50c9279 Don't issue volume notifications when plugin menu is shown. Andrzej <ndrwrdck@gmail.com>
+2016-09-03 56d9345 Use PulseaudioMenu class instead of GtkWidget Andrzej <ndrwrdck@gmail.com>
+2016-09-03 e26cfec Use PulseaudioButton class instead of GtkWidget Andrzej <ndrwrdck@gmail.com>
+2015-11-25 b8c16e6 Fixed crash caused by commit 6431653 Andrzej <ndrwrdck@gmail.com>
+2015-11-17 3b957b9 Updated copyright strings Andrzej <ndrwrdck@gmail.com>
+2015-11-17 55c5090 Added po files manually downloaded from transifex Andrzej <ndrwrdck@gmail.com>
+2015-11-17 6431653 Do not show notifications at start up (bug #12313) Andrzej <ndrwrdck@gmail.com>
+2015-10-27 3d0c890 Back to development Andrzej <ndrwrdck@gmail.com>
+2015-10-27 3f0796f Updates for a release Andrzej <ndrwrdck@gmail.com>
 2015-07-12 1bae523 Removed autogenerated po/Makefile.in.in Andrzej <ndrwrdck@gmail.com>
 2015-06-10 398d3ee Add a gui control for show-notifications Andrzej <ndrwrdck@gmail.com>
 2015-06-10 e676501 Added a configuration option "show-notifications" Andrzej <ndrwrdck@gmail.com>
