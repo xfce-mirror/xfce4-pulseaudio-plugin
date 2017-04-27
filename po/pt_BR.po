@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-04-15 00:31+0200\n"
-"PO-Revision-Date: 2017-04-18 14:14+0000\n"
+"PO-Revision-Date: 2017-04-26 22:53+0000\n"
 "Last-Translator: André Miranda <andre42m@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/xfce/xfce-panel-plugins/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -75,7 +75,7 @@ msgstr "Configurações de som"
 
 #: ../panel-plugin/pulseaudio-plugin.c:214
 msgid "Copyright © 2014-2017 Andrzej Radecki\n"
-msgstr ""
+msgstr "Copyright © 2014-2017 Andrzej Radecki\n"
 
 #: ../panel-plugin/pulseaudio-dialog.c:136
 #: ../panel-plugin/pulseaudio-menu.c:169
