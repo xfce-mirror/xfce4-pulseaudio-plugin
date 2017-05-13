@@ -54,6 +54,7 @@
 #define PULSEAUDIO_PLUGIN_RAISE_VOLUME_KEY  "XF86AudioRaiseVolume"
 #define PULSEAUDIO_PLUGIN_LOWER_VOLUME_KEY  "XF86AudioLowerVolume"
 #define PULSEAUDIO_PLUGIN_MUTE_KEY          "XF86AudioMute"
+#define PULSEAUDIO_PLUGIN_MIC_MUTE_KEY      "XF86AudioMicMute"
 #endif
 
 
@@ -75,6 +76,8 @@ static void             pulseaudio_plugin_unbind_keys                      (Puls
 static void             pulseaudio_plugin_volume_key_pressed               (const char            *keystring,
                                                                             void                  *user_data);
 static void             pulseaudio_plugin_mute_pressed                     (const char            *keystring,
+                                                                            void                  *user_data);
+static void             pulseaudio_plugin_mic_mute_pressed                 (const char            *keystring,
                                                                             void                  *user_data);
 #endif
 
@@ -277,7 +280,8 @@ pulseaudio_plugin_bind_keys (PulseaudioPlugin      *pulseaudio_plugin)
 
   success = (keybinder_bind (PULSEAUDIO_PLUGIN_LOWER_VOLUME_KEY, pulseaudio_plugin_volume_key_pressed, pulseaudio_plugin) &&
              keybinder_bind (PULSEAUDIO_PLUGIN_RAISE_VOLUME_KEY, pulseaudio_plugin_volume_key_pressed, pulseaudio_plugin) &&
-             keybinder_bind (PULSEAUDIO_PLUGIN_MUTE_KEY, pulseaudio_plugin_mute_pressed, pulseaudio_plugin));
+             keybinder_bind (PULSEAUDIO_PLUGIN_MUTE_KEY, pulseaudio_plugin_mute_pressed, pulseaudio_plugin) &&
+             keybinder_bind (PULSEAUDIO_PLUGIN_MIC_MUTE_KEY, pulseaudio_plugin_mic_mute_pressed, pulseaudio_plugin));
 
   if (!success)
     g_warning ("Could not have grabbed volume control keys. Is another volume control application (xfce4-volumed) running?");
@@ -295,6 +299,7 @@ pulseaudio_plugin_unbind_keys (PulseaudioPlugin      *pulseaudio_plugin)
   keybinder_unbind (PULSEAUDIO_PLUGIN_LOWER_VOLUME_KEY, pulseaudio_plugin_volume_key_pressed);
   keybinder_unbind (PULSEAUDIO_PLUGIN_RAISE_VOLUME_KEY, pulseaudio_plugin_volume_key_pressed);
   keybinder_unbind (PULSEAUDIO_PLUGIN_MUTE_KEY, pulseaudio_plugin_mute_pressed);
+  keybinder_unbind (PULSEAUDIO_PLUGIN_MIC_MUTE_KEY, pulseaudio_plugin_mic_mute_pressed);
 }
 
 
@@ -324,6 +329,18 @@ pulseaudio_plugin_mute_pressed (const char            *keystring,
   pulseaudio_debug ("%s pressed", keystring);
 
   pulseaudio_volume_toggle_muted (pulseaudio_plugin->volume);
+}
+
+
+static void
+pulseaudio_plugin_mic_mute_pressed (const char            *keystring,
+                                    void                  *user_data)
+{
+  PulseaudioPlugin *pulseaudio_plugin = PULSEAUDIO_PLUGIN (user_data);
+
+  pulseaudio_debug ("%s pressed", keystring);
+
+  pulseaudio_volume_toggle_muted_mic (pulseaudio_plugin->volume);
 }
 #endif
 

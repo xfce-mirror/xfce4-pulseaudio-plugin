@@ -59,6 +59,16 @@ static const char *icons[] = {
 };
 
 
+/* Icons for different mic volume levels */
+static const char *icons_mic[] = {
+  "microphone-sensitivity-muted-symbolic",
+  "microphone-sensitivity-low-symbolic",
+  "microphone-sensitivity-medium-symbolic",
+  "microphone-sensitivity-high-symbolic",
+  NULL
+};
+
+
 static void                 pulseaudio_notify_finalize        (GObject            *object);
 
 
@@ -72,8 +82,10 @@ struct _PulseaudioNotify
 
   gboolean              gauge_notifications;
   NotifyNotification   *notification;
+  NotifyNotification   *notification_mic;
 
   gulong                volume_changed_id;
+  gulong                volume_mic_changed_id;
 };
 
 struct _PulseaudioNotifyClass
@@ -105,7 +117,9 @@ pulseaudio_notify_init (PulseaudioNotify *notify)
 
   notify->gauge_notifications = TRUE;
   notify->notification = NULL;
+  notify->notification_mic = NULL;
   notify->volume_changed_id = 0;
+  notify->volume_mic_changed_id = 0;
 
   //g_set_application_name ("Xfce volume control");
   notify_init ("Xfce volume control");
@@ -124,6 +138,8 @@ pulseaudio_notify_init (PulseaudioNotify *notify)
     }
   notify->notification = notify_notification_new ("xfce4-pulseaudio-plugin", NULL, NULL);
   notify_notification_set_timeout (notify->notification, 2000);
+  notify->notification_mic = notify_notification_new ("xfce4-pulseaudio-plugin", NULL, NULL);
+  notify_notification_set_timeout (notify->notification_mic, 2000);
 }
 
 
@@ -137,6 +153,8 @@ pulseaudio_notify_finalize (GObject *object)
 
   g_object_unref (G_OBJECT (notify->notification));
   notify->notification = NULL;
+  g_object_unref (G_OBJECT (notify->notification_mic));
+  notify->notification_mic = NULL;
   notify_uninit ();
 
   (*G_OBJECT_CLASS (pulseaudio_notify_parent_class)->finalize) (object);
@@ -145,15 +163,17 @@ pulseaudio_notify_finalize (GObject *object)
 
 
 static void
-pulseaudio_notify_notify (PulseaudioNotify *notify)
+pulseaudio_notify_notify (PulseaudioNotify *notify, gboolean mic)
 {
-  GError      *error = NULL;
-  gdouble      volume;
-  gint         volume_i;
-  gboolean     muted;
-  gboolean     connected;
-  gchar       *title = NULL;
-  const gchar *icon = NULL;
+  GError             *error = NULL;
+  NotifyNotification *notification;
+  gdouble             volume;
+  gint                volume_i;
+  gboolean            muted;
+  gboolean            connected;
+  gchar              *title = NULL;
+  const char        **icons_array;
+  const gchar        *icon = NULL;
 
   g_return_if_fail (IS_PULSEAUDIO_NOTIFY (notify));
   g_return_if_fail (IS_PULSEAUDIO_VOLUME (notify->volume));
@@ -162,8 +182,11 @@ pulseaudio_notify_notify (PulseaudioNotify *notify)
       pulseaudio_button_get_menu (notify->button) != NULL)
     return;
 
-  volume = pulseaudio_volume_get_volume (notify->volume);
-  muted = pulseaudio_volume_get_muted (notify->volume);
+  notification = mic ? notify->notification_mic : notify->notification;
+  icons_array = mic ? icons_mic : icons;
+
+  volume = (mic ? pulseaudio_volume_get_volume_mic : pulseaudio_volume_get_volume) (notify->volume);
+  muted = (mic ? pulseaudio_volume_get_muted_mic : pulseaudio_volume_get_muted) (notify->volume);
   connected = pulseaudio_volume_get_connected (notify->volume);
   volume_i = (gint) round (volume * 100);
 
@@ -178,35 +201,35 @@ pulseaudio_notify_notify (PulseaudioNotify *notify)
     title = g_strdup_printf ( _("Volume %d%c"), volume_i, '%');
 
   if (!connected)
-    icon = icons[V_MUTED];
+    icon = icons_array[V_MUTED];
   else if (muted)
-    icon = icons[V_MUTED];
+    icon = icons_array[V_MUTED];
   else if (volume <= 0.0)
-    icon = icons[V_MUTED];
+    icon = icons_array[V_MUTED];
   else if (volume <= 0.3)
-    icon = icons[V_LOW];
+    icon = icons_array[V_LOW];
   else if (volume <= 0.7)
-    icon = icons[V_MEDIUM];
+    icon = icons_array[V_MEDIUM];
   else
-    icon = icons[V_HIGH];
+    icon = icons_array[V_HIGH];
 
 
-  notify_notification_update (notify->notification,
+  notify_notification_update (notification,
                               title,
                               NULL,
                               icon);
   g_free (title);
 
   if (notify->gauge_notifications) {
-    notify_notification_set_hint_int32 (notify->notification,
+    notify_notification_set_hint_int32 (notification,
                                         "value",
                                         volume_i);
-    notify_notification_set_hint_string (notify->notification,
+    notify_notification_set_hint_string (notification,
                                          "x-canonical-private-synchronous",
                                          "");
   }
 
-  if (!notify_notification_show (notify->notification, &error))
+  if (!notify_notification_show (notification, &error))
     {
       g_warning ("Error while sending notification : %s\n", error->message);
       g_error_free (error);
@@ -223,7 +246,20 @@ pulseaudio_notify_volume_changed (PulseaudioNotify  *notify,
   g_return_if_fail (IS_PULSEAUDIO_NOTIFY (notify));
 
   if (should_notify)
-    pulseaudio_notify_notify (notify);
+    pulseaudio_notify_notify (notify, FALSE);
+}
+
+
+
+static void
+pulseaudio_notify_volume_mic_changed (PulseaudioNotify  *notify,
+                                      gboolean           should_notify,
+                                      PulseaudioVolume  *volume)
+{
+  g_return_if_fail (IS_PULSEAUDIO_NOTIFY (notify));
+
+  if (should_notify)
+    pulseaudio_notify_notify (notify, TRUE);
 }
 
 
@@ -247,6 +283,9 @@ pulseaudio_notify_new (PulseaudioConfig *config,
   notify->volume_changed_id =
     g_signal_connect_swapped (G_OBJECT (notify->volume), "volume-changed",
                               G_CALLBACK (pulseaudio_notify_volume_changed), notify);
+  notify->volume_changed_id =
+    g_signal_connect_swapped (G_OBJECT (notify->volume), "volume-mic-changed",
+                              G_CALLBACK (pulseaudio_notify_volume_mic_changed), notify);
 
   return notify;
 }

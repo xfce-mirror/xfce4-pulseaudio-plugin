@@ -30,23 +30,30 @@ G_BEGIN_DECLS
 #define IS_PULSEAUDIO_VOLUME_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass),  TYPE_PULSEAUDIO_VOLUME))
 #define PULSEAUDIO_VOLUME_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj),  TYPE_PULSEAUDIO_VOLUME, PulseaudioVolumeClass))
 
-typedef struct          _PulseaudioVolume                 PulseaudioVolume;
-typedef struct          _PulseaudioVolumeClass            PulseaudioVolumeClass;
+typedef struct          _PulseaudioVolume                         PulseaudioVolume;
+typedef struct          _PulseaudioVolumeClass                    PulseaudioVolumeClass;
 
-GType                   pulseaudio_volume_get_type        (void) G_GNUC_CONST;
+GType                   pulseaudio_volume_get_type                (void) G_GNUC_CONST;
 
-PulseaudioVolume       *pulseaudio_volume_new             (PulseaudioConfig *config);
+PulseaudioVolume       *pulseaudio_volume_new                     (PulseaudioConfig *config);
 
-gboolean                pulseaudio_volume_get_connected   (PulseaudioVolume *volume);
+gboolean                pulseaudio_volume_get_connected           (PulseaudioVolume *volume);
 
-gdouble                 pulseaudio_volume_get_volume      (PulseaudioVolume *volume);
-void                    pulseaudio_volume_set_volume      (PulseaudioVolume *volume,
-                                                           gdouble           vol);
+gdouble                 pulseaudio_volume_get_volume              (PulseaudioVolume *volume);
+void                    pulseaudio_volume_set_volume              (PulseaudioVolume *volume,
+                                                                   gdouble           vol);
 
-gboolean                pulseaudio_volume_get_muted       (PulseaudioVolume *volume);
-void                    pulseaudio_volume_set_muted       (PulseaudioVolume *volume,
-                                                           gboolean          muted);
-void                    pulseaudio_volume_toggle_muted    (PulseaudioVolume *volume);
+gboolean                pulseaudio_volume_get_muted               (PulseaudioVolume *volume);
+void                    pulseaudio_volume_set_muted               (PulseaudioVolume *volume,
+                                                                   gboolean          muted);
+void                    pulseaudio_volume_toggle_muted            (PulseaudioVolume *volume);
+
+gdouble                 pulseaudio_volume_get_volume_mic          (PulseaudioVolume *volume);
+
+gboolean                pulseaudio_volume_get_muted_mic           (PulseaudioVolume *volume);
+void                    pulseaudio_volume_set_muted_mic           (PulseaudioVolume *volume,
+                                                                   gboolean          mic_muted);
+void                    pulseaudio_volume_toggle_muted_mic        (PulseaudioVolume *volume);
 
 G_END_DECLS
 

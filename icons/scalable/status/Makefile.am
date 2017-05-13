@@ -5,7 +5,11 @@ icons_DATA =								\
     audio-volume-high-symbolic.svg          \
     audio-volume-low-symbolic.svg           \
     audio-volume-medium-symbolic.svg        \
-    audio-volume-muted-symbolic.svg
+    audio-volume-muted-symbolic.svg         \
+    microphone-sensitivity-high-symbolic.svg          \
+    microphone-sensitivity-low-symbolic.svg           \
+    microphone-sensitivity-medium-symbolic.svg        \
+    microphone-sensitivity-muted-symbolic.svg
 
 EXTRA_DIST =								\
 	$(icons_DATA)
