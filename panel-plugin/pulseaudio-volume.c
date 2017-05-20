@@ -615,6 +615,7 @@ pulseaudio_volume_set_volume_cb1 (pa_context           *context,
 }
 
 
+
 void
 pulseaudio_volume_set_volume (PulseaudioVolume *volume,
                               gdouble           vol)
@@ -644,6 +645,63 @@ pulseaudio_volume_get_volume_mic (PulseaudioVolume *volume)
   g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), 0.0);
 
   return volume->volume_mic;
+}
+
+
+
+/* volume setting callbacks */
+/* pa_source_info_cb_t */
+static void
+pulseaudio_volume_set_volume_mic_cb2 (pa_context           *context,
+                                      const pa_source_info *i,
+                                      int                   eol,
+                                      void                 *userdata)
+{
+  //char st[PA_CVOLUME_SNPRINT_MAX];
+
+  PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
+  if (i == NULL) return;
+
+  //pulseaudio_debug ("*** %s", pa_cvolume_snprint (st, sizeof (st), &i->volume));
+  pa_cvolume_set (&i->volume, 1, pulseaudio_volume_d2v (volume, volume->volume_mic));
+  pa_context_set_source_volume_by_index (context, i->index, &i->volume, pulseaudio_volume_source_volume_changed, volume);
+}
+
+
+
+/* pa_server_info_cb_t */
+static void
+pulseaudio_volume_set_volume_mic_cb1 (pa_context           *context,
+                                      const pa_server_info *i,
+                                      void                 *userdata)
+{
+  PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
+  if (i == NULL) return;
+
+  pa_context_get_source_info_by_name (context, i->default_source_name, pulseaudio_volume_set_volume_mic_cb2, volume);
+}
+
+
+
+void
+pulseaudio_volume_set_volume_mic (PulseaudioVolume *volume,
+                                  gdouble           vol)
+{
+  gdouble vol_max;
+  gdouble vol_trim;
+
+  g_return_if_fail (IS_PULSEAUDIO_VOLUME (volume));
+  g_return_if_fail (volume->pa_context != NULL);
+  g_return_if_fail (pa_context_get_state (volume->pa_context) == PA_CONTEXT_READY);
+
+  vol_max = pulseaudio_config_get_volume_max (volume->config) / 100.0;
+  vol_trim = MIN (MAX (vol, 0.0), vol_max);
+
+  if (volume->volume_mic != vol_trim)
+    {
+      volume->volume_mic = vol_trim;
+      pa_context_get_server_info (volume->pa_context, pulseaudio_volume_set_volume_mic_cb1, volume);
+    }
 }
 
 
