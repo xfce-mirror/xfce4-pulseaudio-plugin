@@ -1,5 +1,5 @@
-/*  Copyright (c) 2014-2015 Andrzej <ndrwrdck@gmail.com>
- *  Copyright (c) 2015      Simon Steinbeiss <ochosi@xfce.org>
+/*  Copyright (c) 2014-2017 Andrzej <andrzejr@xfce.org>
+ *                2015      Simon Steinbeiss <ochosi@xfce.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License

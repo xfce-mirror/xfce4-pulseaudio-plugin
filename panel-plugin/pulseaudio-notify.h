@@ -1,5 +1,5 @@
 /*  Copyright (c) 2009-2015 Steve Dodier-Lazaro <sidi@xfce.org>
- *  Copyright (c) 2015      Andrzej <ndrwrdck@gmail.com>
+ *  Copyright (c) 2015-2017 Andrzej <andrzejr@xfce.org>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License

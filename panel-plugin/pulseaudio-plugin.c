@@ -1,4 +1,6 @@
-/*  Copyright (c) 2014-2017 Andrzej <ndrwrdck@gmail.com>
+/*  Copyright (c) 2014-2017 Andrzej <andrzejr@xfce.org>
+ *                2017      Viktor Odintsev <zakhams@gmail.com>
+ *                2017      Matthieu Mota <matthieumota@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -197,10 +199,12 @@ pulseaudio_plugin_show_about (XfcePanelPlugin *plugin)
 
   const gchar *auth[] =
     {
-      "Andrzej Radecki <ndrwrdck@gmail.com>",
+      "Andrzej Radecki <andrzejr@xfce.org>",
       "Guido Berhoerster <guido+xfce@berhoerster.name>",
       "Simon Steinbeiss <simon@xfce.org>",
       "Steve Dodier-Lazaro <sidi@xfce.org>",
+      "Viktor Odintsev <zakhams@gmail.com>",
+      "Matthieu Mota <matthieumota@gmail.com>",
       NULL
     };
 
@@ -214,7 +218,7 @@ pulseaudio_plugin_show_about (XfcePanelPlugin *plugin)
                          "program-name", PACKAGE_NAME,
                          "comments",     _("Adjust the audio volume of the PulseAudio sound system"),
                          "website",      "http://goodies.xfce.org/projects/panel-plugins/xfce4-pulseaudio-plugin",
-                         "copyright",    _("Copyright \xc2\xa9 2014-2017 Andrzej Radecki\n"),
+                         "copyright",    _("Copyright \xc2\xa9 2014-2017 Andrzej Radecki et al.\n"),
                          "authors",      auth,
                          NULL);
 
