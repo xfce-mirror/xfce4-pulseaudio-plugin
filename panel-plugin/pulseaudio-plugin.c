@@ -241,12 +241,14 @@ pulseaudio_plugin_size_changed (XfcePanelPlugin *plugin,
 {
   PulseaudioPlugin *pulseaudio_plugin = PULSEAUDIO_PLUGIN (plugin);
   gint              icon_size;
+#if !LIBXFCE4PANEL_CHECK_VERSION (4,13,0)
   GtkStyleContext  *context;
   GtkBorder         padding;
   GtkBorder         border;
   gint              width;
   gint              xthickness;
   gint              ythickness;
+#endif
 
   /* The plugin only occupies a single row */
   size /= xfce_panel_plugin_get_nrows (plugin);
