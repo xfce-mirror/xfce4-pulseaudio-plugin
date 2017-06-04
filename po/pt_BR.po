@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-21 18:33+0200\n"
-"PO-Revision-Date: 2017-05-26 14:21+0000\n"
+"PO-Revision-Date: 2017-06-04 03:17+0000\n"
 "Last-Translator: André Miranda <andre42m@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/xfce/xfce-panel-plugins/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -117,11 +117,11 @@ msgstr "_Silenciar saída de áudio"
 
 #: ../panel-plugin/pulseaudio-menu.c:355
 msgid "<b>Audio input volume</b>"
-msgstr ""
+msgstr "<b>Volume da entrada de áudio</b>"
 
 #: ../panel-plugin/pulseaudio-menu.c:366
 msgid "_Mute audio input"
-msgstr ""
+msgstr "Silenciar _entrada de áudio"
 
 #. Audio mixers
 #: ../panel-plugin/pulseaudio-menu.c:377
