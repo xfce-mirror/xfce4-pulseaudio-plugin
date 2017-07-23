@@ -1,0 +1,138 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# ツ Kernc, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Xfce Panel Plugins\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-21 18:33+0200\n"
+"PO-Revision-Date: 2017-07-23 20:00+0000\n"
+"Last-Translator: ツ Kernc\n"
+"Language-Team: Slovenian (http://www.transifex.com/xfce/xfce-panel-plugins/language/sl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+
+#: ../panel-plugin/pulseaudio.desktop.in.in.h:1
+msgid "PulseAudio Plugin"
+msgstr "PulseAudio vstavek"
+
+#: ../panel-plugin/pulseaudio.desktop.in.in.h:2
+#: ../panel-plugin/pulseaudio-plugin.c:219
+msgid "Adjust the audio volume of the PulseAudio sound system"
+msgstr "Prilagodi glasnost PulseAudio zvočnega sistema"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:1
+msgid "PulseAudio Panel Plugin"
+msgstr "PulseAudio vstavek"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:2
+msgid "Enable keyboard _shortcuts for volume control"
+msgstr "Omogoči bližnjične tipke za prilagajanje gla_snosti"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:3
+msgid ""
+"Enables volume control using multimedia keys. Make sure no other application"
+" that listens to these keys (e.g. xfce4-volumed) is running in the "
+"background."
+msgstr "Omogoči upravljanje glasnosti z večpredstavnostnimi tipkami. Preden omogočite, se prepričajte, da se noben drug program (npr. xfce4-volumed) ne odziva na pritiske na te tipke."
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:4
+msgid "Show _notifications when volume changes"
+msgstr "Pokaži obvestila ob spremembi glas_nosti"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:5
+msgid "Enables on-screen volume notifications."
+msgstr "Omogoči vidna obvestila na zaslonu"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:6
+msgid "Behaviour"
+msgstr "Obnašanje"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:7
+msgid "Audio _Mixer"
+msgstr "Mešalnik zvoka"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:8
+msgid ""
+"Audio mixer command that can be executed from the context menu, e.g. "
+"\"pavucontrol\", \"unity-control-center sound\"."
+msgstr "Ukaz za mešanje zvoka, ki bo zagnan ob izbiri v kontekstnem meniju, npr. \"pavucontrol\" ali \"unity-control-center sound\"."
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:9
+msgid "_Run Audio Mixer..."
+msgstr "_Zaženi mešalnik zvoka..."
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:10
+msgid "Sound settings"
+msgstr "Nastavitve zvoka"
+
+#: ../panel-plugin/pulseaudio-plugin.c:221
+msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
+msgstr "Copyright © 2014-2017 Andrzej Radecki et al.\n"
+
+#: ../panel-plugin/pulseaudio-dialog.c:136
+#: ../panel-plugin/pulseaudio-menu.c:237
+#, c-format
+msgid ""
+"<big><b>Failed to execute command \"%s\".</b></big>\n"
+"\n"
+"%s"
+msgstr "<big><b>Ni mogoče zagnati ukaza \"%s\".</b></big>\n\n%s"
+
+#: ../panel-plugin/pulseaudio-dialog.c:139
+#: ../panel-plugin/pulseaudio-menu.c:240
+msgid "Error"
+msgstr "Napaka"
+
+#: ../panel-plugin/pulseaudio-button.c:310
+#: ../panel-plugin/pulseaudio-notify.c:198
+#, c-format
+msgid "Not connected to the PulseAudio server"
+msgstr "Ni povezave s PulseAudio strežnikom"
+
+#: ../panel-plugin/pulseaudio-button.c:312
+#, c-format
+msgid "Volume %d%% (muted)"
+msgstr "Glasnost %d%% (utišano)"
+
+#: ../panel-plugin/pulseaudio-button.c:314
+#, c-format
+msgid "Volume %d%%"
+msgstr "Glasnost %d%%"
+
+#: ../panel-plugin/pulseaudio-menu.c:327
+msgid "<b>Audio output volume</b>"
+msgstr "<b>Glasnost zvočnega izhoda</b>"
+
+#: ../panel-plugin/pulseaudio-menu.c:338
+msgid "_Mute audio output"
+msgstr "_Utišaj zvočni izhod"
+
+#: ../panel-plugin/pulseaudio-menu.c:355
+msgid "<b>Audio input volume</b>"
+msgstr "<b>Glasnost zvočnega vhoda</b>"
+
+#: ../panel-plugin/pulseaudio-menu.c:366
+msgid "_Mute audio input"
+msgstr "U_tišaj zvočni vhod"
+
+#. Audio mixers
+#: ../panel-plugin/pulseaudio-menu.c:377
+msgid "_Audio mixer..."
+msgstr "Meš_alnik zvoka"
+
+#: ../panel-plugin/pulseaudio-notify.c:200
+#, c-format
+msgid "Volume %d%c (muted)"
+msgstr "Glasnost %d%c (utišano)"
+
+#: ../panel-plugin/pulseaudio-notify.c:202
+#, c-format
+msgid "Volume %d%c"
+msgstr "Glasnost %d%c"
