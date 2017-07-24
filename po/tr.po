@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Necdet Yücel <necdetyucel@gmail.com>, 2015
+# Necdet Yücel <necdetyucel@gmail.com>, 2015,2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-15 00:31+0200\n"
-"PO-Revision-Date: 2017-04-14 22:31+0000\n"
-"Last-Translator: Xfce Bot <transifex@xfce.org>\n"
+"POT-Creation-Date: 2017-05-21 18:33+0200\n"
+"PO-Revision-Date: 2017-07-24 08:57+0000\n"
+"Last-Translator: Necdet Yücel <necdetyucel@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/xfce/xfce-panel-plugins/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,7 +23,7 @@ msgid "PulseAudio Plugin"
 msgstr "PulseAudio Eklentisi"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:212
+#: ../panel-plugin/pulseaudio-plugin.c:219
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "PulseAudio ses sisteminin ses yüksekliğini ayarlayın"
 
@@ -72,12 +72,12 @@ msgstr "_Ses Karıştırıcısını Çalıştır..."
 msgid "Sound settings"
 msgstr "Ses ayarları"
 
-#: ../panel-plugin/pulseaudio-plugin.c:214
-msgid "Copyright © 2014-2017 Andrzej Radecki\n"
-msgstr ""
+#: ../panel-plugin/pulseaudio-plugin.c:221
+msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
+msgstr "Telif Hakkı © 2014-2017 Andrzej Radecki ve ark.\n"
 
 #: ../panel-plugin/pulseaudio-dialog.c:136
-#: ../panel-plugin/pulseaudio-menu.c:169
+#: ../panel-plugin/pulseaudio-menu.c:237
 #, c-format
 msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
@@ -86,12 +86,12 @@ msgid ""
 msgstr "<big><b>\"%s\" komutu çalıştırılamadı.</b></big>\n\n%s"
 
 #: ../panel-plugin/pulseaudio-dialog.c:139
-#: ../panel-plugin/pulseaudio-menu.c:172
+#: ../panel-plugin/pulseaudio-menu.c:240
 msgid "Error"
 msgstr "Hata"
 
 #: ../panel-plugin/pulseaudio-button.c:310
-#: ../panel-plugin/pulseaudio-notify.c:174
+#: ../panel-plugin/pulseaudio-notify.c:198
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "PulseAudio sunucusuna bağlı değil"
@@ -106,25 +106,33 @@ msgstr "Ses %d%% (sessiz)"
 msgid "Volume %d%%"
 msgstr "Ses %d%%"
 
-#: ../panel-plugin/pulseaudio-menu.c:244
+#: ../panel-plugin/pulseaudio-menu.c:327
 msgid "<b>Audio output volume</b>"
 msgstr "<b>Ses çıkış düzeyi</b>"
 
-#: ../panel-plugin/pulseaudio-menu.c:258
+#: ../panel-plugin/pulseaudio-menu.c:338
 msgid "_Mute audio output"
 msgstr "Ses çıkışını _kapat"
 
+#: ../panel-plugin/pulseaudio-menu.c:355
+msgid "<b>Audio input volume</b>"
+msgstr "Ses girdi düzeyi</b>"
+
+#: ../panel-plugin/pulseaudio-menu.c:366
+msgid "_Mute audio input"
+msgstr "Ses girişini _kapat"
+
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:269
+#: ../panel-plugin/pulseaudio-menu.c:377
 msgid "_Audio mixer..."
 msgstr "_Ses karıştırıcısı..."
 
-#: ../panel-plugin/pulseaudio-notify.c:176
+#: ../panel-plugin/pulseaudio-notify.c:200
 #, c-format
 msgid "Volume %d%c (muted)"
 msgstr "Ses %d%c (sessiz)"
 
-#: ../panel-plugin/pulseaudio-notify.c:178
+#: ../panel-plugin/pulseaudio-notify.c:202
 #, c-format
 msgid "Volume %d%c"
 msgstr "Ses %d%c"
