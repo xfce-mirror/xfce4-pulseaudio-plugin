@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-15 00:31+0200\n"
-"PO-Revision-Date: 2017-04-14 22:31+0000\n"
+"POT-Creation-Date: 2017-05-21 18:33+0200\n"
+"PO-Revision-Date: 2017-07-25 11:28+0000\n"
 "Last-Translator: Xfce Bot <transifex@xfce.org>\n"
 "Language-Team: Icelandic (http://www.transifex.com/xfce/xfce-panel-plugins/language/is/)\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgid "PulseAudio Plugin"
 msgstr "PulseAudio-viðbót"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:212
+#: ../panel-plugin/pulseaudio-plugin.c:219
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr ""
 
@@ -72,12 +72,12 @@ msgstr "Key_ra hljóðblandara..."
 msgid "Sound settings"
 msgstr "Hljóðstillingar"
 
-#: ../panel-plugin/pulseaudio-plugin.c:214
-msgid "Copyright © 2014-2017 Andrzej Radecki\n"
+#: ../panel-plugin/pulseaudio-plugin.c:221
+msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
 msgstr ""
 
 #: ../panel-plugin/pulseaudio-dialog.c:136
-#: ../panel-plugin/pulseaudio-menu.c:169
+#: ../panel-plugin/pulseaudio-menu.c:237
 #, c-format
 msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
@@ -86,12 +86,12 @@ msgid ""
 msgstr ""
 
 #: ../panel-plugin/pulseaudio-dialog.c:139
-#: ../panel-plugin/pulseaudio-menu.c:172
+#: ../panel-plugin/pulseaudio-menu.c:240
 msgid "Error"
 msgstr "Villa"
 
 #: ../panel-plugin/pulseaudio-button.c:310
-#: ../panel-plugin/pulseaudio-notify.c:174
+#: ../panel-plugin/pulseaudio-notify.c:198
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "Ekki tengt við PulseAudio-þjóninn"
@@ -106,25 +106,33 @@ msgstr "Hljóðstyrkur %d%% (þaggað)"
 msgid "Volume %d%%"
 msgstr "Hljóðstyrkur %d%%"
 
-#: ../panel-plugin/pulseaudio-menu.c:244
+#: ../panel-plugin/pulseaudio-menu.c:327
 msgid "<b>Audio output volume</b>"
 msgstr "<b>Hljóðstyrkur hljóðúttaks</b>"
 
-#: ../panel-plugin/pulseaudio-menu.c:258
+#: ../panel-plugin/pulseaudio-menu.c:338
 msgid "_Mute audio output"
 msgstr "Þa_gga hljóðúttak"
 
+#: ../panel-plugin/pulseaudio-menu.c:355
+msgid "<b>Audio input volume</b>"
+msgstr ""
+
+#: ../panel-plugin/pulseaudio-menu.c:366
+msgid "_Mute audio input"
+msgstr ""
+
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:269
+#: ../panel-plugin/pulseaudio-menu.c:377
 msgid "_Audio mixer..."
 msgstr "Hljóðbl_andari..."
 
-#: ../panel-plugin/pulseaudio-notify.c:176
+#: ../panel-plugin/pulseaudio-notify.c:200
 #, c-format
 msgid "Volume %d%c (muted)"
 msgstr "Hljóðstyrkur %d%c (þaggað)"
 
-#: ../panel-plugin/pulseaudio-notify.c:178
+#: ../panel-plugin/pulseaudio-notify.c:202
 #, c-format
 msgid "Volume %d%c"
 msgstr "Hljóðstyrkur %d%c"
