@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-15 00:31+0200\n"
-"PO-Revision-Date: 2017-04-24 16:55+0000\n"
-"Last-Translator: Enrico B. <enricobe@hotmail.com>\n"
+"POT-Creation-Date: 2017-05-21 18:33+0200\n"
+"PO-Revision-Date: 2017-07-25 11:28+0000\n"
+"Last-Translator: Xfce Bot <transifex@xfce.org>\n"
 "Language-Team: Italian (http://www.transifex.com/xfce/xfce-panel-plugins/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,7 +24,7 @@ msgid "PulseAudio Plugin"
 msgstr "Plugin PulseAudio"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:212
+#: ../panel-plugin/pulseaudio-plugin.c:219
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "Controlla il volume del suono per il sistema sonoro PulseAudio"
 
@@ -73,12 +73,12 @@ msgstr "_Avvia Mixer Audio"
 msgid "Sound settings"
 msgstr "Impostazioni del suono"
 
-#: ../panel-plugin/pulseaudio-plugin.c:214
-msgid "Copyright © 2014-2017 Andrzej Radecki\n"
-msgstr "Copyright © 2014-2017 Andrzej Radecki\n\n"
+#: ../panel-plugin/pulseaudio-plugin.c:221
+msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
+msgstr ""
 
 #: ../panel-plugin/pulseaudio-dialog.c:136
-#: ../panel-plugin/pulseaudio-menu.c:169
+#: ../panel-plugin/pulseaudio-menu.c:237
 #, c-format
 msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
@@ -87,12 +87,12 @@ msgid ""
 msgstr "<big><b>Impossibile eseguire il comando \"%s\".</b></big>\n\n%s"
 
 #: ../panel-plugin/pulseaudio-dialog.c:139
-#: ../panel-plugin/pulseaudio-menu.c:172
+#: ../panel-plugin/pulseaudio-menu.c:240
 msgid "Error"
 msgstr "Errore"
 
 #: ../panel-plugin/pulseaudio-button.c:310
-#: ../panel-plugin/pulseaudio-notify.c:174
+#: ../panel-plugin/pulseaudio-notify.c:198
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "Non connesso al server pulseaudio"
@@ -107,25 +107,33 @@ msgstr "Volume %d%% (muto)"
 msgid "Volume %d%%"
 msgstr "Volume %d%%"
 
-#: ../panel-plugin/pulseaudio-menu.c:244
+#: ../panel-plugin/pulseaudio-menu.c:327
 msgid "<b>Audio output volume</b>"
 msgstr "<b>Volume uscita audio</b>"
 
-#: ../panel-plugin/pulseaudio-menu.c:258
+#: ../panel-plugin/pulseaudio-menu.c:338
 msgid "_Mute audio output"
 msgstr "M_uta l'uscita audio"
 
+#: ../panel-plugin/pulseaudio-menu.c:355
+msgid "<b>Audio input volume</b>"
+msgstr ""
+
+#: ../panel-plugin/pulseaudio-menu.c:366
+msgid "_Mute audio input"
+msgstr ""
+
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:269
+#: ../panel-plugin/pulseaudio-menu.c:377
 msgid "_Audio mixer..."
 msgstr "Mixer _audio"
 
-#: ../panel-plugin/pulseaudio-notify.c:176
+#: ../panel-plugin/pulseaudio-notify.c:200
 #, c-format
 msgid "Volume %d%c (muted)"
 msgstr "Volume %d%c (muto)"
 
-#: ../panel-plugin/pulseaudio-notify.c:178
+#: ../panel-plugin/pulseaudio-notify.c:202
 #, c-format
 msgid "Volume %d%c"
 msgstr "Volume %d%c"
