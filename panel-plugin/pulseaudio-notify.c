@@ -139,8 +139,10 @@ pulseaudio_notify_init (PulseaudioNotify *notify)
     }
   notify->notification = notify_notification_new ("xfce4-pulseaudio-plugin", NULL, NULL);
   notify_notification_set_timeout (notify->notification, 2000);
+  notify_notification_set_hint (notify->notification, "transient", g_variant_new_boolean (TRUE));
   notify->notification_mic = notify_notification_new ("xfce4-pulseaudio-plugin", NULL, NULL);
   notify_notification_set_timeout (notify->notification_mic, 2000);
+  notify_notification_set_hint (notify->notification_mic, "transient", g_variant_new_boolean (TRUE));
 }
 
 
