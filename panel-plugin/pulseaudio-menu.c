@@ -35,6 +35,8 @@
 #include <libxfce4ui/libxfce4ui.h>
 
 #include "pulseaudio-menu.h"
+#include "pulseaudio-mpris.h"
+#include "mprismenuitem.h"
 #include "scalemenuitem.h"
 
 
@@ -44,6 +46,7 @@ struct _PulseaudioMenu
 
   PulseaudioVolume     *volume;
   PulseaudioConfig     *config;
+  PulseaudioMpris      *mpris;
   GtkWidget            *button;
   GtkWidget            *range_output;
   GtkWidget            *mute_output_item;
@@ -81,6 +84,7 @@ pulseaudio_menu_init (PulseaudioMenu *menu)
 {
   menu->volume                         = NULL;
   menu->config                         = NULL;
+  menu->mpris                          = NULL;
   menu->button                         = NULL;
   menu->range_output                   = NULL;
   menu->mute_output_item               = NULL;
@@ -106,6 +110,7 @@ pulseaudio_menu_finalize (GObject *object)
 
   menu->volume                         = NULL;
   menu->config                         = NULL;
+  menu->mpris                          = NULL;
   menu->button                         = NULL;
   menu->range_output                   = NULL;
   menu->mute_output_item               = NULL;
@@ -279,18 +284,113 @@ pulseaudio_menu_volume_changed (PulseaudioMenu   *menu,
   gtk_range_set_value (GTK_RANGE (menu->range_input), pulseaudio_volume_get_volume_mic (menu->volume) * 100.0);
 }
 
+static void
+media_notify_cb (GtkWidget  *widget,
+                 gchar      *message,
+                 gpointer    user_data)
+{
+  PulseaudioMenu *menu = user_data;
 
+  g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
+  g_return_if_fail (IS_MPRIS_MENU_ITEM (widget));
+
+  pulseaudio_mpris_notify_player (menu->mpris, mpris_menu_item_get_player (MPRIS_MENU_ITEM (widget)), message);
+}
+
+static void
+mpris_update_cb (PulseaudioMpris *mpris,
+                 gchar           *player,
+                 gpointer         user_data)
+{
+  MprisMenuItem *menu_item = user_data;
+
+  gchar          *title;
+  gchar          *artist;
+  gboolean        is_playing;
+  gboolean        is_stopped;
+  gboolean        can_play;
+  gboolean        can_pause;
+  gboolean        can_go_previous;
+  gboolean        can_go_next;
+  gboolean        can_raise;
+
+  g_return_if_fail (IS_PULSEAUDIO_MPRIS (mpris));
+  g_return_if_fail (IS_MPRIS_MENU_ITEM (menu_item));
+
+  if (mpris_menu_item_get_player (menu_item) == NULL)
+    {
+      return;
+    }
+
+    if (g_strcmp0 (player, mpris_menu_item_get_player (menu_item)) == 0)
+      {
+        if (pulseaudio_mpris_get_player_snapshot (mpris,
+                                                  player,
+                                                  &title,
+                                                  &artist,
+                                                  &is_playing,
+                                                  &is_stopped,
+                                                  &can_play,
+                                                  &can_pause,
+                                                  &can_go_previous,
+                                                  &can_go_next,
+                                                  &can_raise))
+          {
+            mpris_menu_item_set_is_running (menu_item, TRUE);
+            mpris_menu_item_set_title (menu_item, title);
+            mpris_menu_item_set_artist (menu_item, artist);
+
+            mpris_menu_item_set_can_play (menu_item, can_play);
+            mpris_menu_item_set_can_pause (menu_item, can_pause);
+
+            mpris_menu_item_set_can_go_previous (menu_item, can_go_previous);
+            mpris_menu_item_set_can_go_next (menu_item, can_go_next);
+
+            mpris_menu_item_set_is_playing (menu_item, is_playing);
+            mpris_menu_item_set_is_stopped (menu_item, is_stopped);
+          }
+
+        if (title != NULL)
+          g_free (title);
+        if (artist != NULL)
+          g_free (artist);
+    }
+}
+
+static void
+item_destroy_cb (GtkWidget  *widget,
+                 gpointer    user_data)
+{
+  PulseaudioMenu *menu = user_data;
+
+  g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
+  g_return_if_fail (IS_MPRIS_MENU_ITEM (widget));
+
+  g_signal_handlers_disconnect_by_func (G_OBJECT (menu->mpris), G_CALLBACK (mpris_update_cb), widget);
+}
 
 PulseaudioMenu *
 pulseaudio_menu_new (PulseaudioVolume *volume,
                      PulseaudioConfig *config,
+                     PulseaudioMpris  *mpris,
                      GtkWidget        *widget)
 {
   PulseaudioMenu *menu;
   GdkScreen      *gscreen;
   GtkWidget      *mi;
-  GtkWidget      *img = NULL;
   gdouble         volume_max;
+
+  gchar         **players;
+
+  gchar          *title = NULL;
+  gchar          *artist = NULL;
+  gboolean        is_playing;
+  gboolean        is_stopped;
+  gboolean        can_play;
+  gboolean        can_pause;
+  gboolean        can_go_previous;
+  gboolean        can_go_next;
+  gboolean        can_raise;
 
   g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), NULL);
   g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), NULL);
@@ -301,12 +401,12 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
   else
     gscreen = gdk_display_get_default_screen (gdk_display_get_default ());
 
-
   menu = g_object_new (TYPE_PULSEAUDIO_MENU, NULL);
   gtk_menu_set_screen (GTK_MENU (menu), gscreen);
 
   menu->volume = volume;
   menu->config = config;
+  menu->mpris = mpris;
   menu->button = widget;
   menu->volume_changed_id =
     g_signal_connect_swapped (G_OBJECT (menu->volume), "volume-changed",
@@ -319,11 +419,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
 
   /* output volume slider */
   mi = scale_menu_item_new_with_range (0.0, volume_max, 1.0);
-
-  img = gtk_image_new_from_icon_name ("audio-volume-high-symbolic", GTK_ICON_SIZE_DND);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (mi), img);
-  gtk_image_set_pixel_size (GTK_IMAGE (img), 24);
-
+  scale_menu_item_set_image_from_icon_name (SCALE_MENU_ITEM (mi), "audio-volume-high-symbolic");
   scale_menu_item_set_description_label (SCALE_MENU_ITEM (mi), _("<b>Audio output volume</b>"));
 
   /* range slider */
@@ -347,11 +443,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
 
   /* input volume slider */
   mi = scale_menu_item_new_with_range (0.0, volume_max, 1.0);
-
-  img = gtk_image_new_from_icon_name ("microphone-sensitivity-high-symbolic", GTK_ICON_SIZE_DND);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (mi), img);
-  gtk_image_set_pixel_size (GTK_IMAGE (img), 24);
-
+  scale_menu_item_set_image_from_icon_name (SCALE_MENU_ITEM (mi), "microphone-sensitivity-high-symbolic");
   scale_menu_item_set_description_label (SCALE_MENU_ITEM (mi), _("<b>Audio input volume</b>"));
 
   /* range slider */
@@ -373,6 +465,68 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
   gtk_widget_show (mi);
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
 
+  /* MPRIS2 */
+  players = pulseaudio_config_get_mpris_players (menu->config);
+  if (players != NULL)
+    {
+      for (guint i = 0; i < g_strv_length (players); i++)
+        {
+          mi = mpris_menu_item_new_from_player_name (players[i]);
+          if (mi != NULL)
+            {
+              if (pulseaudio_mpris_get_player_snapshot (menu->mpris,
+                                                        players[i],
+                                                        &title,
+                                                        &artist,
+                                                        &is_playing,
+                                                        &is_stopped,
+                                                        &can_play,
+                                                        &can_pause,
+                                                        &can_go_previous,
+                                                        &can_go_next,
+                                                        &can_raise))
+                {
+                  mpris_menu_item_set_is_running (MPRIS_MENU_ITEM (mi), TRUE);
+                  mpris_menu_item_set_title (MPRIS_MENU_ITEM (mi), title);
+                  mpris_menu_item_set_artist (MPRIS_MENU_ITEM (mi), artist);
+
+                  mpris_menu_item_set_can_raise (MPRIS_MENU_ITEM (mi), can_raise);
+
+                  mpris_menu_item_set_can_play (MPRIS_MENU_ITEM (mi), can_play);
+                  mpris_menu_item_set_can_pause (MPRIS_MENU_ITEM (mi), can_pause);
+
+                  mpris_menu_item_set_can_go_previous (MPRIS_MENU_ITEM (mi), can_go_previous);
+                  mpris_menu_item_set_can_go_next (MPRIS_MENU_ITEM (mi), can_go_next);
+
+                  mpris_menu_item_set_is_playing (MPRIS_MENU_ITEM (mi), is_playing);
+                  mpris_menu_item_set_is_stopped (MPRIS_MENU_ITEM (mi), is_stopped);
+
+                  if (title != NULL)
+                    g_free (title);
+                  if (artist != NULL)
+                    g_free (artist);
+                }
+              else
+                {
+                  mpris_menu_item_set_is_running (MPRIS_MENU_ITEM (mi), FALSE);
+                  mpris_menu_item_set_is_stopped (MPRIS_MENU_ITEM (mi), TRUE);
+                }
+
+              g_signal_connect (mi, "media-notify", G_CALLBACK (media_notify_cb), menu);
+              g_signal_connect (menu->mpris, "update", G_CALLBACK (mpris_update_cb), mi);
+              g_signal_connect (mi, "destroy", G_CALLBACK(item_destroy_cb), menu);
+
+              gtk_widget_show (mi);
+              gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
+
+              /* separator */
+              mi = gtk_separator_menu_item_new ();
+              gtk_widget_show (mi);
+              gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
+            }
+        }
+    }
+
   /* Audio mixers */
   mi = gtk_menu_item_new_with_mnemonic (_("_Audio mixer..."));
   gtk_widget_show (mi);
@@ -381,8 +535,5 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
 
   pulseaudio_menu_volume_changed (menu, FALSE, menu->volume);
 
-
   return menu;
 }
-
-

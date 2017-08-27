@@ -43,6 +43,7 @@
 #include "pulseaudio-plugin.h"
 #include "pulseaudio-config.h"
 #include "pulseaudio-menu.h"
+#include "pulseaudio-mpris.h"
 #include "pulseaudio-button.h"
 
 #define V_MUTED  0
@@ -80,6 +81,7 @@ struct _PulseaudioButton
 
   PulseaudioPlugin     *plugin;
   PulseaudioConfig     *config;
+  PulseaudioMpris      *mpris;
   PulseaudioVolume     *volume;
 
   GtkWidget            *image;
@@ -129,7 +131,11 @@ pulseaudio_button_init (PulseaudioButton *button)
   gtk_widget_set_can_default (GTK_WIDGET (button), FALSE);
   gtk_button_set_relief (GTK_BUTTON (button), GTK_RELIEF_NONE);
   gtk_button_set_use_underline (GTK_BUTTON (button),TRUE);
+#if GTK_CHECK_VERSION (3, 20, 0)
+  gtk_widget_set_focus_on_click (GTK_WIDGET (button), FALSE);
+#else
   gtk_button_set_focus_on_click (GTK_BUTTON (button), FALSE);
+#endif
   gtk_widget_set_name (GTK_WIDGET (button), "pulseaudio-button");
 
   /* Preload icons */
@@ -193,7 +199,7 @@ pulseaudio_button_button_press (GtkWidget      *widget,
   if(event->button == 1 && button->menu == NULL) /* left button */
     {
       gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), TRUE);
-      button->menu = pulseaudio_menu_new (button->volume, button->config, widget);
+      button->menu = pulseaudio_menu_new (button->volume, button->config, button->mpris, widget);
       gtk_menu_attach_to_widget (GTK_MENU (button->menu), widget, NULL);
 
       if (button->deactivate_id == 0)
@@ -203,12 +209,15 @@ pulseaudio_button_button_press (GtkWidget      *widget,
              G_CALLBACK (pulseaudio_button_menu_deactivate), button);
         }
 
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
       gtk_menu_popup (GTK_MENU (button->menu),
                       NULL, NULL,
                       xfce_panel_plugin_position_menu, button->plugin,
                       //NULL, NULL,
                       1,
                       event->time);
+G_GNUC_END_IGNORE_DEPRECATIONS
+
       return TRUE;
     }
 
@@ -364,12 +373,14 @@ pulseaudio_button_volume_changed (PulseaudioButton  *button,
 PulseaudioButton *
 pulseaudio_button_new (PulseaudioPlugin *plugin,
                        PulseaudioConfig *config,
+                       PulseaudioMpris  *mpris,
                        PulseaudioVolume *volume)
 {
   PulseaudioButton *button;
 
   g_return_val_if_fail (IS_PULSEAUDIO_PLUGIN (plugin), NULL);
   g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), NULL);
+  g_return_val_if_fail (IS_PULSEAUDIO_MPRIS (mpris), NULL);
   g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), NULL);
 
   button = g_object_new (TYPE_PULSEAUDIO_BUTTON, NULL);
@@ -377,6 +388,7 @@ pulseaudio_button_new (PulseaudioPlugin *plugin,
   button->plugin = plugin;
   button->volume = volume;
   button->config = config;
+  button->mpris = mpris;
   button->volume_changed_id =
     g_signal_connect_swapped (G_OBJECT (button->volume), "volume-changed",
                               G_CALLBACK (pulseaudio_button_volume_changed), button);
@@ -385,5 +397,3 @@ pulseaudio_button_new (PulseaudioPlugin *plugin,
 
   return button;
 }
-
-

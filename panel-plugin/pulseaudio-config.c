@@ -49,6 +49,7 @@
 #define DEFAULT_SHOW_NOTIFICATIONS                TRUE
 #define DEFAULT_VOLUME_STEP                       6
 #define DEFAULT_VOLUME_MAX                        153
+#define DEFAULT_MPRIS_PLAYERS                     ""
 
 
 
@@ -78,6 +79,7 @@ struct _PulseaudioConfig
   guint            volume_step;
   guint            volume_max;
   gchar           *mixer_command;
+  gchar           *mpris_players;
 };
 
 
@@ -90,6 +92,7 @@ enum
     PROP_VOLUME_STEP,
     PROP_VOLUME_MAX,
     PROP_MIXER_COMMAND,
+    PROP_MPRIS_PLAYERS,
     N_PROPERTIES,
   };
 
@@ -161,6 +164,17 @@ pulseaudio_config_class_init (PulseaudioConfigClass *klass)
                                                         G_PARAM_STATIC_STRINGS));
 
 
+
+  g_object_class_install_property (gobject_class,
+                                   PROP_MPRIS_PLAYERS,
+                                   g_param_spec_string ("mpris-players",
+                                                        NULL, NULL,
+                                                        DEFAULT_MPRIS_PLAYERS,
+                                                        G_PARAM_READWRITE |
+                                                        G_PARAM_STATIC_STRINGS));
+
+
+
   pulseaudio_config_signals[CONFIGURATION_CHANGED] =
     g_signal_new (g_intern_static_string ("configuration-changed"),
                   G_TYPE_FROM_CLASS (gobject_class),
@@ -180,6 +194,7 @@ pulseaudio_config_init (PulseaudioConfig *config)
   config->volume_step               = DEFAULT_VOLUME_STEP;
   config->volume_max                = DEFAULT_VOLUME_MAX;
   config->mixer_command             = g_strdup (DEFAULT_MIXER_COMMAND);
+  config->mpris_players             = g_strdup (DEFAULT_MPRIS_PLAYERS);
 }
 
 
@@ -225,6 +240,10 @@ pulseaudio_config_get_property (GObject    *object,
 
     case PROP_MIXER_COMMAND:
       g_value_set_string (value, config->mixer_command);
+      break;
+
+    case PROP_MPRIS_PLAYERS:
+      g_value_set_string (value, config->mpris_players);
       break;
 
     default:
@@ -292,6 +311,13 @@ pulseaudio_config_set_property (GObject      *object,
       config->mixer_command = g_value_dup_string (value);
       break;
 
+    case PROP_MPRIS_PLAYERS:
+      g_free (config->mpris_players);
+      config->mpris_players = g_value_dup_string (value);
+      g_object_notify (G_OBJECT (config), "mpris-players");
+      g_signal_emit (G_OBJECT (config), pulseaudio_config_signals [CONFIGURATION_CHANGED], 0);
+      break;
+
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
       break;
@@ -356,6 +382,84 @@ pulseaudio_config_get_mixer_command (PulseaudioConfig *config)
 
 
 
+gchar **
+pulseaudio_config_get_mpris_players (PulseaudioConfig *config)
+{
+  if (!IS_PULSEAUDIO_CONFIG (config))
+    {
+      return g_strsplit (DEFAULT_MPRIS_PLAYERS, ";", 1);
+    }
+
+  return g_strsplit (config->mpris_players, ";", 0);
+}
+
+static gint
+compare_players (gconstpointer item1, gconstpointer item2)
+{
+  return g_ascii_strcasecmp (item1, item2);
+}
+
+void
+pulseaudio_config_set_mpris_players (PulseaudioConfig  *config,
+                                     gchar            **players)
+{
+  GSList *player_array;
+  gchar  *player_string;
+  GValue  src = { 0, };
+  guint   index = 0;
+
+  g_return_if_fail (IS_PULSEAUDIO_CONFIG (config));
+
+  player_array = NULL;
+  for (guint i = 0; i < g_strv_length (players); i++) {
+    player_array = g_slist_prepend (player_array, players[i]);
+  }
+  player_array = g_slist_sort (player_array, (GCompareFunc) compare_players);
+
+  for (GSList *list = player_array; list != NULL; list = g_slist_next (list)) {
+    players[index] = list->data;
+    index++;
+  }
+
+  g_slist_free (player_array);
+
+  player_string = g_strjoinv (";", players);
+
+  g_value_init(&src, G_TYPE_STRING);
+  g_value_set_static_string(&src, player_string);
+
+  pulseaudio_config_set_property (G_OBJECT (config), PROP_MPRIS_PLAYERS, &src, NULL);
+}
+
+void
+pulseaudio_config_add_mpris_player (PulseaudioConfig *config,
+                                    gchar            *player)
+{
+  gchar **players;
+  gchar **player_list;
+  gchar  *players_string;
+  gchar  *player_string;
+
+  players = pulseaudio_config_get_mpris_players (config);
+  if (g_strv_contains ((const char * const *) players, player)) {
+      return;
+  }
+
+  players_string = g_strjoinv (";", players);
+  player_string = g_strjoin (";", players_string, player, NULL);
+  player_list = g_strsplit(player_string, ";", 0);
+
+  pulseaudio_config_set_mpris_players (config, player_list);
+
+  g_strfreev (player_list);
+  g_free (player_string);
+  g_free (players_string);
+  g_strfreev (players);
+}
+
+
+
+
 PulseaudioConfig *
 pulseaudio_config_new (const gchar     *property_base)
 {
@@ -387,6 +491,10 @@ pulseaudio_config_new (const gchar     *property_base)
 
       property = g_strconcat (property_base, "/mixer-command", NULL);
       xfconf_g_property_bind (channel, property, G_TYPE_STRING, config, "mixer-command");
+      g_free (property);
+
+      property = g_strconcat (property_base, "/mpris-players", NULL);
+      xfconf_g_property_bind (channel, property, G_TYPE_STRING, config, "mpris-players");
       g_free (property);
 
       g_object_notify (G_OBJECT (config), "enable-keyboard-shortcuts");

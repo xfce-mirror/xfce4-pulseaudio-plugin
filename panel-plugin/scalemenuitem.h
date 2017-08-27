@@ -73,8 +73,11 @@ void         scale_menu_item_set_description_label (ScaleMenuItem *menuitem,
 void         scale_menu_item_set_percentage_label  (ScaleMenuItem *menuitem,
                                                     const gchar      *label);
 
-void        scale_menu_item_set_value (ScaleMenuItem *item,
-                                       gdouble        value);
+void         scale_menu_item_set_value             (ScaleMenuItem *item,
+                                                    gdouble        value);
+
+void         scale_menu_item_set_image_from_icon_name (ScaleMenuItem *menuitem,
+                                                       const gchar   *icon_name);
 
 
 G_END_DECLS

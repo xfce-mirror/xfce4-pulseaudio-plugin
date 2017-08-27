@@ -213,7 +213,7 @@ pulseaudio_volume_source_info_cb (pa_context           *context,
       volume->volume_mic = vol_mic;
       g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_MIC_CHANGED], 0, FALSE);
     }
-  pulseaudio_debug ("volume mic: %d, muted mic: %d", vol_mic, muted_mic);
+  pulseaudio_debug ("volume mic: %f, muted mic: %d", vol_mic, muted_mic);
 }
 
 
@@ -597,7 +597,7 @@ pulseaudio_volume_set_volume_cb2 (pa_context         *context,
   if (i == NULL) return;
 
   //pulseaudio_debug ("*** %s", pa_cvolume_snprint (st, sizeof (st), &i->volume));
-  pa_cvolume_set (&i->volume, 1, pulseaudio_volume_d2v (volume, volume->volume));
+  pa_cvolume_set ((pa_cvolume *)&i->volume, 1, pulseaudio_volume_d2v (volume, volume->volume));
   pa_context_set_sink_volume_by_index (context, i->index, &i->volume, pulseaudio_volume_sink_volume_changed, volume);
 }
 
@@ -664,7 +664,7 @@ pulseaudio_volume_set_volume_mic_cb2 (pa_context           *context,
   if (i == NULL) return;
 
   //pulseaudio_debug ("*** %s", pa_cvolume_snprint (st, sizeof (st), &i->volume));
-  pa_cvolume_set (&i->volume, 1, pulseaudio_volume_d2v (volume, volume->volume_mic));
+  pa_cvolume_set ((pa_cvolume *)&i->volume, 1, pulseaudio_volume_d2v (volume, volume->volume_mic));
   pa_context_set_source_volume_by_index (context, i->index, &i->volume, pulseaudio_volume_source_volume_changed, volume);
 }
 
@@ -719,5 +719,3 @@ pulseaudio_volume_new (PulseaudioConfig *config)
 
   return volume;
 }
-
-

@@ -35,10 +35,16 @@ libpulseaudio_plugin_la_SOURCES = \
 	pulseaudio-dialog.h \
 	pulseaudio-menu.c \
 	pulseaudio-menu.h \
+	pulseaudio-mpris.c \
+	pulseaudio-mpris.h \
+	pulseaudio-mpris-player.c \
+	pulseaudio-mpris-player.h \
 	pulseaudio-notify.c \
 	pulseaudio-notify.h \
 	scalemenuitem.c \
-	scalemenuitem.h
+	scalemenuitem.h \
+	mprismenuitem.c \
+	mprismenuitem.h
 
 
 libpulseaudio_plugin_la_CFLAGS = \

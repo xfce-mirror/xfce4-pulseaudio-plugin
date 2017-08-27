@@ -44,6 +44,7 @@
 #include "pulseaudio-button.h"
 #include "pulseaudio-dialog.h"
 #include "pulseaudio-notify.h"
+#include "pulseaudio-mpris.h"
 
 #ifdef HAVE_IDO
 #include <libido/libido.h>
@@ -104,6 +105,10 @@ struct _PulseaudioPlugin
 
   /* config dialog builder */
   PulseaudioDialog    *dialog;
+
+  /* mpris */
+  PulseaudioMpris     *mpris;
+  gchar              **players;
 };
 
 
@@ -142,6 +147,8 @@ pulseaudio_plugin_init (PulseaudioPlugin *pulseaudio_plugin)
 #ifdef HAVE_LIBNOTIFY
   pulseaudio_plugin->notify            = NULL;
 #endif
+
+  pulseaudio_plugin->mpris             = NULL;
 }
 
 
@@ -413,10 +420,16 @@ pulseaudio_plugin_construct (XfcePanelPlugin *plugin)
   /* volume controller */
   pulseaudio_plugin->volume = pulseaudio_volume_new (pulseaudio_plugin->config);
 
+  /* initialize mpris support */
+  pulseaudio_plugin->mpris = pulseaudio_mpris_new (pulseaudio_plugin->config);
+  pulseaudio_plugin->players = pulseaudio_mpris_get_available_players (pulseaudio_plugin->mpris);
+
   /* instantiate a button box */
   pulseaudio_plugin->button = pulseaudio_button_new (pulseaudio_plugin,
                                                      pulseaudio_plugin->config,
+                                                     pulseaudio_plugin->mpris,
                                                      pulseaudio_plugin->volume);
+
   /* initialize notify wrapper */
 #ifdef HAVE_LIBNOTIFY
   pulseaudio_plugin->notify = pulseaudio_notify_new (pulseaudio_plugin->config,
@@ -429,4 +442,3 @@ pulseaudio_plugin_construct (XfcePanelPlugin *plugin)
 
 
 }
-

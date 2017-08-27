@@ -23,6 +23,7 @@
 
 #include "pulseaudio-volume.h"
 #include "pulseaudio-config.h"
+#include "pulseaudio-mpris.h"
 
 G_BEGIN_DECLS
 
@@ -40,6 +41,7 @@ typedef struct          _PulseaudioMenuClass         PulseaudioMenuClass;
 
 PulseaudioMenu         *pulseaudio_menu_new         (PulseaudioVolume *volume,
                                                      PulseaudioConfig *config,
+                                                     PulseaudioMpris  *mpris,
                                                      GtkWidget        *widget);
 
 G_END_DECLS

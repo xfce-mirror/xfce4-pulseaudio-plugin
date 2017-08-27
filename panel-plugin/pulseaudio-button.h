@@ -25,6 +25,7 @@
 #include "pulseaudio-config.h"
 #include "pulseaudio-volume.h"
 #include "pulseaudio-menu.h"
+#include "pulseaudio-mpris.h"
 
 G_BEGIN_DECLS
 
@@ -42,6 +43,7 @@ typedef struct          _PulseaudioButtonClass         PulseaudioButtonClass;
 
 PulseaudioButton       *pulseaudio_button_new         (PulseaudioPlugin *plugin,
                                                        PulseaudioConfig *config,
+                                                       PulseaudioMpris  *mpris,
                                                        PulseaudioVolume *volume);
 
 void                    pulseaudio_button_set_size    (PulseaudioButton *button,

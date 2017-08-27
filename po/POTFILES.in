@@ -7,3 +7,4 @@ panel-plugin/pulseaudio-button.c
 panel-plugin/pulseaudio-volume.c
 panel-plugin/pulseaudio-menu.c
 panel-plugin/pulseaudio-notify.c
+panel-plugin/mprismenuitem.c

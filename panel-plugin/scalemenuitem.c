@@ -75,7 +75,9 @@ enum {
 
 static guint signals[LAST_SIGNAL] = { 0 };
 
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 G_DEFINE_TYPE (ScaleMenuItem, scale_menu_item, GTK_TYPE_IMAGE_MENU_ITEM)
+G_GNUC_END_IGNORE_DEPRECATIONS
 
 #define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), TYPE_SCALE_MENU_ITEM, ScaleMenuItemPrivate))
 
@@ -111,7 +113,7 @@ scale_menu_item_class_init (ScaleMenuItemClass *item_class)
    * ScaleMenuItem::slider-grabbed:
    * @menuitem: The #ScaleMenuItem emitting the signal.
    *
-   * The ::slider-grabbed signal is emitted when the pointer selects the slider. 
+   * The ::slider-grabbed signal is emitted when the pointer selects the slider.
    */
   signals[SLIDER_GRABBED] = g_signal_new ("slider-grabbed",
                                           G_OBJECT_CLASS_TYPE (gobject_class),
@@ -284,7 +286,9 @@ scale_menu_item_button_release_event (GtkWidget      *menuitem,
                                       GdkEventButton *event)
 {
   ScaleMenuItemPrivate *priv;
+#if !(GTK_CHECK_VERSION (3, 14, 0))
   gint                  x, y;
+#endif
 
   TRACE("entering");
 
@@ -472,6 +476,22 @@ scale_menu_item_get_percentage_label (ScaleMenuItem *menuitem)
   return gtk_label_get_text (GTK_LABEL (priv->percentage_label));
 }
 
+static GtkWidget *
+scale_menu_item_label_new (const gchar *str)
+{
+  GtkWidget *label = gtk_label_new (str);
+
+  /* align left */
+#if GTK_CHECK_VERSION (3, 16, 0)
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  gtk_widget_set_halign (label, GTK_ALIGN_START);
+#else
+  gtk_misc_set_alignment (GTK_MISC(label), 0, 0);
+#endif
+
+  return label;
+}
+
 /**
  * scale_menu_item_set_description_label:
  * @menuitem: The #ScaleMenuItem
@@ -505,11 +525,8 @@ scale_menu_item_set_description_label (ScaleMenuItem *menuitem,
   else if(label)
     {
       /* create label */
-      priv->description_label = gtk_label_new (NULL);
+      priv->description_label = scale_menu_item_label_new (NULL);
       gtk_label_set_markup (GTK_LABEL (priv->description_label), label);
-
-      /* align left */
-      gtk_misc_set_alignment (GTK_MISC(priv->description_label), 0, 0);
     }
 
     update_packing (menuitem);
@@ -549,9 +566,7 @@ scale_menu_item_set_percentage_label (ScaleMenuItem *menuitem,
   else if(label)
     {
       /* create label */
-      priv->percentage_label = gtk_label_new (label);
-      /* align left */
-      gtk_misc_set_alignment (GTK_MISC(priv->percentage_label), 0, 0);
+      priv->percentage_label = scale_menu_item_label_new (label);
     }
 
     update_packing (menuitem);
@@ -581,4 +596,19 @@ scale_menu_item_set_value (ScaleMenuItem *item,
   priv->ignore_value_changed = TRUE;
   gtk_range_set_value (GTK_RANGE (priv->scale), value);
   priv->ignore_value_changed = FALSE;
+}
+
+void
+scale_menu_item_set_image_from_icon_name (ScaleMenuItem *item,
+                                          const gchar   *icon_name)
+{
+  GtkWidget *img = NULL;
+
+  g_return_if_fail (IS_SCALE_MENU_ITEM (item));
+
+  img = gtk_image_new_from_icon_name (icon_name, GTK_ICON_SIZE_LARGE_TOOLBAR);
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), img);
+G_GNUC_END_IGNORE_DEPRECATIONS
+  gtk_image_set_pixel_size (GTK_IMAGE (img), 24);
 }
