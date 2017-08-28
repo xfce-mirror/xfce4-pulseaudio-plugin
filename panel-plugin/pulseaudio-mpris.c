@@ -190,6 +190,7 @@ pulseaudio_mpris_get_player_snapshot (PulseaudioMpris  *mpris,
                                       const gchar      *name,
                                       gchar           **title,
                                       gchar           **artist,
+                                      gboolean         *is_running,
                                       gboolean         *is_playing,
                                       gboolean         *is_stopped,
                                       gboolean         *can_play,
@@ -208,6 +209,7 @@ pulseaudio_mpris_get_player_snapshot (PulseaudioMpris  *mpris,
           *title = g_strdup(pulseaudio_mpris_player_get_title (player));
           *artist = g_strdup(pulseaudio_mpris_player_get_artist (player));
 
+          *is_running         = TRUE;
           *is_playing         = pulseaudio_mpris_player_is_playing (player);
           *is_stopped         = pulseaudio_mpris_player_is_stopped (player);
           *can_play           = pulseaudio_mpris_player_can_play (player);
@@ -221,6 +223,7 @@ pulseaudio_mpris_get_player_snapshot (PulseaudioMpris  *mpris,
           *title = g_strdup(pulseaudio_mpris_player_get_player_title (player));
           *artist = g_strdup("Not currently playing");
 
+          *is_running         = FALSE;
           *is_playing         = FALSE;
           *is_stopped         = TRUE;
           *can_play           = FALSE;

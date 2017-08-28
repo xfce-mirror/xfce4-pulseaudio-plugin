@@ -45,6 +45,7 @@ gboolean                pulseaudio_mpris_get_player_snapshot   (PulseaudioMpris 
                                                                 const gchar      *name,
                                                                 gchar           **title,
                                                                 gchar           **artist,
+                                                                gboolean         *is_running,
                                                                 gboolean         *is_playing,
                                                                 gboolean         *is_stopped,
                                                                 gboolean         *can_play,

@@ -306,6 +306,7 @@ mpris_update_cb (PulseaudioMpris *mpris,
 
   gchar          *title;
   gchar          *artist;
+  gboolean        is_running;
   gboolean        is_playing;
   gboolean        is_stopped;
   gboolean        can_play;
@@ -328,6 +329,7 @@ mpris_update_cb (PulseaudioMpris *mpris,
                                                   player,
                                                   &title,
                                                   &artist,
+                                                  &is_running,
                                                   &is_playing,
                                                   &is_stopped,
                                                   &can_play,
@@ -336,7 +338,7 @@ mpris_update_cb (PulseaudioMpris *mpris,
                                                   &can_go_next,
                                                   &can_raise))
           {
-            mpris_menu_item_set_is_running (menu_item, TRUE);
+            mpris_menu_item_set_is_running (menu_item, is_running);
             mpris_menu_item_set_title (menu_item, title);
             mpris_menu_item_set_artist (menu_item, artist);
 
@@ -384,6 +386,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
 
   gchar          *title = NULL;
   gchar          *artist = NULL;
+  gboolean        is_running;
   gboolean        is_playing;
   gboolean        is_stopped;
   gboolean        can_play;
@@ -478,6 +481,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
                                                         players[i],
                                                         &title,
                                                         &artist,
+                                                        &is_running,
                                                         &is_playing,
                                                         &is_stopped,
                                                         &can_play,
@@ -486,7 +490,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
                                                         &can_go_next,
                                                         &can_raise))
                 {
-                  mpris_menu_item_set_is_running (MPRIS_MENU_ITEM (mi), TRUE);
+                  mpris_menu_item_set_is_running (MPRIS_MENU_ITEM (mi), is_running);
                   mpris_menu_item_set_title (MPRIS_MENU_ITEM (mi), title);
                   mpris_menu_item_set_artist (MPRIS_MENU_ITEM (mi), artist);
 
