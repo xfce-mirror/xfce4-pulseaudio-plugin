@@ -264,11 +264,6 @@ scale_menu_item_button_press_event (GtkWidget      *menuitem,
 
   if (x > 0 && x < alloc.width && y > 0 && y < alloc.height)
     {
-#if !(GTK_CHECK_VERSION (3, 14, 0))
-      /* event coordinates are supposed to refer to GdkWindow but for some reason in Gtk+-3.12(?) they refer to the widget */
-      event->x = (gdouble) x;
-      event->y = (gdouble) y;
-#endif
       gtk_widget_event (priv->scale, (GdkEvent*) event);
     }
 
@@ -286,9 +281,6 @@ scale_menu_item_button_release_event (GtkWidget      *menuitem,
                                       GdkEventButton *event)
 {
   ScaleMenuItemPrivate *priv;
-#if !(GTK_CHECK_VERSION (3, 14, 0))
-  gint                  x, y;
-#endif
 
   TRACE("entering");
 
@@ -296,11 +288,6 @@ scale_menu_item_button_release_event (GtkWidget      *menuitem,
 
   priv = GET_PRIVATE (menuitem);
 
-#if !(GTK_CHECK_VERSION (3, 14, 0))
-  gtk_widget_translate_coordinates (menuitem, priv->scale, event->x, event->y, &x, &y);
-  event->x = (gdouble) x;
-  event->y = (gdouble) y;
-#endif
   gtk_widget_event (priv->scale, (GdkEvent*)event);
 
   if (priv->grabbed)
@@ -331,10 +318,6 @@ scale_menu_item_motion_notify_event (GtkWidget      *menuitem,
 
   if (x > 0 && x < alloc.width && y > 0 && y < alloc.height)
     {
-#if !(GTK_CHECK_VERSION (3, 14, 0))
-      event->x = (gdouble) x;
-      event->y = (gdouble) y;
-#endif
       gtk_widget_event (scale, (GdkEvent*) event);
     }
 
@@ -482,12 +465,8 @@ scale_menu_item_label_new (const gchar *str)
   GtkWidget *label = gtk_label_new (str);
 
   /* align left */
-#if GTK_CHECK_VERSION (3, 16, 0)
   gtk_label_set_xalign (GTK_LABEL (label), 0.0);
   gtk_widget_set_halign (label, GTK_ALIGN_START);
-#else
-  gtk_misc_set_alignment (GTK_MISC(label), 0, 0);
-#endif
 
   return label;
 }

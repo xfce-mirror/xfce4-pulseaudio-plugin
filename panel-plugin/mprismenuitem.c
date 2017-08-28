@@ -242,12 +242,8 @@ track_info_label_new (void)
   gtk_label_set_max_width_chars (GTK_LABEL (label), 25);
   gtk_label_set_ellipsize (GTK_LABEL (label), PANGO_ELLIPSIZE_MIDDLE);
 
-  #if GTK_CHECK_VERSION (3, 16, 0)
-    gtk_label_set_xalign (GTK_LABEL (label), 0.0);
-    gtk_widget_set_halign (label, GTK_ALIGN_START);
-  #else
-    gtk_misc_set_alignment (GTK_MISC(label), 0, 0);
-  #endif
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  gtk_widget_set_halign (label, GTK_ALIGN_START);
 
   return label;
 }
