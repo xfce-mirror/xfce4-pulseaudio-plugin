@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-21 18:33+0200\n"
-"PO-Revision-Date: 2017-07-25 11:28+0000\n"
+"POT-Creation-Date: 2017-08-27 18:31+0200\n"
+"PO-Revision-Date: 2017-08-28 02:06+0000\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/xfce/xfce-panel-plugins/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgid "PulseAudio Plugin"
 msgstr "PulseAudio 外掛程式"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:219
+#: ../panel-plugin/pulseaudio-plugin.c:226
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "調整 PulseAudio 音效系統的音量"
 
@@ -72,12 +72,12 @@ msgstr "執行混音器... (_R)"
 msgid "Sound settings"
 msgstr "音效設定"
 
-#: ../panel-plugin/pulseaudio-plugin.c:221
+#: ../panel-plugin/pulseaudio-plugin.c:228
 msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
 msgstr "Copyright © 2014-2017 Andrzej Radecki 等\n"
 
 #: ../panel-plugin/pulseaudio-dialog.c:136
-#: ../panel-plugin/pulseaudio-menu.c:237
+#: ../panel-plugin/pulseaudio-menu.c:242
 #, c-format
 msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
@@ -86,44 +86,44 @@ msgid ""
 msgstr "<big><b>執行指令「%s」失敗。</b></big>\n\n%s"
 
 #: ../panel-plugin/pulseaudio-dialog.c:139
-#: ../panel-plugin/pulseaudio-menu.c:240
+#: ../panel-plugin/pulseaudio-menu.c:245
 msgid "Error"
 msgstr "錯誤"
 
-#: ../panel-plugin/pulseaudio-button.c:310
+#: ../panel-plugin/pulseaudio-button.c:319
 #: ../panel-plugin/pulseaudio-notify.c:198
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "未連線到 PulseAudio 伺服程式"
 
-#: ../panel-plugin/pulseaudio-button.c:312
+#: ../panel-plugin/pulseaudio-button.c:321
 #, c-format
 msgid "Volume %d%% (muted)"
 msgstr "音量 %d%% （靜音）"
 
-#: ../panel-plugin/pulseaudio-button.c:314
+#: ../panel-plugin/pulseaudio-button.c:323
 #, c-format
 msgid "Volume %d%%"
 msgstr "音量 %d%%"
 
-#: ../panel-plugin/pulseaudio-menu.c:327
+#: ../panel-plugin/pulseaudio-menu.c:423
 msgid "<b>Audio output volume</b>"
 msgstr "<b>音效輸出音量</b>"
 
-#: ../panel-plugin/pulseaudio-menu.c:338
+#: ../panel-plugin/pulseaudio-menu.c:434
 msgid "_Mute audio output"
 msgstr "音效輸出靜音(_M)"
 
-#: ../panel-plugin/pulseaudio-menu.c:355
+#: ../panel-plugin/pulseaudio-menu.c:447
 msgid "<b>Audio input volume</b>"
 msgstr "<b>音效輸入音量</b>"
 
-#: ../panel-plugin/pulseaudio-menu.c:366
+#: ../panel-plugin/pulseaudio-menu.c:458
 msgid "_Mute audio input"
 msgstr "音效輸入靜音(_M)"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:377
+#: ../panel-plugin/pulseaudio-menu.c:531
 msgid "_Audio mixer..."
 msgstr "混音器... (_A)"
 
@@ -136,3 +136,8 @@ msgstr "音量 %d%c （靜音）"
 #, c-format
 msgid "Volume %d%c"
 msgstr "音量 %d%c"
+
+#: ../panel-plugin/mprismenuitem.c:315 ../panel-plugin/mprismenuitem.c:579
+#: ../panel-plugin/mprismenuitem.c:598
+msgid "Not currently playing"
+msgstr "目前未播放"
