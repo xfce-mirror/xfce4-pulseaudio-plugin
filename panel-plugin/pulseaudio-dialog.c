@@ -215,7 +215,7 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
                               G_BINDING_SYNC_CREATE | G_BINDING_BIDIRECTIONAL);
 #else
       object = gtk_builder_get_object (builder, "media-player-frame");
-      gtk_widget_set_visible (GTK_WIDGET (object));
+      gtk_widget_set_visible (GTK_WIDGET (object), FALSE);
 #endif
 
     }
