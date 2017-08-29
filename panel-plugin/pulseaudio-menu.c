@@ -473,64 +473,67 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
 
   /* MPRIS2 */
 #ifdef HAVE_MPRIS2
-  players = pulseaudio_config_get_mpris_players (menu->config);
-  if (players != NULL)
+  if (pulseaudio_config_get_enable_mpris (menu->config))
     {
-      for (guint i = 0; i < g_strv_length (players); i++)
+      players = pulseaudio_config_get_mpris_players (menu->config);
+      if (players != NULL)
         {
-          mi = mpris_menu_item_new_from_player_name (players[i]);
-          if (mi != NULL)
+          for (guint i = 0; i < g_strv_length (players); i++)
             {
-              if (pulseaudio_mpris_get_player_snapshot (menu->mpris,
-                                                        players[i],
-                                                        &title,
-                                                        &artist,
-                                                        &is_running,
-                                                        &is_playing,
-                                                        &is_stopped,
-                                                        &can_play,
-                                                        &can_pause,
-                                                        &can_go_previous,
-                                                        &can_go_next,
-                                                        &can_raise))
+              mi = mpris_menu_item_new_from_player_name (players[i]);
+              if (mi != NULL)
                 {
-                  mpris_menu_item_set_is_running (MPRIS_MENU_ITEM (mi), is_running);
-                  mpris_menu_item_set_title (MPRIS_MENU_ITEM (mi), title);
-                  mpris_menu_item_set_artist (MPRIS_MENU_ITEM (mi), artist);
+                  if (pulseaudio_mpris_get_player_snapshot (menu->mpris,
+                                                            players[i],
+                                                            &title,
+                                                            &artist,
+                                                            &is_running,
+                                                            &is_playing,
+                                                            &is_stopped,
+                                                            &can_play,
+                                                            &can_pause,
+                                                            &can_go_previous,
+                                                            &can_go_next,
+                                                            &can_raise))
+                    {
+                      mpris_menu_item_set_is_running (MPRIS_MENU_ITEM (mi), is_running);
+                      mpris_menu_item_set_title (MPRIS_MENU_ITEM (mi), title);
+                      mpris_menu_item_set_artist (MPRIS_MENU_ITEM (mi), artist);
 
-                  mpris_menu_item_set_can_raise (MPRIS_MENU_ITEM (mi), can_raise);
+                      mpris_menu_item_set_can_raise (MPRIS_MENU_ITEM (mi), can_raise);
 
-                  mpris_menu_item_set_can_play (MPRIS_MENU_ITEM (mi), can_play);
-                  mpris_menu_item_set_can_pause (MPRIS_MENU_ITEM (mi), can_pause);
+                      mpris_menu_item_set_can_play (MPRIS_MENU_ITEM (mi), can_play);
+                      mpris_menu_item_set_can_pause (MPRIS_MENU_ITEM (mi), can_pause);
 
-                  mpris_menu_item_set_can_go_previous (MPRIS_MENU_ITEM (mi), can_go_previous);
-                  mpris_menu_item_set_can_go_next (MPRIS_MENU_ITEM (mi), can_go_next);
+                      mpris_menu_item_set_can_go_previous (MPRIS_MENU_ITEM (mi), can_go_previous);
+                      mpris_menu_item_set_can_go_next (MPRIS_MENU_ITEM (mi), can_go_next);
 
-                  mpris_menu_item_set_is_playing (MPRIS_MENU_ITEM (mi), is_playing);
-                  mpris_menu_item_set_is_stopped (MPRIS_MENU_ITEM (mi), is_stopped);
+                      mpris_menu_item_set_is_playing (MPRIS_MENU_ITEM (mi), is_playing);
+                      mpris_menu_item_set_is_stopped (MPRIS_MENU_ITEM (mi), is_stopped);
 
-                  if (title != NULL)
-                    g_free (title);
-                  if (artist != NULL)
-                    g_free (artist);
+                      if (title != NULL)
+                        g_free (title);
+                      if (artist != NULL)
+                        g_free (artist);
+                    }
+                  else
+                    {
+                      mpris_menu_item_set_is_running (MPRIS_MENU_ITEM (mi), FALSE);
+                      mpris_menu_item_set_is_stopped (MPRIS_MENU_ITEM (mi), TRUE);
+                    }
+
+                  g_signal_connect (mi, "media-notify", G_CALLBACK (media_notify_cb), menu);
+                  g_signal_connect (menu->mpris, "update", G_CALLBACK (mpris_update_cb), mi);
+                  g_signal_connect (mi, "destroy", G_CALLBACK(item_destroy_cb), menu);
+
+                  gtk_widget_show (mi);
+                  gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
+
+                  /* separator */
+                  mi = gtk_separator_menu_item_new ();
+                  gtk_widget_show (mi);
+                  gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
                 }
-              else
-                {
-                  mpris_menu_item_set_is_running (MPRIS_MENU_ITEM (mi), FALSE);
-                  mpris_menu_item_set_is_stopped (MPRIS_MENU_ITEM (mi), TRUE);
-                }
-
-              g_signal_connect (mi, "media-notify", G_CALLBACK (media_notify_cb), menu);
-              g_signal_connect (menu->mpris, "update", G_CALLBACK (mpris_update_cb), mi);
-              g_signal_connect (mi, "destroy", G_CALLBACK(item_destroy_cb), menu);
-
-              gtk_widget_show (mi);
-              gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
-
-              /* separator */
-              mi = gtk_separator_menu_item_new ();
-              gtk_widget_show (mi);
-              gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
             }
         }
     }

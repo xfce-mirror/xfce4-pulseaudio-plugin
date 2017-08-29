@@ -49,6 +49,13 @@
 #define DEFAULT_SHOW_NOTIFICATIONS                TRUE
 #define DEFAULT_VOLUME_STEP                       6
 #define DEFAULT_VOLUME_MAX                        153
+
+#ifdef HAVE_MPRIS2
+#define DEFAULT_ENABLE_MPRIS                      TRUE
+#else
+#define DEFAULT_ENABLE_MPRIS                      FALSE
+#endif
+
 #define DEFAULT_MPRIS_PLAYERS                     ""
 
 
@@ -79,6 +86,7 @@ struct _PulseaudioConfig
   guint            volume_step;
   guint            volume_max;
   gchar           *mixer_command;
+  gboolean         enable_mpris;
   gchar           *mpris_players;
 };
 
@@ -92,6 +100,7 @@ enum
     PROP_VOLUME_STEP,
     PROP_VOLUME_MAX,
     PROP_MIXER_COMMAND,
+    PROP_ENABLE_MPRIS,
     PROP_MPRIS_PLAYERS,
     N_PROPERTIES,
   };
@@ -166,6 +175,15 @@ pulseaudio_config_class_init (PulseaudioConfigClass *klass)
 
 
   g_object_class_install_property (gobject_class,
+                                   PROP_ENABLE_MPRIS,
+                                   g_param_spec_boolean ("enable-mpris", NULL, NULL,
+                                                         DEFAULT_ENABLE_MPRIS,
+                                                         G_PARAM_READWRITE |
+                                                         G_PARAM_STATIC_STRINGS));
+
+
+
+  g_object_class_install_property (gobject_class,
                                    PROP_MPRIS_PLAYERS,
                                    g_param_spec_string ("mpris-players",
                                                         NULL, NULL,
@@ -194,6 +212,7 @@ pulseaudio_config_init (PulseaudioConfig *config)
   config->volume_step               = DEFAULT_VOLUME_STEP;
   config->volume_max                = DEFAULT_VOLUME_MAX;
   config->mixer_command             = g_strdup (DEFAULT_MIXER_COMMAND);
+  config->enable_mpris              = DEFAULT_ENABLE_MPRIS;
   config->mpris_players             = g_strdup (DEFAULT_MPRIS_PLAYERS);
 }
 
@@ -240,6 +259,10 @@ pulseaudio_config_get_property (GObject    *object,
 
     case PROP_MIXER_COMMAND:
       g_value_set_string (value, config->mixer_command);
+      break;
+
+    case PROP_ENABLE_MPRIS:
+      g_value_set_boolean (value, config->enable_mpris);
       break;
 
     case PROP_MPRIS_PLAYERS:
@@ -311,6 +334,16 @@ pulseaudio_config_set_property (GObject      *object,
       config->mixer_command = g_value_dup_string (value);
       break;
 
+    case PROP_ENABLE_MPRIS:
+      val_bool = g_value_get_boolean (value);
+      if (config->enable_mpris != val_bool)
+        {
+          config->enable_mpris = val_bool;
+          g_object_notify (G_OBJECT (config), "enable-mpris");
+          g_signal_emit (G_OBJECT (config), pulseaudio_config_signals [CONFIGURATION_CHANGED], 0);
+        }
+      break;
+
     case PROP_MPRIS_PLAYERS:
       g_free (config->mpris_players);
       config->mpris_players = g_value_dup_string (value);
@@ -377,6 +410,17 @@ pulseaudio_config_get_mixer_command (PulseaudioConfig *config)
   g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), DEFAULT_MIXER_COMMAND);
 
   return config->mixer_command;
+}
+
+
+
+
+gboolean
+pulseaudio_config_get_enable_mpris (PulseaudioConfig *config)
+{
+  g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), DEFAULT_ENABLE_MPRIS);
+
+  return config->enable_mpris;
 }
 
 
@@ -491,6 +535,10 @@ pulseaudio_config_new (const gchar     *property_base)
 
       property = g_strconcat (property_base, "/mixer-command", NULL);
       xfconf_g_property_bind (channel, property, G_TYPE_STRING, config, "mixer-command");
+      g_free (property);
+
+      property = g_strconcat (property_base, "/enable-mpris", NULL);
+      xfconf_g_property_bind (channel, property, G_TYPE_BOOLEAN, config, "enable-mpris");
       g_free (property);
 
       property = g_strconcat (property_base, "/mpris-players", NULL);

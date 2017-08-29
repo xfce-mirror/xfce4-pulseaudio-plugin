@@ -45,6 +45,7 @@ guint              pulseaudio_config_get_volume_max                 (PulseaudioC
 const gchar       *pulseaudio_config_get_mixer_command              (PulseaudioConfig     *config);
 gchar            **pulseaudio_config_get_mpris_players              (PulseaudioConfig     *config);
 
+gboolean           pulseaudio_config_get_enable_mpris               (PulseaudioConfig     *config);
 void               pulseaudio_config_set_mpris_players              (PulseaudioConfig     *config,
                                                                      gchar               **players);
 void               pulseaudio_config_add_mpris_player               (PulseaudioConfig     *config,

@@ -207,6 +207,17 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
       g_signal_connect_swapped (G_OBJECT (object), "clicked",
                                 G_CALLBACK (pulseaudio_dialog_run_mixer), dialog);
 
+#ifdef HAVE_MPRIS2
+      object = gtk_builder_get_object (builder, "checkbutton-mpris-support");
+      g_return_if_fail (GTK_IS_CHECK_BUTTON (object));
+      g_object_bind_property (G_OBJECT (dialog->config), "enable-mpris",
+                              G_OBJECT (object), "active",
+                              G_BINDING_SYNC_CREATE | G_BINDING_BIDIRECTIONAL);
+#else
+      object = gtk_builder_get_object (builder, "media-player-frame");
+      gtk_widget_set_visible (GTK_WIDGET (object));
+#endif
+
     }
   else
     {
