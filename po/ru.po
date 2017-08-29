@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-21 18:33+0200\n"
-"PO-Revision-Date: 2017-07-25 11:28+0000\n"
+"POT-Creation-Date: 2017-08-27 18:31+0200\n"
+"PO-Revision-Date: 2017-08-29 00:21+0000\n"
 "Last-Translator: Igor <f2404@yandex.ru>\n"
 "Language-Team: Russian (http://www.transifex.com/xfce/xfce-panel-plugins/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgid "PulseAudio Plugin"
 msgstr "Модуль PulseAudio"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:219
+#: ../panel-plugin/pulseaudio-plugin.c:226
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "Управление громкостью звука системы PulseAudio"
 
@@ -73,12 +73,12 @@ msgstr "_Запустить звуковой микшер..."
 msgid "Sound settings"
 msgstr "Настройки звука"
 
-#: ../panel-plugin/pulseaudio-plugin.c:221
+#: ../panel-plugin/pulseaudio-plugin.c:228
 msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
 msgstr "Copyright © 2014-2017 Andrzej Radecki и др.\n"
 
 #: ../panel-plugin/pulseaudio-dialog.c:136
-#: ../panel-plugin/pulseaudio-menu.c:237
+#: ../panel-plugin/pulseaudio-menu.c:242
 #, c-format
 msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
@@ -87,44 +87,44 @@ msgid ""
 msgstr "<big><b>Ошибка при выполнении команды \"%s\".</b></big>\n\n%s"
 
 #: ../panel-plugin/pulseaudio-dialog.c:139
-#: ../panel-plugin/pulseaudio-menu.c:240
+#: ../panel-plugin/pulseaudio-menu.c:245
 msgid "Error"
 msgstr "Ошибка"
 
-#: ../panel-plugin/pulseaudio-button.c:310
+#: ../panel-plugin/pulseaudio-button.c:319
 #: ../panel-plugin/pulseaudio-notify.c:198
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "Нет соединения с сервером PulseAudio"
 
-#: ../panel-plugin/pulseaudio-button.c:312
+#: ../panel-plugin/pulseaudio-button.c:321
 #, c-format
 msgid "Volume %d%% (muted)"
 msgstr "Громкость %d%% (откл.)"
 
-#: ../panel-plugin/pulseaudio-button.c:314
+#: ../panel-plugin/pulseaudio-button.c:323
 #, c-format
 msgid "Volume %d%%"
 msgstr "Громкость %d%%"
 
-#: ../panel-plugin/pulseaudio-menu.c:327
+#: ../panel-plugin/pulseaudio-menu.c:423
 msgid "<b>Audio output volume</b>"
 msgstr "<b>Громкость звукового вывода</b>"
 
-#: ../panel-plugin/pulseaudio-menu.c:338
+#: ../panel-plugin/pulseaudio-menu.c:434
 msgid "_Mute audio output"
 msgstr "О_тключить звуковый вывод"
 
-#: ../panel-plugin/pulseaudio-menu.c:355
+#: ../panel-plugin/pulseaudio-menu.c:447
 msgid "<b>Audio input volume</b>"
 msgstr "<b>Громкость звукового входа</b>"
 
-#: ../panel-plugin/pulseaudio-menu.c:366
+#: ../panel-plugin/pulseaudio-menu.c:458
 msgid "_Mute audio input"
 msgstr "Откл_ючить звуковой вход"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:377
+#: ../panel-plugin/pulseaudio-menu.c:531
 msgid "_Audio mixer..."
 msgstr "Звуковой _микшер..."
 
@@ -137,3 +137,8 @@ msgstr "Громкость %d%c (откл.)"
 #, c-format
 msgid "Volume %d%c"
 msgstr "Громкость %d%c"
+
+#: ../panel-plugin/mprismenuitem.c:315 ../panel-plugin/mprismenuitem.c:579
+#: ../panel-plugin/mprismenuitem.c:598
+msgid "Not currently playing"
+msgstr "Ничего не воспроизводится"
