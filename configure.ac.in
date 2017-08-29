@@ -84,13 +84,11 @@ XDT_CHECK_PACKAGE([LIBXFCE4UI], [libxfce4ui-2], [4.11.0])
 XDT_CHECK_PACKAGE([LIBXFCE4PANEL], [libxfce4panel-${LIBXFCE4PANEL_VERSION_API}], [4.11.0])
 XDT_CHECK_PACKAGE([XFCONF], [libxfconf-0], [4.6.0])
 
-XDT_CHECK_PACKAGE([GIO], [gio-2.0], [2.42])
-
 dnl **********************************
 dnl *** Optional keybinder Support ***
 dnl **********************************
 XDT_CHECK_OPTIONAL_PACKAGE([KEYBINDER], [keybinder-3.0], [0.2.2], [keybinder],
-                           [keybinder Support])
+                           [keybinder support])
 
 dnl **********************************
 dnl *** Optional libnotify Support ***
@@ -100,6 +98,12 @@ XDT_CHECK_OPTIONAL_PACKAGE([LIBNOTIFY], [libnotify], [0.7.0], [libnotify],
 
 AC_CHECK_LIBM
 AC_SUBST(LIBM)
+
+dnl *******************************
+dnl *** Optional MPRIS2 Support ***
+dnl *******************************
+XDT_CHECK_OPTIONAL_PACKAGE([MPRIS2], [gio-2.0], [2.42], [mpris2],
+                           [mpris2 support])
 
 dnl ***********************************
 dnl *** Check for debugging support ***
@@ -149,5 +153,6 @@ echo
 echo "* Debug Support:          $enable_debug"
 echo "* Use keybinder:          ${KEYBINDER_FOUND:-no}"
 echo "* Use libnotify:          ${LIBNOTIFY_FOUND:-no}"
+echo "* Use MPRIS2:             ${MPRIS2_FOUND:-no}"
 echo "* Default Mixer command:  $DEFAULT_MIXER_COMMAND"
 echo

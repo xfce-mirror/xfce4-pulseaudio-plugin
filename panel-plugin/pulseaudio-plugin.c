@@ -421,8 +421,10 @@ pulseaudio_plugin_construct (XfcePanelPlugin *plugin)
   pulseaudio_plugin->volume = pulseaudio_volume_new (pulseaudio_plugin->config);
 
   /* initialize mpris support */
+#ifdef HAVE_MPRIS2
   pulseaudio_plugin->mpris = pulseaudio_mpris_new (pulseaudio_plugin->config);
   pulseaudio_plugin->players = pulseaudio_mpris_get_available_players (pulseaudio_plugin->mpris);
+#endif
 
   /* instantiate a button box */
   pulseaudio_plugin->button = pulseaudio_button_new (pulseaudio_plugin,

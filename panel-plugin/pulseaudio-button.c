@@ -376,7 +376,9 @@ pulseaudio_button_new (PulseaudioPlugin *plugin,
 
   g_return_val_if_fail (IS_PULSEAUDIO_PLUGIN (plugin), NULL);
   g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), NULL);
+#ifdef HAVE_MPRIS2
   g_return_val_if_fail (IS_PULSEAUDIO_MPRIS (mpris), NULL);
+#endif
   g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), NULL);
 
   button = g_object_new (TYPE_PULSEAUDIO_BUTTON, NULL);

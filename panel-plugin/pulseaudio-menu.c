@@ -284,6 +284,7 @@ pulseaudio_menu_volume_changed (PulseaudioMenu   *menu,
   gtk_range_set_value (GTK_RANGE (menu->range_input), pulseaudio_volume_get_volume_mic (menu->volume) * 100.0);
 }
 
+#ifdef HAVE_MPRIS2
 static void
 media_notify_cb (GtkWidget  *widget,
                  gchar      *message,
@@ -370,6 +371,7 @@ item_destroy_cb (GtkWidget  *widget,
 
   g_signal_handlers_disconnect_by_func (G_OBJECT (menu->mpris), G_CALLBACK (mpris_update_cb), widget);
 }
+#endif
 
 PulseaudioMenu *
 pulseaudio_menu_new (PulseaudioVolume *volume,
@@ -382,8 +384,8 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
   GtkWidget      *mi;
   gdouble         volume_max;
 
+#ifdef HAVE_MPRIS2
   gchar         **players;
-
   gchar          *title = NULL;
   gchar          *artist = NULL;
   gboolean        is_running;
@@ -394,6 +396,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
   gboolean        can_go_previous;
   gboolean        can_go_next;
   gboolean        can_raise;
+#endif
 
   g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), NULL);
   g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), NULL);
@@ -469,6 +472,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
 
   /* MPRIS2 */
+#ifdef HAVE_MPRIS2
   players = pulseaudio_config_get_mpris_players (menu->config);
   if (players != NULL)
     {
@@ -530,6 +534,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
             }
         }
     }
+#endif
 
   /* Audio mixers */
   mi = gtk_menu_item_new_with_mnemonic (_("_Audio mixer..."));

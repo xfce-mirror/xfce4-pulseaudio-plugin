@@ -57,6 +57,7 @@ libpulseaudio_plugin_la_CFLAGS = \
 	$(XFCONF_CFLAGS) \
 	$(KEYBINDER_CFLAGS) \
 	$(LIBNOTIFY_CFLAGS) \
+	$(MPRIS2_CFLAGS) \
 	$(PLATFORM_CFLAGS)
 
 libpulseaudio_plugin_la_LDFLAGS = \
@@ -76,6 +77,7 @@ libpulseaudio_plugin_la_LIBADD = \
 	$(XFCONF_LIBS) \
 	$(KEYBINDER_LIBS) \
 	$(LIBNOTIFY_LIBS) \
+	$(MPRIS2_LIBS) \
 	$(LIBM)
 
 #
