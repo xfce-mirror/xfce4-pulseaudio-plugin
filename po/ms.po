@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-27 18:31+0200\n"
-"PO-Revision-Date: 2017-08-28 19:08+0000\n"
+"POT-Creation-Date: 2017-08-29 06:37+0200\n"
+"PO-Revision-Date: 2017-08-31 10:05+0000\n"
 "Last-Translator: abuyop <abuyop@gmail.com>\n"
 "Language-Team: Malay (http://www.transifex.com/xfce/xfce-panel-plugins/language/ms/)\n"
 "MIME-Version: 1.0\n"
@@ -72,6 +72,14 @@ msgstr "_Jalankan Pengadun Audio..."
 msgid "Sound settings"
 msgstr "Tetapan bunyi"
 
+#: ../panel-plugin/pulseaudio-dialog.glade.h:11
+msgid "Control playback of media players"
+msgstr "Kawal main balik pemain media"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:12
+msgid "Media Players"
+msgstr "Pemain Media"
+
 #: ../panel-plugin/pulseaudio-plugin.c:228
 msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
 msgstr "Hakcipta © 2014-2017 Andrzej Radecki et al.\n"
@@ -90,54 +98,54 @@ msgstr "<big><b>Gagal lakukan perintah \"%s\".</b></big>\n\n%s"
 msgid "Error"
 msgstr "Ralat"
 
-#: ../panel-plugin/pulseaudio-button.c:319
-#: ../panel-plugin/pulseaudio-notify.c:198
+#: ../panel-plugin/pulseaudio-button.c:315
+#: ../panel-plugin/pulseaudio-notify.c:200
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "Tidak bersambung dengan pelayan PulseAudio"
 
-#: ../panel-plugin/pulseaudio-button.c:321
+#: ../panel-plugin/pulseaudio-button.c:317
 #, c-format
 msgid "Volume %d%% (muted)"
 msgstr "Volum %d%% (disenyapkan)"
 
-#: ../panel-plugin/pulseaudio-button.c:323
+#: ../panel-plugin/pulseaudio-button.c:319
 #, c-format
 msgid "Volume %d%%"
 msgstr "Volum %d%%"
 
-#: ../panel-plugin/pulseaudio-menu.c:423
+#: ../panel-plugin/pulseaudio-menu.c:429
 msgid "<b>Audio output volume</b>"
 msgstr "<b>Volum output audio</b>"
 
-#: ../panel-plugin/pulseaudio-menu.c:434
+#: ../panel-plugin/pulseaudio-menu.c:440
 msgid "_Mute audio output"
 msgstr "_Senyapkan output audio"
 
-#: ../panel-plugin/pulseaudio-menu.c:447
+#: ../panel-plugin/pulseaudio-menu.c:453
 msgid "<b>Audio input volume</b>"
 msgstr "<b>Volum input audio</b>"
 
-#: ../panel-plugin/pulseaudio-menu.c:458
+#: ../panel-plugin/pulseaudio-menu.c:464
 msgid "_Mute audio input"
 msgstr "_Senyapkan input audio"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:531
+#: ../panel-plugin/pulseaudio-menu.c:543
 msgid "_Audio mixer..."
 msgstr "Pengadun _audio..."
 
-#: ../panel-plugin/pulseaudio-notify.c:200
+#: ../panel-plugin/pulseaudio-notify.c:202
 #, c-format
 msgid "Volume %d%c (muted)"
 msgstr "Volum %d%c (disenyapkan)"
 
-#: ../panel-plugin/pulseaudio-notify.c:202
+#: ../panel-plugin/pulseaudio-notify.c:204
 #, c-format
 msgid "Volume %d%c"
 msgstr "Volum %d%c"
 
-#: ../panel-plugin/mprismenuitem.c:315 ../panel-plugin/mprismenuitem.c:579
-#: ../panel-plugin/mprismenuitem.c:598
+#: ../panel-plugin/mprismenuitem.c:311 ../panel-plugin/mprismenuitem.c:575
+#: ../panel-plugin/mprismenuitem.c:594
 msgid "Not currently playing"
 msgstr "Tidak dimainkan buat masa ini"
