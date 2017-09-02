@@ -422,12 +422,12 @@ static pa_volume_t
 pulseaudio_volume_d2v (PulseaudioVolume *volume,
                        gdouble           vol)
 {
-  gdouble pa_volume;
+  pa_volume_t pa_volume;
 
   g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), PA_VOLUME_MUTED);
 
-  pa_volume = (PA_VOLUME_NORM - PA_VOLUME_MUTED) * vol;
-  pa_volume = (pa_volume_t) pa_volume + PA_VOLUME_MUTED;
+  pa_volume = (pa_volume_t) ((PA_VOLUME_NORM - PA_VOLUME_MUTED) * vol);
+  pa_volume = pa_volume + PA_VOLUME_MUTED;
   /* for safety */
   pa_volume = MIN (MAX (pa_volume, PA_VOLUME_MUTED), PA_VOLUME_MAX);
   return pa_volume;
