@@ -518,13 +518,10 @@ pulseaudio_mpris_player_set_player (PulseaudioMprisPlayer *player,
     }
 
   /* Set new player and connect again */
-  if (player != NULL)
-    {
-      player->player = g_strdup(player_name);
+  player->player = g_strdup(player_name);
 
-      pulseaudio_mpris_player_set_details_from_desktop (player, player_name);
-      pulseaudio_mpris_player_dbus_connect (player);
-    }
+  pulseaudio_mpris_player_set_details_from_desktop (player, player_name);
+  pulseaudio_mpris_player_dbus_connect (player);
 }
 
 static void
