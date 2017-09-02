@@ -142,7 +142,6 @@ pulseaudio_menu_output_range_scroll (GtkWidget        *widget,
 
   new_volume = volume + (1.0 - 2.0 * scroll_event->direction) * volume_step;
   pulseaudio_volume_set_volume (menu->volume, new_volume);
-  //printf ("scroll %d %g %g\n", scroll_event->direction, volume, new_volume);
 }
 
 
@@ -157,7 +156,6 @@ pulseaudio_menu_output_range_value_changed (PulseaudioMenu   *menu,
 
   new_volume = gtk_range_get_value (GTK_RANGE (menu->range_output)) / 100.0;
   pulseaudio_volume_set_volume (menu->volume, new_volume);
-  //printf ("range value changed %g\n", new_volume);
 }
 
 
@@ -191,7 +189,6 @@ pulseaudio_menu_input_range_scroll (GtkWidget        *widget,
 
   new_volume_mic = volume_mic + (1.0 - 2.0 * scroll_event->direction) * volume_step;
   pulseaudio_volume_set_volume_mic (menu->volume, new_volume_mic);
-  //printf ("scroll %d %g %g\n", scroll_event->direction, volume, new_volume_mic);
 }
 
 
@@ -206,7 +203,6 @@ pulseaudio_menu_input_range_value_changed (PulseaudioMenu   *menu,
 
   new_volume_mic = gtk_range_get_value (GTK_RANGE (menu->range_input)) / 100.0;
   pulseaudio_volume_set_volume_mic (menu->volume, new_volume_mic);
-  //printf ("range value changed %g\n", new_volume_mic);
 }
 
 
@@ -245,8 +241,6 @@ pulseaudio_menu_run_audio_mixer (PulseaudioMenu   *menu,
       gtk_window_set_title (GTK_WINDOW (message_dialog), _("Error"));
       gtk_dialog_run (GTK_DIALOG (message_dialog));
       gtk_widget_destroy (message_dialog);
-      //xfce_dialog_show_error (NULL, error, _("Failed to execute command \"%s\"."),
-      //                        pulseaudio_config_get_mixer_command (menu->config));
       g_error_free (error);
     }
 }

@@ -1,5 +1,5 @@
 /* -*- c-basic-offset: 2 -*- vi:set ts=2 sts=2 sw=2:
- * * 2017 Sean Davis <bluesabre@xfce.org>
+ * Copyright (c) 2017 Sean Davis <bluesabre@xfce.org>
  *
  * Licensed under the GNU General Public License Version 2
  *
@@ -124,7 +124,7 @@ remove_children (GtkContainer *container)
 
   children = gtk_container_get_children (container);
 
-  for (l=children; l!=NULL; l=l->next)
+  for (l=children; l != NULL; l=l->next)
     gtk_container_remove (container, l->data);
   g_list_free (children);
 }

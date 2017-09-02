@@ -130,7 +130,7 @@ pulseaudio_button_init (PulseaudioButton *button)
   gtk_widget_set_can_focus(GTK_WIDGET(button), FALSE);
   gtk_widget_set_can_default (GTK_WIDGET (button), FALSE);
   gtk_button_set_relief (GTK_BUTTON (button), GTK_RELIEF_NONE);
-  gtk_button_set_use_underline (GTK_BUTTON (button),TRUE);
+  gtk_button_set_use_underline (GTK_BUTTON (button), TRUE);
   gtk_widget_set_focus_on_click (GTK_WIDGET (button), FALSE);
   gtk_widget_set_name (GTK_WIDGET (button), "pulseaudio-button");
 
@@ -162,10 +162,6 @@ pulseaudio_button_init (PulseaudioButton *button)
   gtk_widget_show (button->image);
 
   g_object_set (G_OBJECT (button), "has-tooltip", TRUE, NULL);
-
-  //button->align_box = gtk_alignment_new (0.5, 0.5, 1.0, 1.0);
-  //gtk_container_add (GTK_CONTAINER (button), button->align_box);
-  //gtk_widget_show (button->align_box);
 }
 
 
@@ -192,7 +188,7 @@ pulseaudio_button_button_press (GtkWidget      *widget,
 {
   PulseaudioButton *button = PULSEAUDIO_BUTTON (widget);
 
-  if(event->button == 1 && button->menu == NULL) /* left button */
+  if (event->button == 1 && button->menu == NULL) /* left button */
     {
       gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), TRUE);
       button->menu = pulseaudio_menu_new (button->volume, button->config, button->mpris, widget);
@@ -209,7 +205,6 @@ G_GNUC_BEGIN_IGNORE_DEPRECATIONS
       gtk_menu_popup (GTK_MENU (button->menu),
                       NULL, NULL,
                       xfce_panel_plugin_position_menu, button->plugin,
-                      //NULL, NULL,
                       1,
                       event->time);
 G_GNUC_END_IGNORE_DEPRECATIONS
@@ -217,7 +212,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
       return TRUE;
     }
 
-  if(event->button == 2) /* middle button */
+  if (event->button == 2) /* middle button */
     {
       pulseaudio_volume_toggle_muted (button->volume);
       return TRUE;
@@ -236,15 +231,14 @@ pulseaudio_button_scroll_event (GtkWidget *widget, GdkEventScroll *event)
   gdouble           new_volume;
 
 
-  if (event->direction == 1) // decrease volume
+  if (event->direction == 1)  // decrease volume
     new_volume = volume - volume_step;
-  else if (event->direction == 0) // increase volume
+  else if (event->direction == 0)  // increase volume
     new_volume = MIN (volume + volume_step, MAX (volume, 1.0));
   else
     new_volume = volume;
 
   pulseaudio_volume_set_volume (button->volume, new_volume);
-  //g_debug ("dir: %d %f -> %f", event->direction, volume, new_volume);
 
   return TRUE;
 }

@@ -36,10 +36,9 @@
 #include <glib.h>
 #include <gtk/gtk.h>
 
+#include <libxfce4panel/xfce-panel-plugin.h>
 #include <libxfce4util/libxfce4util.h>
 #include <libxfce4ui/libxfce4ui.h>
-//#include <exo/exo.h>
-#include <libxfce4panel/xfce-panel-plugin.h>
 
 #include "pulseaudio-dialog.h"
 #include "pulseaudio-dialog_ui.h"
@@ -47,7 +46,7 @@
 #define PLUGIN_WEBSITE  "http://goodies.xfce.org/projects/panel-plugins/xfce4-pulseaudio-plugin"
 
 #ifdef LIBXFCE4UI_CHECK_VERSION
-#if LIBXFCE4UI_CHECK_VERSION (4,9,0)
+#if LIBXFCE4UI_CHECK_VERSION (4, 9, 0)
 #define HAS_ONLINE_HELP
 #endif
 #endif
@@ -139,8 +138,6 @@ pulseaudio_dialog_run_mixer (PulseaudioDialog *dialog,
       gtk_window_set_title (GTK_WINDOW (message_dialog), _("Error"));
       gtk_dialog_run (GTK_DIALOG (message_dialog));
       gtk_widget_destroy (message_dialog);
-      //xfce_dialog_show_error (NULL, error, _("Failed to execute command \"%s\"."),
-      //                        pulseaudio_config_get_mixer_command (dialog->config));
       g_error_free (error);
     }
 }
@@ -160,7 +157,6 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
   if (gtk_builder_add_from_string (builder, pulseaudio_dialog_ui,
                                    pulseaudio_dialog_ui_length, &error))
     {
-
       dialog->dialog = gtk_builder_get_object (builder, "dialog");
       g_return_if_fail (XFCE_IS_TITLED_DIALOG (dialog->dialog));
 
@@ -217,7 +213,6 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
       object = gtk_builder_get_object (builder, "media-player-frame");
       gtk_widget_set_visible (GTK_WIDGET (object), FALSE);
 #endif
-
     }
   else
     {
@@ -240,7 +235,7 @@ pulseaudio_dialog_help_button_clicked (PulseaudioDialog *dialog,
   g_return_if_fail (GTK_IS_BUTTON (button));
   g_return_if_fail (GTK_IS_WINDOW (dialog->dialog));
 
-  /* Doesn't seem to work */
+  /* FIXME: Doesn't seem to work */
   //#ifdef HAS_ONLINE_HELP
   //xfce_dialog_show_help (GTK_WINDOW (dialog->dialog), "xfce4-pulseaudio", "dialog", NULL);
   //#else

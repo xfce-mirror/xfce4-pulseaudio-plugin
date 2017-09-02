@@ -122,7 +122,6 @@ pulseaudio_notify_init (PulseaudioNotify *notify)
   notify->volume_changed_id = 0;
   notify->volume_mic_changed_id = 0;
 
-  //g_set_application_name ("Xfce volume control");
   notify_init ("Xfce volume control");
 
   caps_list = notify_get_server_caps ();
@@ -132,9 +131,6 @@ pulseaudio_notify_init (PulseaudioNotify *notify)
       node = g_list_find_custom (caps_list, LAYOUT_ICON_ONLY, (GCompareFunc) g_strcmp0);
       if (!node)
         notify->gauge_notifications = FALSE;
-      /*		node = g_list_find_custom (caps_list, SYNCHRONOUS, (GCompareFunc) g_strcmp0);*/
-      /*		if (!node)*/
-      /*			Inst->gauge_notifications = FALSE;*/
       g_list_free (caps_list);
     }
   notify->notification = notify_notification_new ("xfce4-pulseaudio-plugin", NULL, NULL);
@@ -197,11 +193,11 @@ pulseaudio_notify_notify (PulseaudioNotify *notify, gboolean mic)
     volume_i = 0;
 
   if (!connected)
-    title = g_strdup_printf ( _("Not connected to the PulseAudio server"));
+    title = g_strdup_printf (_("Not connected to the PulseAudio server"));
   else if (muted)
-    title = g_strdup_printf ( _("Volume %d%c (muted)"), volume_i, '%');
+    title = g_strdup_printf (_("Volume %d%c (muted)"), volume_i, '%');
   else
-    title = g_strdup_printf ( _("Volume %d%c"), volume_i, '%');
+    title = g_strdup_printf (_("Volume %d%c"), volume_i, '%');
 
   if (!connected)
     icon = icons_array[V_MUTED];

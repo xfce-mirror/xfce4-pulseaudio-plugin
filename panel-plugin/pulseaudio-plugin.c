@@ -252,7 +252,7 @@ pulseaudio_plugin_size_changed (XfcePanelPlugin *plugin,
 {
   PulseaudioPlugin *pulseaudio_plugin = PULSEAUDIO_PLUGIN (plugin);
   gint              icon_size;
-#if !LIBXFCE4PANEL_CHECK_VERSION (4,13,0)
+#if !LIBXFCE4PANEL_CHECK_VERSION (4, 13, 0)
   GtkStyleContext  *context;
   GtkBorder         padding;
   GtkBorder         border;
@@ -263,7 +263,7 @@ pulseaudio_plugin_size_changed (XfcePanelPlugin *plugin,
 
   /* The plugin only occupies a single row */
   size /= xfce_panel_plugin_get_nrows (plugin);
-#if LIBXFCE4PANEL_CHECK_VERSION (4,13,0)
+#if LIBXFCE4PANEL_CHECK_VERSION (4, 13, 0)
   icon_size = xfce_panel_plugin_get_icon_size (plugin);
 #else
   // fall-back for older panel versions
@@ -441,6 +441,4 @@ pulseaudio_plugin_construct (XfcePanelPlugin *plugin)
 
   gtk_container_add (GTK_CONTAINER (plugin), GTK_WIDGET (pulseaudio_plugin->button));
   gtk_widget_show (GTK_WIDGET (pulseaudio_plugin->button));
-
-
 }

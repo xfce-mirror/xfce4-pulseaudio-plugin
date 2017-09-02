@@ -111,7 +111,6 @@ pulseaudio_volume_class_init (PulseaudioVolumeClass *klass)
                   0, NULL, NULL,
                   g_cclosure_marshal_VOID__BOOLEAN,
                   G_TYPE_NONE, 1, G_TYPE_BOOLEAN);
-
 }
 
 
@@ -367,7 +366,6 @@ pulseaudio_volume_connect (PulseaudioVolume *volume)
   err = pa_context_connect (volume->pa_context, NULL, PA_CONTEXT_NOFAIL, NULL);
   if (err < 0)
     g_warning ("pa_context_connect() failed: %s", pa_strerror (err));
-  //g_warning ("pa_context_connect() failed: %s", pa_strerror (pa_context_errno (volume->pa_context)));
 }
 
 
@@ -381,7 +379,7 @@ pulseaudio_volume_reconnect_timeout  (gpointer userdata)
   volume->reconnect_timer_id = 0;
   pulseaudio_volume_connect (volume);
 
-  return FALSE; // stop the timer
+  return FALSE;  // stop the timer
 }
 
 
@@ -591,12 +589,9 @@ pulseaudio_volume_set_volume_cb2 (pa_context         *context,
                                   int                 eol,
                                   void               *userdata)
 {
-  //char st[PA_CVOLUME_SNPRINT_MAX];
-
   PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
   if (i == NULL) return;
 
-  //pulseaudio_debug ("*** %s", pa_cvolume_snprint (st, sizeof (st), &i->volume));
   pa_cvolume_set ((pa_cvolume *)&i->volume, 1, pulseaudio_volume_d2v (volume, volume->volume));
   pa_context_set_sink_volume_by_index (context, i->index, &i->volume, pulseaudio_volume_sink_volume_changed, volume);
 }
@@ -658,12 +653,9 @@ pulseaudio_volume_set_volume_mic_cb2 (pa_context           *context,
                                       int                   eol,
                                       void                 *userdata)
 {
-  //char st[PA_CVOLUME_SNPRINT_MAX];
-
   PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
   if (i == NULL) return;
 
-  //pulseaudio_debug ("*** %s", pa_cvolume_snprint (st, sizeof (st), &i->volume));
   pa_cvolume_set ((pa_cvolume *)&i->volume, 1, pulseaudio_volume_d2v (volume, volume->volume_mic));
   pa_context_set_source_volume_by_index (context, i->index, &i->volume, pulseaudio_volume_source_volume_changed, volume);
 }

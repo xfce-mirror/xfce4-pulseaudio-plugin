@@ -168,7 +168,7 @@ remove_children (GtkContainer *container)
 
   children = gtk_container_get_children (container);
 
-  for (l=children; l!=NULL; l=l->next)
+  for (l=children; l != NULL; l=l->next)
     gtk_container_remove (container, l->data);
   g_list_free (children);
 }
@@ -188,9 +188,9 @@ update_packing (ScaleMenuItem *self)
 
   TRACE("entering");
 
-  if(priv->hbox)
+  if (priv->hbox)
     remove_children (GTK_CONTAINER (priv->hbox));
-  if(priv->vbox)
+  if (priv->vbox)
   {
     remove_children (GTK_CONTAINER (priv->vbox));
     gtk_container_remove (GTK_CONTAINER (self), priv->vbox);
@@ -501,7 +501,7 @@ scale_menu_item_set_description_label (ScaleMenuItem *menuitem,
     {
       gtk_label_set_markup (GTK_LABEL (priv->description_label), label);
     }
-  else if(label)
+  else if (label)
     {
       /* create label */
       priv->description_label = scale_menu_item_label_new (NULL);
@@ -542,7 +542,7 @@ scale_menu_item_set_percentage_label (ScaleMenuItem *menuitem,
     {
       gtk_label_set_text (GTK_LABEL (priv->percentage_label), label);
     }
-  else if(label)
+  else if (label)
     {
       /* create label */
       priv->percentage_label = scale_menu_item_label_new (label);

@@ -612,7 +612,6 @@ pulseaudio_mpris_player_get_icon_name (PulseaudioMprisPlayer *player)
 const gchar *
 pulseaudio_mpris_player_get_title (PulseaudioMprisPlayer *player)
 {
-
   return player->title;
 }
 
