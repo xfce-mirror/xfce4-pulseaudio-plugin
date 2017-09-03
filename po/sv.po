@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-21 18:33+0200\n"
-"PO-Revision-Date: 2017-07-25 11:28+0000\n"
+"POT-Creation-Date: 2017-08-29 06:37+0200\n"
+"PO-Revision-Date: 2017-09-03 16:22+0000\n"
 "Last-Translator: Påvel Nicklasson <pavel2@frimix.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/xfce/xfce-panel-plugins/language/sv/)\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgid "PulseAudio Plugin"
 msgstr "PulseAudio insticksprogram"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:219
+#: ../panel-plugin/pulseaudio-plugin.c:226
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "Justera ljudvolymen på PulseAudios ljudsystem"
 
@@ -73,12 +73,20 @@ msgstr "Kö_r Ljudmixer..."
 msgid "Sound settings"
 msgstr "Ljudinställningar"
 
-#: ../panel-plugin/pulseaudio-plugin.c:221
+#: ../panel-plugin/pulseaudio-dialog.glade.h:11
+msgid "Control playback of media players"
+msgstr "Kontrollera uppspelning i mediaspelare"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:12
+msgid "Media Players"
+msgstr "Mediaspelare"
+
+#: ../panel-plugin/pulseaudio-plugin.c:228
 msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
 msgstr "Copyright © 2014-2017 Andrzej Radecki et al.\n"
 
 #: ../panel-plugin/pulseaudio-dialog.c:136
-#: ../panel-plugin/pulseaudio-menu.c:237
+#: ../panel-plugin/pulseaudio-menu.c:242
 #, c-format
 msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
@@ -87,53 +95,58 @@ msgid ""
 msgstr "<big><b>Det gick inte att köra kommandot  \"%s\".</b></big>\n\n%s"
 
 #: ../panel-plugin/pulseaudio-dialog.c:139
-#: ../panel-plugin/pulseaudio-menu.c:240
+#: ../panel-plugin/pulseaudio-menu.c:245
 msgid "Error"
 msgstr "Fel"
 
-#: ../panel-plugin/pulseaudio-button.c:310
-#: ../panel-plugin/pulseaudio-notify.c:198
+#: ../panel-plugin/pulseaudio-button.c:315
+#: ../panel-plugin/pulseaudio-notify.c:200
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "Inte ansluten till PulseAudio servern"
 
-#: ../panel-plugin/pulseaudio-button.c:312
+#: ../panel-plugin/pulseaudio-button.c:317
 #, c-format
 msgid "Volume %d%% (muted)"
 msgstr "Volym %d%% (tystad)"
 
-#: ../panel-plugin/pulseaudio-button.c:314
+#: ../panel-plugin/pulseaudio-button.c:319
 #, c-format
 msgid "Volume %d%%"
 msgstr "Volym %d%%"
 
-#: ../panel-plugin/pulseaudio-menu.c:327
+#: ../panel-plugin/pulseaudio-menu.c:429
 msgid "<b>Audio output volume</b>"
 msgstr "<b>Ljudutgångsvolym</b>"
 
-#: ../panel-plugin/pulseaudio-menu.c:338
+#: ../panel-plugin/pulseaudio-menu.c:440
 msgid "_Mute audio output"
 msgstr ":Tysta ljudutgång"
 
-#: ../panel-plugin/pulseaudio-menu.c:355
+#: ../panel-plugin/pulseaudio-menu.c:453
 msgid "<b>Audio input volume</b>"
 msgstr "<b>Ljudinmatningsvolym</b>"
 
-#: ../panel-plugin/pulseaudio-menu.c:366
+#: ../panel-plugin/pulseaudio-menu.c:464
 msgid "_Mute audio input"
 msgstr "_Stäng av ljudingången"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:377
+#: ../panel-plugin/pulseaudio-menu.c:543
 msgid "_Audio mixer..."
 msgstr "Lj_udmixer..."
 
-#: ../panel-plugin/pulseaudio-notify.c:200
+#: ../panel-plugin/pulseaudio-notify.c:202
 #, c-format
 msgid "Volume %d%c (muted)"
 msgstr "Volym %d%c (tystad)"
 
-#: ../panel-plugin/pulseaudio-notify.c:202
+#: ../panel-plugin/pulseaudio-notify.c:204
 #, c-format
 msgid "Volume %d%c"
 msgstr "Volym %d%c"
+
+#: ../panel-plugin/mprismenuitem.c:311 ../panel-plugin/mprismenuitem.c:575
+#: ../panel-plugin/mprismenuitem.c:594
+msgid "Not currently playing"
+msgstr "Spelar inte för närvarande"
