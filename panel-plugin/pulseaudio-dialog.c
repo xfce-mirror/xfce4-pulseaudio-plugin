@@ -43,7 +43,7 @@
 #include "pulseaudio-dialog.h"
 #include "pulseaudio-dialog_ui.h"
 
-#define PLUGIN_WEBSITE  "http://goodies.xfce.org/projects/panel-plugins/xfce4-pulseaudio-plugin"
+#define PLUGIN_WEBSITE  "https://docs.xfce.org/apps/pulseaudio-plugin/start"
 
 #ifdef LIBXFCE4UI_CHECK_VERSION
 #if LIBXFCE4UI_CHECK_VERSION (4, 9, 0)
@@ -227,25 +227,24 @@ static void
 pulseaudio_dialog_help_button_clicked (PulseaudioDialog *dialog,
                                        GtkWidget        *button)
 {
-  //#ifndef HAS_ONLINE_HELP
+  #ifndef HAS_ONLINE_HELP
   gboolean result;
-  //#endif
+  #endif
 
   g_return_if_fail (IS_PULSEAUDIO_DIALOG (dialog));
   g_return_if_fail (GTK_IS_BUTTON (button));
   g_return_if_fail (GTK_IS_WINDOW (dialog->dialog));
 
-  /* FIXME: Doesn't seem to work */
-  //#ifdef HAS_ONLINE_HELP
-  //xfce_dialog_show_help (GTK_WINDOW (dialog->dialog), "xfce4-pulseaudio", "dialog", NULL);
-  //#else
+  #ifdef HAS_ONLINE_HELP
+  xfce_dialog_show_help (GTK_WINDOW (dialog->dialog), "pulseaudio-plugin", "start", NULL);
+  #else
 
   result = g_spawn_command_line_async ("exo-open --launch WebBrowser " PLUGIN_WEBSITE, NULL);
 
   if (G_UNLIKELY (result == FALSE))
     g_warning ("Unable to open the following url: %s", PLUGIN_WEBSITE);
 
-  //#endif
+  #endif
 }
 
 
