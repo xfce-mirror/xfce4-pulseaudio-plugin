@@ -6,13 +6,14 @@
 # Andre Miranda <andre42m@gmail.com>, 2017
 # Andre Miranda <andre42m@gmail.com>, 2015
 # Michael Martins <michaelfm21@gmail.com>, 2017
+# Miguel V. S. Frasson <mvsfrasson@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-27 18:31+0200\n"
-"PO-Revision-Date: 2017-08-28 23:09+0000\n"
-"Last-Translator: Michael Martins <michaelfm21@gmail.com>\n"
+"POT-Creation-Date: 2017-08-29 06:37+0200\n"
+"PO-Revision-Date: 2017-09-05 18:38+0000\n"
+"Last-Translator: Miguel V. S. Frasson <mvsfrasson@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/xfce/xfce-panel-plugins/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -74,6 +75,14 @@ msgstr "Executa_r Mixer de Áudio..."
 msgid "Sound settings"
 msgstr "Configurações de som"
 
+#: ../panel-plugin/pulseaudio-dialog.glade.h:11
+msgid "Control playback of media players"
+msgstr "Controle de reprodução de reprodutores de mídia"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:12
+msgid "Media Players"
+msgstr "Reprodutores de mídia"
+
 #: ../panel-plugin/pulseaudio-plugin.c:228
 msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
 msgstr "Copyright © 2014-2017 Andrzej Radecki et al.\n"
@@ -92,54 +101,54 @@ msgstr "<big><b>Falha ao executar comando \"%s\".</b></big>\n\n%s"
 msgid "Error"
 msgstr "Erro"
 
-#: ../panel-plugin/pulseaudio-button.c:319
-#: ../panel-plugin/pulseaudio-notify.c:198
+#: ../panel-plugin/pulseaudio-button.c:315
+#: ../panel-plugin/pulseaudio-notify.c:200
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "Não conectado ao servidor PulseAudio"
 
-#: ../panel-plugin/pulseaudio-button.c:321
+#: ../panel-plugin/pulseaudio-button.c:317
 #, c-format
 msgid "Volume %d%% (muted)"
 msgstr "Volume %d%% (mudo)"
 
-#: ../panel-plugin/pulseaudio-button.c:323
+#: ../panel-plugin/pulseaudio-button.c:319
 #, c-format
 msgid "Volume %d%%"
 msgstr "Volume %d%%"
 
-#: ../panel-plugin/pulseaudio-menu.c:423
+#: ../panel-plugin/pulseaudio-menu.c:429
 msgid "<b>Audio output volume</b>"
 msgstr "<b>Volume da saída de áudio</b>"
 
-#: ../panel-plugin/pulseaudio-menu.c:434
+#: ../panel-plugin/pulseaudio-menu.c:440
 msgid "_Mute audio output"
 msgstr "_Silenciar saída de áudio"
 
-#: ../panel-plugin/pulseaudio-menu.c:447
+#: ../panel-plugin/pulseaudio-menu.c:453
 msgid "<b>Audio input volume</b>"
 msgstr "<b>Volume da entrada de áudio</b>"
 
-#: ../panel-plugin/pulseaudio-menu.c:458
+#: ../panel-plugin/pulseaudio-menu.c:464
 msgid "_Mute audio input"
 msgstr "Silenciar _entrada de áudio"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:531
+#: ../panel-plugin/pulseaudio-menu.c:543
 msgid "_Audio mixer..."
 msgstr "Mixer de áudio..."
 
-#: ../panel-plugin/pulseaudio-notify.c:200
+#: ../panel-plugin/pulseaudio-notify.c:202
 #, c-format
 msgid "Volume %d%c (muted)"
 msgstr "Volume %d%c (mudo)"
 
-#: ../panel-plugin/pulseaudio-notify.c:202
+#: ../panel-plugin/pulseaudio-notify.c:204
 #, c-format
 msgid "Volume %d%c"
 msgstr "Volume %d%c"
 
-#: ../panel-plugin/mprismenuitem.c:315 ../panel-plugin/mprismenuitem.c:579
-#: ../panel-plugin/mprismenuitem.c:598
+#: ../panel-plugin/mprismenuitem.c:311 ../panel-plugin/mprismenuitem.c:575
+#: ../panel-plugin/mprismenuitem.c:594
 msgid "Not currently playing"
 msgstr "Não está tocando atualmente"
