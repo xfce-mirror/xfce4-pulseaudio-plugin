@@ -1,3 +1,46 @@
+0.2.5
+=====
+
+- Adapt to a panel API change (4.13+)
+- Update volume on server events such as change of default output device
+- Do not show notifications at start up (bug #12313)
+- Do not issue volume notifications when plugin menu is shown.
+- Fix several issues with translations
+- Translation Updates: Bulgarian, Catalan, Croatian, Czech, Danish, Dutch,
+  English (Australia), French, Galician, German, Greek, Hebrew, Hungarian,
+  Icelandic, Italian, Kazakh, Korean, Lithuanian, Malay, Norwegian Bokmal,
+  Occitan, Polish, Portuguese, Portuguese, Russian, Serbian, Slovak, Spanish,
+  Swedish, Thai, Turkish, Ukrainian
+
+0.2.4
+=====
+
+- Added a configuration option "show-notifications".
+- Reconnect to the PA server when the connection is lost.
+- Fixes to the notification update mechanism.
+
+0.2.3
+=====
+
+- Corrected copyright and author list
+- Added OSD notifications
+- >100% audio volume is now allowed (only when using a volume slider)
+
+0.2.2
+=====
+
+- Fixed crashes & lockups with Gtk+ 3.14
+- Icon fixes
+- Added plugin icon
+- Added required icons to tarball
+
+0.2.1
+=====
+
+Bugfix release for issues with Gtk+-3.14:
+- Incorrect mouse coordinate translation in the volume slider.
+- Crash on menu popup/popdown.
+
 0.2.0
 =====
 
