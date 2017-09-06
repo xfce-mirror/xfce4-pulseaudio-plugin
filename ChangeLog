@@ -1,4 +1,118 @@
 # created with git log --pretty=format:"%ad %h %s %aN <%aE>" --no-merges --date=short
+2017-09-05 8b8f075 Add missing history since 0.2.0 Sean Davis <smd.seandavis@gmail.com>
+2017-09-06 174f171 I18n: Update translation pt_BR (100%). Miguel V. S. Frasson <mvsfrasson@gmail.com>
+2017-09-03 baffe52 I18n: Update translation sv (100%). Påvel Nicklasson <pavel2@frimix.se>
+2017-09-02 adc16b9 Fix xfce_dialog_show_help usage, link to new docs.xfce page Sean Davis <smd.seandavis@gmail.com>
+2017-09-01 044551c Tidy up commented code and minor cpplint issues Sean Davis <smd.seandavis@gmail.com>
+2017-09-01 a88355c Fix CID 168081: Result is not floating-point Sean Davis <smd.seandavis@gmail.com>
+2017-09-01 a961006 Fix CID 168082: Dereference before null Sean Davis <smd.seandavis@gmail.com>
+2017-09-01 41bcf3f I18n: Update translation lt (100%). Anonymous <noreply@xfce.org>
+2017-08-31 8cc75cf I18n: Update translation ms (100%). abuyop <abuyop@gmail.com>
+2017-08-31 a42129d I18n: Update translation es (100%). Pablo Lezaeta Reyes [pˈaβ̞lo lˌe̞θaˈeta rˈejɛ] <prflr88@gmail.com>
+2017-08-31 5fc7994 I18n: Update translation da (100%). Anonymous <noreply@xfce.org>
+2017-08-30 70b7199 I18n: Update translation pt (100%). José Vieira <jvieira33@sapo.pt>
+2017-08-30 35cc9ed I18n: Update translation pl (100%). Anonymous <noreply@xfce.org>
+2017-08-30 f393666 I18n: Update translation hr (100%). Edin Veskovic <edin.lockedin@gmail.com>
+2017-08-29 4d72f4a I18n: Update translation ru (100%). Igor <f2404@yandex.ru>
+2017-08-29 246193e I18n: Update translation bg (100%). Kiril Kirilov <cybercop_montana@abv.bg>
+2017-08-29 0d1fcd7 I18n: Update translation ru (100%). Igor <f2404@yandex.ru>
+2017-08-29 e907f11 I18n: Update translation pt_BR (100%). Michael Martins <michaelfm21@gmail.com>
+2017-08-28 5d38c72 Fix typo when compiled without MPRIS2 support Sean Davis <smd.seandavis@gmail.com>
+2017-08-28 4118300 Toggle MPRIS2 support at runtime Sean Davis <smd.seandavis@gmail.com>
+2017-08-28 096e309 Make MPRIS2 support optional (default enabled) Sean Davis <smd.seandavis@gmail.com>
+2017-08-29 4f56fdb I18n: Update translation pt_BR (100%). Michael Ferreira Martins <michaelfm21@gmail.com>
+2017-08-29 48be063 I18n: Update translation ms (100%). abuyop <abuyop@gmail.com>
+2017-08-28 c7c2162 Fix multiple launches of same player Sean Davis <smd.seandavis@gmail.com>
+2017-08-28 a046047 Bump requirements to Xfce 4.14 minimum: GTK+ 3.20, GLib 2.42, drop version specific code Sean Davis <smd.seandavis@gmail.com>
+2017-08-28 442592e I18n: Update translation hr (100%). Edin Veskovic <edin.lockedin@gmail.com>
+2017-08-28 75daa04 I18n: Update translation nl (100%). Pjotr <pjotrvertaalt@gmail.com>
+2017-08-28 edf1daf I18n: Update translation id (100%). Kukuh Syafaat <syafaatkukuh@gmail.com>
+2017-08-28 cdfa4f7 I18n: Update translation fr (100%). Yannick Le Guen <leguen.yannick@gmail.com>
+2017-08-28 7b8a209 I18n: Update translation zh_TW (100%). Jeff Huang <s8321414@gmail.com>
+2017-08-27 b1cc928 Set the transient hint for volume and mic notifications Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+2017-08-27 d3d8cf9 Add support for controlling media players via MPRIS2 Sean Davis <smd.seandavis@gmail.com>
+2017-08-25 b644882 I18n: Update translation hr (100%). Ivica  Kolić <ikoli@yahoo.com>
+2017-08-22 1050baa I18n: Update translation ms (100%). abuyop <abuyop@gmail.com>
+2017-08-16 dc549c9 I18n: Update translation sr (100%). Саша Петровић <salepetronije@gmail.com>
+2017-08-08 73c2a6f I18n: Update translation nl (100%). Pjotr <pjotrvertaalt@gmail.com>
+2017-08-06 6e57e1e I18n: Update translation sk (100%). Dušan Kazik <prescott66@gmail.com>
+2017-07-25 0146b29 I18n: Update translation zh_TW (100%). Jeff Huang <s8321414@gmail.com>
+2017-07-25 e12ece8 I18n: Update translation zh_CN (100%). 玉堂白鹤 <yjwork@qq.com>
+2017-07-25 bf2d94c I18n: Update translation uk (88%). Xfce Bot <transifex@xfce.org>
+2017-07-25 7e9b38e I18n: Update translation tr (100%). Necdet Yücel <necdetyucel@gmail.com>
+2017-07-25 02e567f I18n: Update translation th (100%). Theppitak Karoonboonyanan <theppitak@gmail.com>
+2017-07-25 836aea3 I18n: Update translation sv (100%). Påvel Nicklasson <pavel2@frimix.se>
+2017-07-25 0dfcfe0 I18n: Update translation sr (88%). Xfce Bot <transifex@xfce.org>
+2017-07-25 3245f85 I18n: Update translation sl (100%). Anonymous <noreply@xfce.org>
+2017-07-25 8c431f5 I18n: Update translation sk (88%). Xfce Bot <transifex@xfce.org>
+2017-07-25 8f22a5a I18n: Update translation ru (100%). Igor <f2404@yandex.ru>
+2017-07-25 adc9bbb I18n: Update translation pt (100%). José Vieira <jvieira33@sapo.pt>
+2017-07-25 a0477ec I18n: Update translation pt_BR (100%). Andre Miranda <andre42m@gmail.com>
+2017-07-25 5208df2 I18n: Update translation pl (100%). m4sk1n <m4sk1n@vivaldi.net>
+2017-07-25 257f76a I18n: Update translation oc (88%). Xfce Bot <transifex@xfce.org>
+2017-07-25 8eb0b4c I18n: Update translation nl (100%). Pjotr <pjotrvertaalt@gmail.com>
+2017-07-25 e767874 I18n: Update translation nb (100%). Allan Nordhøy <epost@anotheragency.no>
+2017-07-25 8cf0d24 I18n: Update translation ms (88%). Xfce Bot <transifex@xfce.org>
+2017-07-25 795675a I18n: Update translation lt (100%). Anonymous <noreply@xfce.org>
+2017-07-25 cc8b440 I18n: Update translation ko (100%). 박정규(Jung-Kyu Park) <bagjunggyu@gmail.com>
+2017-07-25 a092bc9 I18n: Update translation kk (100%). Baurzhan Muftakhidinov <baurthefirst@gmail.com>
+2017-07-25 bc87bea I18n: Update translation it (88%). Xfce Bot <transifex@xfce.org>
+2017-07-25 63438fd I18n: Update translation is (56%). Xfce Bot <transifex@xfce.org>
+2017-07-25 737ccba I18n: Update translation id (100%). Kukuh Syafaat <syafaatkukuh@gmail.com>
+2017-07-25 5a03b14 I18n: Update translation hu (80%). Xfce Bot <transifex@xfce.org>
+2017-07-25 c8ad0e7 I18n: Update translation hr (100%). Edin Veskovic <edin.veskovic@openmailbox.org>
+2017-07-25 d8b7a55 I18n: Update translation he (100%). Elishai Eliyahu <e1907@mm.st>
+2017-07-25 368ef36 I18n: Update translation gl (88%). Xfce Bot <transifex@xfce.org>
+2017-07-25 3a29a19 I18n: Update translation fr (100%). Yannick Le Guen <leguen.yannick@gmail.com>
+2017-07-25 d72f33d I18n: Update translation es (100%). Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>
+2017-07-25 9193d68 I18n: Update translation en_AU (88%). Xfce Bot <transifex@xfce.org>
+2017-07-25 1cde438 I18n: Update translation el (88%). Xfce Bot <transifex@xfce.org>
+2017-07-25 3a902e6 I18n: Update translation de (100%). Tobias Bannert <tobannert@gmail.com>
+2017-07-25 927faeb I18n: Update translation da (100%). Anonymous <noreply@xfce.org>
+2017-07-25 8ff7fba I18n: Update translation cs (100%). Michal Várady <miko.vaji@gmail.com>
+2017-07-25 43150d4 I18n: Update translation ca (100%). Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>
+2017-07-25 f46d8c8 I18n: Update translation bg (100%). Kiril Kirilov <cybercop_montana@abv.bg>
+2017-07-24 0c6bb26 I18n: Update translation tr (100%). Necdet Yücel <necdetyucel@gmail.com>
+2017-07-24 fc9ab10 I18n: Add new translation sl (100%). Anonymous <noreply@xfce.org>
+2017-07-24 7167a99 I18n: Update translation nb (100%). Allan Nordhøy <epost@anotheragency.no>
+2017-07-19 9279362 I18n: Update translation de (100%). Tobias Bannert <tobannert@gmail.com>
+2017-06-19 d1d69e2 I18n: Update translation sv (100%). Påvel Nicklasson <pavel2@frimix.se>
+2017-06-16 66a50f8 I18n: Update translation kk (100%). Baurzhan Muftakhidinov <baurthefirst@gmail.com>
+2017-06-10 de0a69c I18n: Update translation nl (100%). Pjotr <pjotrvertaalt@gmail.com>
+2017-06-05 2410e33 I18n: Update translation th (100%). Theppitak Karoonboonyanan <theppitak@gmail.com>
+2017-06-04 86ece34 I18n: Update translation pt_BR (100%). André Miranda <andre42m@gmail.com>
+2017-05-26 1c7b487 I18n: Update translation pt_BR (92%). André Miranda <andre42m@gmail.com>
+2017-05-26 ad0b02f I18n: Update translation he (100%). Elishai Eliyahu <e1907@mm.st>
+2017-05-25 a658668 I18n: Update translation pl (100%). m4sk1n <m4sk1n@vivaldi.net>
+2017-05-23 da15a02 I18n: Update translation pt (100%). José Vieira <jvieira33@sapo.pt>
+2017-05-23 b1cd9ae I18n: Update translation fr (100%). Yannick Le Guen <leguen.yannick@gmail.com>
+2017-05-23 6e01dbb I18n: Update translation ru (100%). Igor <f2404@yandex.ru>
+2017-05-23 4c39f96 I18n: Update translation cs (100%). Michal Várady <miko.vaji@gmail.com>
+2017-05-22 22d09fc I18n: Update translation ko (100%). 박정규(Jung-Kyu Park) <bagjunggyu@gmail.com>
+2017-05-22 58d9ca3 I18n: Update translation ca (100%). Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>
+2017-05-22 d251751 I18n: Update translation id (100%). Kukuh Syafaat <syafaatkukuh@gmail.com>
+2017-05-22 1caf464 I18n: Update translation es (100%). Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>
+2017-05-22 06cf2a3 I18n: Update translation da (100%). Anonymous <noreply@xfce.org>
+2017-05-22 3df8c8b I18n: Update translation bg (100%). Kiril Kirilov <cybercop_montana@abv.bg>
+2017-05-22 c791af6 I18n: Update translation zh_TW (100%). Jeff Huang <s8321414@gmail.com>
+2017-05-22 5d814f0 I18n: Update translation zh_CN (100%). 玉堂白鹤 <yjwork@qq.com>
+2017-05-21 4abc372 Updated credits and copyright notices Andrzej <andrzejr@xfce.org>
+2017-05-21 5f5e854 Fixed compilation errors with panel >=4.13 (bug #13585) Andrzej <andrzejr@xfce.org>
+2017-05-21 bee333f Fix large size button Matthieu Mota <matthieumota@gmail.com>
+2017-05-21 a7c7cef Add mic control in the plugin menu Viktor Odintsev <zakhams@gmail.com>
+2017-05-13 f7024b6 Add XF86AudioMicMute key support Viktor Odintsev <zakhams@gmail.com>
+2017-05-16 71f06de I18n: Add new translation id (100%). Kukuh Syafaat <syafaatkukuh@gmail.com>
+2017-05-16 dbfe77b I18n: Update translation uk (100%). Yarema aka Knedlyk <yupadmin@gmail.com>
+2017-05-02 13f4393 I18n: Update translation zh_CN (100%). 玉堂白鹤 <yjwork@qq.com>
+2017-04-30 1b770c9 I18n: Update translation sr (100%). Саша Петровић <salepetronije@gmail.com>
+2017-04-27 68db497 I18n: Update translation pt_BR (100%). André Miranda <andre42m@gmail.com>
+2017-04-26 3f46a64 I18n: Update translation ms (100%). abuyop <abuyop@gmail.com>
+2017-04-26 12cd9c3 I18n: Update translation sv (100%). Arve Eriksson <031299870@telia.com>
+2017-04-25 34a7e97 I18n: Update translation it (100%). Enrico B <enricobe@hotmail.com>
+2017-04-24 ad7a67a I18n: Update translation ko (100%). 박정규(Jung-Kyu Park) <bagjunggyu@gmail.com>
+2017-04-22 bcda329 Back to development Andrzej <andrzejr@xfce.org>
+2017-04-22 7ce6168 Preparing for the release Andrzej <andrzejr@xfce.org>
+2017-04-22 92c4ff7 ChangeLog update Andrzej <andrzejr@xfce.org>
 2017-04-22 470660b make distcheck fix Andrzej <andrzejr@xfce.org>
 2017-04-21 898b00d Update volume on server events such as change of default output device Kévin Bernard-Allies <kevin.bernard.allies@gmail.com>
 2017-03-15 88f554e Fix menu translation Mikhail Efremov <sem@altlinux.org>
