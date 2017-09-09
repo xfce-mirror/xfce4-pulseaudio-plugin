@@ -172,6 +172,20 @@ pulseaudio_menu_mute_output_item_toggled (PulseaudioMenu   *menu,
 
 
 static void
+pulseaudio_menu_default_output_item_toggled (PulseaudioMenu   *menu,
+                                             GtkCheckMenuItem *menu_item)
+{
+  g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
+
+  if (gtk_check_menu_item_get_active (menu_item))
+    {
+      pulseaudio_volume_set_default_output (menu->volume, (gchar *)g_object_get_data (G_OBJECT(menu_item), "name"));
+    }
+}
+
+
+
+static void
 pulseaudio_menu_input_range_scroll (GtkWidget        *widget,
                                     GdkEvent         *event,
                                     PulseaudioMenu   *menu)
@@ -378,6 +392,10 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
   GtkWidget      *mi;
   gdouble         volume_max;
 
+  GtkWidget      *submenu;
+  GList          *sources = NULL;
+  GSList         *group = NULL;
+
 #ifdef HAVE_MPRIS2
   gchar         **players;
   gchar          *title = NULL;
@@ -435,6 +453,37 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
   gtk_widget_show_all (menu->mute_output_item);
   gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu->mute_output_item);
   g_signal_connect_swapped (G_OBJECT (menu->mute_output_item), "toggled", G_CALLBACK (pulseaudio_menu_mute_output_item_toggled), menu);
+
+  sources = pulseaudio_volume_get_output_list (menu->volume);
+  if (g_list_length (sources) > 1) {
+    submenu = gtk_menu_new ();
+
+    for (GList *list = sources; list != NULL; list = g_list_next (list)) {
+      mi = gtk_radio_menu_item_new_with_label (group, pulseaudio_volume_get_output_by_name (menu->volume, list->data));
+      g_object_set_data (G_OBJECT (mi), "name", g_strdup ((gchar *)list->data));
+
+      group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (mi));
+      if (g_strcmp0 (list->data, pulseaudio_volume_get_default_output (menu->volume)) == 0)
+      {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi), TRUE);
+      }
+      else
+      {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi), FALSE);
+      }
+      gtk_widget_show (mi);
+      gtk_menu_shell_append (GTK_MENU_SHELL (submenu), mi);
+
+      g_signal_connect_swapped (G_OBJECT (mi), "toggled", G_CALLBACK (pulseaudio_menu_default_output_item_toggled), menu);
+    }
+
+    mi = gtk_menu_item_new_with_label ("Output Device");
+    gtk_menu_item_set_submenu (GTK_MENU_ITEM (mi), submenu);
+    gtk_widget_show (mi);
+
+    gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
+  }
+  g_list_free (sources);
 
   /* separator */
   mi = gtk_separator_menu_item_new ();

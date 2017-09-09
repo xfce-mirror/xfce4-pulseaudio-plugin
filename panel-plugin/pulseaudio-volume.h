@@ -58,6 +58,18 @@ void                    pulseaudio_volume_set_muted_mic           (PulseaudioVol
                                                                    gboolean          mic_muted);
 void                    pulseaudio_volume_toggle_muted_mic        (PulseaudioVolume *volume);
 
+GList                  *pulseaudio_volume_get_output_list         (PulseaudioVolume *volume);
+gchar                  *pulseaudio_volume_get_output_by_name      (PulseaudioVolume *volume,
+                                                                   gchar            *name);
+const gchar            *pulseaudio_volume_get_default_output      (PulseaudioVolume *volume);
+void                    pulseaudio_volume_set_default_output      (PulseaudioVolume *volume,
+                                                                   gchar            *name);
+
+GList                  *pulseaudio_volume_get_input_list          (PulseaudioVolume *volume);
+gchar                  *pulseaudio_volume_get_input_by_name       (PulseaudioVolume *volume,
+                                                                   gchar            *name);
+const gchar            *pulseaudio_volume_get_default_input       (PulseaudioVolume *volume);
+
 G_END_DECLS
 
 #endif /* !__PULSEAUDIO_VOLUME_H__ */
