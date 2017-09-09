@@ -805,11 +805,31 @@ pulseaudio_volume_set_volume_mic (PulseaudioVolume *volume,
 
 
 
+static gint
+sort_device_list (gchar *a,
+                  gchar *b,
+                  void  *hash_table)
+{
+  GHashTable *table = (GHashTable *)hash_table;
+  gchar      *a_val = (gchar *) g_hash_table_lookup (table, a);
+  gchar      *b_val = (gchar *) g_hash_table_lookup (table, b);
+  return g_strcmp0 (a_val, b_val);
+}
+
+
+
 GList *
 pulseaudio_volume_get_output_list (PulseaudioVolume *volume)
 {
+  GList *list;
+  GList *sorted;
+
   g_return_if_fail (IS_PULSEAUDIO_VOLUME (volume));
-  return g_hash_table_get_keys (volume->sinks);
+
+  list = g_hash_table_get_keys (volume->sinks);
+  sorted = g_list_sort_with_data (list, (GCompareDataFunc) sort_device_list, volume->sinks);
+
+  return sorted;
 }
 
 
@@ -827,8 +847,15 @@ pulseaudio_volume_get_output_by_name (PulseaudioVolume *volume,
 GList *
 pulseaudio_volume_get_input_list (PulseaudioVolume *volume)
 {
+  GList *list;
+  GList *sorted;
+
   g_return_if_fail (IS_PULSEAUDIO_VOLUME (volume));
-  return g_hash_table_get_keys (volume->sources);
+
+  list = g_hash_table_get_keys (volume->sources);
+  sorted = g_list_sort_with_data (list, (GCompareDataFunc) sort_device_list, volume->sources);
+
+  return sorted;
 }
 
 

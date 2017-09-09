@@ -507,6 +507,8 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
   }
   g_list_free (sources);
 
+  group = NULL;
+
   /* Input Devices */
   sources = pulseaudio_volume_get_input_list (menu->volume);
   if (g_list_length (sources) > 0) {
