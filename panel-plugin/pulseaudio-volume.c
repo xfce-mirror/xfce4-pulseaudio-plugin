@@ -223,6 +223,8 @@ pulseaudio_volume_source_info_cb (pa_context           *context,
   if (i == NULL) return;
   pulseaudio_debug ("source info: %s, %s", i->name, i->description);
 
+  volume->source_index = (guint)i->index;
+
   muted_mic = !!(i->mute);
   vol_mic = pulseaudio_volume_v2d (volume, i->volume.values[0]);
 
@@ -347,6 +349,9 @@ pulseaudio_volume_get_source_list_cb (pa_context           *context,
   if (i == NULL) return;
 
   if (eol > 0) return;
+
+  /* Ignore sink monitors, not relevant for users */
+  if (i->monitor_of_sink != PA_INVALID_INDEX) return;
 
   name = g_strdup (i->name);
   description = g_strdup (i->description);
@@ -846,6 +851,14 @@ pulseaudio_volume_get_default_output (PulseaudioVolume *volume)
 
 
 
+const gchar *
+pulseaudio_volume_get_default_input (PulseaudioVolume *volume)
+{
+  return volume->default_source_name;
+}
+
+
+
 static void
 pulseaudio_volume_default_sink_changed_info_cb (pa_context         *context,
                                                 const pa_sink_info *i,
@@ -886,10 +899,42 @@ pulseaudio_volume_set_default_output (PulseaudioVolume *volume,
 
 
 
-const gchar *
-pulseaudio_volume_get_default_input (PulseaudioVolume *volume)
+static void
+pulseaudio_volume_default_source_changed_info_cb (pa_context         *context,
+                                                  const pa_source_info *i,
+                                                  int                 eol,
+                                                  void               *userdata)
 {
-  return volume->default_source_name;
+  PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
+  if (i == NULL) return;
+
+  pa_context_move_source_output_by_index (context, volume->source_index, i->index, NULL, NULL);
+  volume->source_index = (guint)i->index;
+}
+
+
+
+static void
+pulseaudio_volume_default_source_changed (pa_context *context,
+                                          int         success,
+                                          void       *userdata)
+{
+  PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
+
+  if (success)
+    pa_context_get_source_info_by_name (volume->pa_context, volume->default_source_name, pulseaudio_volume_default_source_changed_info_cb, volume);
+}
+
+
+
+void
+pulseaudio_volume_set_default_input (PulseaudioVolume *volume,
+                                     gchar            *name)
+{
+  g_free (volume->default_source_name);
+  volume->default_source_name = g_strdup (name);
+
+  pa_context_set_default_source (volume->pa_context, name, pulseaudio_volume_default_source_changed, volume);
 }
 
 

@@ -186,6 +186,20 @@ pulseaudio_menu_default_output_item_toggled (PulseaudioMenu   *menu,
 
 
 static void
+pulseaudio_menu_default_input_item_toggled (PulseaudioMenu   *menu,
+                                            GtkCheckMenuItem *menu_item)
+{
+  g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
+
+  if (gtk_check_menu_item_get_active (menu_item))
+    {
+      pulseaudio_volume_set_default_input (menu->volume, (gchar *)g_object_get_data (G_OBJECT(menu_item), "name"));
+    }
+}
+
+
+
+static void
 pulseaudio_menu_input_range_scroll (GtkWidget        *widget,
                                     GdkEvent         *event,
                                     PulseaudioMenu   *menu)
@@ -435,84 +449,120 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
 
   volume_max = pulseaudio_config_get_volume_max (menu->config);
 
-  /* output volume slider */
-  mi = scale_menu_item_new_with_range (0.0, volume_max, 1.0);
-  scale_menu_item_set_image_from_icon_name (SCALE_MENU_ITEM (mi), "audio-volume-high-symbolic");
-  scale_menu_item_set_description_label (SCALE_MENU_ITEM (mi), _("<b>Audio output volume</b>"));
-
-  /* range slider */
-  menu->range_output = scale_menu_item_get_scale (SCALE_MENU_ITEM (mi));
-
-  g_signal_connect_swapped (mi, "value-changed", G_CALLBACK (pulseaudio_menu_output_range_value_changed), menu);
-  g_signal_connect (mi, "scroll-event", G_CALLBACK (pulseaudio_menu_output_range_scroll), menu);
-
-  gtk_widget_show_all (mi);
-  gtk_menu_shell_append(GTK_MENU_SHELL(menu), mi);
-
-  menu->mute_output_item = gtk_check_menu_item_new_with_mnemonic (_("_Mute audio output"));
-  gtk_widget_show_all (menu->mute_output_item);
-  gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu->mute_output_item);
-  g_signal_connect_swapped (G_OBJECT (menu->mute_output_item), "toggled", G_CALLBACK (pulseaudio_menu_mute_output_item_toggled), menu);
-
+  /* Output Devices */
   sources = pulseaudio_volume_get_output_list (menu->volume);
-  if (g_list_length (sources) > 1) {
-    submenu = gtk_menu_new ();
+  if (g_list_length (sources) > 0) {
+    /* output volume slider */
+    mi = scale_menu_item_new_with_range (0.0, volume_max, 1.0);
+    scale_menu_item_set_image_from_icon_name (SCALE_MENU_ITEM (mi), "audio-volume-high-symbolic");
+    scale_menu_item_set_description_label (SCALE_MENU_ITEM (mi), _("<b>Audio output volume</b>"));
 
-    for (GList *list = sources; list != NULL; list = g_list_next (list)) {
-      mi = gtk_radio_menu_item_new_with_label (group, pulseaudio_volume_get_output_by_name (menu->volume, list->data));
-      g_object_set_data (G_OBJECT (mi), "name", g_strdup ((gchar *)list->data));
+    /* range slider */
+    menu->range_output = scale_menu_item_get_scale (SCALE_MENU_ITEM (mi));
 
-      group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (mi));
-      if (g_strcmp0 (list->data, pulseaudio_volume_get_default_output (menu->volume)) == 0)
-      {
-        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi), TRUE);
+    g_signal_connect_swapped (mi, "value-changed", G_CALLBACK (pulseaudio_menu_output_range_value_changed), menu);
+    g_signal_connect (mi, "scroll-event", G_CALLBACK (pulseaudio_menu_output_range_scroll), menu);
+
+    gtk_widget_show_all (mi);
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), mi);
+
+    menu->mute_output_item = gtk_check_menu_item_new_with_mnemonic (_("_Mute audio output"));
+    gtk_widget_show_all (menu->mute_output_item);
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu->mute_output_item);
+    g_signal_connect_swapped (G_OBJECT (menu->mute_output_item), "toggled", G_CALLBACK (pulseaudio_menu_mute_output_item_toggled), menu);
+
+    if (g_list_length (sources) > 1) {
+      submenu = gtk_menu_new ();
+
+      for (GList *list = sources; list != NULL; list = g_list_next (list)) {
+        mi = gtk_radio_menu_item_new_with_label (group, pulseaudio_volume_get_output_by_name (menu->volume, list->data));
+        g_object_set_data (G_OBJECT (mi), "name", g_strdup ((gchar *)list->data));
+
+        group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (mi));
+        if (g_strcmp0 (list->data, pulseaudio_volume_get_default_output (menu->volume)) == 0)
+        {
+          gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi), TRUE);
+        }
+        else
+        {
+          gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi), FALSE);
+        }
+        gtk_widget_show (mi);
+        gtk_menu_shell_append (GTK_MENU_SHELL (submenu), mi);
+
+        g_signal_connect_swapped (G_OBJECT (mi), "toggled", G_CALLBACK (pulseaudio_menu_default_output_item_toggled), menu);
       }
-      else
-      {
-        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi), FALSE);
-      }
+
+      mi = gtk_menu_item_new_with_label ("Output Device");
+      gtk_menu_item_set_submenu (GTK_MENU_ITEM (mi), submenu);
       gtk_widget_show (mi);
-      gtk_menu_shell_append (GTK_MENU_SHELL (submenu), mi);
 
-      g_signal_connect_swapped (G_OBJECT (mi), "toggled", G_CALLBACK (pulseaudio_menu_default_output_item_toggled), menu);
+      gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
     }
 
-    mi = gtk_menu_item_new_with_label ("Output Device");
-    gtk_menu_item_set_submenu (GTK_MENU_ITEM (mi), submenu);
+    /* separator */
+    mi = gtk_separator_menu_item_new ();
     gtk_widget_show (mi);
-
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
   }
   g_list_free (sources);
 
-  /* separator */
-  mi = gtk_separator_menu_item_new ();
-  gtk_widget_show (mi);
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
+  /* Input Devices */
+  sources = pulseaudio_volume_get_input_list (menu->volume);
+  if (g_list_length (sources) > 0) {
+    /* input volume slider */
+    mi = scale_menu_item_new_with_range (0.0, volume_max, 1.0);
+    scale_menu_item_set_image_from_icon_name (SCALE_MENU_ITEM (mi), "microphone-sensitivity-high-symbolic");
+    scale_menu_item_set_description_label (SCALE_MENU_ITEM (mi), _("<b>Audio input volume</b>"));
 
-  /* input volume slider */
-  mi = scale_menu_item_new_with_range (0.0, volume_max, 1.0);
-  scale_menu_item_set_image_from_icon_name (SCALE_MENU_ITEM (mi), "microphone-sensitivity-high-symbolic");
-  scale_menu_item_set_description_label (SCALE_MENU_ITEM (mi), _("<b>Audio input volume</b>"));
+    /* range slider */
+    menu->range_input = scale_menu_item_get_scale (SCALE_MENU_ITEM (mi));
 
-  /* range slider */
-  menu->range_input = scale_menu_item_get_scale (SCALE_MENU_ITEM (mi));
+    g_signal_connect_swapped (mi, "value-changed", G_CALLBACK (pulseaudio_menu_input_range_value_changed), menu);
+    g_signal_connect (mi, "scroll-event", G_CALLBACK (pulseaudio_menu_input_range_scroll), menu);
 
-  g_signal_connect_swapped (mi, "value-changed", G_CALLBACK (pulseaudio_menu_input_range_value_changed), menu);
-  g_signal_connect (mi, "scroll-event", G_CALLBACK (pulseaudio_menu_input_range_scroll), menu);
+    gtk_widget_show_all (mi);
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), mi);
 
-  gtk_widget_show_all (mi);
-  gtk_menu_shell_append(GTK_MENU_SHELL(menu), mi);
+    menu->mute_input_item = gtk_check_menu_item_new_with_mnemonic (_("_Mute audio input"));
+    gtk_widget_show_all (menu->mute_input_item);
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu->mute_input_item);
+    g_signal_connect_swapped (G_OBJECT (menu->mute_input_item), "toggled", G_CALLBACK (pulseaudio_menu_mute_input_item_toggled), menu);
 
-  menu->mute_input_item = gtk_check_menu_item_new_with_mnemonic (_("_Mute audio input"));
-  gtk_widget_show_all (menu->mute_input_item);
-  gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu->mute_input_item);
-  g_signal_connect_swapped (G_OBJECT (menu->mute_input_item), "toggled", G_CALLBACK (pulseaudio_menu_mute_input_item_toggled), menu);
+    if (g_list_length (sources) > 1) {
+      submenu = gtk_menu_new ();
 
-  /* separator */
-  mi = gtk_separator_menu_item_new ();
-  gtk_widget_show (mi);
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
+      for (GList *list = sources; list != NULL; list = g_list_next (list)) {
+        mi = gtk_radio_menu_item_new_with_label (group, pulseaudio_volume_get_input_by_name (menu->volume, list->data));
+        g_object_set_data (G_OBJECT (mi), "name", g_strdup ((gchar *)list->data));
+
+        group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (mi));
+        if (g_strcmp0 (list->data, pulseaudio_volume_get_default_input (menu->volume)) == 0)
+        {
+          gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi), TRUE);
+        }
+        else
+        {
+          gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (mi), FALSE);
+        }
+        gtk_widget_show (mi);
+        gtk_menu_shell_append (GTK_MENU_SHELL (submenu), mi);
+
+        g_signal_connect_swapped (G_OBJECT (mi), "toggled", G_CALLBACK (pulseaudio_menu_default_input_item_toggled), menu);
+      }
+
+      mi = gtk_menu_item_new_with_label ("Input Device");
+      gtk_menu_item_set_submenu (GTK_MENU_ITEM (mi), submenu);
+      gtk_widget_show (mi);
+
+      gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
+    }
+
+    /* separator */
+    mi = gtk_separator_menu_item_new ();
+    gtk_widget_show (mi);
+    gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
+  }
 
   /* MPRIS2 */
 #ifdef HAVE_MPRIS2

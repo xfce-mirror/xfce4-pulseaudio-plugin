@@ -69,6 +69,8 @@ GList                  *pulseaudio_volume_get_input_list          (PulseaudioVol
 gchar                  *pulseaudio_volume_get_input_by_name       (PulseaudioVolume *volume,
                                                                    gchar            *name);
 const gchar            *pulseaudio_volume_get_default_input       (PulseaudioVolume *volume);
+void                    pulseaudio_volume_set_default_input       (PulseaudioVolume *volume,
+                                                                   gchar            *name);
 
 G_END_DECLS
 
