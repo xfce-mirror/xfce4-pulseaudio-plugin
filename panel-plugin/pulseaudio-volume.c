@@ -565,22 +565,6 @@ pulseaudio_volume_sink_volume_changed (pa_context *context,
 
 
 
-/* mute setting callbacks */
-/* pa_sink_info_cb_t */
-static void
-pulseaudio_volume_set_muted_cb1 (pa_context         *context,
-                                 const pa_sink_info *i,
-                                 int                 eol,
-                                 void               *userdata)
-{
-  PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
-  if (i == NULL) return;
-
-  pa_context_set_sink_mute_by_index (context, i->index, volume->muted, pulseaudio_volume_sink_volume_changed, volume);
-}
-
-
-
 void
 pulseaudio_volume_set_muted (PulseaudioVolume *volume,
                              gboolean          muted)
@@ -592,7 +576,7 @@ pulseaudio_volume_set_muted (PulseaudioVolume *volume,
   if (volume->muted != muted)
     {
       volume->muted = muted;
-      pa_context_get_sink_info_list (volume->pa_context, pulseaudio_volume_set_muted_cb1, volume);
+      pa_context_set_sink_mute_by_index (volume->pa_context, volume->sink_index, volume->muted, pulseaudio_volume_sink_volume_changed, volume);
     }
 }
 
@@ -634,22 +618,6 @@ pulseaudio_volume_source_volume_changed (pa_context *context,
 
 
 
-/* mute setting callbacks */
-/* pa_source_info_cb_t */
-static void
-pulseaudio_volume_set_muted_mic_cb1 (pa_context           *context,
-                                     const pa_source_info *i,
-                                     int                   eol,
-                                     void                 *userdata)
-{
-  PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
-  if (i == NULL) return;
-
-  pa_context_set_source_mute_by_index (context, i->index, volume->muted_mic, pulseaudio_volume_source_volume_changed, volume);
-}
-
-
-
 void
 pulseaudio_volume_set_muted_mic (PulseaudioVolume *volume,
                                  gboolean          muted_mic)
@@ -661,7 +629,7 @@ pulseaudio_volume_set_muted_mic (PulseaudioVolume *volume,
   if (volume->muted_mic != muted_mic)
     {
       volume->muted_mic = muted_mic;
-      pa_context_get_source_info_list (volume->pa_context, pulseaudio_volume_set_muted_mic_cb1, volume);
+      pa_context_set_source_mute_by_index (volume->pa_context, volume->source_index, volume->muted_mic, pulseaudio_volume_source_volume_changed, volume);
     }
 }
 
