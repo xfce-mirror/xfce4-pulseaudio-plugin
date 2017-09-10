@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-21 18:33+0200\n"
-"PO-Revision-Date: 2017-07-25 11:28+0000\n"
+"POT-Creation-Date: 2017-08-29 06:37+0200\n"
+"PO-Revision-Date: 2017-09-10 10:37+0000\n"
 "Last-Translator: Elishai Eliyahu <e1907@mm.st>\n"
 "Language-Team: Hebrew (http://www.transifex.com/xfce/xfce-panel-plugins/language/he/)\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgid "PulseAudio Plugin"
 msgstr "תוסף PulseAudio"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:219
+#: ../panel-plugin/pulseaudio-plugin.c:226
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "התאם עצמת קול אודיו של מערכת צליל PulseAudio"
 
@@ -73,12 +73,20 @@ msgstr "_הרץ מערבל אודיו..."
 msgid "Sound settings"
 msgstr "הגדרות צליל"
 
-#: ../panel-plugin/pulseaudio-plugin.c:221
+#: ../panel-plugin/pulseaudio-dialog.glade.h:11
+msgid "Control playback of media players"
+msgstr "שלוט על פלייבק של נגני מדיה"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:12
+msgid "Media Players"
+msgstr "נגני מדיה"
+
+#: ../panel-plugin/pulseaudio-plugin.c:228
 msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
 msgstr "זכויות יוצרים © 2014-2017 Andrzej Radecki et al.\n"
 
 #: ../panel-plugin/pulseaudio-dialog.c:136
-#: ../panel-plugin/pulseaudio-menu.c:237
+#: ../panel-plugin/pulseaudio-menu.c:242
 #, c-format
 msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
@@ -87,53 +95,58 @@ msgid ""
 msgstr "<big><b>נכשל להריץ פקודה \"%s\".</b></big>\n\n%s"
 
 #: ../panel-plugin/pulseaudio-dialog.c:139
-#: ../panel-plugin/pulseaudio-menu.c:240
+#: ../panel-plugin/pulseaudio-menu.c:245
 msgid "Error"
 msgstr "שגיאה"
 
-#: ../panel-plugin/pulseaudio-button.c:310
-#: ../panel-plugin/pulseaudio-notify.c:198
+#: ../panel-plugin/pulseaudio-button.c:315
+#: ../panel-plugin/pulseaudio-notify.c:200
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "לא מחובר לשרת PulseAudio"
 
-#: ../panel-plugin/pulseaudio-button.c:312
+#: ../panel-plugin/pulseaudio-button.c:317
 #, c-format
 msgid "Volume %d%% (muted)"
 msgstr "עצמת קול %d%% (מושתקת)"
 
-#: ../panel-plugin/pulseaudio-button.c:314
+#: ../panel-plugin/pulseaudio-button.c:319
 #, c-format
 msgid "Volume %d%%"
 msgstr "עצמת קול %d%%"
 
-#: ../panel-plugin/pulseaudio-menu.c:327
+#: ../panel-plugin/pulseaudio-menu.c:429
 msgid "<b>Audio output volume</b>"
 msgstr "<b>עצמת קול פלט אודיו</b>"
 
-#: ../panel-plugin/pulseaudio-menu.c:338
+#: ../panel-plugin/pulseaudio-menu.c:440
 msgid "_Mute audio output"
 msgstr "הש_תק פלט אודיו"
 
-#: ../panel-plugin/pulseaudio-menu.c:355
+#: ../panel-plugin/pulseaudio-menu.c:453
 msgid "<b>Audio input volume</b>"
 msgstr "<b>עוצמת קלט אודיו</b>"
 
-#: ../panel-plugin/pulseaudio-menu.c:366
+#: ../panel-plugin/pulseaudio-menu.c:464
 msgid "_Mute audio input"
 msgstr "_השתק קלט אודיו"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:377
+#: ../panel-plugin/pulseaudio-menu.c:543
 msgid "_Audio mixer..."
 msgstr "_מערבל אודיו..."
 
-#: ../panel-plugin/pulseaudio-notify.c:200
+#: ../panel-plugin/pulseaudio-notify.c:202
 #, c-format
 msgid "Volume %d%c (muted)"
 msgstr "עצמת קול %d%c (מושתקת)"
 
-#: ../panel-plugin/pulseaudio-notify.c:202
+#: ../panel-plugin/pulseaudio-notify.c:204
 #, c-format
 msgid "Volume %d%c"
 msgstr "עצמת קול %d%c"
+
+#: ../panel-plugin/mprismenuitem.c:311 ../panel-plugin/mprismenuitem.c:575
+#: ../panel-plugin/mprismenuitem.c:594
+msgid "Not currently playing"
+msgstr "לא מנגן כרגע"
