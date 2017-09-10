@@ -38,13 +38,21 @@
 #include "pulseaudio-volume.h"
 
 
-static void                 pulseaudio_volume_finalize           (GObject            *object);
-static void                 pulseaudio_volume_connect            (PulseaudioVolume   *volume);
-static gdouble              pulseaudio_volume_v2d                (PulseaudioVolume   *volume,
-                                                                  pa_volume_t         vol);
-static pa_volume_t          pulseaudio_volume_d2v                (PulseaudioVolume   *volume,
-                                                                  gdouble             vol);
-static gboolean             pulseaudio_volume_reconnect_timeout  (gpointer            userdata);
+static void                 pulseaudio_volume_finalize           (GObject              *object);
+static void                 pulseaudio_volume_connect            (PulseaudioVolume     *volume);
+static gdouble              pulseaudio_volume_v2d                (PulseaudioVolume     *volume,
+                                                                  pa_volume_t           vol);
+static pa_volume_t          pulseaudio_volume_d2v                (PulseaudioVolume     *volume,
+                                                                  gdouble               vol);
+static gboolean             pulseaudio_volume_reconnect_timeout  (gpointer              userdata);
+static void                 pulseaudio_volume_get_sink_list_cb   (pa_context           *context,
+                                                                  const pa_sink_info   *i,
+                                                                  int                   eol,
+                                                                  void                 *userdata);
+static void                 pulseaudio_volume_get_source_list_cb (pa_context           *context,
+                                                                  const pa_source_info *i,
+                                                                  int                   eol,
+                                                                  void                 *userdata);
 
 
 struct _PulseaudioVolume
@@ -269,6 +277,12 @@ pulseaudio_volume_sink_source_check (PulseaudioVolume *volume,
   g_return_if_fail (IS_PULSEAUDIO_VOLUME (volume));
 
   pa_context_get_server_info (context, pulseaudio_volume_server_info_cb, volume);
+
+  g_hash_table_remove_all (volume->sinks);
+  g_hash_table_remove_all (volume->sources);
+
+  pa_context_get_sink_info_list (volume->pa_context, pulseaudio_volume_get_sink_list_cb, volume);
+  pa_context_get_source_info_list (volume->pa_context, pulseaudio_volume_get_source_list_cb, volume);
 }
 
 
@@ -289,12 +303,18 @@ pulseaudio_volume_subscribe_cb (pa_context                   *context,
       pulseaudio_debug ("received sink event");
       break;
 
+    case PA_SUBSCRIPTION_EVENT_SINK_INPUT :
+      pulseaudio_volume_sink_source_check (volume, context);
+      pulseaudio_debug ("received sink output event");
+      break;
+
     case PA_SUBSCRIPTION_EVENT_SOURCE        :
       pulseaudio_volume_sink_source_check (volume, context);
       pulseaudio_debug ("received source event");
       break;
 
     case PA_SUBSCRIPTION_EVENT_SOURCE_OUTPUT :
+      pulseaudio_volume_sink_source_check (volume, context);
       pulseaudio_debug ("received source output event");
       break;
 
@@ -387,7 +407,7 @@ pulseaudio_volume_context_state_cb (pa_context *context,
   switch (pa_context_get_state (context))
     {
     case PA_CONTEXT_READY        :
-      pa_context_subscribe (context, PA_SUBSCRIPTION_MASK_SINK | PA_SUBSCRIPTION_MASK_SOURCE | PA_SUBSCRIPTION_MASK_SOURCE_OUTPUT | PA_SUBSCRIPTION_MASK_SERVER , NULL, NULL);
+      pa_context_subscribe (context, PA_SUBSCRIPTION_MASK_SINK | PA_SUBSCRIPTION_MASK_SINK_INPUT | PA_SUBSCRIPTION_MASK_SOURCE | PA_SUBSCRIPTION_MASK_SOURCE_OUTPUT | PA_SUBSCRIPTION_MASK_SERVER , NULL, NULL);
       pa_context_set_subscribe_callback (context, pulseaudio_volume_subscribe_cb, volume);
 
       pulseaudio_debug ("PulseAudio connection established");
@@ -398,8 +418,6 @@ pulseaudio_volume_context_state_cb (pa_context *context,
       g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_CHANGED], 0, FALSE);
       g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_MIC_CHANGED], 0, FALSE);
 
-      pa_context_get_sink_info_list (volume->pa_context, pulseaudio_volume_get_sink_list_cb, volume);
-      pa_context_get_source_info_list (volume->pa_context, pulseaudio_volume_get_source_list_cb, volume);
       pa_context_get_server_info (volume->pa_context, pulseaudio_volume_get_server_info_cb, volume);
 
       break;
