@@ -65,16 +65,11 @@ GtkWidget   *scale_menu_item_new_with_range        (gdouble           min,
 
 GtkWidget   *scale_menu_item_get_scale             (ScaleMenuItem *menuitem);
 
-const gchar *scale_menu_item_get_percentage_label  (ScaleMenuItem *menuitem);
-
-void         scale_menu_item_set_percentage_label  (ScaleMenuItem *menuitem,
-                                                    const gchar      *label);
-
 void         scale_menu_item_set_value             (ScaleMenuItem *item,
                                                     gdouble        value);
 
-void         scale_menu_item_set_image_from_icon_name (ScaleMenuItem *menuitem,
-                                                       const gchar   *icon_name);
+void         scale_menu_item_set_base_icon_name    (ScaleMenuItem *item,
+                                                    const gchar   *base_icon_name);
 
 
 G_END_DECLS

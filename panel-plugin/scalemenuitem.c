@@ -53,8 +53,9 @@ static void     update_packing                          (ScaleMenuItem  *    sel
 
 struct _ScaleMenuItemPrivate {
   GtkWidget            *scale;
-  GtkWidget            *percentage_label;
   GtkWidget            *hbox;
+  GtkWidget            *left_image;
+  GtkWidget            *right_image;
   gboolean              grabbed;
   gboolean              ignore_value_changed;
 };
@@ -73,9 +74,7 @@ enum {
 
 static guint signals[LAST_SIGNAL] = { 0 };
 
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-G_DEFINE_TYPE (ScaleMenuItem, scale_menu_item, GTK_TYPE_IMAGE_MENU_ITEM)
-G_GNUC_END_IGNORE_DEPRECATIONS
+G_DEFINE_TYPE (ScaleMenuItem, scale_menu_item, GTK_TYPE_MENU_ITEM)
 
 #define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), TYPE_SCALE_MENU_ITEM, ScaleMenuItemPrivate))
 
@@ -190,18 +189,10 @@ update_packing (ScaleMenuItem *self)
   priv->hbox = GTK_WIDGET(hbox);
 
   /* add the new layout */
-  if (priv->percentage_label)
-  {
-      /* [ICON]  <----slider----> [percentage]%  */
-      gtk_box_pack_start (hbox, priv->scale, TRUE, TRUE, 0);
-      gtk_box_pack_start (hbox, priv->percentage_label, FALSE, FALSE, 0);
-  }
-  else
-  {
-      /* [ICON]  <----slider---->  */
-      gtk_box_pack_start (hbox, priv->scale, TRUE, TRUE, 0);
-  }
-
+  /* [ICON]  <----slider---->  */
+  gtk_box_pack_start (hbox, priv->left_image, FALSE, FALSE, 0);
+  gtk_box_pack_start (hbox, priv->scale, TRUE, TRUE, 0);
+  gtk_box_pack_start (hbox, priv->right_image, FALSE, FALSE, 0);
 
   gtk_widget_show_all (priv->hbox);
 
@@ -351,6 +342,12 @@ scale_menu_item_new_with_range (gdouble           min,
   priv->scale = gtk_scale_new_with_range (GTK_ORIENTATION_HORIZONTAL, min, max, step);
   priv->hbox = NULL;
 
+  priv->left_image = gtk_image_new ();
+  priv->right_image = gtk_image_new ();
+
+  g_object_ref (priv->left_image);
+  g_object_ref (priv->right_image);
+
   g_signal_connect (priv->scale, "value-changed", G_CALLBACK (scale_menu_item_scale_value_changed), scale_item);
   g_object_ref (priv->scale);
   gtk_widget_set_size_request (priv->scale, 100, -1);
@@ -386,80 +383,6 @@ scale_menu_item_get_scale (ScaleMenuItem *menuitem)
   return priv->scale;
 }
 
-
-/**
- * scale_menu_item_get_percentage_label:
- * @menuitem: The #ScaleMenuItem
- *
- * Retrieves a string of the text for the percentage label widget.
- *
- * Return Value: The label text.
- **/
-const gchar*
-scale_menu_item_get_percentage_label (ScaleMenuItem *menuitem)
-{
-  ScaleMenuItemPrivate *priv;
-
-  g_return_val_if_fail (IS_SCALE_MENU_ITEM (menuitem), NULL);
-
-  priv = GET_PRIVATE (menuitem);
-
-  return gtk_label_get_text (GTK_LABEL (priv->percentage_label));
-}
-
-static GtkWidget *
-scale_menu_item_label_new (const gchar *str)
-{
-  GtkWidget *label = gtk_label_new (str);
-
-  /* align left */
-  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
-  gtk_widget_set_halign (label, GTK_ALIGN_START);
-
-  return label;
-}
-
-
-/**
- * scale_menu_item_set_percentage_label:
- * @menuitem: The #ScaleMenuItem
- * @label: The label text
- *
- * Sets the text for the percentage label widget. If label is NULL
- * then the percentage label is removed from the #ScaleMenuItem.
- **/
-void
-scale_menu_item_set_percentage_label (ScaleMenuItem *menuitem,
-                                      const gchar   *label)
-{
-  ScaleMenuItemPrivate *priv;
-
-  g_return_if_fail (IS_SCALE_MENU_ITEM (menuitem));
-
-  priv = GET_PRIVATE (menuitem);
-
-  if (label == NULL && priv->percentage_label)
-    {
-      /* remove label */
-      g_object_unref (priv->percentage_label);
-      priv->percentage_label = NULL;
-      return;
-    }
-
-  if (priv->percentage_label && label)
-    {
-      gtk_label_set_text (GTK_LABEL (priv->percentage_label), label);
-    }
-  else if (label)
-    {
-      /* create label */
-      priv->percentage_label = scale_menu_item_label_new (label);
-    }
-
-    update_packing (menuitem);
-}
-
-
 /**
  *  scale_menu_item_set_value:
  *
@@ -486,15 +409,21 @@ scale_menu_item_set_value (ScaleMenuItem *item,
 }
 
 void
-scale_menu_item_set_image_from_icon_name (ScaleMenuItem *item,
-                                          const gchar   *icon_name)
+scale_menu_item_set_base_icon_name (ScaleMenuItem *item,
+                                    const gchar   *base_icon_name)
 {
-  GtkWidget *img = NULL;
+  ScaleMenuItemPrivate *priv;
+  gchar                *icon_name;
 
   g_return_if_fail (IS_SCALE_MENU_ITEM (item));
 
-  img = gtk_image_new_from_icon_name (icon_name, GTK_ICON_SIZE_MENU);
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), img);
-G_GNUC_END_IGNORE_DEPRECATIONS
+  priv = GET_PRIVATE (item);
+
+  icon_name = g_strconcat(base_icon_name, "-low-symbolic", NULL);
+  gtk_image_set_from_icon_name (GTK_IMAGE (priv->left_image), icon_name, GTK_ICON_SIZE_MENU);
+  g_free (icon_name);
+
+  icon_name = g_strconcat(base_icon_name, "-high-symbolic", NULL);
+  gtk_image_set_from_icon_name (GTK_IMAGE (priv->right_image), icon_name, GTK_ICON_SIZE_MENU);
+  g_free (icon_name);
 }

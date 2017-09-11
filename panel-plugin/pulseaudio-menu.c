@@ -464,7 +464,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
 
     /* output volume slider */
     mi = scale_menu_item_new_with_range (0.0, volume_max, 1.0);
-    scale_menu_item_set_image_from_icon_name (SCALE_MENU_ITEM (mi), "audio-volume-medium-symbolic");
+    scale_menu_item_set_base_icon_name (SCALE_MENU_ITEM (mi), "audio-volume");
 
     /* range slider */
     menu->range_output = scale_menu_item_get_scale (SCALE_MENU_ITEM (mi));
@@ -506,7 +506,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
 
     /* input volume slider */
     mi = scale_menu_item_new_with_range (0.0, volume_max, 1.0);
-    scale_menu_item_set_image_from_icon_name (SCALE_MENU_ITEM (mi), "microphone-sensitivity-medium-symbolic");
+    scale_menu_item_set_base_icon_name (SCALE_MENU_ITEM (mi), "microphone-sensitivity");
 
     /* range slider */
     menu->range_input = scale_menu_item_get_scale (SCALE_MENU_ITEM (mi));
