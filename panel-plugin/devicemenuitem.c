@@ -187,9 +187,9 @@ device_menu_item_set_image_from_icon_name (DeviceMenuItem *item,
 
   g_return_if_fail (IS_DEVICE_MENU_ITEM (item));
 
-  img = gtk_image_new_from_icon_name (icon_name, GTK_ICON_SIZE_MENU);
+  img = gtk_image_new_from_icon_name (icon_name, GTK_ICON_SIZE_LARGE_TOOLBAR);
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
   gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), img);
 G_GNUC_END_IGNORE_DEPRECATIONS
-  gtk_image_set_pixel_size (GTK_IMAGE (img), 16);
+  gtk_image_set_pixel_size (GTK_IMAGE (img), 24);
 }

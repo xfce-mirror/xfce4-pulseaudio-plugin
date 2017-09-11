@@ -65,11 +65,8 @@ GtkWidget   *scale_menu_item_new_with_range        (gdouble           min,
 
 GtkWidget   *scale_menu_item_get_scale             (ScaleMenuItem *menuitem);
 
-const gchar *scale_menu_item_get_description_label (ScaleMenuItem *menuitem);
 const gchar *scale_menu_item_get_percentage_label  (ScaleMenuItem *menuitem);
 
-void         scale_menu_item_set_description_label (ScaleMenuItem *menuitem,
-                                                    const gchar      *label);
 void         scale_menu_item_set_percentage_label  (ScaleMenuItem *menuitem,
                                                     const gchar      *label);
 

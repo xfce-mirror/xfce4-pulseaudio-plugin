@@ -449,7 +449,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
   sources = pulseaudio_volume_get_output_list (menu->volume);
   if (g_list_length (sources) > 0) {
     device_mi = device_menu_item_new_with_label (_("Audio Output"));
-    device_menu_item_set_image_from_icon_name (DEVICE_MENU_ITEM (device_mi), "audio-speakers-symbolic");
+    device_menu_item_set_image_from_icon_name (DEVICE_MENU_ITEM (device_mi), "audio-speakers");
 
     for (GList *list = sources; list != NULL; list = g_list_next (list)) {
       device_menu_item_add_device (DEVICE_MENU_ITEM (device_mi), (gchar *)list->data, pulseaudio_volume_get_output_by_name (menu->volume, list->data));
@@ -464,8 +464,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
 
     /* output volume slider */
     mi = scale_menu_item_new_with_range (0.0, volume_max, 1.0);
-    scale_menu_item_set_image_from_icon_name (SCALE_MENU_ITEM (mi), "audio-volume-high-symbolic");
-    scale_menu_item_set_description_label (SCALE_MENU_ITEM (mi), _("<b>Audio output volume</b>"));
+    scale_menu_item_set_image_from_icon_name (SCALE_MENU_ITEM (mi), "audio-volume-medium-symbolic");
 
     /* range slider */
     menu->range_output = scale_menu_item_get_scale (SCALE_MENU_ITEM (mi));
@@ -492,7 +491,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
   sources = pulseaudio_volume_get_input_list (menu->volume);
   if (g_list_length (sources) > 0) {
     device_mi = device_menu_item_new_with_label (_("Audio Input"));
-    device_menu_item_set_image_from_icon_name (DEVICE_MENU_ITEM (device_mi), "audio-input-microphone-symbolic");
+    device_menu_item_set_image_from_icon_name (DEVICE_MENU_ITEM (device_mi), "audio-input-microphone");
 
     for (GList *list = sources; list != NULL; list = g_list_next (list)) {
       device_menu_item_add_device (DEVICE_MENU_ITEM (device_mi), (gchar *)list->data, pulseaudio_volume_get_input_by_name (menu->volume, list->data));
@@ -507,8 +506,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
 
     /* input volume slider */
     mi = scale_menu_item_new_with_range (0.0, volume_max, 1.0);
-    scale_menu_item_set_image_from_icon_name (SCALE_MENU_ITEM (mi), "microphone-sensitivity-high-symbolic");
-    scale_menu_item_set_description_label (SCALE_MENU_ITEM (mi), _("<b>Audio input volume</b>"));
+    scale_menu_item_set_image_from_icon_name (SCALE_MENU_ITEM (mi), "microphone-sensitivity-medium-symbolic");
 
     /* range slider */
     menu->range_input = scale_menu_item_get_scale (SCALE_MENU_ITEM (mi));

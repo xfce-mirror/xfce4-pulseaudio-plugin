@@ -53,9 +53,7 @@ static void     update_packing                          (ScaleMenuItem  *    sel
 
 struct _ScaleMenuItemPrivate {
   GtkWidget            *scale;
-  GtkWidget            *description_label;
   GtkWidget            *percentage_label;
-  GtkWidget            *vbox;
   GtkWidget            *hbox;
   gboolean              grabbed;
   gboolean              ignore_value_changed;
@@ -178,66 +176,36 @@ update_packing (ScaleMenuItem *self)
 {
   ScaleMenuItemPrivate *priv;
   GtkBox               *hbox;
-  GtkBox               *vbox;
 
   g_return_if_fail (IS_SCALE_MENU_ITEM (self));
 
   priv = GET_PRIVATE (self);
   hbox = GTK_BOX (gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0));
-  vbox = GTK_BOX (gtk_box_new (GTK_ORIENTATION_VERTICAL, 0));
 
   TRACE("entering");
 
   if (priv->hbox)
     remove_children (GTK_CONTAINER (priv->hbox));
-  if (priv->vbox)
-  {
-    remove_children (GTK_CONTAINER (priv->vbox));
-    gtk_container_remove (GTK_CONTAINER (self), priv->vbox);
-  }
 
   priv->hbox = GTK_WIDGET(hbox);
-  priv->vbox = GTK_WIDGET(vbox);
 
   /* add the new layout */
-  if (priv->description_label && priv->percentage_label)
-  {
-      /* [IC]  Description
-       * [ON]  <----slider----> [percentage]%
-       */
-      gtk_box_pack_start (vbox, priv->description_label, FALSE, FALSE, 0);
-      gtk_box_pack_start (vbox, priv->hbox, TRUE, TRUE, 0);
-      gtk_box_pack_start (hbox, priv->scale, TRUE, TRUE, 0);
-      gtk_box_pack_start (hbox, priv->percentage_label, FALSE, FALSE, 0);
-  }
-  else if (priv->description_label)
-  {
-      /* [IC]  Description
-       * [ON]  <----slider---->
-       */
-      gtk_box_pack_start (vbox, priv->description_label, FALSE, FALSE, 0);
-      gtk_box_pack_start (vbox, priv->hbox, TRUE, TRUE, 0);
-      gtk_box_pack_start (hbox, priv->scale, TRUE, TRUE, 0);
-  }
-  else if (priv->percentage_label)
+  if (priv->percentage_label)
   {
       /* [ICON]  <----slider----> [percentage]%  */
-      gtk_box_pack_start (vbox, priv->hbox, TRUE, TRUE, 0);
       gtk_box_pack_start (hbox, priv->scale, TRUE, TRUE, 0);
       gtk_box_pack_start (hbox, priv->percentage_label, FALSE, FALSE, 0);
   }
   else
   {
       /* [ICON]  <----slider---->  */
-      gtk_box_pack_start (vbox, priv->hbox, TRUE, TRUE, 0);
       gtk_box_pack_start (hbox, priv->scale, TRUE, TRUE, 0);
   }
 
 
-  gtk_widget_show_all (priv->vbox);
   gtk_widget_show_all (priv->hbox);
 
-  gtk_container_add (GTK_CONTAINER (self), priv->vbox);
+  gtk_container_add (GTK_CONTAINER (self), priv->hbox);
 }
 
 static void
@@ -381,7 +349,6 @@ scale_menu_item_new_with_range (gdouble           min,
   priv = GET_PRIVATE (scale_item);
 
   priv->scale = gtk_scale_new_with_range (GTK_ORIENTATION_HORIZONTAL, min, max, step);
-  priv->vbox = NULL;
   priv->hbox = NULL;
 
   g_signal_connect (priv->scale, "value-changed", G_CALLBACK (scale_menu_item_scale_value_changed), scale_item);
@@ -419,25 +386,6 @@ scale_menu_item_get_scale (ScaleMenuItem *menuitem)
   return priv->scale;
 }
 
-/**
- * scale_menu_item_get_description_label:
- * @menuitem: The #ScaleMenuItem
- *
- * Retrieves a string of the text for the description label widget.
- *
- * Return Value: The label text.
- **/
-const gchar*
-scale_menu_item_get_description_label (ScaleMenuItem *menuitem)
-{
-  ScaleMenuItemPrivate *priv;
-
-  g_return_val_if_fail (IS_SCALE_MENU_ITEM (menuitem), NULL);
-
-  priv = GET_PRIVATE (menuitem);
-
-  return gtk_label_get_text (GTK_LABEL (priv->description_label));
-}
 
 /**
  * scale_menu_item_get_percentage_label:
@@ -469,46 +417,6 @@ scale_menu_item_label_new (const gchar *str)
   gtk_widget_set_halign (label, GTK_ALIGN_START);
 
   return label;
-}
-
-/**
- * scale_menu_item_set_description_label:
- * @menuitem: The #ScaleMenuItem
- * @label: The label text
- *
- * Sets the text for the description label widget. If label is NULL
- * then the description label is removed from the #ScaleMenuItem.
- **/
-void
-scale_menu_item_set_description_label (ScaleMenuItem *menuitem,
-                                       const gchar   *label)
-{
-  ScaleMenuItemPrivate *priv;
-
-  g_return_if_fail (IS_SCALE_MENU_ITEM (menuitem));
-
-  priv = GET_PRIVATE (menuitem);
-
-  if (label == NULL && priv->description_label)
-    {
-      /* remove label */
-      g_object_unref (priv->description_label);
-      priv->description_label = NULL;
-      return;
-    }
-
-  if (priv->description_label && label)
-    {
-      gtk_label_set_markup (GTK_LABEL (priv->description_label), label);
-    }
-  else if (label)
-    {
-      /* create label */
-      priv->description_label = scale_menu_item_label_new (NULL);
-      gtk_label_set_markup (GTK_LABEL (priv->description_label), label);
-    }
-
-    update_packing (menuitem);
 }
 
 
@@ -585,9 +493,8 @@ scale_menu_item_set_image_from_icon_name (ScaleMenuItem *item,
 
   g_return_if_fail (IS_SCALE_MENU_ITEM (item));
 
-  img = gtk_image_new_from_icon_name (icon_name, GTK_ICON_SIZE_LARGE_TOOLBAR);
+  img = gtk_image_new_from_icon_name (icon_name, GTK_ICON_SIZE_MENU);
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
   gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), img);
 G_GNUC_END_IGNORE_DEPRECATIONS
-  gtk_image_set_pixel_size (GTK_IMAGE (img), 24);
 }
