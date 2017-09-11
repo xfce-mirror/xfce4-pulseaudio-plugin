@@ -44,7 +44,9 @@ libpulseaudio_plugin_la_SOURCES = \
 	scalemenuitem.c \
 	scalemenuitem.h \
 	mprismenuitem.c \
-	mprismenuitem.h
+	mprismenuitem.h \
+	devicemenuitem.c \
+	devicemenuitem.h
 
 
 libpulseaudio_plugin_la_CFLAGS = \
