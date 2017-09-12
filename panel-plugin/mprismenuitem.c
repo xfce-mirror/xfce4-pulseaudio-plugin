@@ -38,11 +38,12 @@
 #include <libxfce4util/libxfce4util.h>
 
 
-static gboolean mpris_menu_item_button_press_event      (GtkWidget          *menuitem,
-                                                         GdkEventButton     *event);
-static gboolean mpris_menu_item_button_release_event    (GtkWidget          *menuitem,
-                                                         GdkEventButton     *event);
-static void     update_packing                          (MprisMenuItem      *self);
+static gboolean mpris_menu_item_button_press_event      (GtkWidget       *menuitem,
+                                                         GdkEventButton  *event);
+static gboolean mpris_menu_item_button_release_event    (GtkWidget       *menuitem,
+                                                         GdkEventButton  *event);
+static void     update_packing                          (MprisMenuItem   *self);
+static void     mpris_menu_item_finalize                (GObject         *object);
 
 
 
@@ -68,6 +69,7 @@ struct _MprisMenuItemPrivate {
   gchar     *title;
   gchar     *filename;
 
+  GtkWidget *image;
   GtkWidget *vbox;
   GtkWidget *hbox;
   GtkWidget *button_box;
@@ -91,8 +93,10 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 static void
 mpris_menu_item_class_init (MprisMenuItemClass *item_class)
 {
+  GObjectClass      *gobject_class =   G_OBJECT_CLASS      (item_class);
   GtkWidgetClass    *widget_class =    GTK_WIDGET_CLASS    (item_class);
 
+  gobject_class->finalize = mpris_menu_item_finalize;
   widget_class->button_press_event   = mpris_menu_item_button_press_event;
   widget_class->button_release_event = mpris_menu_item_button_release_event;
 
@@ -112,21 +116,6 @@ mpris_menu_item_class_init (MprisMenuItemClass *item_class)
                                         1, G_TYPE_STRING);
 
   g_type_class_add_private (item_class, sizeof (MprisMenuItemPrivate));
-}
-
-static void
-remove_children (GtkContainer *container)
-{
-  GList * children;
-  GList * l;
-
-  g_return_if_fail (GTK_IS_CONTAINER (container));
-
-  children = gtk_container_get_children (container);
-
-  for (l=children; l != NULL; l=l->next)
-    gtk_container_remove (container, l->data);
-  g_list_free (children);
 }
 
 static void
@@ -260,6 +249,10 @@ update_packing (MprisMenuItem *self)
   g_return_if_fail (IS_MPRIS_MENU_ITEM (self));
 
   priv = GET_PRIVATE (self);
+
+  TRACE("entering");
+
+  /* Create the widgets */
   hbox = GTK_BOX (gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0));
   vbox = GTK_BOX (gtk_box_new (GTK_ORIENTATION_VERTICAL, 0));
 
@@ -267,35 +260,24 @@ update_packing (MprisMenuItem *self)
   ctx = gtk_widget_get_style_context (GTK_WIDGET (button_box));
   gtk_style_context_add_class (ctx, "linked");
 
-  TRACE("entering");
-
-  if (priv->vbox)
-    remove_children (GTK_CONTAINER (priv->vbox));
-  if (priv->hbox)
-  {
-    remove_children (GTK_CONTAINER (priv->hbox));
-    gtk_container_remove (GTK_CONTAINER (self), priv->hbox);
-  }
-
   priv->hbox = GTK_WIDGET(hbox);
   priv->vbox = GTK_WIDGET(vbox);
   priv->button_box = GTK_WIDGET(button_box);
 
-  /* add the new layout */
-  /* [IC]  Title   [  CON  ]
-   * [ON]  Artist  [ TROLS ]
-   */
   priv->go_previous = gtk_button_new_from_icon_name ("media-skip-backward-symbolic", GTK_ICON_SIZE_MENU);
   priv->play_pause = gtk_button_new_from_icon_name ("media-playback-start-symbolic", GTK_ICON_SIZE_MENU);
   priv->go_next = gtk_button_new_from_icon_name ("media-skip-forward-symbolic", GTK_ICON_SIZE_MENU);
 
-  g_signal_connect (priv->play_pause, "clicked", G_CALLBACK (media_play_pause_clicked_event), self);
-  g_signal_connect (priv->go_previous, "clicked", G_CALLBACK (media_go_previous_clicked_event), self);
-  g_signal_connect (priv->go_next, "clicked", G_CALLBACK (media_go_next_clicked_event), self);
-  g_signal_connect (self, "activate", G_CALLBACK (menu_item_activate_event), self);
-
   priv->title_label = track_info_label_new ();
   priv->artist_label = track_info_label_new ();
+
+  priv->image = gtk_image_new_from_icon_name ("audio-x-generic", GTK_ICON_SIZE_LARGE_TOOLBAR);
+
+  /* Pack the widgets */
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (self), priv->image);
+G_GNUC_END_IGNORE_DEPRECATIONS
+  gtk_image_set_pixel_size (GTK_IMAGE (priv->image), 24);
 
   gtk_box_pack_start (button_box, priv->go_previous, FALSE, FALSE, 0);
   gtk_box_pack_start (button_box, priv->play_pause, FALSE, FALSE, 0);
@@ -307,9 +289,27 @@ update_packing (MprisMenuItem *self)
   gtk_box_pack_start (hbox, GTK_WIDGET (vbox), TRUE, TRUE, 0);
   gtk_box_pack_start (hbox, GTK_WIDGET (button_box), FALSE, FALSE, 0);
 
+  /* Configure the widgets */
   mpris_menu_item_set_title (self, priv->player);
   mpris_menu_item_set_artist (self, _("Not currently playing"));
 
+  g_signal_connect (priv->play_pause, "clicked", G_CALLBACK (media_play_pause_clicked_event), self);
+  g_signal_connect (priv->go_previous, "clicked", G_CALLBACK (media_go_previous_clicked_event), self);
+  g_signal_connect (priv->go_next, "clicked", G_CALLBACK (media_go_next_clicked_event), self);
+  g_signal_connect (self, "activate", G_CALLBACK (menu_item_activate_event), self);
+
+  /* Keep a reference to each */
+  g_object_ref (priv->title_label);
+  g_object_ref (priv->artist_label);
+  g_object_ref (priv->button_box);
+  g_object_ref (priv->vbox);
+  g_object_ref (priv->hbox);
+  g_object_ref (priv->go_previous);
+  g_object_ref (priv->play_pause);
+  g_object_ref (priv->go_next);
+  g_object_ref (priv->image);
+
+  /* And finally display them */
   gtk_widget_show_all (priv->button_box);
   gtk_widget_show_all (priv->hbox);
   gtk_widget_show_all (priv->vbox);
@@ -320,6 +320,51 @@ update_packing (MprisMenuItem *self)
 static void
 mpris_menu_item_init (MprisMenuItem *self)
 {
+  MprisMenuItemPrivate *priv;
+
+  priv = GET_PRIVATE (self);
+
+  priv->title_label = NULL;
+  priv->artist_label = NULL;
+  priv->button_box = NULL;
+  priv->vbox = NULL;
+  priv->hbox = NULL;
+  priv->go_previous = NULL;
+  priv->play_pause = NULL;
+  priv->go_next = NULL;
+
+  priv->player = NULL;
+  priv->title = NULL;
+  priv->filename = NULL;
+}
+
+static void
+mpris_menu_item_finalize (GObject *object)
+{
+  MprisMenuItem        *self;
+  MprisMenuItemPrivate *priv;
+
+  self = MPRIS_MENU_ITEM (object);
+  priv = GET_PRIVATE (self);
+
+  if (priv->player)
+    g_free (priv->player);
+  if (priv->title)
+    g_free (priv->title);
+  if (priv->filename)
+    g_free (priv->filename);
+
+  g_object_unref (priv->title_label);
+  g_object_unref (priv->artist_label);
+  g_object_unref (priv->button_box);
+  g_object_unref (priv->vbox);
+  g_object_unref (priv->hbox);
+  g_object_unref (priv->go_previous);
+  g_object_unref (priv->play_pause);
+  g_object_unref (priv->go_next);
+  g_object_unref (priv->image);
+
+  (*G_OBJECT_CLASS (mpris_menu_item_parent_class)->finalize) (object);
 }
 
 static GtkWidget *
@@ -631,7 +676,6 @@ mpris_menu_item_new_with_player (const gchar *player,
 {
   MprisMenuItem        *menu_item;
   MprisMenuItemPrivate *priv;
-  GtkWidget            *img;
 
   TRACE("entering");
 
@@ -646,19 +690,11 @@ mpris_menu_item_new_with_player (const gchar *player,
     priv->title = g_strdup(player);
   priv->filename = g_strdup(filename);
 
-  priv->vbox = NULL;
-  priv->hbox = NULL;
-  priv->button_box = NULL;
-
   update_packing (menu_item);
 
   gtk_widget_add_events (GTK_WIDGET(menu_item), GDK_SCROLL_MASK|GDK_POINTER_MOTION_MASK|GDK_BUTTON_MOTION_MASK);
 
-  img = gtk_image_new_from_icon_name (icon_name, GTK_ICON_SIZE_LARGE_TOOLBAR);
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menu_item), img);
-G_GNUC_END_IGNORE_DEPRECATIONS
-  gtk_image_set_pixel_size (GTK_IMAGE (img), 24);
+  gtk_image_set_from_icon_name (GTK_IMAGE (priv->image), icon_name, GTK_ICON_SIZE_LARGE_TOOLBAR);
 
   return GTK_WIDGET(menu_item);
 }

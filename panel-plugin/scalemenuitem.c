@@ -200,8 +200,11 @@ scale_menu_item_finalize (GObject *object)
   self = SCALE_MENU_ITEM (object);
   priv = GET_PRIVATE (self);
 
-  g_free (priv->icon_name);
-  priv->icon_name = NULL;
+  if (priv->icon_name)
+    g_free (priv->icon_name);
+
+  g_object_unref (priv->image);
+  g_object_unref (priv->scale);
 
   (*G_OBJECT_CLASS (scale_menu_item_parent_class)->finalize) (object);
 }
@@ -362,6 +365,10 @@ G_GNUC_END_IGNORE_DEPRECATIONS
   /* Connect events */
   g_signal_connect (priv->scale, "value-changed", G_CALLBACK (scale_menu_item_scale_value_changed), scale_item);
   gtk_widget_add_events (GTK_WIDGET(scale_item), GDK_SCROLL_MASK|GDK_POINTER_MOTION_MASK|GDK_BUTTON_MOTION_MASK);
+
+  /* Keep references to the widgets */
+  g_object_ref (priv->image);
+  g_object_ref (priv->scale);
 
   return GTK_WIDGET(scale_item);
 }
