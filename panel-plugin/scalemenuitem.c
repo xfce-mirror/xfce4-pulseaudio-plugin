@@ -46,17 +46,21 @@ static gboolean scale_menu_item_motion_notify_event     (GtkWidget          *men
                                                          GdkEventMotion     *event);
 static void     scale_menu_item_parent_set              (GtkWidget          *item,
                                                          GtkWidget          *previous_parent);
-static void     update_packing                          (ScaleMenuItem  *    self);
 
 
 
 
 struct _ScaleMenuItemPrivate {
   GtkWidget            *scale;
-  GtkWidget            *left_image;
+  GtkWidget            *image;
+  gchar                *icon_name;
+
   gboolean              grabbed;
-  gchar                *base_icon_name;
 };
+
+
+
+static void scale_menu_item_finalize (GObject *object);
 
 
 
@@ -94,22 +98,22 @@ scale_menu_item_scale_value_changed (GtkRange *range,
   /* Update the menuitem icon */
   if (value >= 70.0)
     {
-      icon_name = g_strconcat(priv->base_icon_name, "-high-symbolic", NULL);
+      icon_name = g_strconcat(priv->icon_name, "-high-symbolic", NULL);
     }
   else if (value >= 30.0)
     {
-      icon_name = g_strconcat(priv->base_icon_name, "-medium-symbolic", NULL);
+      icon_name = g_strconcat(priv->icon_name, "-medium-symbolic", NULL);
     }
   else if (value > 0.0)
     {
-      icon_name = g_strconcat(priv->base_icon_name, "-low-symbolic", NULL);
+      icon_name = g_strconcat(priv->icon_name, "-low-symbolic", NULL);
     }
   else
     {
-      icon_name = g_strconcat(priv->base_icon_name, "-muted-symbolic", NULL);
+      icon_name = g_strconcat(priv->icon_name, "-muted-symbolic", NULL);
     }
 
-  gtk_image_set_from_icon_name (GTK_IMAGE (priv->left_image), icon_name, GTK_ICON_SIZE_MENU);
+  gtk_image_set_from_icon_name (GTK_IMAGE (priv->image), icon_name, GTK_ICON_SIZE_MENU);
   g_free (icon_name);
 }
 
@@ -124,6 +128,7 @@ scale_menu_item_class_init (ScaleMenuItemClass *item_class)
   widget_class->motion_notify_event  = scale_menu_item_motion_notify_event;
   widget_class->parent_set           = scale_menu_item_parent_set;
 
+  gobject_class->finalize = scale_menu_item_finalize;
 
   /**
    * ScaleMenuItem::slider-grabbed:
@@ -175,22 +180,30 @@ scale_menu_item_class_init (ScaleMenuItemClass *item_class)
 }
 
 static void
-update_packing (ScaleMenuItem *self)
+scale_menu_item_init (ScaleMenuItem *self)
 {
   ScaleMenuItemPrivate *priv;
 
-  g_return_if_fail (IS_SCALE_MENU_ITEM (self));
-
   priv = GET_PRIVATE (self);
 
-  TRACE("entering");
-
-  gtk_container_add (GTK_CONTAINER (self), priv->scale);
+  priv->scale = NULL;
+  priv->image = NULL;
+  priv->icon_name = NULL;
 }
 
 static void
-scale_menu_item_init (ScaleMenuItem *self)
+scale_menu_item_finalize (GObject *object)
 {
+  ScaleMenuItem        *self;
+  ScaleMenuItemPrivate *priv;
+
+  self = SCALE_MENU_ITEM (object);
+  priv = GET_PRIVATE (self);
+
+  g_free (priv->icon_name);
+  priv->icon_name = NULL;
+
+  (*G_OBJECT_CLASS (scale_menu_item_parent_class)->finalize) (object);
 }
 
 static gboolean
@@ -328,26 +341,26 @@ scale_menu_item_new_with_range (gdouble           min,
 
   priv = GET_PRIVATE (scale_item);
 
-  priv->scale = gtk_scale_new_with_range (GTK_ORIENTATION_HORIZONTAL, min, max, step);
-
-  priv->left_image = gtk_image_new ();
-
+  /* Configure the menu item image */
+  priv->image = gtk_image_new ();
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (scale_item), priv->left_image);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (scale_item), priv->image);
 G_GNUC_END_IGNORE_DEPRECATIONS
 
-  g_object_ref (priv->left_image);
-
-  g_signal_connect (priv->scale, "value-changed", G_CALLBACK (scale_menu_item_scale_value_changed), scale_item);
-  g_object_ref (priv->scale);
+  /* Configure the menu item scale */
+  priv->scale = gtk_scale_new_with_range (GTK_ORIENTATION_HORIZONTAL, min, max, step);
   gtk_widget_set_size_request (priv->scale, 100, -1);
   gtk_range_set_inverted (GTK_RANGE(priv->scale), FALSE);
   gtk_scale_set_draw_value (GTK_SCALE(priv->scale), FALSE);
+
   if (max > 100.0)
     gtk_scale_add_mark (GTK_SCALE (priv->scale), 100.0, GTK_POS_BOTTOM, NULL);
 
-  update_packing (scale_item);
+  /* Pack the scale widget */
+  gtk_container_add (GTK_CONTAINER (scale_item), priv->scale);
 
+  /* Connect events */
+  g_signal_connect (priv->scale, "value-changed", G_CALLBACK (scale_menu_item_scale_value_changed), scale_item);
   gtk_widget_add_events (GTK_WIDGET(scale_item), GDK_SCROLL_MASK|GDK_POINTER_MOTION_MASK|GDK_BUTTON_MOTION_MASK);
 
   return GTK_WIDGET(scale_item);
@@ -383,5 +396,5 @@ scale_menu_item_set_base_icon_name (ScaleMenuItem *item,
 
   priv = GET_PRIVATE (item);
 
-  priv->base_icon_name = g_strdup (base_icon_name);
+  priv->icon_name = g_strdup (base_icon_name);
 }
