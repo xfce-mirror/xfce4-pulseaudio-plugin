@@ -31,10 +31,15 @@
 
 struct _DeviceMenuItemPrivate {
   GtkWidget *submenu;
-  GtkWidget *label_widget;
-  GSList     *group;
-  gchar     *label;
+  GtkWidget *label;
+  GtkWidget *image;
+  GSList    *group;
+  gchar     *title;
 };
+
+
+
+static void device_menu_item_finalize (GObject *object);
 
 
 
@@ -59,6 +64,10 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 static void
 device_menu_item_class_init (DeviceMenuItemClass *item_class)
 {
+  GObjectClass      *gobject_class =   G_OBJECT_CLASS      (item_class);
+
+  gobject_class->finalize = device_menu_item_finalize;
+
   /**
    * DeviceMenuItem::value-changed:
    * @menuitem: the #DeviceMenuItem for which the value changed
@@ -82,6 +91,30 @@ device_menu_item_class_init (DeviceMenuItemClass *item_class)
 static void
 device_menu_item_init (DeviceMenuItem *self)
 {
+  DeviceMenuItemPrivate *priv;
+
+  priv = GET_PRIVATE (self);
+
+  priv->submenu = NULL;
+  priv->label = NULL;
+  priv->image = NULL;
+  priv->title = NULL;
+  priv->group = NULL;
+}
+
+static void
+device_menu_item_finalize (GObject *object)
+{
+  DeviceMenuItem        *self;
+  DeviceMenuItemPrivate *priv;
+
+  self = DEVICE_MENU_ITEM (object);
+  priv = GET_PRIVATE (self);
+
+  g_free (priv->title);
+  priv->title = NULL;
+
+  (*G_OBJECT_CLASS (device_menu_item_parent_class)->finalize) (object);
 }
 
 GtkWidget*
@@ -97,16 +130,25 @@ device_menu_item_new_with_label (const gchar *label)
   priv = GET_PRIVATE (device_item);
 
   priv->submenu = gtk_menu_new ();
-  priv->label = g_strdup (label);
+  priv->title = g_strdup (label);
   priv->group = NULL;
 
-  gtk_menu_item_set_label (GTK_MENU_ITEM (device_item), priv->label);
-  priv->label_widget = gtk_bin_get_child (GTK_BIN (device_item));
-  gtk_label_set_width_chars (GTK_LABEL (priv->label_widget), 30);
-  gtk_label_set_max_width_chars (GTK_LABEL (priv->label_widget), 30);
-  gtk_label_set_ellipsize (GTK_LABEL (priv->label_widget), PANGO_ELLIPSIZE_MIDDLE);
+  /* Configure menu item image */
+  priv->image = gtk_image_new_from_icon_name ("audio-card", GTK_ICON_SIZE_LARGE_TOOLBAR);
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (device_item), priv->image);
+G_GNUC_END_IGNORE_DEPRECATIONS
+  gtk_image_set_pixel_size (GTK_IMAGE (priv->image), 24);
 
-  g_object_ref (priv->submenu);
+  /* Configure menu item label */
+  gtk_menu_item_set_label (GTK_MENU_ITEM (device_item), priv->title);
+  priv->label = gtk_bin_get_child (GTK_BIN (device_item));
+  gtk_label_set_width_chars (GTK_LABEL (priv->label), 30);
+  gtk_label_set_max_width_chars (GTK_LABEL (priv->label), 30);
+  gtk_label_set_ellipsize (GTK_LABEL (priv->label), PANGO_ELLIPSIZE_MIDDLE);
+
+  /* Configure menu item submenu */
+  gtk_menu_item_set_submenu (GTK_MENU_ITEM (device_item), priv->submenu);
 
   return GTK_WIDGET(device_item);
 }
@@ -134,11 +176,9 @@ device_menu_item_add_device (DeviceMenuItem *item,
   priv = GET_PRIVATE (item);
 
   mi = gtk_radio_menu_item_new_with_label (priv->group, description);
-  g_object_set_data (G_OBJECT (mi), "name", g_strdup (name));
+  g_object_set_data_full (G_OBJECT (mi), "name", g_strdup (name), (GDestroyNotify) g_free);
 
   priv->group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (mi));
-
-  gtk_menu_item_set_submenu (GTK_MENU_ITEM (item), priv->submenu);
 
   gtk_widget_show (mi);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->submenu), mi);
@@ -151,8 +191,9 @@ device_menu_item_set_device_by_name       (DeviceMenuItem *item,
                                            const gchar    *name)
 {
   DeviceMenuItemPrivate *priv;
-  GList *children = NULL;
-  GList *iter = NULL;
+  GList                 *children = NULL;
+  GList                 *iter = NULL;
+  gchar                 *markup = NULL;
 
   g_return_if_fail (IS_DEVICE_MENU_ITEM (item));
 
@@ -163,25 +204,34 @@ device_menu_item_set_device_by_name       (DeviceMenuItem *item,
   for (iter = children; iter != NULL; iter = g_list_next (iter)) {
     if (g_strcmp0 (name, (gchar *)g_object_get_data (G_OBJECT(iter->data), "name")) == 0)
       {
+        if (markup != NULL)
+          g_free (markup);
+        markup = g_strconcat ("<b>", priv->title, " (", gtk_menu_item_get_label (GTK_MENU_ITEM (iter->data)), ")</b>", NULL);
         gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (iter->data), TRUE);
-        gtk_label_set_markup (GTK_LABEL (priv->label_widget), g_strconcat ("<b>", priv->label, " (", gtk_menu_item_get_label (GTK_MENU_ITEM (iter->data)), ")</b>", NULL));
       } else {
         gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (iter->data), FALSE);
       }
   }
+
+  if (markup == NULL)
+    markup = g_strconcat ("<b>", priv->title, "</b>", NULL);
+
+  gtk_label_set_markup (GTK_LABEL (priv->label), markup);
+  g_free (markup);
+
+  g_list_free (children);
 }
 
 void
 device_menu_item_set_image_from_icon_name (DeviceMenuItem *item,
-                                           const gchar   *icon_name)
+                                           const gchar    *icon_name)
 {
-  GtkWidget *img = NULL;
+  DeviceMenuItemPrivate *priv;
 
   g_return_if_fail (IS_DEVICE_MENU_ITEM (item));
 
-  img = gtk_image_new_from_icon_name (icon_name, GTK_ICON_SIZE_LARGE_TOOLBAR);
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), img);
-G_GNUC_END_IGNORE_DEPRECATIONS
-  gtk_image_set_pixel_size (GTK_IMAGE (img), 24);
+  priv = GET_PRIVATE (item);
+
+  gtk_image_set_from_icon_name (GTK_IMAGE (priv->image), icon_name, GTK_ICON_SIZE_LARGE_TOOLBAR);
+  gtk_image_set_pixel_size (GTK_IMAGE (priv->image), 24);
 }
