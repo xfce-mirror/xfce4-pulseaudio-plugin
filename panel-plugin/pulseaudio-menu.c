@@ -449,7 +449,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
   sources = pulseaudio_volume_get_output_list (menu->volume);
   if (g_list_length (sources) > 0) {
     device_mi = device_menu_item_new_with_label (_("Audio Output"));
-    device_menu_item_set_image_from_icon_name (DEVICE_MENU_ITEM (device_mi), "audio-speakers");
+    device_menu_item_set_image_from_icon_name (DEVICE_MENU_ITEM (device_mi), "audio-headphones");
 
     for (GList *list = sources; list != NULL; list = g_list_next (list)) {
       device_menu_item_add_device (DEVICE_MENU_ITEM (device_mi), (gchar *)list->data, pulseaudio_volume_get_output_by_name (menu->volume, list->data));

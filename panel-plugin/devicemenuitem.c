@@ -138,15 +138,7 @@ device_menu_item_add_device (DeviceMenuItem *item,
 
   priv->group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (mi));
 
-  if (g_slist_length (priv->group) > 1)
-    {
-      gtk_menu_item_set_submenu (GTK_MENU_ITEM (item), priv->submenu);
-      gtk_widget_set_sensitive (GTK_WIDGET (item), TRUE);
-    }
-  else
-    {
-      gtk_widget_set_sensitive (GTK_WIDGET (item), FALSE);
-    }
+  gtk_menu_item_set_submenu (GTK_MENU_ITEM (item), priv->submenu);
 
   gtk_widget_show (mi);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->submenu), mi);
