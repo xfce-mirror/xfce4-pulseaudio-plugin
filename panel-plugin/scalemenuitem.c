@@ -53,11 +53,9 @@ static void     update_packing                          (ScaleMenuItem  *    sel
 
 struct _ScaleMenuItemPrivate {
   GtkWidget            *scale;
-  GtkWidget            *hbox;
   GtkWidget            *left_image;
-  GtkWidget            *right_image;
   gboolean              grabbed;
-  gboolean              ignore_value_changed;
+  gchar                *base_icon_name;
 };
 
 
@@ -74,7 +72,9 @@ enum {
 
 static guint signals[LAST_SIGNAL] = { 0 };
 
-G_DEFINE_TYPE (ScaleMenuItem, scale_menu_item, GTK_TYPE_MENU_ITEM)
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+G_DEFINE_TYPE (ScaleMenuItem, scale_menu_item, GTK_TYPE_IMAGE_MENU_ITEM)
+G_GNUC_END_IGNORE_DEPRECATIONS
 
 #define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), TYPE_SCALE_MENU_ITEM, ScaleMenuItemPrivate))
 
@@ -86,12 +86,31 @@ scale_menu_item_scale_value_changed (GtkRange *range,
 {
   ScaleMenuItem        *self = SCALE_MENU_ITEM (user_data);
   ScaleMenuItemPrivate *priv = GET_PRIVATE (self);
+  gchar                *icon_name = NULL;
+  gdouble               value = gtk_range_get_value (range);
 
-  /* The signal is not sent when it was set through
-   * scale_menu_item_set_value().  */
+  g_signal_emit (self, signals[VALUE_CHANGED], 0, value);
 
-  if (!priv->ignore_value_changed)
-    g_signal_emit (self, signals[VALUE_CHANGED], 0, gtk_range_get_value (range));
+  /* Update the menuitem icon */
+  if (value >= 70.0)
+    {
+      icon_name = g_strconcat(priv->base_icon_name, "-high-symbolic", NULL);
+    }
+  else if (value >= 30.0)
+    {
+      icon_name = g_strconcat(priv->base_icon_name, "-medium-symbolic", NULL);
+    }
+  else if (value > 0.0)
+    {
+      icon_name = g_strconcat(priv->base_icon_name, "-low-symbolic", NULL);
+    }
+  else
+    {
+      icon_name = g_strconcat(priv->base_icon_name, "-muted-symbolic", NULL);
+    }
+
+  gtk_image_set_from_icon_name (GTK_IMAGE (priv->left_image), icon_name, GTK_ICON_SIZE_MENU);
+  g_free (icon_name);
 }
 
 static void
@@ -156,47 +175,17 @@ scale_menu_item_class_init (ScaleMenuItemClass *item_class)
 }
 
 static void
-remove_children (GtkContainer *container)
-{
-  GList * children;
-  GList * l;
-
-  g_return_if_fail (GTK_IS_CONTAINER (container));
-
-  children = gtk_container_get_children (container);
-
-  for (l=children; l != NULL; l=l->next)
-    gtk_container_remove (container, l->data);
-  g_list_free (children);
-}
-
-static void
 update_packing (ScaleMenuItem *self)
 {
   ScaleMenuItemPrivate *priv;
-  GtkBox               *hbox;
 
   g_return_if_fail (IS_SCALE_MENU_ITEM (self));
 
   priv = GET_PRIVATE (self);
-  hbox = GTK_BOX (gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0));
 
   TRACE("entering");
 
-  if (priv->hbox)
-    remove_children (GTK_CONTAINER (priv->hbox));
-
-  priv->hbox = GTK_WIDGET(hbox);
-
-  /* add the new layout */
-  /* [ICON]  <----slider---->  */
-  gtk_box_pack_start (hbox, priv->left_image, FALSE, FALSE, 0);
-  gtk_box_pack_start (hbox, priv->scale, TRUE, TRUE, 0);
-  gtk_box_pack_start (hbox, priv->right_image, FALSE, FALSE, 0);
-
-  gtk_widget_show_all (priv->hbox);
-
-  gtk_container_add (GTK_CONTAINER (self), priv->hbox);
+  gtk_container_add (GTK_CONTAINER (self), priv->scale);
 }
 
 static void
@@ -340,13 +329,14 @@ scale_menu_item_new_with_range (gdouble           min,
   priv = GET_PRIVATE (scale_item);
 
   priv->scale = gtk_scale_new_with_range (GTK_ORIENTATION_HORIZONTAL, min, max, step);
-  priv->hbox = NULL;
 
   priv->left_image = gtk_image_new ();
-  priv->right_image = gtk_image_new ();
+
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (scale_item), priv->left_image);
+G_GNUC_END_IGNORE_DEPRECATIONS
 
   g_object_ref (priv->left_image);
-  g_object_ref (priv->right_image);
 
   g_signal_connect (priv->scale, "value-changed", G_CALLBACK (scale_menu_item_scale_value_changed), scale_item);
   g_object_ref (priv->scale);
@@ -383,47 +373,15 @@ scale_menu_item_get_scale (ScaleMenuItem *menuitem)
   return priv->scale;
 }
 
-/**
- *  scale_menu_item_set_value:
- *
- * Sets the value of the scale inside @item to @value, without emitting
- * "value-changed".
- */
-void
-scale_menu_item_set_value (ScaleMenuItem *item,
-                           gdouble        value)
-{
-  ScaleMenuItemPrivate *priv;
-
-  g_return_if_fail (IS_SCALE_MENU_ITEM (item));
-
-  priv = GET_PRIVATE (item);
-
-  /* set ignore_value_changed to signify to the scale menu item that it
-   * should not emit its own value-changed signal, as that should only
-   * be emitted when the value is changed by the user. */
-
-  priv->ignore_value_changed = TRUE;
-  gtk_range_set_value (GTK_RANGE (priv->scale), value);
-  priv->ignore_value_changed = FALSE;
-}
-
 void
 scale_menu_item_set_base_icon_name (ScaleMenuItem *item,
                                     const gchar   *base_icon_name)
 {
   ScaleMenuItemPrivate *priv;
-  gchar                *icon_name;
 
   g_return_if_fail (IS_SCALE_MENU_ITEM (item));
 
   priv = GET_PRIVATE (item);
 
-  icon_name = g_strconcat(base_icon_name, "-low-symbolic", NULL);
-  gtk_image_set_from_icon_name (GTK_IMAGE (priv->left_image), icon_name, GTK_ICON_SIZE_MENU);
-  g_free (icon_name);
-
-  icon_name = g_strconcat(base_icon_name, "-high-symbolic", NULL);
-  gtk_image_set_from_icon_name (GTK_IMAGE (priv->right_image), icon_name, GTK_ICON_SIZE_MENU);
-  g_free (icon_name);
+  priv->base_icon_name = g_strdup (base_icon_name);
 }

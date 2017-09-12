@@ -65,9 +65,6 @@ GtkWidget   *scale_menu_item_new_with_range        (gdouble           min,
 
 GtkWidget   *scale_menu_item_get_scale             (ScaleMenuItem *menuitem);
 
-void         scale_menu_item_set_value             (ScaleMenuItem *item,
-                                                    gdouble        value);
-
 void         scale_menu_item_set_base_icon_name    (ScaleMenuItem *item,
                                                     const gchar   *base_icon_name);
 
