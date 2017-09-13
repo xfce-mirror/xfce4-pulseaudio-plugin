@@ -59,11 +59,17 @@ struct _ScaleMenuItemClass
 
 GType        scale_menu_item_get_type              (void) G_GNUC_CONST;
 
-GtkWidget   *scale_menu_item_new_with_range        (gdouble           min,
-                                                    gdouble           max,
-                                                    gdouble           step);
+GtkWidget   *scale_menu_item_new_with_range        (gdouble        min,
+                                                    gdouble        max,
+                                                    gdouble        step);
 
-GtkWidget   *scale_menu_item_get_scale             (ScaleMenuItem *menuitem);
+gdouble      scale_menu_item_get_value             (ScaleMenuItem *item);
+void         scale_menu_item_set_value             (ScaleMenuItem *item,
+                                                    gdouble        value);
+
+gboolean     scale_menu_item_get_muted             (ScaleMenuItem *menuitem);
+void         scale_menu_item_set_muted             (ScaleMenuItem *menuitem,
+                                                    gboolean       muted);
 
 void         scale_menu_item_set_base_icon_name    (ScaleMenuItem *item,
                                                     const gchar   *base_icon_name);

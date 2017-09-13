@@ -49,10 +49,9 @@ struct _PulseaudioMenu
   PulseaudioConfig     *config;
   PulseaudioMpris      *mpris;
   GtkWidget            *button;
-  GtkWidget            *range_output;
-  GtkWidget            *mute_output_item;
-  GtkWidget            *range_input;
-  GtkWidget            *mute_input_item;
+
+  GtkWidget            *output_scale;
+  GtkWidget            *input_scale;
 
   gulong                volume_changed_id;
   gulong                volume_mic_changed_id;
@@ -87,10 +86,8 @@ pulseaudio_menu_init (PulseaudioMenu *menu)
   menu->config                         = NULL;
   menu->mpris                          = NULL;
   menu->button                         = NULL;
-  menu->range_output                   = NULL;
-  menu->mute_output_item               = NULL;
-  menu->range_input                    = NULL;
-  menu->mute_input_item                = NULL;
+  menu->output_scale                   = NULL;
+  menu->input_scale                    = NULL;
   menu->volume_changed_id              = 0;
   menu->volume_mic_changed_id          = 0;
 }
@@ -113,10 +110,8 @@ pulseaudio_menu_finalize (GObject *object)
   menu->config                         = NULL;
   menu->mpris                          = NULL;
   menu->button                         = NULL;
-  menu->range_output                   = NULL;
-  menu->mute_output_item               = NULL;
-  menu->range_input                    = NULL;
-  menu->mute_input_item                = NULL;
+  menu->output_scale                   = NULL;
+  menu->input_scale                    = NULL;
   menu->volume_changed_id              = 0;
   menu->volume_mic_changed_id          = 0;
 
@@ -155,7 +150,7 @@ pulseaudio_menu_output_range_value_changed (PulseaudioMenu   *menu,
 
   g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
 
-  new_volume = gtk_range_get_value (GTK_RANGE (menu->range_output)) / 100.0;
+  new_volume = scale_menu_item_get_value (SCALE_MENU_ITEM (menu->output_scale)) / 100.0;
   pulseaudio_volume_set_volume (menu->volume, new_volume);
 }
 
@@ -163,11 +158,11 @@ pulseaudio_menu_output_range_value_changed (PulseaudioMenu   *menu,
 
 static void
 pulseaudio_menu_mute_output_item_toggled (PulseaudioMenu   *menu,
-                                          GtkCheckMenuItem *menu_item)
+                                          ScaleMenuItem    *menu_item)
 {
   g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
 
-  pulseaudio_volume_set_muted (menu->volume, gtk_check_menu_item_get_active (menu_item));
+  pulseaudio_volume_set_muted (menu->volume, scale_menu_item_get_muted (menu_item));
 }
 
 
@@ -226,7 +221,7 @@ pulseaudio_menu_input_range_value_changed (PulseaudioMenu   *menu,
 
   g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
 
-  new_volume_mic = gtk_range_get_value (GTK_RANGE (menu->range_input)) / 100.0;
+  new_volume_mic = scale_menu_item_get_value (SCALE_MENU_ITEM (menu->input_scale)) / 100.0;
   pulseaudio_volume_set_volume_mic (menu->volume, new_volume_mic);
 }
 
@@ -234,11 +229,11 @@ pulseaudio_menu_input_range_value_changed (PulseaudioMenu   *menu,
 
 static void
 pulseaudio_menu_mute_input_item_toggled (PulseaudioMenu   *menu,
-                                         GtkCheckMenuItem *menu_item)
+                                         ScaleMenuItem    *menu_item)
 {
   g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
 
-  pulseaudio_volume_set_muted_mic (menu->volume, gtk_check_menu_item_get_active (menu_item));
+  pulseaudio_volume_set_muted_mic (menu->volume, scale_menu_item_get_muted (menu_item));
 }
 
 
@@ -280,27 +275,27 @@ pulseaudio_menu_volume_changed (PulseaudioMenu   *menu,
   g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
   g_return_if_fail (IS_PULSEAUDIO_VOLUME (volume));
 
-  g_signal_handlers_block_by_func (G_OBJECT (menu->mute_output_item),
+  g_signal_handlers_block_by_func (G_OBJECT (menu->output_scale),
                                    pulseaudio_menu_mute_output_item_toggled,
                                    menu);
-  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menu->mute_output_item),
+  scale_menu_item_set_muted (SCALE_MENU_ITEM (menu->output_scale),
                                   pulseaudio_volume_get_muted (volume));
-  g_signal_handlers_unblock_by_func (G_OBJECT (menu->mute_output_item),
+  g_signal_handlers_unblock_by_func (G_OBJECT (menu->output_scale),
                                      pulseaudio_menu_mute_output_item_toggled,
                                      menu);
 
-  gtk_range_set_value (GTK_RANGE (menu->range_output), pulseaudio_volume_get_volume (menu->volume) * 100.0);
+  scale_menu_item_set_value (SCALE_MENU_ITEM (menu->output_scale), pulseaudio_volume_get_volume (menu->volume) * 100.0);
 
-  g_signal_handlers_block_by_func (G_OBJECT (menu->mute_input_item),
+  g_signal_handlers_block_by_func (G_OBJECT (menu->input_scale),
                                    pulseaudio_menu_mute_input_item_toggled,
                                    menu);
-  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menu->mute_input_item),
+  scale_menu_item_set_muted (SCALE_MENU_ITEM (menu->input_scale),
                                   pulseaudio_volume_get_muted_mic (volume));
-  g_signal_handlers_unblock_by_func (G_OBJECT (menu->mute_input_item),
+  g_signal_handlers_unblock_by_func (G_OBJECT (menu->input_scale),
                                      pulseaudio_menu_mute_input_item_toggled,
                                      menu);
 
-  gtk_range_set_value (GTK_RANGE (menu->range_input), pulseaudio_volume_get_volume_mic (menu->volume) * 100.0);
+  scale_menu_item_set_value (SCALE_MENU_ITEM (menu->input_scale), pulseaudio_volume_get_volume_mic (menu->volume) * 100.0);
 }
 
 #ifdef HAVE_MPRIS2
@@ -463,22 +458,15 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), device_mi);
 
     /* output volume slider */
-    mi = scale_menu_item_new_with_range (0.0, volume_max, 1.0);
-    scale_menu_item_set_base_icon_name (SCALE_MENU_ITEM (mi), "audio-volume");
+    menu->output_scale = scale_menu_item_new_with_range (0.0, volume_max, 1.0);
+    scale_menu_item_set_base_icon_name (SCALE_MENU_ITEM (menu->output_scale), "audio-volume");
 
-    /* range slider */
-    menu->range_output = scale_menu_item_get_scale (SCALE_MENU_ITEM (mi));
+    g_signal_connect_swapped (menu->output_scale, "value-changed", G_CALLBACK (pulseaudio_menu_output_range_value_changed), menu);
+    g_signal_connect_swapped (menu->output_scale, "toggled", G_CALLBACK (pulseaudio_menu_mute_output_item_toggled), menu);
+    g_signal_connect (menu->output_scale, "scroll-event", G_CALLBACK (pulseaudio_menu_output_range_scroll), menu);
 
-    g_signal_connect_swapped (mi, "value-changed", G_CALLBACK (pulseaudio_menu_output_range_value_changed), menu);
-    g_signal_connect (mi, "scroll-event", G_CALLBACK (pulseaudio_menu_output_range_scroll), menu);
-
-    gtk_widget_show_all (mi);
-    gtk_menu_shell_append(GTK_MENU_SHELL(menu), mi);
-
-    menu->mute_output_item = gtk_check_menu_item_new_with_mnemonic (_("_Mute audio output"));
-    gtk_widget_show_all (menu->mute_output_item);
-    gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu->mute_output_item);
-    g_signal_connect_swapped (G_OBJECT (menu->mute_output_item), "toggled", G_CALLBACK (pulseaudio_menu_mute_output_item_toggled), menu);
+    gtk_widget_show_all (menu->output_scale);
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu->output_scale);
 
     /* separator */
     mi = gtk_separator_menu_item_new ();
@@ -505,22 +493,15 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), device_mi);
 
     /* input volume slider */
-    mi = scale_menu_item_new_with_range (0.0, volume_max, 1.0);
-    scale_menu_item_set_base_icon_name (SCALE_MENU_ITEM (mi), "microphone-sensitivity");
+    menu->input_scale = scale_menu_item_new_with_range (0.0, volume_max, 1.0);
+    scale_menu_item_set_base_icon_name (SCALE_MENU_ITEM (menu->input_scale), "microphone-sensitivity");
 
-    /* range slider */
-    menu->range_input = scale_menu_item_get_scale (SCALE_MENU_ITEM (mi));
+    g_signal_connect_swapped (menu->input_scale, "value-changed", G_CALLBACK (pulseaudio_menu_input_range_value_changed), menu);
+    g_signal_connect_swapped (menu->input_scale, "toggled", G_CALLBACK (pulseaudio_menu_mute_input_item_toggled), menu);
+    g_signal_connect (menu->input_scale, "scroll-event", G_CALLBACK (pulseaudio_menu_input_range_scroll), menu);
 
-    g_signal_connect_swapped (mi, "value-changed", G_CALLBACK (pulseaudio_menu_input_range_value_changed), menu);
-    g_signal_connect (mi, "scroll-event", G_CALLBACK (pulseaudio_menu_input_range_scroll), menu);
-
-    gtk_widget_show_all (mi);
-    gtk_menu_shell_append(GTK_MENU_SHELL(menu), mi);
-
-    menu->mute_input_item = gtk_check_menu_item_new_with_mnemonic (_("_Mute audio input"));
-    gtk_widget_show_all (menu->mute_input_item);
-    gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu->mute_input_item);
-    g_signal_connect_swapped (G_OBJECT (menu->mute_input_item), "toggled", G_CALLBACK (pulseaudio_menu_mute_input_item_toggled), menu);
+    gtk_widget_show_all (menu->input_scale);
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu->input_scale);
 
     /* separator */
     mi = gtk_separator_menu_item_new ();

@@ -52,7 +52,10 @@ static void     scale_menu_item_parent_set              (GtkWidget          *ite
 
 struct _ScaleMenuItemPrivate {
   GtkWidget            *scale;
+  GtkWidget            *hbox;
+  GtkWidget            *vbox;
   GtkWidget            *image;
+  GtkWidget            *mute_toggle;
   gchar                *icon_name;
 
   gboolean              grabbed;
@@ -68,6 +71,7 @@ enum {
   SLIDER_GRABBED,
   SLIDER_RELEASED,
   VALUE_CHANGED,
+  TOGGLED,
   LAST_SIGNAL
 };
 
@@ -85,36 +89,46 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 
 
 static void
-scale_menu_item_scale_value_changed (GtkRange *range,
-                                     gpointer  user_data)
+scale_menu_item_update_icon (ScaleMenuItem *self)
 {
-  ScaleMenuItem        *self = SCALE_MENU_ITEM (user_data);
   ScaleMenuItemPrivate *priv = GET_PRIVATE (self);
   gchar                *icon_name = NULL;
-  gdouble               value = gtk_range_get_value (range);
-
-  g_signal_emit (self, signals[VALUE_CHANGED], 0, value);
+  gdouble               value = gtk_range_get_value (GTK_RANGE (priv->scale));
 
   /* Update the menuitem icon */
-  if (value >= 70.0)
+  if (scale_menu_item_get_muted (self) || value <= 0.0)
     {
-      icon_name = g_strconcat(priv->icon_name, "-high-symbolic", NULL);
+      icon_name = g_strconcat(priv->icon_name, "-muted-symbolic", NULL);
     }
-  else if (value >= 30.0)
-    {
-      icon_name = g_strconcat(priv->icon_name, "-medium-symbolic", NULL);
-    }
-  else if (value > 0.0)
+  else if (value < 30.0)
     {
       icon_name = g_strconcat(priv->icon_name, "-low-symbolic", NULL);
     }
+  else if (value < 70.0)
+    {
+      icon_name = g_strconcat(priv->icon_name, "-medium-symbolic", NULL);
+    }
   else
     {
-      icon_name = g_strconcat(priv->icon_name, "-muted-symbolic", NULL);
+      icon_name = g_strconcat(priv->icon_name, "-high-symbolic", NULL);
     }
 
   gtk_image_set_from_icon_name (GTK_IMAGE (priv->image), icon_name, GTK_ICON_SIZE_MENU);
   g_free (icon_name);
+}
+
+
+
+static void
+scale_menu_item_scale_value_changed (GtkRange *range,
+                                     gpointer  user_data)
+{
+  ScaleMenuItem        *self = SCALE_MENU_ITEM (user_data);
+  gdouble               value = gtk_range_get_value (range);
+
+  g_signal_emit (self, signals[VALUE_CHANGED], 0, value);
+
+  scale_menu_item_update_icon (self);
 }
 
 static void
@@ -175,6 +189,20 @@ scale_menu_item_class_init (ScaleMenuItemClass *item_class)
                                          G_TYPE_NONE,
                                          1, G_TYPE_DOUBLE);
 
+   /**
+    * ScaleMenuItem::toggled:
+    * @menuitem: the #ScaleMenuItem emitting the signal.
+    * @value: the new value
+    *
+    * Emitted whenever the mute switch is toggled.
+    */
+   signals[TOGGLED] = g_signal_new ("toggled",
+                                     G_OBJECT_CLASS_TYPE (gobject_class),
+                                     G_SIGNAL_RUN_FIRST,
+                                     0,
+                                     NULL, NULL,
+                                     g_cclosure_marshal_VOID__VOID,
+                                     G_TYPE_NONE, 0);
 
   g_type_class_add_private (item_class, sizeof (ScaleMenuItemPrivate));
 }
@@ -188,6 +216,9 @@ scale_menu_item_init (ScaleMenuItem *self)
 
   priv->scale = NULL;
   priv->image = NULL;
+  priv->hbox = NULL;
+  priv->vbox = NULL;
+  priv->mute_toggle = NULL;
   priv->icon_name = NULL;
 }
 
@@ -203,8 +234,11 @@ scale_menu_item_finalize (GObject *object)
   if (priv->icon_name)
     g_free (priv->icon_name);
 
-  g_object_unref (priv->image);
   g_object_unref (priv->scale);
+  g_object_unref (priv->image);
+  g_object_unref (priv->mute_toggle);
+  g_object_unref (priv->vbox);
+  g_object_unref (priv->hbox);
 
   (*G_OBJECT_CLASS (scale_menu_item_parent_class)->finalize) (object);
 }
@@ -223,9 +257,15 @@ scale_menu_item_button_press_event (GtkWidget      *menuitem,
 
   priv = GET_PRIVATE (menuitem);
 
+  gtk_widget_get_allocation (priv->mute_toggle, &alloc);
+  gtk_widget_translate_coordinates (GTK_WIDGET (menuitem), priv->mute_toggle, event->x, event->y, &x, &y);
+  if (x > 0 && x < alloc.width && y > 0 && y < alloc.height)
+    {
+      return TRUE;
+    }
+
   gtk_widget_get_allocation (priv->scale, &alloc);
   gtk_widget_translate_coordinates (menuitem, priv->scale, event->x, event->y, &x, &y);
-
   if (x > 0 && x < alloc.width && y > 0 && y < alloc.height)
     {
       gtk_widget_event (priv->scale, (GdkEvent*) event);
@@ -245,6 +285,8 @@ scale_menu_item_button_release_event (GtkWidget      *menuitem,
                                       GdkEventButton *event)
 {
   ScaleMenuItemPrivate *priv;
+  GtkAllocation         alloc;
+  gint                  x, y;
 
   TRACE("entering");
 
@@ -252,7 +294,21 @@ scale_menu_item_button_release_event (GtkWidget      *menuitem,
 
   priv = GET_PRIVATE (menuitem);
 
-  gtk_widget_event (priv->scale, (GdkEvent*)event);
+  gtk_widget_get_allocation (priv->mute_toggle, &alloc);
+  gtk_widget_translate_coordinates (GTK_WIDGET (menuitem), priv->mute_toggle, event->x, event->y, &x, &y);
+  if (x > 0 && x < alloc.width && y > 0 && y < alloc.height)
+    {
+      gtk_switch_set_active (GTK_SWITCH (priv->mute_toggle), !gtk_switch_get_active (GTK_SWITCH (priv->mute_toggle)));
+      g_signal_emit (menuitem, signals[TOGGLED], 0);
+      return TRUE;
+    }
+
+  gtk_widget_get_allocation (priv->scale, &alloc);
+  gtk_widget_translate_coordinates (menuitem, priv->scale, event->x, event->y, &x, &y);
+  if (x > 0 && x < alloc.width && y > 0 && y < alloc.height)
+    {
+      gtk_widget_event (priv->scale, (GdkEvent*) event);
+    }
 
   if (priv->grabbed)
     {
@@ -359,8 +415,17 @@ G_GNUC_END_IGNORE_DEPRECATIONS
   if (max > 100.0)
     gtk_scale_add_mark (GTK_SCALE (priv->scale), 100.0, GTK_POS_BOTTOM, NULL);
 
+  /* Configure the mute toggle */
+  priv->mute_toggle = gtk_switch_new ();
+
   /* Pack the scale widget */
-  gtk_container_add (GTK_CONTAINER (scale_item), priv->scale);
+  priv->hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+  priv->vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
+  gtk_box_pack_start (GTK_BOX (priv->hbox), priv->scale, TRUE, TRUE, 0);
+  gtk_box_set_center_widget (GTK_BOX (priv->vbox), priv->mute_toggle);
+  gtk_box_pack_start (GTK_BOX (priv->hbox), priv->vbox, FALSE, FALSE, 0);
+  gtk_container_add (GTK_CONTAINER (scale_item), priv->hbox);
+  gtk_widget_show_all (priv->hbox);
 
   /* Connect events */
   g_signal_connect (priv->scale, "value-changed", G_CALLBACK (scale_menu_item_scale_value_changed), scale_item);
@@ -369,28 +434,11 @@ G_GNUC_END_IGNORE_DEPRECATIONS
   /* Keep references to the widgets */
   g_object_ref (priv->image);
   g_object_ref (priv->scale);
+  g_object_ref (priv->mute_toggle);
+  g_object_ref (priv->hbox);
+  g_object_ref (priv->vbox);
 
   return GTK_WIDGET(scale_item);
-}
-
-/**
- * scale_menu_item_get_scale:
- * @menuitem: The #ScaleMenuItem
- *
- * Retrieves the scale widget.
- *
- * Return Value: (transfer none)
- **/
-GtkWidget*
-scale_menu_item_get_scale (ScaleMenuItem *menuitem)
-{
-  ScaleMenuItemPrivate *priv;
-
-  g_return_val_if_fail (IS_SCALE_MENU_ITEM (menuitem), NULL);
-
-  priv = GET_PRIVATE (menuitem);
-
-  return priv->scale;
 }
 
 void
@@ -404,4 +452,56 @@ scale_menu_item_set_base_icon_name (ScaleMenuItem *item,
   priv = GET_PRIVATE (item);
 
   priv->icon_name = g_strdup (base_icon_name);
+}
+
+gdouble
+scale_menu_item_get_value (ScaleMenuItem *item)
+{
+  ScaleMenuItemPrivate *priv;
+
+  g_return_val_if_fail (IS_SCALE_MENU_ITEM (item), 0.0);
+
+  priv = GET_PRIVATE (item);
+
+  return gtk_range_get_value (GTK_RANGE (priv->scale));
+}
+
+void
+scale_menu_item_set_value (ScaleMenuItem *item,
+                           gdouble        value)
+{
+  ScaleMenuItemPrivate *priv;
+
+  g_return_if_fail (IS_SCALE_MENU_ITEM (item));
+
+  priv = GET_PRIVATE (item);
+
+  gtk_range_set_value (GTK_RANGE (priv->scale), value);
+}
+
+gboolean
+scale_menu_item_get_muted (ScaleMenuItem *menuitem)
+{
+  ScaleMenuItemPrivate *priv;
+
+  g_return_val_if_fail (IS_SCALE_MENU_ITEM (menuitem), TRUE);
+
+  priv = GET_PRIVATE (menuitem);
+
+  return !gtk_switch_get_active (GTK_SWITCH (priv->mute_toggle));
+}
+
+void
+scale_menu_item_set_muted (ScaleMenuItem *menuitem,
+                           gboolean       muted)
+{
+  ScaleMenuItemPrivate *priv;
+
+  g_return_if_fail (IS_SCALE_MENU_ITEM (menuitem));
+
+  priv = GET_PRIVATE (menuitem);
+
+  gtk_switch_set_active (GTK_SWITCH (priv->mute_toggle), !muted);
+
+  scale_menu_item_update_icon (menuitem);
 }
