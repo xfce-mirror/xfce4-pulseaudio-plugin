@@ -67,8 +67,8 @@ gdouble      scale_menu_item_get_value             (ScaleMenuItem *item);
 void         scale_menu_item_set_value             (ScaleMenuItem *item,
                                                     gdouble        value);
 
-gboolean     scale_menu_item_get_muted             (ScaleMenuItem *menuitem);
-void         scale_menu_item_set_muted             (ScaleMenuItem *menuitem,
+gboolean     scale_menu_item_get_muted             (ScaleMenuItem *item);
+void         scale_menu_item_set_muted             (ScaleMenuItem *item,
                                                     gboolean       muted);
 
 void         scale_menu_item_set_base_icon_name    (ScaleMenuItem *item,
