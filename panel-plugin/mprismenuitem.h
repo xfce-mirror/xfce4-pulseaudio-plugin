@@ -66,36 +66,36 @@ GtkWidget   *mpris_menu_item_new_with_player       (const gchar *player,
 
 GtkWidget   *mpris_menu_item_new_from_player_name  (const gchar *player);
 
-const gchar *mpris_menu_item_get_player            (MprisMenuItem *mi);
+const gchar *mpris_menu_item_get_player            (MprisMenuItem *item);
 
-void         mpris_menu_item_set_title             (MprisMenuItem *mi,
+void         mpris_menu_item_set_title             (MprisMenuItem *item,
                                                     const gchar   *title);
 
-void         mpris_menu_item_set_artist            (MprisMenuItem *mi,
+void         mpris_menu_item_set_artist            (MprisMenuItem *item,
                                                     const gchar   *artist);
 
-void         mpris_menu_item_set_can_go_previous   (MprisMenuItem *mi,
+void         mpris_menu_item_set_can_go_previous   (MprisMenuItem *item,
                                                     gboolean enabled);
 
-void         mpris_menu_item_set_can_play          (MprisMenuItem *mi,
+void         mpris_menu_item_set_can_play          (MprisMenuItem *item,
                                                     gboolean enabled);
 
-void         mpris_menu_item_set_can_pause         (MprisMenuItem *mi,
+void         mpris_menu_item_set_can_pause         (MprisMenuItem *item,
                                                     gboolean enabled);
 
-void         mpris_menu_item_set_can_go_next       (MprisMenuItem *mi,
+void         mpris_menu_item_set_can_go_next       (MprisMenuItem *item,
                                                     gboolean enabled);
 
-void         mpris_menu_item_set_can_raise         (MprisMenuItem *mi,
+void         mpris_menu_item_set_can_raise         (MprisMenuItem *item,
                                                     gboolean can_raise);
 
-void         mpris_menu_item_set_is_running        (MprisMenuItem *mi,
+void         mpris_menu_item_set_is_running        (MprisMenuItem *item,
                                                     gboolean running);
 
-void         mpris_menu_item_set_is_playing        (MprisMenuItem *mi,
+void         mpris_menu_item_set_is_playing        (MprisMenuItem *item,
                                                     gboolean playing);
 
-void         mpris_menu_item_set_is_stopped        (MprisMenuItem *mi,
+void         mpris_menu_item_set_is_stopped        (MprisMenuItem *item,
                                                     gboolean stopped);
 
 G_END_DECLS
