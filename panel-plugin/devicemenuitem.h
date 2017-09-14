@@ -53,16 +53,16 @@ struct _DeviceMenuItemClass
 
 GType        device_menu_item_get_type                 (void) G_GNUC_CONST;
 
-GtkWidget   *device_menu_item_new_with_label           (const gchar *label);
+GtkWidget   *device_menu_item_new_with_label           (const gchar    *label);
 
-void         device_menu_item_set_image_from_icon_name (DeviceMenuItem *menuitem,
+void         device_menu_item_set_image_from_icon_name (DeviceMenuItem *item,
                                                         const gchar    *icon_name);
 
-void         device_menu_item_add_device               (DeviceMenuItem *menuitem,
+void         device_menu_item_add_device               (DeviceMenuItem *item,
                                                         const gchar    *name,
                                                         const gchar    *description);
 
-void         device_menu_item_set_device_by_name       (DeviceMenuItem *menuitem,
+void         device_menu_item_set_device_by_name       (DeviceMenuItem *item,
                                                         const gchar    *name);
 
 

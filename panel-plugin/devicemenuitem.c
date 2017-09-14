@@ -39,15 +39,10 @@ struct _DeviceMenuItemPrivate {
 
 
 
-static void device_menu_item_finalize (GObject *object);
-
-
-
 enum {
   DEVICE_CHANGED,
   LAST_SIGNAL
 };
-
 
 
 
@@ -61,66 +56,14 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 
 
 
-static void
-device_menu_item_class_init (DeviceMenuItemClass *item_class)
-{
-  GObjectClass      *gobject_class =   G_OBJECT_CLASS      (item_class);
-
-  gobject_class->finalize = device_menu_item_finalize;
-
-  /**
-   * DeviceMenuItem::value-changed:
-   * @menuitem: the #DeviceMenuItem for which the value changed
-   * @value: the new value
-   *
-   * Emitted whenever the value of the contained scale changes because
-   * of user input.
-   */
-  signals[DEVICE_CHANGED] = g_signal_new ("device-changed",
-                                         TYPE_DEVICE_MENU_ITEM,
-                                         G_SIGNAL_RUN_LAST,
-                                         0, NULL, NULL,
-                                         g_cclosure_marshal_VOID__STRING,
-                                         G_TYPE_NONE,
-                                         1, G_TYPE_STRING);
+/* Static Declarations */
+static void   device_menu_item_finalize         (GObject *object);
+static void   device_menu_item_device_toggled   (DeviceMenuItem   *item,
+                                                 GtkCheckMenuItem *menu_item);
 
 
-  g_type_class_add_private (item_class, sizeof (DeviceMenuItemPrivate));
-}
 
-static void
-device_menu_item_init (DeviceMenuItem *self)
-{
-  DeviceMenuItemPrivate *priv;
-
-  priv = GET_PRIVATE (self);
-
-  priv->submenu = NULL;
-  priv->label = NULL;
-  priv->image = NULL;
-  priv->title = NULL;
-  priv->group = NULL;
-}
-
-static void
-device_menu_item_finalize (GObject *object)
-{
-  DeviceMenuItem        *self;
-  DeviceMenuItemPrivate *priv;
-
-  self = DEVICE_MENU_ITEM (object);
-  priv = GET_PRIVATE (self);
-
-  if (priv->title)
-    g_free (priv->title);
-
-  g_object_unref (priv->submenu);
-  g_object_unref (priv->image);
-  g_object_unref (priv->label);
-
-  (*G_OBJECT_CLASS (device_menu_item_parent_class)->finalize) (object);
-}
-
+/* Public API */
 GtkWidget*
 device_menu_item_new_with_label (const gchar *label)
 {
@@ -162,17 +105,22 @@ G_GNUC_END_IGNORE_DEPRECATIONS
   return GTK_WIDGET(device_item);
 }
 
-static void
-device_menu_item_device_toggled (DeviceMenuItem   *self,
-                                 GtkCheckMenuItem *menu_item)
-{
-  g_return_if_fail (IS_DEVICE_MENU_ITEM (self));
 
-  if (gtk_check_menu_item_get_active (menu_item))
-    {
-      g_signal_emit (self, signals[DEVICE_CHANGED], 0, (gchar *)g_object_get_data (G_OBJECT(menu_item), "name"));
-    }
+
+void
+device_menu_item_set_image_from_icon_name (DeviceMenuItem *item,
+                                           const gchar    *icon_name)
+{
+  DeviceMenuItemPrivate *priv;
+
+  g_return_if_fail (IS_DEVICE_MENU_ITEM (item));
+
+  priv = GET_PRIVATE (item);
+
+  gtk_image_set_from_icon_name (GTK_IMAGE (priv->image), icon_name, GTK_ICON_SIZE_LARGE_TOOLBAR);
 }
+
+
 
 void
 device_menu_item_add_device (DeviceMenuItem *item,
@@ -195,9 +143,11 @@ device_menu_item_add_device (DeviceMenuItem *item,
   g_signal_connect_swapped (G_OBJECT (mi), "toggled", G_CALLBACK (device_menu_item_device_toggled), item);
 }
 
+
+
 void
-device_menu_item_set_device_by_name       (DeviceMenuItem *item,
-                                           const gchar    *name)
+device_menu_item_set_device_by_name (DeviceMenuItem *item,
+                                     const gchar    *name)
 {
   DeviceMenuItemPrivate *priv;
   GList                 *children = NULL;
@@ -231,15 +181,78 @@ device_menu_item_set_device_by_name       (DeviceMenuItem *item,
   g_list_free (children);
 }
 
-void
-device_menu_item_set_image_from_icon_name (DeviceMenuItem *item,
-                                           const gchar    *icon_name)
+
+
+/* Private API */
+static void
+device_menu_item_class_init (DeviceMenuItemClass *item_class)
+{
+  GObjectClass      *gobject_class =   G_OBJECT_CLASS      (item_class);
+
+  gobject_class->finalize = device_menu_item_finalize;
+
+  /**
+   * DeviceMenuItem::value-changed:
+   * @menuitem: the #DeviceMenuItem for which the value changed
+   * @value: the new value
+   *
+   * Emitted whenever the value of the contained scale changes because
+   * of user input.
+   */
+  signals[DEVICE_CHANGED] = g_signal_new ("device-changed",
+                                          TYPE_DEVICE_MENU_ITEM,
+                                          G_SIGNAL_RUN_LAST,
+                                          0, NULL, NULL,
+                                          g_cclosure_marshal_VOID__STRING,
+                                          G_TYPE_NONE,
+                                          1, G_TYPE_STRING);
+
+  g_type_class_add_private (item_class, sizeof (DeviceMenuItemPrivate));
+}
+
+static void
+device_menu_item_init (DeviceMenuItem *item)
 {
   DeviceMenuItemPrivate *priv;
 
-  g_return_if_fail (IS_DEVICE_MENU_ITEM (item));
-
   priv = GET_PRIVATE (item);
 
-  gtk_image_set_from_icon_name (GTK_IMAGE (priv->image), icon_name, GTK_ICON_SIZE_LARGE_TOOLBAR);
+  priv->submenu = NULL;
+  priv->label = NULL;
+  priv->image = NULL;
+  priv->title = NULL;
+  priv->group = NULL;
+}
+
+static void
+device_menu_item_finalize (GObject *object)
+{
+  DeviceMenuItem        *item;
+  DeviceMenuItemPrivate *priv;
+
+  item = DEVICE_MENU_ITEM (object);
+  priv = GET_PRIVATE (item);
+
+  if (priv->title)
+    g_free (priv->title);
+
+  g_object_unref (priv->submenu);
+  g_object_unref (priv->image);
+  g_object_unref (priv->label);
+
+  (*G_OBJECT_CLASS (device_menu_item_parent_class)->finalize) (object);
+}
+
+
+
+static void
+device_menu_item_device_toggled (DeviceMenuItem   *item,
+                                 GtkCheckMenuItem *menu_item)
+{
+  g_return_if_fail (IS_DEVICE_MENU_ITEM (item));
+
+  if (gtk_check_menu_item_get_active (menu_item))
+    {
+      g_signal_emit (item, signals[DEVICE_CHANGED], 0, (gchar *)g_object_get_data (G_OBJECT(menu_item), "name"));
+    }
 }
