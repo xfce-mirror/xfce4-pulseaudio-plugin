@@ -176,7 +176,7 @@ pulseaudio_plugin_init_debug (void)
 
   /* enable debug output if the PANEL_DEBUG is set to "all" */
   debug_env = g_getenv ("PANEL_DEBUG");
-  if ((debug_env != NULL) && (debug_env != '\0'))
+  if (debug_env != NULL)
     {
       debug_domains = g_strsplit (debug_env, ",", -1);
       for (i = 0; debug_domains[i] != NULL; i++)
