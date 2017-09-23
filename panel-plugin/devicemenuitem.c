@@ -32,7 +32,6 @@
 struct _DeviceMenuItemPrivate {
   GtkWidget *submenu;
   GtkWidget *label;
-  GtkWidget *image;
   GSList    *group;
   gchar     *title;
 };
@@ -49,7 +48,7 @@ enum {
 static guint signals[LAST_SIGNAL] = { 0 };
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-G_DEFINE_TYPE (DeviceMenuItem, device_menu_item, GTK_TYPE_IMAGE_MENU_ITEM)
+G_DEFINE_TYPE (DeviceMenuItem, device_menu_item, GTK_TYPE_MENU_ITEM)
 G_GNUC_END_IGNORE_DEPRECATIONS
 
 #define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), TYPE_DEVICE_MENU_ITEM, DeviceMenuItemPrivate))
@@ -80,13 +79,6 @@ device_menu_item_new_with_label (const gchar *label)
   priv->title = g_strdup (label);
   priv->group = NULL;
 
-  /* Configure menu item image */
-  priv->image = gtk_image_new_from_icon_name ("audio-card", GTK_ICON_SIZE_LARGE_TOOLBAR);
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (device_item), priv->image);
-G_GNUC_END_IGNORE_DEPRECATIONS
-  gtk_image_set_pixel_size (GTK_IMAGE (priv->image), 24);
-
   /* Configure menu item label */
   gtk_menu_item_set_label (GTK_MENU_ITEM (device_item), priv->title);
   priv->label = gtk_bin_get_child (GTK_BIN (device_item));
@@ -99,25 +91,9 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 
   /* Keep references to the widgets */
   g_object_ref (priv->submenu);
-  g_object_ref (priv->image);
   g_object_ref (priv->label);
 
   return GTK_WIDGET(device_item);
-}
-
-
-
-void
-device_menu_item_set_image_from_icon_name (DeviceMenuItem *item,
-                                           const gchar    *icon_name)
-{
-  DeviceMenuItemPrivate *priv;
-
-  g_return_if_fail (IS_DEVICE_MENU_ITEM (item));
-
-  priv = GET_PRIVATE (item);
-
-  gtk_image_set_from_icon_name (GTK_IMAGE (priv->image), icon_name, GTK_ICON_SIZE_LARGE_TOOLBAR);
 }
 
 
@@ -219,7 +195,6 @@ device_menu_item_init (DeviceMenuItem *item)
 
   priv->submenu = NULL;
   priv->label = NULL;
-  priv->image = NULL;
   priv->title = NULL;
   priv->group = NULL;
 }
@@ -237,7 +212,6 @@ device_menu_item_finalize (GObject *object)
     g_free (priv->title);
 
   g_object_unref (priv->submenu);
-  g_object_unref (priv->image);
   g_object_unref (priv->label);
 
   (*G_OBJECT_CLASS (device_menu_item_parent_class)->finalize) (object);
