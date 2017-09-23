@@ -56,9 +56,12 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 
 
 /* Static Declarations */
-static void   device_menu_item_finalize         (GObject *object);
-static void   device_menu_item_device_toggled   (DeviceMenuItem   *item,
-                                                 GtkCheckMenuItem *menu_item);
+static void   device_menu_item_finalize            (GObject *object);
+static void   device_menu_item_device_toggled      (DeviceMenuItem   *item,
+                                                    GtkCheckMenuItem *menu_item);
+static void   gtk_label_set_markup_printf_escaped  (GtkLabel    *label,
+                                                    const gchar *format,
+                                                    ...);
 
 
 
@@ -121,6 +124,24 @@ device_menu_item_add_device (DeviceMenuItem *item,
 
 
 
+static void
+gtk_label_set_markup_printf_escaped (GtkLabel    *label,
+                                     const gchar *format,
+                                     ...)
+{
+  va_list args;
+  gchar *str;
+
+  va_start (args, format);
+  str = g_markup_vprintf_escaped (format, args);
+  gtk_label_set_markup (label, str);
+  va_end (args);
+
+  g_free (str);
+}
+
+
+
 void
 device_menu_item_set_device_by_name (DeviceMenuItem *item,
                                      const gchar    *name)
@@ -128,7 +149,7 @@ device_menu_item_set_device_by_name (DeviceMenuItem *item,
   DeviceMenuItemPrivate *priv;
   GList                 *children = NULL;
   GList                 *iter = NULL;
-  gchar                 *markup = NULL;
+  gboolean               markup_set = FALSE;
 
   g_return_if_fail (IS_DEVICE_MENU_ITEM (item));
 
@@ -139,20 +160,17 @@ device_menu_item_set_device_by_name (DeviceMenuItem *item,
   for (iter = children; iter != NULL; iter = g_list_next (iter)) {
     if (g_strcmp0 (name, (gchar *)g_object_get_data (G_OBJECT(iter->data), "name")) == 0)
       {
-        if (markup != NULL)
-          g_free (markup);
-        markup = g_strconcat ("<b>", priv->title, " (", gtk_menu_item_get_label (GTK_MENU_ITEM (iter->data)), ")</b>", NULL);
+        /* TRANSLATORS: <b>{Input/Output} ({Device Name})</b> */
+        gtk_label_set_markup_printf_escaped (GTK_LABEL (priv->label), _("<b>%s (%s)</b>"), priv->title, gtk_menu_item_get_label (GTK_MENU_ITEM (iter->data)));
         gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (iter->data), TRUE);
+        markup_set = TRUE;
       } else {
         gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (iter->data), FALSE);
       }
   }
 
-  if (markup == NULL)
-    markup = g_strconcat ("<b>", priv->title, "</b>", NULL);
-
-  gtk_label_set_markup (GTK_LABEL (priv->label), markup);
-  g_free (markup);
+  if (!markup_set)
+    gtk_label_set_markup_printf_escaped (GTK_LABEL (priv->label), "<b>%s</b>", priv->title);
 
   g_list_free (children);
 }
