@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-29 06:37+0200\n"
-"PO-Revision-Date: 2017-09-23 21:43+0000\n"
+"POT-Creation-Date: 2017-09-24 00:46+0200\n"
+"PO-Revision-Date: 2017-09-24 09:34+0000\n"
 "Last-Translator: Edin Veskovic <edin.lockedin@gmail.com>\n"
 "Language-Team: Croatian (http://www.transifex.com/xfce/xfce-panel-plugins/language/hr/)\n"
 "MIME-Version: 1.0\n"
@@ -86,8 +86,8 @@ msgstr "Reproduktori medije"
 msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
 msgstr "Autorska prava © 2014-2017 Andrzej Radecki et al.\n"
 
-#: ../panel-plugin/pulseaudio-dialog.c:136
-#: ../panel-plugin/pulseaudio-menu.c:242
+#: ../panel-plugin/pulseaudio-dialog.c:135
+#: ../panel-plugin/pulseaudio-menu.c:258
 #, c-format
 msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
@@ -95,59 +95,57 @@ msgid ""
 "%s"
 msgstr "<big><b>Neuspjelo izvršavanje naredbe \"%s\".</b></big>\n\n%s"
 
-#: ../panel-plugin/pulseaudio-dialog.c:139
-#: ../panel-plugin/pulseaudio-menu.c:245
+#: ../panel-plugin/pulseaudio-dialog.c:138
+#: ../panel-plugin/pulseaudio-menu.c:261
 msgid "Error"
 msgstr "Greška"
 
-#: ../panel-plugin/pulseaudio-button.c:315
-#: ../panel-plugin/pulseaudio-notify.c:200
+#: ../panel-plugin/pulseaudio-button.c:309
+#: ../panel-plugin/pulseaudio-notify.c:196
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "Dodatak nije povezan s PulseAudio poslužiteljem"
 
-#: ../panel-plugin/pulseaudio-button.c:317
+#: ../panel-plugin/pulseaudio-button.c:311
 #, c-format
 msgid "Volume %d%% (muted)"
 msgstr "Glasnoća %d%% (prigušen)"
 
-#: ../panel-plugin/pulseaudio-button.c:319
+#: ../panel-plugin/pulseaudio-button.c:313
 #, c-format
 msgid "Volume %d%%"
 msgstr "Glasnoća %d%%"
 
-#: ../panel-plugin/pulseaudio-menu.c:429
-msgid "<b>Audio output volume</b>"
-msgstr "<b>Izlazna razina zvuka</b>"
+#: ../panel-plugin/pulseaudio-menu.c:446
+msgid "Output"
+msgstr "Izlaz"
 
-#: ../panel-plugin/pulseaudio-menu.c:440
-msgid "_Mute audio output"
-msgstr "_Priguši izlazni zvuk"
-
-#: ../panel-plugin/pulseaudio-menu.c:453
-msgid "<b>Audio input volume</b>"
-msgstr "<b>Ulazna razina zvuka</b>"
-
-#: ../panel-plugin/pulseaudio-menu.c:464
-msgid "_Mute audio input"
-msgstr "_Priguši ulazni zvuk"
+#: ../panel-plugin/pulseaudio-menu.c:480
+msgid "Input"
+msgstr "Ulaz"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:543
+#: ../panel-plugin/pulseaudio-menu.c:579
 msgid "_Audio mixer..."
 msgstr "_Mikser zvuka..."
 
-#: ../panel-plugin/pulseaudio-notify.c:202
+#: ../panel-plugin/pulseaudio-notify.c:198
 #, c-format
 msgid "Volume %d%c (muted)"
 msgstr "Glasnoća %d%c (prigušen)"
 
-#: ../panel-plugin/pulseaudio-notify.c:204
+#: ../panel-plugin/pulseaudio-notify.c:200
 #, c-format
 msgid "Volume %d%c"
 msgstr "Glasnoća %d%c"
 
-#: ../panel-plugin/mprismenuitem.c:311 ../panel-plugin/mprismenuitem.c:575
-#: ../panel-plugin/mprismenuitem.c:594
+#. TRANSLATORS: <b>{Input/Output} ({Device Name})</b>
+#: ../panel-plugin/devicemenuitem.c:164
+#, c-format
+msgid "<b>%s (%s)</b>"
+msgstr "<b>%s (%s)</b>"
+
+#: ../panel-plugin/mprismenuitem.c:357 ../panel-plugin/mprismenuitem.c:430
+#: ../panel-plugin/mprismenuitem.c:795
 msgid "Not currently playing"
 msgstr "Trenutno ne reproducira"
