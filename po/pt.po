@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-29 06:37+0200\n"
-"PO-Revision-Date: 2017-09-23 21:43+0000\n"
+"POT-Creation-Date: 2017-09-24 00:46+0200\n"
+"PO-Revision-Date: 2017-09-26 18:15+0000\n"
 "Last-Translator: José Vieira <jvieira33@sapo.pt>\n"
 "Language-Team: Portuguese (http://www.transifex.com/xfce/xfce-panel-plugins/language/pt/)\n"
 "MIME-Version: 1.0\n"
@@ -85,8 +85,8 @@ msgstr "Reprodutores de media"
 msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
 msgstr "Copyright © 2014-2017 Andrzej Radecki e outros\n"
 
-#: ../panel-plugin/pulseaudio-dialog.c:136
-#: ../panel-plugin/pulseaudio-menu.c:242
+#: ../panel-plugin/pulseaudio-dialog.c:135
+#: ../panel-plugin/pulseaudio-menu.c:258
 #, c-format
 msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
@@ -94,59 +94,57 @@ msgid ""
 "%s"
 msgstr "<big><b>Incapaz de executar o comando \"%s\".</b></big>\n\n%s"
 
-#: ../panel-plugin/pulseaudio-dialog.c:139
-#: ../panel-plugin/pulseaudio-menu.c:245
+#: ../panel-plugin/pulseaudio-dialog.c:138
+#: ../panel-plugin/pulseaudio-menu.c:261
 msgid "Error"
 msgstr "Erro"
 
-#: ../panel-plugin/pulseaudio-button.c:315
-#: ../panel-plugin/pulseaudio-notify.c:200
+#: ../panel-plugin/pulseaudio-button.c:309
+#: ../panel-plugin/pulseaudio-notify.c:196
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "Não ligado ao servidor PulseAudio"
 
-#: ../panel-plugin/pulseaudio-button.c:317
+#: ../panel-plugin/pulseaudio-button.c:311
 #, c-format
 msgid "Volume %d%% (muted)"
 msgstr "Volume %d%% (sem som)"
 
-#: ../panel-plugin/pulseaudio-button.c:319
+#: ../panel-plugin/pulseaudio-button.c:313
 #, c-format
 msgid "Volume %d%%"
 msgstr "Volume %d%%"
 
-#: ../panel-plugin/pulseaudio-menu.c:429
-msgid "<b>Audio output volume</b>"
-msgstr "<b>Volume de saída áudio</b>"
+#: ../panel-plugin/pulseaudio-menu.c:446
+msgid "Output"
+msgstr "Saída"
 
-#: ../panel-plugin/pulseaudio-menu.c:440
-msgid "_Mute audio output"
-msgstr "_Silenciar saída áudio"
-
-#: ../panel-plugin/pulseaudio-menu.c:453
-msgid "<b>Audio input volume</b>"
-msgstr "<b>Volume de entrada áudio</b>"
-
-#: ../panel-plugin/pulseaudio-menu.c:464
-msgid "_Mute audio input"
-msgstr "_Silenciar entrada áudio"
+#: ../panel-plugin/pulseaudio-menu.c:480
+msgid "Input"
+msgstr "Entrada"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:543
+#: ../panel-plugin/pulseaudio-menu.c:579
 msgid "_Audio mixer..."
 msgstr "_Misturador Áudio..."
 
-#: ../panel-plugin/pulseaudio-notify.c:202
+#: ../panel-plugin/pulseaudio-notify.c:198
 #, c-format
 msgid "Volume %d%c (muted)"
 msgstr "Volume %d%c (sem som)"
 
-#: ../panel-plugin/pulseaudio-notify.c:204
+#: ../panel-plugin/pulseaudio-notify.c:200
 #, c-format
 msgid "Volume %d%c"
 msgstr "Volume %d%c"
 
-#: ../panel-plugin/mprismenuitem.c:311 ../panel-plugin/mprismenuitem.c:575
-#: ../panel-plugin/mprismenuitem.c:594
+#. TRANSLATORS: <b>{Input/Output} ({Device Name})</b>
+#: ../panel-plugin/devicemenuitem.c:164
+#, c-format
+msgid "<b>%s (%s)</b>"
+msgstr "<b>%s (%s)</b>"
+
+#: ../panel-plugin/mprismenuitem.c:357 ../panel-plugin/mprismenuitem.c:430
+#: ../panel-plugin/mprismenuitem.c:795
 msgid "Not currently playing"
 msgstr "Presentemente não está a ser reproduzido"
