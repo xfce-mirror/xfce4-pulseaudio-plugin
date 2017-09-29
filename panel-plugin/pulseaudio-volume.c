@@ -810,7 +810,7 @@ pulseaudio_volume_get_output_list (PulseaudioVolume *volume)
   GList *list;
   GList *sorted;
 
-  g_return_if_fail (IS_PULSEAUDIO_VOLUME (volume));
+  g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), NULL);
 
   list = g_hash_table_get_keys (volume->sinks);
   sorted = g_list_sort_with_data (list, (GCompareDataFunc) sort_device_list, volume->sinks);
@@ -824,7 +824,7 @@ gchar *
 pulseaudio_volume_get_output_by_name (PulseaudioVolume *volume,
                                       gchar            *name)
 {
-  g_return_if_fail (IS_PULSEAUDIO_VOLUME (volume));
+  g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), NULL);
   return (gchar *) g_hash_table_lookup (volume->sinks, name);
 }
 
@@ -836,7 +836,7 @@ pulseaudio_volume_get_input_list (PulseaudioVolume *volume)
   GList *list;
   GList *sorted;
 
-  g_return_if_fail (IS_PULSEAUDIO_VOLUME (volume));
+  g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), NULL);
 
   list = g_hash_table_get_keys (volume->sources);
   sorted = g_list_sort_with_data (list, (GCompareDataFunc) sort_device_list, volume->sources);
@@ -850,7 +850,7 @@ gchar *
 pulseaudio_volume_get_input_by_name (PulseaudioVolume *volume,
                                      gchar            *name)
 {
-  g_return_if_fail (IS_PULSEAUDIO_VOLUME (volume));
+  g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), NULL);
   return (gchar *) g_hash_table_lookup (volume->sources, name);
 }
 
