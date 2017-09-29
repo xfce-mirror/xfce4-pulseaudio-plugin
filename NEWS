@@ -1,3 +1,20 @@
+0.3.1
+=====
+
+- New Feature: Device Management
+  - Switch active audio input and output devices.
+  - Control volume of the currently selected device.
+  - If there are no input or output devices, the menu items are hidden.
+  - This feature does not change the device associated with active streams.
+- General:
+  - Fixed build warnings with gcc-7
+  - Improved code quality with the custom widgets
+  - Improved memory management
+  - Simplified audio volume controls
+- Translation Updates: Bulgarian, Catalan, Czech, Danish, French, Hebrew,
+  Croatian, Korean, Lithuanian, Dutch, Polish, Portuguese, Russian, Slovak,
+  Slovenian, Thai, Turkish, Ukrainian, Chinese (China), Chinese (Taiwan)
+
 0.3.0
 =====
 

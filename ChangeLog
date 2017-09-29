@@ -1,4 +1,93 @@
 # created with git log --pretty=format:"%ad %h %s %aN <%aE>" --no-merges --date=short
+2017-09-28 6d92444 I18n: Update translation he (100%). Elishai Eliyahu <e1907@mm.st>
+2017-09-27 8884abe I18n: Update translation pt (100%). José Vieira <jvieira33@sapo.pt>
+2017-09-27 5b4cb1a I18n: Update translation pl (100%). Anonymous <noreply@xfce.org>
+2017-09-26 fe5af5b I18n: Update translation zh_CN (81%). 玉堂白鹤 <yjwork@qq.com>
+2017-09-26 cd9f8fe I18n: Update translation tr (100%). Necdet Yücel <necdetyucel@gmail.com>
+2017-09-26 cebf781 I18n: Update translation da (100%). Anonymous <noreply@xfce.org>
+2017-09-26 dd1cc24 I18n: Update translation cs (100%). Michal Várady <miko.vaji@gmail.com>
+2017-09-25 15de597 I18n: Update translation zh_TW (100%). Jeff Huang <s8321414@gmail.com>
+2017-09-25 d6e79df I18n: Update translation ru (100%). Igor <f2404@yandex.ru>
+2017-09-25 f7dc2b8 I18n: Update translation lt (100%). Anonymous <noreply@xfce.org>
+2017-09-24 fc28f83 I18n: Update translation sk (100%). Dušan Kazik <prescott66@gmail.com>
+2017-09-24 e7d1759 I18n: Update translation nl (100%). Pjotr <pjotrvertaalt@gmail.com>
+2017-09-24 b531b5c I18n: Update translation hr (100%). Edin Veskovic <edin.lockedin@gmail.com>
+2017-09-24 0dacebf I18n: Update translation fr (100%). Yannick Le Guen <leguen.yannick@gmail.com>
+2017-09-24 68bf3f0 I18n: Update translation ca (100%). Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>
+2017-09-24 484b2f0 I18n: Update translation bg (100%). Kiril Kirilov <cybercop_montana@abv.bg>
+2017-09-24 e9fbc60 I18n: Update translation ru (100%). Igor <f2404@yandex.ru>
+2017-09-24 211ff85 I18n: Update translation pt (100%). José Vieira <jvieira33@sapo.pt>
+2017-09-24 b30d980 I18n: Update translation pt_BR (100%). Miguel V. S. Frasson <mvsfrasson@gmail.com>
+2017-09-24 88b2863 I18n: Update translation oc (78%). Xfce Bot <transifex@xfce.org>
+2017-09-24 5a77d2c I18n: Update translation nl (100%). Pjotr <pjotrvertaalt@gmail.com>
+2017-09-24 303a7b6 I18n: Update translation it (78%). Xfce Bot <transifex@xfce.org>
+2017-09-24 3e36e4a I18n: Update translation hr (100%). Edin Veskovic <edin.lockedin@gmail.com>
+2017-09-24 44176e8 I18n: Update translation he (100%). Elishai Eliyahu <e1907@mm.st>
+2017-09-24 d953aee I18n: Update translation en_AU (78%). Xfce Bot <transifex@xfce.org>
+2017-09-23 c0c45aa Nicer markup code and translation on device menu item Sean Davis <smd.seandavis@gmail.com>
+2017-09-23 fa01a57 Remove image from device menu item to reduce clutter Sean Davis <smd.seandavis@gmail.com>
+2017-09-16 04f6373 Fix gcc-7 warning Sean Davis <smd.seandavis@gmail.com>
+2017-09-14 3e6ae84 Tidy up MprisMenuItem Sean Davis <smd.seandavis@gmail.com>
+2017-09-14 811a39d Tidy up DeviceMenuItem Sean Davis <smd.seandavis@gmail.com>
+2017-09-12 c1d87fa Tidy up ScaleMenuItem Sean Davis <smd.seandavis@gmail.com>
+2017-09-12 3df24e9 Replace mute checkbox with switch Sean Davis <smd.seandavis@gmail.com>
+2017-09-12 3dbbd9b Drop Audio text Sean Davis <smd.seandavis@gmail.com>
+2017-09-12 55c3352 Memory management for MprisMenuItem Sean Davis <smd.seandavis@gmail.com>
+2017-09-11 b5a5160 Better memory management on DeviceMenuItem Sean Davis <smd.seandavis@gmail.com>
+2017-09-11 49f0d46 Simplify ScaleMenuItem and memory management Sean Davis <smd.seandavis@gmail.com>
+2017-09-11 db4e7bf Show submenus with only one item Sean Davis <smd.seandavis@gmail.com>
+2017-09-11 96b228d Simplify ScaleMenuItem Sean Davis <smd.seandavis@gmail.com>
+2017-09-11 f9f3dae Display the scale menu item as a volume low to high slider Sean Davis <smd.seandavis@gmail.com>
+2017-09-11 1c71eb3 Show non-symbolic device icons, strip label from scalemenuitem and decrease icon size to 16 Sean Davis <smd.seandavis@gmail.com>
+2017-09-10 2e32b70 Initial device widget, still need to adjust the other widgets Sean Davis <smd.seandavis@gmail.com>
+2017-09-10 223259c Detect device (dis)connection Sean Davis <smd.seandavis@gmail.com>
+2017-09-10 5a01be9 Mute only currently selected channels Sean Davis <smd.seandavis@gmail.com>
+2017-09-09 75dea85 Sort device lists Sean Davis <smd.seandavis@gmail.com>
+2017-09-09 d3f05f2 Add support for input devices, ignoring sink monitors Sean Davis <smd.seandavis@gmail.com>
+2017-09-09 6e118bf Start adding device support. Can select default audio output device, but this does not currently propogate to active streams. Sean Davis <smd.seandavis@gmail.com>
+2017-09-22 2d5bd2e I18n: Update translation zh_TW (100%). Jeff Huang <s8321414@gmail.com>
+2017-09-22 11161c0 I18n: Update translation zh_CN (89%). Xfce Bot <transifex@xfce.org>
+2017-09-22 8055845 I18n: Update translation uk (100%). Yarema aka Knedlyk <yupadmin@gmail.com>
+2017-09-22 46ad30d I18n: Update translation tr (100%). Necdet Yücel <necdetyucel@gmail.com>
+2017-09-22 afb7fab I18n: Update translation th (100%). Theppitak Karoonboonyanan <theppitak@gmail.com>
+2017-09-22 a858742 I18n: Update translation sv (100%). Påvel Nicklasson <pavel2@frimix.se>
+2017-09-22 5d9722c I18n: Update translation sr (89%). Xfce Bot <transifex@xfce.org>
+2017-09-22 46704e1 I18n: Update translation sk (89%). Xfce Bot <transifex@xfce.org>
+2017-09-22 ec37646 I18n: Update translation ru (100%). Igor <f2404@yandex.ru>
+2017-09-22 f80b17c I18n: Update translation pt (100%). José Vieira <jvieira33@sapo.pt>
+2017-09-22 6d8ca77 I18n: Update translation pt_BR (100%). Miguel V. S. Frasson <mvsfrasson@gmail.com>
+2017-09-22 0a4b51e I18n: Update translation pl (100%). Anonymous <noreply@xfce.org>
+2017-09-22 6372104 I18n: Update translation oc (78%). Xfce Bot <transifex@xfce.org>
+2017-09-22 c089908 I18n: Update translation nl (100%). Pjotr <pjotrvertaalt@gmail.com>
+2017-09-22 64171c5 I18n: Update translation nb (89%). Xfce Bot <transifex@xfce.org>
+2017-09-22 855a2a7 I18n: Update translation ms (100%). abuyop <abuyop@gmail.com>
+2017-09-22 faae6d1 I18n: Update translation lt (100%). Anonymous <noreply@xfce.org>
+2017-09-22 d98408b I18n: Update translation kk (89%). Xfce Bot <transifex@xfce.org>
+2017-09-22 cdb3605 I18n: Update translation it (78%). Xfce Bot <transifex@xfce.org>
+2017-09-22 bbd4875 I18n: Update translation is (50%). Xfce Bot <transifex@xfce.org>
+2017-09-22 671f7b3 I18n: Update translation id (92%). Xfce Bot <transifex@xfce.org>
+2017-09-22 381fc99 I18n: Update translation hu (71%). Xfce Bot <transifex@xfce.org>
+2017-09-22 42bb2dd I18n: Update translation hr (100%). Edin Veskovic <edin.lockedin@gmail.com>
+2017-09-22 fe63d89 I18n: Update translation he (100%). Elishai Eliyahu <e1907@mm.st>
+2017-09-22 de660a9 I18n: Update translation gl (78%). Xfce Bot <transifex@xfce.org>
+2017-09-22 9be8ba8 I18n: Update translation fr (100%). Charles Monzat <superboa@hotmail.fr>
+2017-09-22 407f21b I18n: Update translation es (100%). Pablo Lezaeta Reyes [pˈaβ̞lo lˌe̞θaˈeta rˈejɛ] <prflr88@gmail.com>
+2017-09-22 477f675 I18n: Update translation en_AU (78%). Xfce Bot <transifex@xfce.org>
+2017-09-22 ef7a3a0 I18n: Update translation el (78%). Xfce Bot <transifex@xfce.org>
+2017-09-22 be1f50f I18n: Update translation de (89%). Xfce Bot <transifex@xfce.org>
+2017-09-22 f0704d7 I18n: Update translation da (100%). Anonymous <noreply@xfce.org>
+2017-09-22 5212800 I18n: Update translation cs (100%). Michal Várady <miko.vaji@gmail.com>
+2017-09-22 644a72e I18n: Update translation ca (100%). Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>
+2017-09-22 d5fa990 I18n: Update translation bg (100%). Kiril Kirilov <cybercop_montana@abv.bg>
+2017-09-19 7abbbff I18n: Update translation sl (100%). Anonymous <noreply@xfce.org>
+2017-09-16 57bcb20 I18n: Update translation ko (100%). Seong-ho Cho <darkcircle.0426@gmail.com>
+2017-09-13 1f451eb I18n: Update translation da (100%). Anonymous <noreply@xfce.org>
+2017-09-12 b6b823d I18n: Update translation th (100%). Theppitak Karoonboonyanan <theppitak@gmail.com>
+2017-09-10 99a7495 I18n: Update translation uk (100%). Yarema aka Knedlyk <yupadmin@gmail.com>
+2017-09-10 5e1b4bc I18n: Update translation he (100%). Elishai Eliyahu <e1907@mm.st>
+2017-09-06 dea2be9 I18n: Update translation tr (100%). Necdet Yücel <necdetyucel@gmail.com>
+2017-09-05 481c5b6 Back to development Sean Davis <smd.seandavis@gmail.com>
+2017-09-05 ecbf207 Preparing for the release Sean Davis <smd.seandavis@gmail.com>
 2017-09-05 8b8f075 Add missing history since 0.2.0 Sean Davis <smd.seandavis@gmail.com>
 2017-09-06 174f171 I18n: Update translation pt_BR (100%). Miguel V. S. Frasson <mvsfrasson@gmail.com>
 2017-09-03 baffe52 I18n: Update translation sv (100%). Påvel Nicklasson <pavel2@frimix.se>
