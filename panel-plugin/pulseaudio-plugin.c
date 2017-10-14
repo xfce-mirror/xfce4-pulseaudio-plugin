@@ -252,40 +252,20 @@ pulseaudio_plugin_size_changed (XfcePanelPlugin *plugin,
 {
   PulseaudioPlugin *pulseaudio_plugin = PULSEAUDIO_PLUGIN (plugin);
   gint              icon_size;
-#if !LIBXFCE4PANEL_CHECK_VERSION (4, 13, 0)
-  GtkStyleContext  *context;
-  GtkBorder         padding;
-  GtkBorder         border;
-  gint              width;
-  gint              xthickness;
-  gint              ythickness;
-#endif
 
   /* The plugin only occupies a single row */
-  size /= xfce_panel_plugin_get_nrows (plugin);
 #if LIBXFCE4PANEL_CHECK_VERSION (4, 13, 0)
   icon_size = xfce_panel_plugin_get_icon_size (plugin);
 #else
   // fall-back for older panel versions
-  /* Get widget's padding and border to correctly calculate the button's icon size */
-  context = gtk_widget_get_style_context (GTK_WIDGET (pulseaudio_plugin->button));
-  gtk_style_context_get_padding (context, gtk_widget_get_state_flags (GTK_WIDGET (pulseaudio_plugin->button)), &padding);
-  gtk_style_context_get_border (context, gtk_widget_get_state_flags (GTK_WIDGET (pulseaudio_plugin->button)), &border);
-  xthickness = padding.left+padding.right+border.left+border.right;
-  ythickness = padding.top+padding.bottom+border.top+border.bottom;
-
-  width = size - 2 * MAX (xthickness, ythickness);
-  /* Since symbolic icons are usually only provided in 16px we
-   * try to be clever and use size steps */
-
-  if (width <= 21)
-      icon_size = 16;
-  else if (width >=22 && width <= 29)
-      icon_size = 24;
-  else if (width >= 30 && width <= 40)
-      icon_size = 32;
-  else
-      icon_size = width;
+  icon_size = size / xfce_panel_plugin_get_nrows(plugin);
+  icon_size -= 4;
+  if (icon_size < 24)
+    icon_size = 16;
+  else if (icon_size < 32)
+    icon_size = 24;
+  else if (icon_size < 36)
+    icon_size = 32;
 #endif
 
   pulseaudio_button_set_size (pulseaudio_plugin->button, size, icon_size);
