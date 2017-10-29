@@ -539,7 +539,7 @@ pulseaudio_mpris_player_dbus_connect (PulseaudioMprisPlayer *player)
 
   watch_id = g_bus_watch_name_on_connection(player->dbus_connection,
                                             player->dbus_name,
-                                            G_BUS_NAME_OWNER_FLAGS_REPLACE,
+                                            G_BUS_NAME_WATCHER_FLAGS_AUTO_START,
                                             pulseaudio_mpris_player_on_dbus_connected,
                                             pulseaudio_mpris_player_on_dbus_lost,
                                             player,
