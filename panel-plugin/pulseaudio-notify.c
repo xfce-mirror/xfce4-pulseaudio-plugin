@@ -220,12 +220,12 @@ pulseaudio_notify_notify (PulseaudioNotify *notify, gboolean mic)
   g_free (title);
 
   if (notify->gauge_notifications) {
-    notify_notification_set_hint_int32 (notification,
-                                        "value",
-                                        volume_i);
-    notify_notification_set_hint_string (notification,
-                                         "x-canonical-private-synchronous",
-                                         "");
+    notify_notification_set_hint (notification,
+                                  "value",
+                                  g_variant_new_int32(volume_i));
+    notify_notification_set_hint (notification,
+                                  "x-canonical-private-synchronous",
+                                  g_variant_new_string(""));
   }
 
   if (!notify_notification_show (notification, &error))
