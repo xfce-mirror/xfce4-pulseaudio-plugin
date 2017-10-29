@@ -1,4 +1,15 @@
 # created with git log --pretty=format:"%ad %h %s %aN <%aE>" --no-merges --date=short
+2017-10-29 6996902 Move away from deprecated notify_notification_set_hint calls Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
+2017-10-22 03a1ade I18n: Update translation hr (100%). Ivica  Kolić <ikoli@yahoo.com>
+2017-09-29 abdc05a Fix build with clang (non-void function should return a value [-Wreturn-type]) (bug #13889) Olivier Duchateau <duchateau.olivier@gmail.com>
+2017-10-14 7c2e79a Fix panel icon too big with high DPI (bug #13894) Sean Davis <smd.seandavis@gmail.com>
+2017-10-10 ecf0ef0 I18n: Update translation pt_BR (100%). Andre Miranda <andre42m@gmail.com>
+2017-10-08 be7c79a I18n: Update translation sv (100%). Påvel Nicklasson <pavel2@frimix.se>
+2017-10-07 462e663 I18n: Update translation zh_CN (100%). xiaobo zhou <zhouxiaobo.500@gmail.com>
+2017-10-03 5b5d419 I18n: Update translation de (100%). Vinzenz Vietzke <vinz@vinzv.de>
+2017-09-30 ec8284d I18n: Update translation da (100%). Anonymous <noreply@xfce.org>
+2017-09-29 bb7c23d Back to development Sean Davis <smd.seandavis@gmail.com>
+2017-09-29 dd2d6dd Preparing for the release Sean Davis <smd.seandavis@gmail.com>
 2017-09-28 6d92444 I18n: Update translation he (100%). Elishai Eliyahu <e1907@mm.st>
 2017-09-27 8884abe I18n: Update translation pt (100%). José Vieira <jvieira33@sapo.pt>
 2017-09-27 5b4cb1a I18n: Update translation pl (100%). Anonymous <noreply@xfce.org>

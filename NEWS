@@ -1,3 +1,15 @@
+0.3.2
+=====
+
+- General:
+  - Replace deprecated notify_notification_set_hint calls
+- Bug Fixes:
+  - Xfce 13889: Fix build with clang (non-void function should return a value
+    [-Wreturn-type])
+  - Xfce 13894: Fix panel icon size with high DPI
+- Translation Updates: Chinese (China), Danish, German, Portuguese (Brazil),
+  Swedish
+
 0.3.1
 =====
 
