@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-09-24 00:46+0200\n"
-"PO-Revision-Date: 2017-09-30 14:18+0000\n"
+"PO-Revision-Date: 2017-11-01 18:23+0000\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish (http://www.transifex.com/xfce/xfce-panel-plugins/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,7 @@ msgstr "Justér lydstyrken på PulseAudio-lydsystemet"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:1
 msgid "PulseAudio Panel Plugin"
-msgstr "PulseAudio panel-plugin"
+msgstr "PulseAudio-panelplugin"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:2
 msgid "Enable keyboard _shortcuts for volume control"
@@ -74,7 +74,7 @@ msgstr "Lydindstillinger"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:11
 msgid "Control playback of media players"
-msgstr "Kontrollér afspilning af medieafspillere"
+msgstr "Styr afspilning af medieafspillere"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
 msgid "Media Players"
