@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-09-24 00:46+0200\n"
-"PO-Revision-Date: 2017-11-03 11:14+0000\n"
+"PO-Revision-Date: 2017-11-03 14:19+0000\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish (http://www.transifex.com/xfce/xfce-panel-plugins/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -107,7 +107,7 @@ msgstr "Ikke forbundet til PulseAudio-serveren"
 #: ../panel-plugin/pulseaudio-button.c:311
 #, c-format
 msgid "Volume %d%% (muted)"
-msgstr "Lydstyrke %d%% (slået fra)"
+msgstr "Lydstyrke %d%% (lydløs)"
 
 #: ../panel-plugin/pulseaudio-button.c:313
 #, c-format
@@ -130,7 +130,7 @@ msgstr "_Lydmikser..."
 #: ../panel-plugin/pulseaudio-notify.c:198
 #, c-format
 msgid "Volume %d%c (muted)"
-msgstr "Lydstyrke %d%c (slået fra)"
+msgstr "Lydstyrke %d%c (lydløs)"
 
 #: ../panel-plugin/pulseaudio-notify.c:200
 #, c-format
