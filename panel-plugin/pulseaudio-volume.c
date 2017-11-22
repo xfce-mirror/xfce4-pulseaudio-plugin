@@ -262,6 +262,9 @@ pulseaudio_volume_server_info_cb (pa_context           *context,
   PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
   if (i == NULL) return;
 
+  pulseaudio_volume_set_default_input (volume, i->default_source_name);
+  pulseaudio_volume_set_default_output (volume, i->default_sink_name);
+
   pulseaudio_debug ("server: %s@%s, v.%s", i->user_name, i->server_name, i->server_version);
   pa_context_get_sink_info_by_name (context, i->default_sink_name, pulseaudio_volume_sink_info_cb, volume);
   pa_context_get_source_info_by_name (context, i->default_source_name, pulseaudio_volume_source_info_cb, volume);
@@ -902,8 +905,11 @@ pulseaudio_volume_default_sink_changed (pa_context *context,
 
 void
 pulseaudio_volume_set_default_output (PulseaudioVolume *volume,
-                                      gchar            *name)
+                                      const gchar      *name)
 {
+  if (g_strcmp0(name, volume->default_sink_name) == 0)
+    return;
+
   g_free (volume->default_sink_name);
   volume->default_sink_name = g_strdup (name);
 
@@ -942,8 +948,11 @@ pulseaudio_volume_default_source_changed (pa_context *context,
 
 void
 pulseaudio_volume_set_default_input (PulseaudioVolume *volume,
-                                     gchar            *name)
+                                     const gchar      *name)
 {
+  if (g_strcmp0 (name, volume->default_source_name) == 0)
+    return;
+
   g_free (volume->default_source_name);
   volume->default_source_name = g_strdup (name);
 
