@@ -64,6 +64,8 @@ struct _PulseaudioVolume
   pa_glib_mainloop     *pa_mainloop;
   pa_context           *pa_context;
   gboolean              connected;
+  gboolean              sink_connected;
+  gboolean              source_connected;
 
   gdouble               volume;
   gboolean              muted;
@@ -203,16 +205,22 @@ pulseaudio_volume_sink_info_cb (pa_context         *context,
     {
       pulseaudio_debug ("Updated Mute: %d -> %d", volume->muted, muted);
       volume->muted = muted;
-      g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_CHANGED], 0, FALSE);
+
+      if (volume->sink_connected)
+        g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_CHANGED], 0, TRUE);
     }
 
   if (ABS (volume->volume - vol) > 2e-3)
     {
       pulseaudio_debug ("Updated Volume: %04.3f -> %04.3f", volume->volume, vol);
       volume->volume = vol;
-      g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_CHANGED], 0, FALSE);
+
+      if (volume->sink_connected)
+        g_signal_emit(G_OBJECT(volume), pulseaudio_volume_signals[VOLUME_CHANGED], 0, TRUE);
     }
+
   pulseaudio_debug ("volume: %f, muted: %d", vol, muted);
+  volume->sink_connected = TRUE;
 }
 
 
@@ -240,16 +248,22 @@ pulseaudio_volume_source_info_cb (pa_context           *context,
     {
       pulseaudio_debug ("Updated Mute Mic: %d -> %d", volume->muted_mic, muted_mic);
       volume->muted_mic = muted_mic;
-      g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_MIC_CHANGED], 0, FALSE);
+
+      if (volume->source_connected)
+        g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_MIC_CHANGED], 0, FALSE);
     }
 
   if (ABS (volume->volume_mic - vol_mic) > 2e-3)
     {
       pulseaudio_debug ("Updated Volume Mic: %04.3f -> %04.3f", volume->volume_mic, vol_mic);
       volume->volume_mic = vol_mic;
-      g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_MIC_CHANGED], 0, FALSE);
+
+      if (volume->source_connected)
+        g_signal_emit(G_OBJECT(volume), pulseaudio_volume_signals[VOLUME_MIC_CHANGED], 0, FALSE);
     }
+
   pulseaudio_debug ("volume mic: %f, muted mic: %d", vol_mic, muted_mic);
+  volume->source_connected = TRUE;
 }
 
 
@@ -420,6 +434,9 @@ pulseaudio_volume_context_state_cb (pa_context *context,
 
       g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_CHANGED], 0, FALSE);
       g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_MIC_CHANGED], 0, FALSE);
+
+      volume->sink_connected = FALSE;
+      volume->source_connected = FALSE;
 
       pa_context_get_server_info (volume->pa_context, pulseaudio_volume_get_server_info_cb, volume);
 
