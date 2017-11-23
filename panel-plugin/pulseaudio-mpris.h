@@ -61,6 +61,6 @@ gboolean                pulseaudio_mpris_notify_player         (PulseaudioMpris 
 gboolean                pulseaudio_mpris_notify_any_player     (PulseaudioMpris *mpris,
                                                                 const gchar *message);
 
-    G_END_DECLS
+G_END_DECLS
 
 #endif /* !__PULSEAUDIO_MPRIS_H__ */

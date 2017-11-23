@@ -43,7 +43,6 @@
 
 
 
-
 #define DEFAULT_ENABLE_KEYBOARD_SHORTCUTS         TRUE
 #define DEFAULT_SHOW_NOTIFICATIONS                TRUE
 #define DEFAULT_VOLUME_STEP                       6
@@ -115,6 +114,7 @@ enum
   };
 
 static guint pulseaudio_config_signals [LAST_SIGNAL] = { 0, };
+
 
 
 G_DEFINE_TYPE (PulseaudioConfig, pulseaudio_config, G_TYPE_OBJECT)
@@ -393,7 +393,6 @@ pulseaudio_config_set_property (GObject      *object,
 
 
 
-
 gboolean
 pulseaudio_config_get_enable_keyboard_shortcuts (PulseaudioConfig *config)
 {
@@ -424,7 +423,6 @@ pulseaudio_config_get_show_notifications (PulseaudioConfig *config)
 
 
 
-
 guint
 pulseaudio_config_get_volume_step (PulseaudioConfig *config)
 {
@@ -432,7 +430,6 @@ pulseaudio_config_get_volume_step (PulseaudioConfig *config)
 
   return config->volume_step;
 }
-
 
 
 
@@ -446,7 +443,6 @@ pulseaudio_config_get_volume_max (PulseaudioConfig *config)
 
 
 
-
 const gchar *
 pulseaudio_config_get_mixer_command (PulseaudioConfig *config)
 {
@@ -457,7 +453,6 @@ pulseaudio_config_get_mixer_command (PulseaudioConfig *config)
 
 
 
-
 gboolean
 pulseaudio_config_get_enable_mpris (PulseaudioConfig *config)
 {
@@ -465,7 +460,6 @@ pulseaudio_config_get_enable_mpris (PulseaudioConfig *config)
 
   return config->enable_mpris;
 }
-
 
 
 
@@ -480,11 +474,15 @@ pulseaudio_config_get_mpris_players (PulseaudioConfig *config)
   return g_strsplit (config->mpris_players, ";", 0);
 }
 
+
+
 static gint
 compare_players (gconstpointer item1, gconstpointer item2)
 {
   return g_ascii_strcasecmp (item1, item2);
 }
+
+
 
 void
 pulseaudio_config_set_mpris_players (PulseaudioConfig  *config,
@@ -498,15 +496,18 @@ pulseaudio_config_set_mpris_players (PulseaudioConfig  *config,
   g_return_if_fail (IS_PULSEAUDIO_CONFIG (config));
 
   player_array = NULL;
-  for (guint i = 0; i < g_strv_length (players); i++) {
-    player_array = g_slist_prepend (player_array, players[i]);
-  }
+  for (guint i = 0; i < g_strv_length (players); i++)
+    {
+      player_array = g_slist_prepend (player_array, players[i]);
+    }
+
   player_array = g_slist_sort (player_array, (GCompareFunc) compare_players);
 
-  for (GSList *list = player_array; list != NULL; list = g_slist_next (list)) {
-    players[index] = list->data;
-    index++;
-  }
+  for (GSList *list = player_array; list != NULL; list = g_slist_next (list))
+    {
+      players[index] = list->data;
+      index++;
+    }
 
   g_slist_free (player_array);
 
@@ -518,6 +519,8 @@ pulseaudio_config_set_mpris_players (PulseaudioConfig  *config,
   pulseaudio_config_set_property (G_OBJECT (config), PROP_MPRIS_PLAYERS, &src, NULL);
 }
 
+
+
 void
 pulseaudio_config_add_mpris_player (PulseaudioConfig *config,
                                     gchar            *player)
@@ -528,9 +531,8 @@ pulseaudio_config_add_mpris_player (PulseaudioConfig *config,
   gchar  *player_string;
 
   players = pulseaudio_config_get_mpris_players (config);
-  if (g_strv_contains ((const char * const *) players, player)) {
-      return;
-  }
+  if (g_strv_contains ((const char * const *) players, player))
+    return;
 
   players_string = g_strjoinv (";", players);
   player_string = g_strjoin (";", players_string, player, NULL);
@@ -543,7 +545,6 @@ pulseaudio_config_add_mpris_player (PulseaudioConfig *config,
   g_free (players_string);
   g_strfreev (players);
 }
-
 
 
 

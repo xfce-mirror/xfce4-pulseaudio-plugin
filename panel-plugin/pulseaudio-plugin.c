@@ -101,6 +101,8 @@ static void             pulseaudio_plugin_next_key_pressed                 (cons
                                                                             void                  *user_data);
 #endif
 
+
+
 struct _PulseaudioPluginClass
 {
   XfcePanelPluginClass __parent__;
@@ -129,9 +131,9 @@ struct _PulseaudioPlugin
 };
 
 
+
 /* define the plugin */
 XFCE_PANEL_DEFINE_PLUGIN (PulseaudioPlugin, pulseaudio_plugin)
-
 
 
 
@@ -178,6 +180,7 @@ pulseaudio_plugin_free_data (XfcePanelPlugin *plugin)
 #ifdef HAVE_KEYBINDER
   /* release keybindings */
   pulseaudio_plugin_unbind_keys (pulseaudio_plugin);
+  pulseaudio_plugin_unbind_multimedia_keys (pulseaudio_plugin);
 #endif
 }
 
@@ -259,7 +262,6 @@ pulseaudio_plugin_configure_plugin (XfcePanelPlugin *plugin)
 
   pulseaudio_dialog_show (pulseaudio_plugin->dialog, gtk_widget_get_screen (GTK_WIDGET (plugin)));
 }
-
 
 
 

@@ -183,6 +183,8 @@ device_menu_item_class_init (DeviceMenuItemClass *item_class)
   g_type_class_add_private (item_class, sizeof (DeviceMenuItemPrivate));
 }
 
+
+
 static void
 device_menu_item_init (DeviceMenuItem *item)
 {
@@ -195,6 +197,8 @@ device_menu_item_init (DeviceMenuItem *item)
   priv->title = NULL;
   priv->group = NULL;
 }
+
+
 
 static void
 device_menu_item_finalize (GObject *object)

@@ -75,6 +75,7 @@ static void                 pulseaudio_button_update          (PulseaudioButton 
                                                                gboolean            force_update);
 
 
+
 struct _PulseaudioButton
 {
   GtkToggleButton       __parent__;
@@ -100,7 +101,6 @@ struct _PulseaudioButtonClass
 {
   GtkToggleButtonClass __parent__;
 };
-
 
 
 
@@ -182,6 +182,7 @@ pulseaudio_button_finalize (GObject *object)
 }
 
 
+
 static gboolean
 pulseaudio_button_button_press (GtkWidget      *widget,
                                 GdkEventButton *event)
@@ -222,6 +223,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 }
 
 
+
 static gboolean
 pulseaudio_button_scroll_event (GtkWidget *widget, GdkEventScroll *event)
 {
@@ -229,7 +231,6 @@ pulseaudio_button_scroll_event (GtkWidget *widget, GdkEventScroll *event)
   gdouble           volume      = pulseaudio_volume_get_volume (button->volume);
   gdouble           volume_step = pulseaudio_config_get_volume_step (button->config) / 100.0;
   gdouble           new_volume;
-
 
   if (event->direction == 1)  // decrease volume
     new_volume = volume - volume_step;
@@ -242,6 +243,7 @@ pulseaudio_button_scroll_event (GtkWidget *widget, GdkEventScroll *event)
 
   return TRUE;
 }
+
 
 
 static void
@@ -268,12 +270,14 @@ pulseaudio_button_menu_deactivate (PulseaudioButton *button,
 }
 
 
+
 static void
 pulseaudio_button_update_icons (PulseaudioButton *button)
 {
   /* Update the state of the button */
   pulseaudio_button_update (button, TRUE);
 }
+
 
 
 static void
@@ -321,6 +325,7 @@ pulseaudio_button_update (PulseaudioButton *button,
       gtk_image_set_pixel_size (GTK_IMAGE (button->image), button->icon_size);
     }
 }
+
 
 
 void

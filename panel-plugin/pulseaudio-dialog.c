@@ -52,6 +52,7 @@
 #endif
 
 
+
 static void              pulseaudio_dialog_build                  (PulseaudioDialog          *dialog);
 static void              pulseaudio_dialog_help_button_clicked    (PulseaudioDialog          *dialog,
                                                                    GtkWidget                 *button);
@@ -141,6 +142,7 @@ pulseaudio_dialog_run_mixer (PulseaudioDialog *dialog,
       g_error_free (error);
     }
 }
+
 
 
 static void
@@ -233,6 +235,7 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
 }
 
 
+
 static void
 pulseaudio_dialog_help_button_clicked (PulseaudioDialog *dialog,
                                        GtkWidget        *button)
@@ -271,6 +274,7 @@ pulseaudio_dialog_show (PulseaudioDialog *dialog,
 
   gtk_window_set_screen (GTK_WINDOW (dialog->dialog), screen);
 }
+
 
 
 PulseaudioDialog *

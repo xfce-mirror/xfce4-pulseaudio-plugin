@@ -50,6 +50,7 @@
 #define V_HIGH   3
 
 
+
 /* Icons for different volume levels */
 static const char *icons[] = {
   "audio-volume-muted-symbolic",
@@ -58,7 +59,6 @@ static const char *icons[] = {
   "audio-volume-high-symbolic",
   NULL
 };
-
 
 /* Icons for different mic volume levels */
 static const char *icons_mic[] = {
@@ -70,7 +70,9 @@ static const char *icons_mic[] = {
 };
 
 
+
 static void                 pulseaudio_notify_finalize        (GObject            *object);
+
 
 
 struct _PulseaudioNotify
@@ -96,8 +98,9 @@ struct _PulseaudioNotifyClass
 
 
 
-
 G_DEFINE_TYPE (PulseaudioNotify, pulseaudio_notify, G_TYPE_OBJECT)
+
+
 
 static void
 pulseaudio_notify_class_init (PulseaudioNotifyClass *klass)
@@ -212,21 +215,21 @@ pulseaudio_notify_notify (PulseaudioNotify *notify, gboolean mic)
   else
     icon = icons_array[V_HIGH];
 
-
   notify_notification_update (notification,
                               title,
                               NULL,
                               icon);
   g_free (title);
 
-  if (notify->gauge_notifications) {
-    notify_notification_set_hint (notification,
-                                  "value",
-                                  g_variant_new_int32(volume_i));
-    notify_notification_set_hint (notification,
-                                  "x-canonical-private-synchronous",
-                                  g_variant_new_string(""));
-  }
+  if (notify->gauge_notifications)
+    {
+      notify_notification_set_hint (notification,
+                                    "value",
+                                    g_variant_new_int32(volume_i));
+      notify_notification_set_hint (notification,
+                                    "x-canonical-private-synchronous",
+                                    g_variant_new_string(""));
+    }
 
   if (!notify_notification_show (notification, &error))
     {
@@ -288,6 +291,5 @@ pulseaudio_notify_new (PulseaudioConfig *config,
 
   return notify;
 }
-
 
 #endif /* HAVE_LIBNOTIFY */

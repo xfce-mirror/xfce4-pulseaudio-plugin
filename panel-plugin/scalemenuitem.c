@@ -63,9 +63,13 @@ enum {
 
 static guint signals[LAST_SIGNAL] = { 0 };
 
+
+
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 G_DEFINE_TYPE (ScaleMenuItem, scale_menu_item, GTK_TYPE_IMAGE_MENU_ITEM)
 G_GNUC_END_IGNORE_DEPRECATIONS
+
+
 
 #define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), TYPE_SCALE_MENU_ITEM, ScaleMenuItemPrivate))
 
@@ -352,21 +356,13 @@ scale_menu_item_update_icon (ScaleMenuItem *self)
 
   /* Update the menuitem icon */
   if (scale_menu_item_get_muted (self) || value <= 0.0)
-    {
-      icon_name = g_strconcat(priv->icon_name, "-muted-symbolic", NULL);
-    }
+    icon_name = g_strconcat(priv->icon_name, "-muted-symbolic", NULL);
   else if (value < 30.0)
-    {
-      icon_name = g_strconcat(priv->icon_name, "-low-symbolic", NULL);
-    }
+    icon_name = g_strconcat(priv->icon_name, "-low-symbolic", NULL);
   else if (value < 70.0)
-    {
-      icon_name = g_strconcat(priv->icon_name, "-medium-symbolic", NULL);
-    }
+    icon_name = g_strconcat(priv->icon_name, "-medium-symbolic", NULL);
   else
-    {
-      icon_name = g_strconcat(priv->icon_name, "-high-symbolic", NULL);
-    }
+    icon_name = g_strconcat(priv->icon_name, "-high-symbolic", NULL);
 
   gtk_image_set_from_icon_name (GTK_IMAGE (priv->image), icon_name, GTK_ICON_SIZE_MENU);
   g_free (icon_name);

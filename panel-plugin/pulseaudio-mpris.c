@@ -28,6 +28,8 @@
 #include "pulseaudio-mpris.h"
 #include "pulseaudio-mpris-player.h"
 
+
+
 struct _PulseaudioMpris
 {
   GObject           __parent__;
@@ -46,7 +48,9 @@ struct _PulseaudioMprisClass
 };
 
 
+
 static void             pulseaudio_mpris_finalize         (GObject         *object);
+
 
 
 enum
@@ -57,7 +61,10 @@ enum
 static int signals[LAST_SIGNAL] = { 0 };
 
 
+
 G_DEFINE_TYPE (PulseaudioMpris, pulseaudio_mpris, G_TYPE_OBJECT)
+
+
 
 static void
 pulseaudio_mpris_class_init (PulseaudioMprisClass *klass)
@@ -76,6 +83,7 @@ pulseaudio_mpris_class_init (PulseaudioMprisClass *klass)
                     g_cclosure_marshal_VOID__STRING,
                     G_TYPE_NONE, 1, G_TYPE_STRING);
 }
+
 
 
 gchar **
@@ -131,6 +139,8 @@ pulseaudio_mpris_get_available_players (PulseaudioMpris *mpris)
   return res;
 }
 
+
+
 static void
 pulseaudio_mpris_player_update_cb (PulseaudioMprisPlayer *player,
                                    gchar                 *sender_name,
@@ -143,6 +153,8 @@ pulseaudio_mpris_player_update_cb (PulseaudioMprisPlayer *player,
   g_signal_emit (mpris, signals[UPDATE], 0, pulseaudio_mpris_player_get_player (player));
 }
 
+
+
 static void
 pulseaudio_mpris_player_metadata_cb (PulseaudioMprisPlayer *player,
                                      gpointer               user_data)
@@ -153,6 +165,8 @@ pulseaudio_mpris_player_metadata_cb (PulseaudioMprisPlayer *player,
 
   g_signal_emit (mpris, signals[UPDATE], 0, pulseaudio_mpris_player_get_player (player));
 }
+
+
 
 static gboolean
 pulseaudio_mpris_tick_cb (gpointer user_data)
@@ -183,6 +197,8 @@ pulseaudio_mpris_tick_cb (gpointer user_data)
 
   return TRUE;
 }
+
+
 
 gboolean
 pulseaudio_mpris_get_player_snapshot (PulseaudioMpris  *mpris,
@@ -239,6 +255,8 @@ pulseaudio_mpris_get_player_snapshot (PulseaudioMpris  *mpris,
   return FALSE;
 }
 
+
+
 gboolean
 pulseaudio_mpris_notify_player (PulseaudioMpris  *mpris,
                                 const gchar      *name,
@@ -277,19 +295,21 @@ pulseaudio_mpris_notify_any_player (PulseaudioMpris *mpris,
 
   g_hash_table_iter_init (&iter, mpris->players);
   while (g_hash_table_iter_next(&iter, (gpointer *) &key, (gpointer) &player))
-  {
-    if (player != NULL)
     {
-      if (pulseaudio_mpris_player_is_connected(player))
-      {
-        pulseaudio_mpris_player_call_player_method(player, message);
-        found = TRUE;
-      }
+      if (player != NULL)
+        {
+          if (pulseaudio_mpris_player_is_connected(player))
+            {
+              pulseaudio_mpris_player_call_player_method(player, message);
+              found = TRUE;
+            }
+        }
     }
-  }
 
   return found;
 }
+
+
 
 static void
 pulseaudio_mpris_init (PulseaudioMpris *mpris)
@@ -297,6 +317,8 @@ pulseaudio_mpris_init (PulseaudioMpris *mpris)
   mpris->config            = NULL;
   mpris->dbus_connection   = NULL;
 }
+
+
 
 static void
 pulseaudio_mpris_finalize (GObject *object)
@@ -310,6 +332,8 @@ pulseaudio_mpris_finalize (GObject *object)
 
   (*G_OBJECT_CLASS (pulseaudio_mpris_parent_class)->finalize) (object);
 }
+
+
 
 PulseaudioMpris *
 pulseaudio_mpris_new (PulseaudioConfig *config)
