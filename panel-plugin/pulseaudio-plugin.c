@@ -46,10 +46,6 @@
 #include "pulseaudio-notify.h"
 #include "pulseaudio-mpris.h"
 
-#ifdef HAVE_IDO
-#include <libido/libido.h>
-#endif
-
 
 #ifdef HAVE_KEYBINDER
 #include <keybinder.h>
@@ -494,10 +490,6 @@ static void
 pulseaudio_plugin_construct (XfcePanelPlugin *plugin)
 {
   PulseaudioPlugin *pulseaudio_plugin = PULSEAUDIO_PLUGIN (plugin);
-
-#ifdef HAVE_IDO
-  ido_init();
-#endif
 
   xfce_panel_plugin_menu_show_configure (plugin);
   xfce_panel_plugin_menu_show_about (plugin);
