@@ -174,12 +174,13 @@ pulseaudio_mpris_tick_cb (gpointer user_data)
   PulseaudioMpris        *mpris = user_data;
   PulseaudioMprisPlayer  *player;
   gchar                 **players;
+  guint                   i = 0;
 
   players = pulseaudio_mpris_get_available_players (mpris);
   if (players == NULL)
     return TRUE;
 
-  for (guint i = 0; i < g_strv_length (players); i++)
+  for (i = 0; i < g_strv_length (players); i++)
     {
       if (!g_hash_table_contains (mpris->players, players[i]))
         {

@@ -492,18 +492,20 @@ pulseaudio_config_set_mpris_players (PulseaudioConfig  *config,
   gchar  *player_string;
   GValue  src = { 0, };
   guint   index = 0;
+  guint   i = 0;
+  GSList *list = NULL;
 
   g_return_if_fail (IS_PULSEAUDIO_CONFIG (config));
 
   player_array = NULL;
-  for (guint i = 0; i < g_strv_length (players); i++)
+  for (i = 0; i < g_strv_length (players); i++)
     {
       player_array = g_slist_prepend (player_array, players[i]);
     }
 
   player_array = g_slist_sort (player_array, (GCompareFunc) compare_players);
 
-  for (GSList *list = player_array; list != NULL; list = g_slist_next (list))
+  for (list = player_array; list != NULL; list = g_slist_next (list))
     {
       players[index] = list->data;
       index++;

@@ -412,9 +412,11 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
   gdouble         volume_max;
 
   GList          *sources = NULL;
+  GList          *list = NULL;
+  guint           i = 0;
 
 #ifdef HAVE_MPRIS2
-  gchar         **players;
+      gchar **players;
   gchar          *title = NULL;
   gchar          *artist = NULL;
   gboolean        is_running;
@@ -471,7 +473,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
       if (g_list_length (sources) > 1)
         {
           device_mi = device_menu_item_new_with_label(_("Output"));
-          for (GList *list = sources; list != NULL; list = g_list_next(list))
+          for (list = sources; list != NULL; list = g_list_next(list))
             {
               device_menu_item_add_device(DEVICE_MENU_ITEM(device_mi), (gchar *)list->data, pulseaudio_volume_get_output_by_name(menu->volume, list->data));
             }
@@ -510,7 +512,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
       if (g_list_length(sources) > 1)
         {
           device_mi = device_menu_item_new_with_label(_("Input"));
-          for (GList *list = sources; list != NULL; list = g_list_next(list))
+          for (list = sources; list != NULL; list = g_list_next(list))
             {
               device_menu_item_add_device(DEVICE_MENU_ITEM(device_mi), (gchar *)list->data, pulseaudio_volume_get_input_by_name(menu->volume, list->data));
             }
@@ -536,7 +538,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
       players = pulseaudio_config_get_mpris_players (menu->config);
       if (players != NULL)
         {
-          for (guint i = 0; i < g_strv_length (players); i++)
+          for (i = 0; i < g_strv_length (players); i++)
             {
               mi = mpris_menu_item_new_from_player_name (players[i]);
               if (mi != NULL)
