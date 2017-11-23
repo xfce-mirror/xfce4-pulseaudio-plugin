@@ -443,19 +443,6 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
   /* Output Devices */
   sources = pulseaudio_volume_get_output_list (menu->volume);
   if (g_list_length (sources) > 0) {
-    device_mi = device_menu_item_new_with_label (_("Output"));
-
-    for (GList *list = sources; list != NULL; list = g_list_next (list)) {
-      device_menu_item_add_device (DEVICE_MENU_ITEM (device_mi), (gchar *)list->data, pulseaudio_volume_get_output_by_name (menu->volume, list->data));
-    }
-
-    device_menu_item_set_device_by_name (DEVICE_MENU_ITEM (device_mi), pulseaudio_volume_get_default_output (menu->volume));
-    gtk_widget_show (device_mi);
-
-    g_signal_connect_swapped (G_OBJECT (device_mi), "device-changed", G_CALLBACK (pulseaudio_menu_default_output_changed), menu);
-
-    gtk_menu_shell_append (GTK_MENU_SHELL (menu), device_mi);
-
     /* output volume slider */
     menu->output_scale = scale_menu_item_new_with_range (0.0, volume_max, 1.0);
     scale_menu_item_set_base_icon_name (SCALE_MENU_ITEM (menu->output_scale), "audio-volume");
@@ -467,6 +454,22 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
     gtk_widget_show_all (menu->output_scale);
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu->output_scale);
 
+    /* output device items */
+    if (g_list_length (sources) > 1) {
+      device_mi = device_menu_item_new_with_label(_("Output"));
+      for (GList *list = sources; list != NULL; list = g_list_next(list))
+      {
+        device_menu_item_add_device(DEVICE_MENU_ITEM(device_mi), (gchar *)list->data, pulseaudio_volume_get_output_by_name(menu->volume, list->data));
+      }
+
+      device_menu_item_set_device_by_name(DEVICE_MENU_ITEM(device_mi), pulseaudio_volume_get_default_output(menu->volume));
+      gtk_widget_show(device_mi);
+
+      g_signal_connect_swapped(G_OBJECT(device_mi), "device-changed", G_CALLBACK(pulseaudio_menu_default_output_changed), menu);
+
+      gtk_menu_shell_append(GTK_MENU_SHELL(menu), device_mi);
+    }
+
     /* separator */
     mi = gtk_separator_menu_item_new ();
     gtk_widget_show (mi);
@@ -477,19 +480,6 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
   /* Input Devices */
   sources = pulseaudio_volume_get_input_list (menu->volume);
   if (g_list_length (sources) > 0) {
-    device_mi = device_menu_item_new_with_label (_("Input"));
-
-    for (GList *list = sources; list != NULL; list = g_list_next (list)) {
-      device_menu_item_add_device (DEVICE_MENU_ITEM (device_mi), (gchar *)list->data, pulseaudio_volume_get_input_by_name (menu->volume, list->data));
-    }
-
-    device_menu_item_set_device_by_name (DEVICE_MENU_ITEM (device_mi), pulseaudio_volume_get_default_input (menu->volume));
-    gtk_widget_show (device_mi);
-
-    g_signal_connect_swapped (G_OBJECT (device_mi), "device-changed", G_CALLBACK (pulseaudio_menu_default_input_changed), menu);
-
-    gtk_menu_shell_append (GTK_MENU_SHELL (menu), device_mi);
-
     /* input volume slider */
     menu->input_scale = scale_menu_item_new_with_range (0.0, volume_max, 1.0);
     scale_menu_item_set_base_icon_name (SCALE_MENU_ITEM (menu->input_scale), "microphone-sensitivity");
@@ -501,10 +491,26 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
     gtk_widget_show_all (menu->input_scale);
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu->input_scale);
 
+    /* input device items */
+    if (g_list_length(sources) > 1) {
+      device_mi = device_menu_item_new_with_label(_("Input"));
+      for (GList *list = sources; list != NULL; list = g_list_next(list))
+      {
+        device_menu_item_add_device(DEVICE_MENU_ITEM(device_mi), (gchar *)list->data, pulseaudio_volume_get_input_by_name(menu->volume, list->data));
+      }
+
+      device_menu_item_set_device_by_name(DEVICE_MENU_ITEM(device_mi), pulseaudio_volume_get_default_input(menu->volume));
+      gtk_widget_show(device_mi);
+
+      g_signal_connect_swapped(G_OBJECT(device_mi), "device-changed", G_CALLBACK(pulseaudio_menu_default_input_changed), menu);
+
+      gtk_menu_shell_append(GTK_MENU_SHELL(menu), device_mi);
+    }
+
     /* separator */
-    mi = gtk_separator_menu_item_new ();
-    gtk_widget_show (mi);
-    gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
+    mi = gtk_separator_menu_item_new();
+    gtk_widget_show(mi);
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), mi);
   }
 
   /* MPRIS2 */
