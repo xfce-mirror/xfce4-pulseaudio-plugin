@@ -45,8 +45,8 @@
 
 #define DEFAULT_ENABLE_KEYBOARD_SHORTCUTS         TRUE
 #define DEFAULT_SHOW_NOTIFICATIONS                TRUE
-#define DEFAULT_VOLUME_STEP                       6
-#define DEFAULT_VOLUME_MAX                        153
+#define DEFAULT_VOLUME_STEP                       5
+#define DEFAULT_VOLUME_MAX                        150
 
 #ifdef HAVE_MPRIS2
 #define DEFAULT_ENABLE_MPRIS                      TRUE

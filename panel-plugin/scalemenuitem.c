@@ -119,6 +119,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
   gtk_widget_set_size_request (priv->scale, 100, -1);
   gtk_range_set_inverted (GTK_RANGE(priv->scale), FALSE);
   gtk_scale_set_draw_value (GTK_SCALE(priv->scale), FALSE);
+  gtk_range_set_round_digits(GTK_RANGE(priv->scale), 0);
 
   if (max > 100.0)
     gtk_scale_add_mark (GTK_SCALE (priv->scale), 100.0, GTK_POS_BOTTOM, NULL);
