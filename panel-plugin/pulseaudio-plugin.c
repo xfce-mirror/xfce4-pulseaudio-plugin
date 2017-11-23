@@ -58,6 +58,10 @@
 #define PULSEAUDIO_PLUGIN_LOWER_VOLUME_KEY  "XF86AudioLowerVolume"
 #define PULSEAUDIO_PLUGIN_MUTE_KEY          "XF86AudioMute"
 #define PULSEAUDIO_PLUGIN_MIC_MUTE_KEY      "XF86AudioMicMute"
+#define PULSEAUDIO_PLUGIN_PLAY_KEY          "XF86AudioPlay"
+#define PULSEAUDIO_PLUGIN_STOP_KEY          "XF86AudioStop"
+#define PULSEAUDIO_PLUGIN_PREV_KEY          "XF86AudioPrev"
+#define PULSEAUDIO_PLUGIN_NEXT_KEY          "XF86AudioNext"
 #endif
 
 
@@ -81,6 +85,19 @@ static void             pulseaudio_plugin_volume_key_pressed               (cons
 static void             pulseaudio_plugin_mute_pressed                     (const char            *keystring,
                                                                             void                  *user_data);
 static void             pulseaudio_plugin_mic_mute_pressed                 (const char            *keystring,
+                                                                            void                  *user_data);
+
+static void             pulseaudio_plugin_bind_multimedia_keys_cb          (PulseaudioPlugin      *pulseaudio_plugin,
+                                                                            PulseaudioConfig      *pulseaudio_config);
+static gboolean         pulseaudio_plugin_bind_multimedia_keys             (PulseaudioPlugin      *pulseaudio_plugin);
+static void             pulseaudio_plugin_unbind_multimedia_keys           (PulseaudioPlugin      *pulseaudio_plugin);
+static void             pulseaudio_plugin_play_key_pressed                 (const char            *keystring,
+                                                                            void                  *user_data);
+static void             pulseaudio_plugin_stop_key_pressed                 (const char            *keystring,
+                                                                            void                  *user_data);
+static void             pulseaudio_plugin_prev_key_pressed                 (const char            *keystring,
+                                                                            void                  *user_data);
+static void             pulseaudio_plugin_next_key_pressed                 (const char            *keystring,
                                                                             void                  *user_data);
 #endif
 
@@ -291,6 +308,7 @@ pulseaudio_plugin_bind_keys_cb (PulseaudioPlugin      *pulseaudio_plugin,
 }
 
 
+
 static gboolean
 pulseaudio_plugin_bind_keys (PulseaudioPlugin      *pulseaudio_plugin)
 {
@@ -310,6 +328,7 @@ pulseaudio_plugin_bind_keys (PulseaudioPlugin      *pulseaudio_plugin)
 }
 
 
+
 static void
 pulseaudio_plugin_unbind_keys (PulseaudioPlugin      *pulseaudio_plugin)
 {
@@ -321,6 +340,7 @@ pulseaudio_plugin_unbind_keys (PulseaudioPlugin      *pulseaudio_plugin)
   keybinder_unbind (PULSEAUDIO_PLUGIN_MUTE_KEY, pulseaudio_plugin_mute_pressed);
   keybinder_unbind (PULSEAUDIO_PLUGIN_MIC_MUTE_KEY, pulseaudio_plugin_mic_mute_pressed);
 }
+
 
 
 static void
@@ -340,6 +360,7 @@ pulseaudio_plugin_volume_key_pressed (const char            *keystring,
 }
 
 
+
 static void
 pulseaudio_plugin_mute_pressed (const char            *keystring,
                                 void                  *user_data)
@@ -352,6 +373,7 @@ pulseaudio_plugin_mute_pressed (const char            *keystring,
 }
 
 
+
 static void
 pulseaudio_plugin_mic_mute_pressed (const char            *keystring,
                                     void                  *user_data)
@@ -362,7 +384,108 @@ pulseaudio_plugin_mic_mute_pressed (const char            *keystring,
 
   pulseaudio_volume_toggle_muted_mic (pulseaudio_plugin->volume);
 }
+
+
+
+static void
+pulseaudio_plugin_bind_multimedia_keys_cb (PulseaudioPlugin      *pulseaudio_plugin,
+                                           PulseaudioConfig      *pulseaudio_config)
+{
+  g_return_if_fail (IS_PULSEAUDIO_PLUGIN (pulseaudio_plugin));
+
+  if (pulseaudio_config_get_enable_multimedia_keys (pulseaudio_plugin->config))
+    pulseaudio_plugin_bind_multimedia_keys (pulseaudio_plugin);
+  else
+    pulseaudio_plugin_unbind_multimedia_keys (pulseaudio_plugin);
+}
+
+
+
+static gboolean
+pulseaudio_plugin_bind_multimedia_keys (PulseaudioPlugin      *pulseaudio_plugin)
+{
+  gboolean success;
+  g_return_val_if_fail (IS_PULSEAUDIO_PLUGIN (pulseaudio_plugin), FALSE);
+  pulseaudio_debug ("Grabbing multimedia control keys");
+
+  success = (keybinder_bind (PULSEAUDIO_PLUGIN_PLAY_KEY, pulseaudio_plugin_play_key_pressed, pulseaudio_plugin) &&
+             keybinder_bind (PULSEAUDIO_PLUGIN_STOP_KEY, pulseaudio_plugin_stop_key_pressed, pulseaudio_plugin) &&
+             keybinder_bind (PULSEAUDIO_PLUGIN_PREV_KEY, pulseaudio_plugin_prev_key_pressed, pulseaudio_plugin) &&
+             keybinder_bind (PULSEAUDIO_PLUGIN_NEXT_KEY, pulseaudio_plugin_next_key_pressed, pulseaudio_plugin));
+
+  if (!success)
+    g_warning ("Could not have grabbed multimedia control keys.");
+
+  return success;
+}
+
+
+
+static void
+pulseaudio_plugin_unbind_multimedia_keys (PulseaudioPlugin      *pulseaudio_plugin)
+{
+  g_return_if_fail (IS_PULSEAUDIO_PLUGIN (pulseaudio_plugin));
+  pulseaudio_debug ("Releasing multimedia control keys");
+
+  keybinder_unbind (PULSEAUDIO_PLUGIN_PLAY_KEY, pulseaudio_plugin_play_key_pressed);
+  keybinder_unbind (PULSEAUDIO_PLUGIN_STOP_KEY, pulseaudio_plugin_stop_key_pressed);
+  keybinder_unbind (PULSEAUDIO_PLUGIN_PREV_KEY, pulseaudio_plugin_prev_key_pressed);
+  keybinder_unbind (PULSEAUDIO_PLUGIN_NEXT_KEY, pulseaudio_plugin_next_key_pressed);
+}
+
+
+
+static void
+pulseaudio_plugin_play_key_pressed (const char            *keystring,
+                                    void                  *user_data)
+{
+  PulseaudioPlugin *pulseaudio_plugin = PULSEAUDIO_PLUGIN(user_data);
+
+  pulseaudio_debug ("%s pressed", keystring);
+
+  pulseaudio_mpris_notify_any_player (pulseaudio_plugin->mpris, "PlayPause");
+}
+
+
+
+static void
+pulseaudio_plugin_stop_key_pressed (const char            *keystring,
+                                    void                  *user_data)
+{
+  PulseaudioPlugin *pulseaudio_plugin = PULSEAUDIO_PLUGIN(user_data);
+
+  pulseaudio_debug("%s pressed", keystring);
+
+  pulseaudio_mpris_notify_any_player(pulseaudio_plugin->mpris, "Stop");
+}
+
+
+
+static void
+pulseaudio_plugin_prev_key_pressed (const char            *keystring,
+                                    void                  *user_data)
+{
+  PulseaudioPlugin *pulseaudio_plugin = PULSEAUDIO_PLUGIN(user_data);
+
+  pulseaudio_debug("%s pressed", keystring);
+
+  pulseaudio_mpris_notify_any_player(pulseaudio_plugin->mpris, "Previous");
+}
+
+
+
+static void
+pulseaudio_plugin_next_key_pressed (const char            *keystring,
+                                    void                  *user_data)
+{
+  PulseaudioPlugin *pulseaudio_plugin = PULSEAUDIO_PLUGIN(user_data);
+
+  pulseaudio_debug("%s pressed", keystring);
+
+  pulseaudio_mpris_notify_any_player(pulseaudio_plugin->mpris, "Next");
+}
 #endif
+
 
 
 static void
@@ -393,10 +516,18 @@ pulseaudio_plugin_construct (XfcePanelPlugin *plugin)
   keybinder_init ();
   g_signal_connect_swapped (G_OBJECT (pulseaudio_plugin->config), "notify::enable-keyboard-shortcuts",
                             G_CALLBACK (pulseaudio_plugin_bind_keys_cb), pulseaudio_plugin);
+  g_signal_connect_swapped (G_OBJECT (pulseaudio_plugin->config), "notify::enable-multimedia-keys",
+                            G_CALLBACK (pulseaudio_plugin_bind_multimedia_keys_cb), pulseaudio_plugin);
+
   if (pulseaudio_config_get_enable_keyboard_shortcuts (pulseaudio_plugin->config))
-    pulseaudio_plugin_bind_keys (pulseaudio_plugin);
+    pulseaudio_plugin_bind_keys(pulseaudio_plugin);
   else
-    pulseaudio_plugin_unbind_keys (pulseaudio_plugin);
+    pulseaudio_plugin_unbind_keys(pulseaudio_plugin);
+
+  if (pulseaudio_config_get_enable_multimedia_keys (pulseaudio_plugin->config))
+    pulseaudio_plugin_bind_multimedia_keys(pulseaudio_plugin);
+  else
+    pulseaudio_plugin_unbind_multimedia_keys(pulseaudio_plugin);
 #endif
 
   /* volume controller */

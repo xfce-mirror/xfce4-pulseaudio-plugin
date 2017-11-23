@@ -209,6 +209,16 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
       g_object_bind_property (G_OBJECT (dialog->config), "enable-mpris",
                               G_OBJECT (object), "active",
                               G_BINDING_SYNC_CREATE | G_BINDING_BIDIRECTIONAL);
+
+      g_object_bind_property(G_OBJECT(dialog->config), "enable-mpris",
+                             G_OBJECT(gtk_builder_get_object(builder, "checkbutton-multimedia-keys")), "sensitive",
+                             G_BINDING_SYNC_CREATE | G_BINDING_BIDIRECTIONAL);
+
+      object = gtk_builder_get_object(builder, "checkbutton-multimedia-keys");
+      g_return_if_fail(GTK_IS_CHECK_BUTTON(object));
+      g_object_bind_property(G_OBJECT(dialog->config), "enable-multimedia-keys",
+                             G_OBJECT(object), "active",
+                             G_BINDING_SYNC_CREATE | G_BINDING_BIDIRECTIONAL);
 #else
       object = gtk_builder_get_object (builder, "media-player-frame");
       gtk_widget_set_visible (GTK_WIDGET (object), FALSE);

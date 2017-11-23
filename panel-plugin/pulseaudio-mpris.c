@@ -262,6 +262,35 @@ pulseaudio_mpris_notify_player (PulseaudioMpris  *mpris,
   return FALSE;
 }
 
+
+
+gboolean
+pulseaudio_mpris_notify_any_player (PulseaudioMpris *mpris,
+                                    const gchar     *message)
+{
+  PulseaudioMprisPlayer *player;
+  GHashTableIter iter;
+  const gchar *key;
+  gboolean found = FALSE;
+
+  g_return_val_if_fail(IS_PULSEAUDIO_MPRIS(mpris), FALSE);
+
+  g_hash_table_iter_init (&iter, mpris->players);
+  while (g_hash_table_iter_next(&iter, (gpointer *) &key, (gpointer) &player))
+  {
+    if (player != NULL)
+    {
+      if (pulseaudio_mpris_player_is_connected(player))
+      {
+        pulseaudio_mpris_player_call_player_method(player, message);
+        found = TRUE;
+      }
+    }
+  }
+
+  return found;
+}
+
 static void
 pulseaudio_mpris_init (PulseaudioMpris *mpris)
 {

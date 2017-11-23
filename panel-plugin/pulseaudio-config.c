@@ -51,8 +51,10 @@
 
 #ifdef HAVE_MPRIS2
 #define DEFAULT_ENABLE_MPRIS                      TRUE
+#define DEFAULT_ENABLE_MULTIMEDIA_KEYS            TRUE
 #else
 #define DEFAULT_ENABLE_MPRIS                      FALSE
+#define DEFAULT_ENABLE_MULTIMEDIA_KEYS            FALSE
 #endif
 
 #define DEFAULT_MPRIS_PLAYERS                     ""
@@ -81,6 +83,7 @@ struct _PulseaudioConfig
   GObject          __parent__;
 
   gboolean         enable_keyboard_shortcuts;
+  gboolean         enable_multimedia_keys;
   gboolean         show_notifications;
   guint            volume_step;
   guint            volume_max;
@@ -95,6 +98,7 @@ enum
   {
     PROP_0,
     PROP_ENABLE_KEYBOARD_SHORTCUTS,
+    PROP_ENABLE_MULTIMEDIA_KEYS,
     PROP_SHOW_NOTIFICATIONS,
     PROP_VOLUME_STEP,
     PROP_VOLUME_MAX,
@@ -131,6 +135,15 @@ pulseaudio_config_class_init (PulseaudioConfigClass *klass)
                                    PROP_ENABLE_KEYBOARD_SHORTCUTS,
                                    g_param_spec_boolean ("enable-keyboard-shortcuts", NULL, NULL,
                                                          DEFAULT_ENABLE_KEYBOARD_SHORTCUTS,
+                                                         G_PARAM_READWRITE |
+                                                         G_PARAM_STATIC_STRINGS));
+
+
+
+  g_object_class_install_property (gobject_class,
+                                   PROP_ENABLE_MULTIMEDIA_KEYS,
+                                   g_param_spec_boolean ("enable-multimedia-keys", NULL, NULL,
+                                                         DEFAULT_ENABLE_MULTIMEDIA_KEYS,
                                                          G_PARAM_READWRITE |
                                                          G_PARAM_STATIC_STRINGS));
 
@@ -207,6 +220,7 @@ static void
 pulseaudio_config_init (PulseaudioConfig *config)
 {
   config->enable_keyboard_shortcuts = DEFAULT_ENABLE_KEYBOARD_SHORTCUTS;
+  config->enable_multimedia_keys    = DEFAULT_ENABLE_MULTIMEDIA_KEYS;
   config->show_notifications        = DEFAULT_SHOW_NOTIFICATIONS;
   config->volume_step               = DEFAULT_VOLUME_STEP;
   config->volume_max                = DEFAULT_VOLUME_MAX;
@@ -242,6 +256,10 @@ pulseaudio_config_get_property (GObject    *object,
     {
     case PROP_ENABLE_KEYBOARD_SHORTCUTS:
       g_value_set_boolean (value, config->enable_keyboard_shortcuts);
+      break;
+
+    case PROP_ENABLE_MULTIMEDIA_KEYS:
+      g_value_set_boolean (value, config->enable_multimedia_keys);
       break;
 
     case PROP_SHOW_NOTIFICATIONS:
@@ -298,6 +316,16 @@ pulseaudio_config_set_property (GObject      *object,
         }
       break;
 
+    case PROP_ENABLE_MULTIMEDIA_KEYS:
+      val_bool = g_value_get_boolean (value);
+      if (config->enable_multimedia_keys != val_bool)
+        {
+          config->enable_multimedia_keys = val_bool;
+          g_object_notify (G_OBJECT (config), "enable-multimedia-keys");
+          g_signal_emit (G_OBJECT (config), pulseaudio_config_signals [CONFIGURATION_CHANGED], 0);
+        }
+      break;
+
     case PROP_SHOW_NOTIFICATIONS:
       val_bool = g_value_get_boolean (value);
       if (config->show_notifications != val_bool)
@@ -339,7 +367,14 @@ pulseaudio_config_set_property (GObject      *object,
         {
           config->enable_mpris = val_bool;
           g_object_notify (G_OBJECT (config), "enable-mpris");
-          g_signal_emit (G_OBJECT (config), pulseaudio_config_signals [CONFIGURATION_CHANGED], 0);
+
+          if (!config->enable_mpris)
+            {
+              config->enable_multimedia_keys = FALSE;
+              g_object_notify(G_OBJECT(config), "enable-multimedia-keys");
+            }
+
+          g_signal_emit(G_OBJECT(config), pulseaudio_config_signals[CONFIGURATION_CHANGED], 0);
         }
       break;
 
@@ -367,6 +402,15 @@ pulseaudio_config_get_enable_keyboard_shortcuts (PulseaudioConfig *config)
   return config->enable_keyboard_shortcuts;
 }
 
+
+
+gboolean
+pulseaudio_config_get_enable_multimedia_keys (PulseaudioConfig *config)
+{
+  g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), DEFAULT_ENABLE_MULTIMEDIA_KEYS);
+
+  return config->enable_multimedia_keys;
+}
 
 
 
@@ -518,6 +562,10 @@ pulseaudio_config_new (const gchar     *property_base)
 
       property = g_strconcat (property_base, "/enable-keyboard-shortcuts", NULL);
       xfconf_g_property_bind (channel, property, G_TYPE_BOOLEAN, config, "enable-keyboard-shortcuts");
+      g_free (property);
+
+      property = g_strconcat (property_base, "/enable-multimedia-keys", NULL);
+      xfconf_g_property_bind (channel, property, G_TYPE_BOOLEAN, config, "enable-multimedia-keys");
       g_free (property);
 
       property = g_strconcat (property_base, "/show-notifications", NULL);
