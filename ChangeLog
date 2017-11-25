@@ -1,4 +1,34 @@
 # created with git log --pretty=format:"%ad %h %s %aN <%aE>" --no-merges --date=short
+2017-11-25 29b9296 I18n: Update translation fr (100%). Yannick Le Guen <leguen.yannick@gmail.com>
+2017-11-25 31dc849 I18n: Update translation da (100%). Anonymous <noreply@xfce.org>
+2017-11-24 258a639 I18n: Update translation cs (100%). Michal Várady <miko.vaji@gmail.com>
+2017-11-23 b0e3494 I18n: Update translation pl (100%). Anonymous <noreply@xfce.org>
+2017-11-23 d8b1426 I18n: Update translation nl (100%). Pjotr <pjotrvertaalt@gmail.com>
+2017-11-23 1dbfd4a I18n: Update translation hr (100%). Edin Veskovic <edin.lockedin@gmail.com>
+2017-11-23 bec1b17 First fix for BSD builds Sean Davis <smd.seandavis@gmail.com>
+2017-11-23 6f6fec9 Improve volume scale increments Sean Davis <smd.seandavis@gmail.com>
+2017-11-23 ef44f7f Drop unused IDO code Sean Davis <smd.seandavis@gmail.com>
+2017-11-23 0c889f4 Standardize spacing Sean Davis <smd.seandavis@gmail.com>
+2017-11-22 3892875 Control MPRIS with multimedia key integration Sean Davis <smd.seandavis@gmail.com>
+2017-11-22 826033c Simplify device menus, move below volume controls and hide if only 1 item Sean Davis <smd.seandavis@gmail.com>
+2017-11-22 f96e213 Show volume change notifications when triggered without multimedia keys (bug #13677) Sean Davis <smd.seandavis@gmail.com>
+2017-11-21 1f501d2 Change default devices when changed from external application (bug #13908) Sean Davis <smd.seandavis@gmail.com>
+2017-10-29 95c21c3 Fix flag in g_bus_watch_name_on_connection() method (bug #13961) Olivier Duchateau <duchateau.olivier@gmail.com>
+2017-11-14 2c8c8a3 Fix size calculation caused by 7c2e79ae34 (bug #13998) Harald Judt <harald.judt@univie.ac.at>
+2017-11-14 553691a I18n: Update translation ko (100%). 박정규(Jung-Kyu Park) <bagjunggyu@gmail.com>
+2017-11-14 8b09b33 I18n: Update translation id (100%). Kukuh Syafaat <syafaatkukuh@gmail.com>
+2017-11-13 ea6cd0b I18n: Update translation nb (81%). Åsmund Berg Holm <berg.holm@outlook.com>
+2017-11-09 c21d801 I18n: Update translation ko (100%). 박정규(Jung-Kyu Park) <bagjunggyu@gmail.com>
+2017-11-08 14370b8 I18n: Update translation de (100%). Tobias Bannert <tobannert@gmail.com>
+2017-11-04 26409f5 I18n: Update translation da (100%). Anonymous <noreply@xfce.org>
+2017-11-03 ff0b402 I18n: Update translation da (100%). Anonymous <noreply@xfce.org>
+2017-11-03 86fbf4c I18n: Update translation uk (100%). Yarema aka Knedlyk <yupadmin@gmail.com>
+2017-11-03 99f6344 I18n: Update translation da (100%). Anonymous <noreply@xfce.org>
+2017-11-02 311b0a4 I18n: Update translation da (100%). Anonymous <noreply@xfce.org>
+2017-11-01 22fa421 I18n: Update translation uk (100%). Yarema aka Knedlyk <yupadmin@gmail.com>
+2017-10-31 6c7c931 I18n: Update translation kk (100%). Baurzhan Muftakhidinov <baurthefirst@gmail.com>
+2017-10-29 855a62c Back to development Sean Davis <smd.seandavis@gmail.com>
+2017-10-29 9a17c12 Preparing for the release Sean Davis <smd.seandavis@gmail.com>
 2017-10-29 6996902 Move away from deprecated notify_notification_set_hint calls Simon Steinbeiss <simon.steinbeiss@elfenbeinturm.at>
 2017-10-22 03a1ade I18n: Update translation hr (100%). Ivica  Kolić <ikoli@yahoo.com>
 2017-09-29 abdc05a Fix build with clang (non-void function should return a value [-Wreturn-type]) (bug #13889) Olivier Duchateau <duchateau.olivier@gmail.com>

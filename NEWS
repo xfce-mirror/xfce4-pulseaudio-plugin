@@ -1,3 +1,22 @@
+0.3.3
+=====
+
+- New Feature: Multimedia Key Support
+  - Integrates with the recently added MPRIS2 support
+  - Extends multimedia key support to all MPRIS2-enabled media players
+- General:
+  - Simplified device menus
+  - Improved default volume scale increments (steps of 5, max of 150)
+  - More code cleanup, dropping unused IDO functions
+- Bug Fixes:
+  - Xfce 13677: Show volume change notifications when changed with
+    another application
+  - Xfce 13908: Change default device when changed with another application
+  - Xfce 13961: Fix flag in g_bus_watch_name_on_connection() method
+  - Xfce 13998: Fix plugin size calculation with multiple rows
+- Translation Updates: Croatian, Czech, Danish, Dutch, French, German,
+  Indonesian, Kazakh, Korean, Norwegian Bokmål, Polish, Ukrainian
+
 0.3.2
 =====
 
