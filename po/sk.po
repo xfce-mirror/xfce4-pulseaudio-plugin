@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-24 00:46+0200\n"
-"PO-Revision-Date: 2017-09-24 15:18+0000\n"
+"POT-Creation-Date: 2017-11-23 06:32+0100\n"
+"PO-Revision-Date: 2017-11-26 08:45+0000\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: Slovak (http://www.transifex.com/xfce/xfce-panel-plugins/language/sk/)\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgid "PulseAudio Plugin"
 msgstr "Zásuvný modul systému PulseAudio"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:226
+#: ../panel-plugin/pulseaudio-plugin.c:243
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "Upraví hlasitosť zvuku zvukového systému PulseAudio"
 
@@ -77,10 +77,14 @@ msgid "Control playback of media players"
 msgstr "Ovládanie prehrávania prehrávačov médií"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
+msgid "Enable multimedia keys for playback control"
+msgstr "Povoliť multimediálne klávesy pre ovládanie prehrávania"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "Media Players"
 msgstr "Prehrávače médií"
 
-#: ../panel-plugin/pulseaudio-plugin.c:228
+#: ../panel-plugin/pulseaudio-plugin.c:245
 msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
 msgstr "Autorské práva © 2014-2017 Andrzej Radecki a kolektív\n"
 
@@ -114,16 +118,16 @@ msgstr "Hlasitosť %d%% (stlmená)"
 msgid "Volume %d%%"
 msgstr "Hlasitosť %d%%"
 
-#: ../panel-plugin/pulseaudio-menu.c:446
+#: ../panel-plugin/pulseaudio-menu.c:459
 msgid "Output"
 msgstr "Výstup"
 
-#: ../panel-plugin/pulseaudio-menu.c:480
+#: ../panel-plugin/pulseaudio-menu.c:496
 msgid "Input"
 msgstr "Vstup"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:579
+#: ../panel-plugin/pulseaudio-menu.c:585
 msgid "_Audio mixer..."
 msgstr "_Zmiešavač zvuku..."
 
@@ -136,12 +140,6 @@ msgstr "Hlasitosť %d%c (stlmená)"
 #, c-format
 msgid "Volume %d%c"
 msgstr "Hlasitosť %d%c"
-
-#. TRANSLATORS: <b>{Input/Output} ({Device Name})</b>
-#: ../panel-plugin/devicemenuitem.c:164
-#, c-format
-msgid "<b>%s (%s)</b>"
-msgstr "<b>%s (%s)</b>"
 
 #: ../panel-plugin/mprismenuitem.c:357 ../panel-plugin/mprismenuitem.c:430
 #: ../panel-plugin/mprismenuitem.c:795
