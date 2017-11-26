@@ -1,0 +1,148 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Nobuhiro Iwamatsu <iwamatsu@nigauri.org>, 2016
+# Nobuhiro Iwamatsu <iwamatsu@nigauri.org>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Xfce Panel Plugins\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-11-23 06:32+0100\n"
+"PO-Revision-Date: 2017-11-26 05:28+0000\n"
+"Last-Translator: Masato HASHIMOTO <cabezon.hashimoto@gmail.com>\n"
+"Language-Team: Japanese (http://www.transifex.com/xfce/xfce-panel-plugins/language/ja/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: ../panel-plugin/pulseaudio.desktop.in.in.h:1
+msgid "PulseAudio Plugin"
+msgstr "PulseAudio プラグイン"
+
+#: ../panel-plugin/pulseaudio.desktop.in.in.h:2
+#: ../panel-plugin/pulseaudio-plugin.c:243
+msgid "Adjust the audio volume of the PulseAudio sound system"
+msgstr "PulseAudio サウンドシステムの音量を調整します"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:1
+msgid "PulseAudio Panel Plugin"
+msgstr "PulseAudio パネルプラグイン"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:2
+msgid "Enable keyboard _shortcuts for volume control"
+msgstr "音量調節のショートカットキーを有効にする(_S)"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:3
+msgid ""
+"Enables volume control using multimedia keys. Make sure no other application"
+" that listens to these keys (e.g. xfce4-volumed) is running in the "
+"background."
+msgstr "マルチメディアキーによる音量調節を有効にします。これらのキーを待ち受けているほかのアプリケーション (xfce4-volumed など) がバックグラウンドで動作していないことを確認してください。"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:4
+msgid "Show _notifications when volume changes"
+msgstr "音量調節時に通知を表示する(_N)"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:5
+msgid "Enables on-screen volume notifications."
+msgstr "オンスクリーン音量通知を有効にします。"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:6
+msgid "Behaviour"
+msgstr "履歴"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:7
+msgid "Audio _Mixer"
+msgstr "オーディオミキサー (_M)"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:8
+msgid ""
+"Audio mixer command that can be executed from the context menu, e.g. "
+"\"pavucontrol\", \"unity-control-center sound\"."
+msgstr "コンテキストメニューから起動するオーディオミキサーを指定します。(例: \"pavucontrol\", \"unity-control-center sound\")"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:9
+msgid "_Run Audio Mixer..."
+msgstr "オーディオミキサーを起動(_R)..."
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:10
+msgid "Sound settings"
+msgstr "サウンド設定"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:11
+msgid "Control playback of media players"
+msgstr "メディアプレーヤーの再生を制御する"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:12
+msgid "Enable multimedia keys for playback control"
+msgstr "再生制御のマルチメディアキーを有効にします"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:13
+msgid "Media Players"
+msgstr "メディアプレーヤー"
+
+#: ../panel-plugin/pulseaudio-plugin.c:245
+msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
+msgstr "Copyright © 2014-2017 Andrzej Radecki et al.\n"
+
+#: ../panel-plugin/pulseaudio-dialog.c:135
+#: ../panel-plugin/pulseaudio-menu.c:258
+#, c-format
+msgid ""
+"<big><b>Failed to execute command \"%s\".</b></big>\n"
+"\n"
+"%s"
+msgstr "<big><b>コマンド \"%s\" の実行に失敗しました。</b></big>\n\n%s"
+
+#: ../panel-plugin/pulseaudio-dialog.c:138
+#: ../panel-plugin/pulseaudio-menu.c:261
+msgid "Error"
+msgstr "エラー"
+
+#: ../panel-plugin/pulseaudio-button.c:309
+#: ../panel-plugin/pulseaudio-notify.c:196
+#, c-format
+msgid "Not connected to the PulseAudio server"
+msgstr "PulseAudio サーバーに接続されていません"
+
+#: ../panel-plugin/pulseaudio-button.c:311
+#, c-format
+msgid "Volume %d%% (muted)"
+msgstr "音量 %d%% (ミュート)"
+
+#: ../panel-plugin/pulseaudio-button.c:313
+#, c-format
+msgid "Volume %d%%"
+msgstr "音量 %d%%"
+
+#: ../panel-plugin/pulseaudio-menu.c:459
+msgid "Output"
+msgstr "出力"
+
+#: ../panel-plugin/pulseaudio-menu.c:496
+msgid "Input"
+msgstr "入力"
+
+#. Audio mixers
+#: ../panel-plugin/pulseaudio-menu.c:585
+msgid "_Audio mixer..."
+msgstr "オーディオミキサー…(_A)"
+
+#: ../panel-plugin/pulseaudio-notify.c:198
+#, c-format
+msgid "Volume %d%c (muted)"
+msgstr "音量 %d%c (ミュート)"
+
+#: ../panel-plugin/pulseaudio-notify.c:200
+#, c-format
+msgid "Volume %d%c"
+msgstr "音量 %d%c"
+
+#: ../panel-plugin/mprismenuitem.c:357 ../panel-plugin/mprismenuitem.c:430
+#: ../panel-plugin/mprismenuitem.c:795
+msgid "Not currently playing"
+msgstr "再生していません"
