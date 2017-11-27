@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-24 00:46+0200\n"
-"PO-Revision-Date: 2017-09-25 14:56+0000\n"
+"POT-Creation-Date: 2017-11-23 06:32+0100\n"
+"PO-Revision-Date: 2017-11-27 13:40+0000\n"
 "Last-Translator: Igor <f2404@yandex.ru>\n"
 "Language-Team: Russian (http://www.transifex.com/xfce/xfce-panel-plugins/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgid "PulseAudio Plugin"
 msgstr "Модуль PulseAudio"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:226
+#: ../panel-plugin/pulseaudio-plugin.c:243
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "Управление громкостью звука системы PulseAudio"
 
@@ -49,7 +49,7 @@ msgstr "Отображать _уведомления при изменении �
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:5
 msgid "Enables on-screen volume notifications."
-msgstr "Включить экранные уведомления о громкости."
+msgstr "Включает экранные уведомления о громкости."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:6
 msgid "Behaviour"
@@ -78,10 +78,14 @@ msgid "Control playback of media players"
 msgstr "Управление медиаплеерами"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
+msgid "Enable multimedia keys for playback control"
+msgstr "Управлять воспроизведением с помощью мультимедиа клавиш"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "Media Players"
 msgstr "Медиаплееры"
 
-#: ../panel-plugin/pulseaudio-plugin.c:228
+#: ../panel-plugin/pulseaudio-plugin.c:245
 msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
 msgstr "Copyright © 2014-2017 Andrzej Radecki и др.\n"
 
@@ -115,16 +119,16 @@ msgstr "Громкость %d%% (откл.)"
 msgid "Volume %d%%"
 msgstr "Громкость %d%%"
 
-#: ../panel-plugin/pulseaudio-menu.c:446
+#: ../panel-plugin/pulseaudio-menu.c:459
 msgid "Output"
 msgstr "Вывод"
 
-#: ../panel-plugin/pulseaudio-menu.c:480
+#: ../panel-plugin/pulseaudio-menu.c:496
 msgid "Input"
 msgstr "Вход"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:579
+#: ../panel-plugin/pulseaudio-menu.c:585
 msgid "_Audio mixer..."
 msgstr "Звуковой _микшер..."
 
@@ -137,12 +141,6 @@ msgstr "Громкость %d%c (откл.)"
 #, c-format
 msgid "Volume %d%c"
 msgstr "Громкость %d%c"
-
-#. TRANSLATORS: <b>{Input/Output} ({Device Name})</b>
-#: ../panel-plugin/devicemenuitem.c:164
-#, c-format
-msgid "<b>%s (%s)</b>"
-msgstr "<b>%s(%s)</b>"
 
 #: ../panel-plugin/mprismenuitem.c:357 ../panel-plugin/mprismenuitem.c:430
 #: ../panel-plugin/mprismenuitem.c:795
