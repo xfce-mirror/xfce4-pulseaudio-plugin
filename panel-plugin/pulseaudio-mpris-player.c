@@ -57,6 +57,8 @@ struct _PulseaudioMprisPlayer
   PlaybackStatus    playback_status;
 
   guint             watch_id;
+
+  GHashTable       *playlists;
 };
 
 struct _PulseaudioMprisPlayerClass
@@ -210,8 +212,40 @@ pulseaudio_mpris_player_call_player_method (PulseaudioMprisPlayer *player,
 
 
 
+GList *
+pulseaudio_mpris_player_get_playlists (PulseaudioMprisPlayer *player)
+{
+  return g_hash_table_get_keys (player->playlists);
+}
+
+
+
+void pulseaudio_mpris_player_activate_playlist (PulseaudioMprisPlayer *player,
+                                                const gchar           *playlist)
+{
+  gchar *path = g_hash_table_lookup (player->playlists, playlist);
+
+  if (path != NULL)
+    {
+      g_dbus_connection_call (player->dbus_connection,
+                              player->dbus_name,
+                              "/org/mpris/MediaPlayer2",
+                              "org.mpris.MediaPlayer2.Playlists",
+                              "ActivatePlaylist",
+                              g_variant_new("(o)", path),
+                              NULL,
+                              G_DBUS_CALL_FLAGS_NONE,
+                              -1,
+                              NULL,
+                              NULL,
+                              NULL);
+    }
+}
+
+
+
 static GVariant *
-pulseaudio_mpris_player_get_all_player_properties (PulseaudioMprisPlayer *player)
+pulseaudio_mpris_player_get_all_player_properties(PulseaudioMprisPlayer *player)
 {
   GVariantIter iter;
   GVariant *result, *child = NULL;
@@ -262,6 +296,35 @@ pulseaudio_mpris_player_get_all_media_player_properties (PulseaudioMprisPlayer *
       g_variant_iter_init (&iter, result);
       child = g_variant_iter_next_value (&iter);
     }
+
+  return child;
+}
+
+
+
+static GVariant *
+pulseaudio_mpris_player_playlists_get_playlists (PulseaudioMprisPlayer *player)
+{
+  GVariantIter iter;
+  GVariant *result, *child = NULL;
+
+  result = g_dbus_connection_call_sync(player->dbus_connection,
+                                       player->dbus_name,
+                                       "/org/mpris/MediaPlayer2",
+                                       "org.mpris.MediaPlayer2.Playlists",
+                                       "GetPlaylists",
+                                       g_variant_new("(uusb)", (guint32)0, (guint32)5, "Alphabetical", FALSE),
+                                       G_VARIANT_TYPE("(a(oss))"),
+                                       G_DBUS_CALL_FLAGS_NONE,
+                                       -1,
+                                       NULL,
+                                       NULL);
+
+  if (result)
+  {
+    g_variant_iter_init(&iter, result);
+    child = g_variant_iter_next_value(&iter);
+  }
 
   return child;
 }
@@ -353,6 +416,28 @@ pulseaudio_mpris_player_parse_media_player_properties (PulseaudioMprisPlayer *pl
 
 
 static void
+pulseaudio_mpris_player_parse_playlists (PulseaudioMprisPlayer *player,
+                                         GVariant *playlists)
+{
+  GVariantIter iter;
+
+  gchar *path;
+  const gchar *name;
+  const gchar *icon;
+
+  g_hash_table_remove_all (player->playlists);
+
+  g_variant_iter_init(&iter, playlists);
+
+  while (g_variant_iter_loop(&iter, "(oss)", &path, &name, &icon))
+  {
+    g_hash_table_insert (player->playlists, g_strdup (name), g_strdup (path));
+  }
+}
+
+
+
+static void
 pulseaudio_mpris_player_on_dbus_property_signal (GDBusProxy *proxy,
                                                  gchar      *sender_name,
                                                  gchar      *signal_name,
@@ -397,11 +482,23 @@ pulseaudio_mpris_player_on_dbus_connected (GDBusConnection *connection,
   /* And informs the current status of the player */
   reply = pulseaudio_mpris_player_get_all_player_properties (player);
   pulseaudio_mpris_player_parse_player_properties (player, reply);
-  g_variant_unref (reply);
 
+  if (reply)
+    g_variant_unref (reply);
+
+  /* Media player properties */
   reply = pulseaudio_mpris_player_get_all_media_player_properties (player);
   pulseaudio_mpris_player_parse_media_player_properties (player, reply);
-  g_variant_unref (reply);
+
+  if (reply)
+    g_variant_unref (reply);
+
+  /* Playlists */
+  reply = pulseaudio_mpris_player_playlists_get_playlists (player);
+  pulseaudio_mpris_player_parse_playlists (player, reply);
+
+  if (reply)
+    g_variant_unref(reply);
 }
 
 
@@ -821,6 +918,8 @@ pulseaudio_mpris_player_new (gchar *name)
 
   pulseaudio_mpris_player_dbus_connect (player);
   pulseaudio_mpris_player_set_player (player, name);
+
+  player->playlists = g_hash_table_new_full (g_str_hash, g_str_equal, (GDestroyNotify)g_free, (GDestroyNotify)g_free);
 
   return player;
 }

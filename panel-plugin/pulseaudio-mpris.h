@@ -52,15 +52,20 @@ gboolean                pulseaudio_mpris_get_player_snapshot   (PulseaudioMpris 
                                                                 gboolean         *can_pause,
                                                                 gboolean         *can_go_previous,
                                                                 gboolean         *can_go_next,
-                                                                gboolean         *can_raise);
+                                                                gboolean         *can_raise,
+                                                                GList           **playlists);
 
 gboolean                pulseaudio_mpris_notify_player         (PulseaudioMpris  *mpris,
                                                                 const gchar      *name,
                                                                 const gchar      *message);
 
 gboolean                pulseaudio_mpris_notify_any_player     (PulseaudioMpris *mpris,
-                                                                const gchar *message);
+                                                                const gchar     *message);
 
-G_END_DECLS
+gboolean                pulseaudio_mpris_activate_playlist     (PulseaudioMpris *mpris,
+                                                                const gchar     *name,
+                                                                const gchar     *playlist);
+
+    G_END_DECLS
 
 #endif /* !__PULSEAUDIO_MPRIS_H__ */

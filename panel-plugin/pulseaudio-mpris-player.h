@@ -74,6 +74,10 @@ gboolean                pulseaudio_mpris_player_is_equal           (PulseaudioMp
 void                    pulseaudio_mpris_player_call_player_method (PulseaudioMprisPlayer *player,
                                                                     const gchar           *method);
 
+GList                  *pulseaudio_mpris_player_get_playlists      (PulseaudioMprisPlayer *player);
+void                    pulseaudio_mpris_player_activate_playlist  (PulseaudioMprisPlayer *player,
+                                                                    const gchar           *playlist);
+
 G_END_DECLS
 
 #endif /* !__PULSEAUDIO_MPRIS_PLAYER_H__ */

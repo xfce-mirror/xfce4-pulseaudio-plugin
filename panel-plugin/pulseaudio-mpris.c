@@ -213,7 +213,8 @@ pulseaudio_mpris_get_player_snapshot (PulseaudioMpris  *mpris,
                                       gboolean         *can_pause,
                                       gboolean         *can_go_previous,
                                       gboolean         *can_go_next,
-                                      gboolean         *can_raise)
+                                      gboolean         *can_raise,
+                                      GList           **playlists)
 {
   PulseaudioMprisPlayer *player;
   player = PULSEAUDIO_MPRIS_PLAYER (g_hash_table_lookup (mpris->players, name));
@@ -233,6 +234,7 @@ pulseaudio_mpris_get_player_snapshot (PulseaudioMpris  *mpris,
           *can_go_previous    = pulseaudio_mpris_player_can_go_previous (player);
           *can_go_next        = pulseaudio_mpris_player_can_go_next (player);
           *can_raise          = pulseaudio_mpris_player_can_raise (player);
+          *playlists          = pulseaudio_mpris_player_get_playlists (player);
         }
       else
         {
@@ -247,6 +249,7 @@ pulseaudio_mpris_get_player_snapshot (PulseaudioMpris  *mpris,
           *can_go_previous    = FALSE;
           *can_go_next        = FALSE;
           *can_raise          = FALSE;
+          *playlists          = NULL;
         }
       if (*title == NULL || g_strcmp0 (*title, "") == 0)
         *title = g_strdup(pulseaudio_mpris_player_get_player_title (player));
@@ -308,6 +311,31 @@ pulseaudio_mpris_notify_any_player (PulseaudioMpris *mpris,
     }
 
   return found;
+}
+
+
+
+gboolean
+pulseaudio_mpris_activate_playlist (PulseaudioMpris *mpris,
+                                    const gchar     *name,
+                                    const gchar     *playlist)
+{
+  PulseaudioMprisPlayer *player;
+
+  g_return_val_if_fail(IS_PULSEAUDIO_MPRIS(mpris), FALSE);
+
+  player = g_hash_table_lookup(mpris->players, name);
+
+  if (player != NULL)
+  {
+    if (pulseaudio_mpris_player_is_connected (player))
+    {
+      pulseaudio_mpris_player_activate_playlist (player, playlist);
+      return TRUE;
+    }
+  }
+
+  return FALSE;
 }
 
 
