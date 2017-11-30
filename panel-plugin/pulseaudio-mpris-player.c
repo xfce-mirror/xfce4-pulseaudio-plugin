@@ -455,11 +455,17 @@ pulseaudio_mpris_player_on_dbus_property_signal (GDBusProxy *proxy,
   g_variant_iter_init (&iter, parameters);
 
   child = g_variant_iter_next_value (&iter); /* Interface name. */
-  g_variant_unref (child);
+  if (child)
+    {
+      g_variant_unref (child);
+    }
 
   child = g_variant_iter_next_value (&iter); /* Property name. */
-  pulseaudio_mpris_player_parse_player_properties (player, child);
-  g_variant_unref (child);
+  if (child)
+    {
+      pulseaudio_mpris_player_parse_player_properties (player, child);
+      g_variant_unref(child);
+    }
 }
 
 
@@ -481,24 +487,30 @@ pulseaudio_mpris_player_on_dbus_connected (GDBusConnection *connection,
 
   /* And informs the current status of the player */
   reply = pulseaudio_mpris_player_get_all_player_properties (player);
-  pulseaudio_mpris_player_parse_player_properties (player, reply);
-
   if (reply)
-    g_variant_unref (reply);
+    {
+      pulseaudio_mpris_player_parse_player_properties (player, reply);
+      g_variant_unref (reply);
+    }
+
 
   /* Media player properties */
   reply = pulseaudio_mpris_player_get_all_media_player_properties (player);
-  pulseaudio_mpris_player_parse_media_player_properties (player, reply);
-
   if (reply)
-    g_variant_unref (reply);
+    {
+      pulseaudio_mpris_player_parse_media_player_properties (player, reply);
+      g_variant_unref (reply);
+    }
+
 
   /* Playlists */
   reply = pulseaudio_mpris_player_playlists_get_playlists (player);
-  pulseaudio_mpris_player_parse_playlists (player, reply);
-
   if (reply)
-    g_variant_unref(reply);
+  {
+    pulseaudio_mpris_player_parse_playlists (player, reply);
+    g_variant_unref (reply);
+  }
+
 }
 
 
