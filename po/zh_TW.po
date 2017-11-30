@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-24 00:46+0200\n"
-"PO-Revision-Date: 2017-09-25 13:34+0000\n"
+"POT-Creation-Date: 2017-11-29 18:33+0100\n"
+"PO-Revision-Date: 2017-11-30 12:46+0000\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/xfce/xfce-panel-plugins/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgid "PulseAudio Plugin"
 msgstr "PulseAudio 外掛程式"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:226
+#: ../panel-plugin/pulseaudio-plugin.c:242
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "調整 PulseAudio 音效系統的音量"
 
@@ -77,15 +77,19 @@ msgid "Control playback of media players"
 msgstr "控制媒體播放器的播放"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
+msgid "Enable multimedia keys for playback control"
+msgstr "啟用多媒體鍵以用於播放控制"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "Media Players"
 msgstr "媒體播放器"
 
-#: ../panel-plugin/pulseaudio-plugin.c:228
+#: ../panel-plugin/pulseaudio-plugin.c:244
 msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
 msgstr "Copyright © 2014-2017 Andrzej Radecki 等\n"
 
-#: ../panel-plugin/pulseaudio-dialog.c:135
-#: ../panel-plugin/pulseaudio-menu.c:258
+#: ../panel-plugin/pulseaudio-dialog.c:136
+#: ../panel-plugin/pulseaudio-menu.c:264
 #, c-format
 msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
@@ -93,55 +97,53 @@ msgid ""
 "%s"
 msgstr "<big><b>執行指令「%s」失敗。</b></big>\n\n%s"
 
-#: ../panel-plugin/pulseaudio-dialog.c:138
-#: ../panel-plugin/pulseaudio-menu.c:261
+#: ../panel-plugin/pulseaudio-dialog.c:139
+#: ../panel-plugin/pulseaudio-menu.c:267
 msgid "Error"
 msgstr "錯誤"
 
-#: ../panel-plugin/pulseaudio-button.c:309
-#: ../panel-plugin/pulseaudio-notify.c:196
+#: ../panel-plugin/pulseaudio-button.c:313
+#: ../panel-plugin/pulseaudio-notify.c:199
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "未連線到 PulseAudio 伺服程式"
 
-#: ../panel-plugin/pulseaudio-button.c:311
+#: ../panel-plugin/pulseaudio-button.c:315
 #, c-format
 msgid "Volume %d%% (muted)"
 msgstr "音量 %d%% （靜音）"
 
-#: ../panel-plugin/pulseaudio-button.c:313
+#: ../panel-plugin/pulseaudio-button.c:317
 #, c-format
 msgid "Volume %d%%"
 msgstr "音量 %d%%"
 
-#: ../panel-plugin/pulseaudio-menu.c:446
+#: ../panel-plugin/pulseaudio-menu.c:501
 msgid "Output"
 msgstr "輸出"
 
-#: ../panel-plugin/pulseaudio-menu.c:480
+#: ../panel-plugin/pulseaudio-menu.c:540
 msgid "Input"
 msgstr "輸入"
 
+#: ../panel-plugin/pulseaudio-menu.c:623
+msgid "Choose Playlist"
+msgstr "選擇播放清單"
+
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:579
+#: ../panel-plugin/pulseaudio-menu.c:658
 msgid "_Audio mixer..."
 msgstr "混音器... (_A)"
 
-#: ../panel-plugin/pulseaudio-notify.c:198
+#: ../panel-plugin/pulseaudio-notify.c:201
 #, c-format
 msgid "Volume %d%c (muted)"
 msgstr "音量 %d%c （靜音）"
 
-#: ../panel-plugin/pulseaudio-notify.c:200
+#: ../panel-plugin/pulseaudio-notify.c:203
 #, c-format
 msgid "Volume %d%c"
 msgstr "音量 %d%c"
-
-#. TRANSLATORS: <b>{Input/Output} ({Device Name})</b>
-#: ../panel-plugin/devicemenuitem.c:164
-#, c-format
-msgid "<b>%s (%s)</b>"
-msgstr "<b>%s (%s)</b>"
 
 #: ../panel-plugin/mprismenuitem.c:357 ../panel-plugin/mprismenuitem.c:430
 #: ../panel-plugin/mprismenuitem.c:795
