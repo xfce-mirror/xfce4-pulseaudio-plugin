@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-23 06:32+0100\n"
-"PO-Revision-Date: 2017-11-27 12:55+0000\n"
+"POT-Creation-Date: 2017-11-29 18:33+0100\n"
+"PO-Revision-Date: 2017-11-30 11:21+0000\n"
 "Last-Translator: Vinzenz Vietzke <vinz@vinzv.de>\n"
 "Language-Team: German (http://www.transifex.com/xfce/xfce-panel-plugins/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgid "PulseAudio Plugin"
 msgstr "PulseAudio-Modul"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:243
+#: ../panel-plugin/pulseaudio-plugin.c:242
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "Die Lautstärke des PulseAudio-Klangsystems anpassen"
 
@@ -85,12 +85,12 @@ msgstr "Multimediatasten für die Wiedergabesteuerung aktivieren"
 msgid "Media Players"
 msgstr "Medienspieler"
 
-#: ../panel-plugin/pulseaudio-plugin.c:245
+#: ../panel-plugin/pulseaudio-plugin.c:244
 msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
 msgstr "Urheberrecht © 2014-2017 Andrzej Radecki et al.\n"
 
-#: ../panel-plugin/pulseaudio-dialog.c:135
-#: ../panel-plugin/pulseaudio-menu.c:258
+#: ../panel-plugin/pulseaudio-dialog.c:136
+#: ../panel-plugin/pulseaudio-menu.c:264
 #, c-format
 msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
@@ -98,46 +98,50 @@ msgid ""
 "%s"
 msgstr "<big><b>Ausführen von Befehl »%s« ist fehlgeschlagen.</b></big>\n\n%s"
 
-#: ../panel-plugin/pulseaudio-dialog.c:138
-#: ../panel-plugin/pulseaudio-menu.c:261
+#: ../panel-plugin/pulseaudio-dialog.c:139
+#: ../panel-plugin/pulseaudio-menu.c:267
 msgid "Error"
 msgstr "Fehler"
 
-#: ../panel-plugin/pulseaudio-button.c:309
-#: ../panel-plugin/pulseaudio-notify.c:196
+#: ../panel-plugin/pulseaudio-button.c:313
+#: ../panel-plugin/pulseaudio-notify.c:199
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "Nicht mit dem PulseAudio-Server verbunden"
 
-#: ../panel-plugin/pulseaudio-button.c:311
+#: ../panel-plugin/pulseaudio-button.c:315
 #, c-format
 msgid "Volume %d%% (muted)"
 msgstr "Lautstärke %d%% (Stumm)"
 
-#: ../panel-plugin/pulseaudio-button.c:313
+#: ../panel-plugin/pulseaudio-button.c:317
 #, c-format
 msgid "Volume %d%%"
 msgstr "Lautstärke %d%%"
 
-#: ../panel-plugin/pulseaudio-menu.c:459
+#: ../panel-plugin/pulseaudio-menu.c:501
 msgid "Output"
 msgstr "Ausgabe"
 
-#: ../panel-plugin/pulseaudio-menu.c:496
+#: ../panel-plugin/pulseaudio-menu.c:540
 msgid "Input"
 msgstr "Eingabe"
 
+#: ../panel-plugin/pulseaudio-menu.c:623
+msgid "Choose Playlist"
+msgstr "Wiedergabeliste wählen"
+
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:585
+#: ../panel-plugin/pulseaudio-menu.c:658
 msgid "_Audio mixer..."
 msgstr "To_nmischer …"
 
-#: ../panel-plugin/pulseaudio-notify.c:198
+#: ../panel-plugin/pulseaudio-notify.c:201
 #, c-format
 msgid "Volume %d%c (muted)"
 msgstr "Lautstärke %d%c (Stumm)"
 
-#: ../panel-plugin/pulseaudio-notify.c:200
+#: ../panel-plugin/pulseaudio-notify.c:203
 #, c-format
 msgid "Volume %d%c"
 msgstr "Lautstärke %d%c"
