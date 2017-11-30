@@ -451,7 +451,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
   gboolean        can_go_previous;
   gboolean        can_go_next;
   gboolean        can_raise;
-  GList          *playlists;
+  GList          *playlists = NULL;
   GtkWidget      *submenu = NULL;
 #endif
 
