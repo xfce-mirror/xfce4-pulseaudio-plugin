@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-23 06:32+0100\n"
-"PO-Revision-Date: 2017-11-24 15:00+0000\n"
+"POT-Creation-Date: 2017-11-29 18:33+0100\n"
+"PO-Revision-Date: 2017-11-30 08:54+0000\n"
 "Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/xfce/xfce-panel-plugins/language/cs/)\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgid "PulseAudio Plugin"
 msgstr "Zásuvný modul PulseAudio"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:243
+#: ../panel-plugin/pulseaudio-plugin.c:242
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "Nastavení hlasitosti zvukového systému PulseAudio"
 
@@ -85,12 +85,12 @@ msgstr "Povolit multimediálním klávesám ovládat přehrávání"
 msgid "Media Players"
 msgstr "Přehrávače médií"
 
-#: ../panel-plugin/pulseaudio-plugin.c:245
+#: ../panel-plugin/pulseaudio-plugin.c:244
 msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
 msgstr "Copyright © 2014-2017 Andrzej Radecki a další.\n"
 
-#: ../panel-plugin/pulseaudio-dialog.c:135
-#: ../panel-plugin/pulseaudio-menu.c:258
+#: ../panel-plugin/pulseaudio-dialog.c:136
+#: ../panel-plugin/pulseaudio-menu.c:264
 #, c-format
 msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
@@ -98,46 +98,50 @@ msgid ""
 "%s"
 msgstr "<big><b>Nepodařilo se spustit příkaz \"%s\".</b></big>\n\n%s"
 
-#: ../panel-plugin/pulseaudio-dialog.c:138
-#: ../panel-plugin/pulseaudio-menu.c:261
+#: ../panel-plugin/pulseaudio-dialog.c:139
+#: ../panel-plugin/pulseaudio-menu.c:267
 msgid "Error"
 msgstr "Chyba"
 
-#: ../panel-plugin/pulseaudio-button.c:309
-#: ../panel-plugin/pulseaudio-notify.c:196
+#: ../panel-plugin/pulseaudio-button.c:313
+#: ../panel-plugin/pulseaudio-notify.c:199
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "Nepřipojeno k serveru PulseAudio"
 
-#: ../panel-plugin/pulseaudio-button.c:311
+#: ../panel-plugin/pulseaudio-button.c:315
 #, c-format
 msgid "Volume %d%% (muted)"
 msgstr "Hlasitost %d%% (ztlumeno)"
 
-#: ../panel-plugin/pulseaudio-button.c:313
+#: ../panel-plugin/pulseaudio-button.c:317
 #, c-format
 msgid "Volume %d%%"
 msgstr "Hlasitost %d%%"
 
-#: ../panel-plugin/pulseaudio-menu.c:459
+#: ../panel-plugin/pulseaudio-menu.c:501
 msgid "Output"
 msgstr "Výstup"
 
-#: ../panel-plugin/pulseaudio-menu.c:496
+#: ../panel-plugin/pulseaudio-menu.c:540
 msgid "Input"
 msgstr "Vstup"
 
+#: ../panel-plugin/pulseaudio-menu.c:623
+msgid "Choose Playlist"
+msgstr "Zvolit seznam médií"
+
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:585
+#: ../panel-plugin/pulseaudio-menu.c:658
 msgid "_Audio mixer..."
 msgstr "_Směšovač zvuku"
 
-#: ../panel-plugin/pulseaudio-notify.c:198
+#: ../panel-plugin/pulseaudio-notify.c:201
 #, c-format
 msgid "Volume %d%c (muted)"
 msgstr "Hlasitost %d%c (ztlumeno)"
 
-#: ../panel-plugin/pulseaudio-notify.c:200
+#: ../panel-plugin/pulseaudio-notify.c:203
 #, c-format
 msgid "Volume %d%c"
 msgstr "Hlasitost %d%c"
