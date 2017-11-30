@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-23 06:32+0100\n"
-"PO-Revision-Date: 2017-11-27 13:40+0000\n"
+"POT-Creation-Date: 2017-11-29 18:33+0100\n"
+"PO-Revision-Date: 2017-11-30 15:08+0000\n"
 "Last-Translator: Igor <f2404@yandex.ru>\n"
 "Language-Team: Russian (http://www.transifex.com/xfce/xfce-panel-plugins/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgid "PulseAudio Plugin"
 msgstr "Модуль PulseAudio"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:243
+#: ../panel-plugin/pulseaudio-plugin.c:242
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "Управление громкостью звука системы PulseAudio"
 
@@ -85,12 +85,12 @@ msgstr "Управлять воспроизведением с помощью м
 msgid "Media Players"
 msgstr "Медиаплееры"
 
-#: ../panel-plugin/pulseaudio-plugin.c:245
+#: ../panel-plugin/pulseaudio-plugin.c:244
 msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
 msgstr "Copyright © 2014-2017 Andrzej Radecki и др.\n"
 
-#: ../panel-plugin/pulseaudio-dialog.c:135
-#: ../panel-plugin/pulseaudio-menu.c:258
+#: ../panel-plugin/pulseaudio-dialog.c:136
+#: ../panel-plugin/pulseaudio-menu.c:264
 #, c-format
 msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
@@ -98,46 +98,50 @@ msgid ""
 "%s"
 msgstr "<big><b>Ошибка при выполнении команды \"%s\".</b></big>\n\n%s"
 
-#: ../panel-plugin/pulseaudio-dialog.c:138
-#: ../panel-plugin/pulseaudio-menu.c:261
+#: ../panel-plugin/pulseaudio-dialog.c:139
+#: ../panel-plugin/pulseaudio-menu.c:267
 msgid "Error"
 msgstr "Ошибка"
 
-#: ../panel-plugin/pulseaudio-button.c:309
-#: ../panel-plugin/pulseaudio-notify.c:196
+#: ../panel-plugin/pulseaudio-button.c:313
+#: ../panel-plugin/pulseaudio-notify.c:199
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "Нет соединения с сервером PulseAudio"
 
-#: ../panel-plugin/pulseaudio-button.c:311
+#: ../panel-plugin/pulseaudio-button.c:315
 #, c-format
 msgid "Volume %d%% (muted)"
 msgstr "Громкость %d%% (откл.)"
 
-#: ../panel-plugin/pulseaudio-button.c:313
+#: ../panel-plugin/pulseaudio-button.c:317
 #, c-format
 msgid "Volume %d%%"
 msgstr "Громкость %d%%"
 
-#: ../panel-plugin/pulseaudio-menu.c:459
+#: ../panel-plugin/pulseaudio-menu.c:501
 msgid "Output"
 msgstr "Вывод"
 
-#: ../panel-plugin/pulseaudio-menu.c:496
+#: ../panel-plugin/pulseaudio-menu.c:540
 msgid "Input"
 msgstr "Вход"
 
+#: ../panel-plugin/pulseaudio-menu.c:623
+msgid "Choose Playlist"
+msgstr "Выберите список воспроизведения"
+
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:585
+#: ../panel-plugin/pulseaudio-menu.c:658
 msgid "_Audio mixer..."
 msgstr "Звуковой _микшер..."
 
-#: ../panel-plugin/pulseaudio-notify.c:198
+#: ../panel-plugin/pulseaudio-notify.c:201
 #, c-format
 msgid "Volume %d%c (muted)"
 msgstr "Громкость %d%c (откл.)"
 
-#: ../panel-plugin/pulseaudio-notify.c:200
+#: ../panel-plugin/pulseaudio-notify.c:203
 #, c-format
 msgid "Volume %d%c"
 msgstr "Громкость %d%c"
