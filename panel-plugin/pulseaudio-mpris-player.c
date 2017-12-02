@@ -37,6 +37,7 @@ struct _PulseaudioMprisPlayer
   GDBusConnection  *dbus_connection;
   GDBusProxy       *dbus_props_proxy;
   GDBusProxy       *dbus_player_proxy;
+  GDBusProxy       *dbus_playlists_proxy;
   gchar            *dbus_name;
 
   gchar            *player;
@@ -74,10 +75,11 @@ struct _PulseaudioMprisPlayerClass
 static void pulseaudio_mpris_player_finalize     (GObject               *object);
 static void pulseaudio_mpris_player_dbus_connect (PulseaudioMprisPlayer *player);
 
+static GVariant *pulseaudio_mpris_player_playlists_get_playlists  (PulseaudioMprisPlayer *player);
+static void      pulseaudio_mpris_player_parse_playlists          (PulseaudioMprisPlayer *player,
+                                                                   GVariant              *playlists);
 
-
-enum
-{
+enum {
   CONNECTION,
   PLAYBACK_STATUS,
   METADATA,
@@ -313,7 +315,7 @@ pulseaudio_mpris_player_playlists_get_playlists (PulseaudioMprisPlayer *player)
                                        "/org/mpris/MediaPlayer2",
                                        "org.mpris.MediaPlayer2.Playlists",
                                        "GetPlaylists",
-                                       g_variant_new("(uusb)", (guint32)0, (guint32)5, "Alphabetical", FALSE),
+                                       g_variant_new("(uusb)", (guint32)0, (guint32)5, "Played", TRUE),
                                        G_VARIANT_TYPE("(a(oss))"),
                                        G_DBUS_CALL_FLAGS_NONE,
                                        -1,
@@ -382,6 +384,16 @@ pulseaudio_mpris_player_parse_player_properties (PulseaudioMprisPlayer *player,
         {
           pulseaudio_mpris_player_parse_metadata (player, value);
           g_signal_emit (player, signals[METADATA], 0, NULL);
+        }
+      else if (0 == g_ascii_strcasecmp(key, "ActivePlaylist") || 0 == g_ascii_strcasecmp(key, "PlaylistCount"))
+        {
+          /* Playlists */
+          GVariant *reply = pulseaudio_mpris_player_playlists_get_playlists(player);
+          if (reply)
+          {
+            pulseaudio_mpris_player_parse_playlists(player, reply);
+            g_variant_unref(reply);
+          }
         }
     }
 
@@ -654,6 +666,11 @@ pulseaudio_mpris_player_set_player (PulseaudioMprisPlayer *player,
       g_object_unref (player->dbus_player_proxy);
       player->dbus_player_proxy = NULL;
     }
+  if (player->dbus_playlists_proxy != NULL)
+    {
+      g_object_unref (player->dbus_playlists_proxy);
+      player->dbus_playlists_proxy = NULL;
+    }
 
   /* Clean player */
   if (player->player != NULL)
@@ -733,6 +750,27 @@ pulseaudio_mpris_player_dbus_connect (PulseaudioMprisPlayer *player)
   else
     {
       player->dbus_player_proxy = proxy;
+    }
+
+  /* interface=org.mpris.MediaPlayer2.Player */
+  proxy = g_dbus_proxy_new_sync(player->dbus_connection,
+                                G_DBUS_PROXY_FLAGS_NONE,
+                                NULL,
+                                player->dbus_name,
+                                "/org/mpris/MediaPlayer2",
+                                "org.mpris.MediaPlayer2.Playlists",
+                                NULL, /* GCancellable */
+                                &gerror);
+
+  if (proxy == NULL)
+    {
+      g_printerr("Error creating proxy: %s\n", gerror->message);
+      g_error_free(gerror);
+      gerror = NULL;
+    }
+    else
+    {
+      player->dbus_playlists_proxy = proxy;
     }
 
   player->watch_id = watch_id;
@@ -860,6 +898,7 @@ pulseaudio_mpris_player_init (PulseaudioMprisPlayer *player)
   player->dbus_name         = NULL;
   player->dbus_props_proxy  = NULL;
   player->dbus_player_proxy = NULL;
+  player->dbus_playlists_proxy = NULL;
   player->connected         = FALSE;
 
   player->title             = NULL;
@@ -889,6 +928,7 @@ pulseaudio_mpris_player_finalize (GObject *object)
   player->dbus_name         = NULL;
   player->dbus_props_proxy  = NULL;
   player->dbus_player_proxy = NULL;
+  player->dbus_playlists_proxy = NULL;
   player->connected         = FALSE;
 
   player->title             = NULL;
