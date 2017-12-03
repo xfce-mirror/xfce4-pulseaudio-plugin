@@ -147,6 +147,8 @@ pulseaudio_mpris_player_parse_metadata (PulseaudioMprisPlayer *player,
     {
       if (0 == g_ascii_strcasecmp (key, "xesam:title"))
         {
+          if (player->title != NULL)
+            g_free (player->title);
           player->title = g_strdup(g_variant_get_string(value, NULL));
         }
       else if (0 == g_ascii_strcasecmp (key, "xesam:artist"))
@@ -154,6 +156,9 @@ pulseaudio_mpris_player_parse_metadata (PulseaudioMprisPlayer *player,
           artists = g_variant_dup_strv (value, NULL);
           if (artists != NULL)
             {
+              if (player->artist != NULL)
+                g_free(player->artist);
+
               if (g_strv_length (artists) > 0)
                 {
                   player->artist = g_strdup (artists[0]);
@@ -162,6 +167,7 @@ pulseaudio_mpris_player_parse_metadata (PulseaudioMprisPlayer *player,
                 {
                   player->artist = g_strdup ("");
                 }
+
               g_strfreev (artists);
             }
         }
@@ -603,19 +609,22 @@ static void
 pulseaudio_mpris_player_set_details_from_desktop (PulseaudioMprisPlayer *player,
                                                   const gchar           *player_name)
 {
-  GKeyFile  *key_file;
-  gchar     *file;
-  gchar     *full_path;
-  gchar     *filename;
+  GKeyFile  *key_file = NULL;
+  gchar     *file = NULL;
+  gchar     *full_path = NULL;
+  gchar     *filename = NULL;
 
   filename = find_desktop_entry (player_name);
 
+  if (player->player_label != NULL)
+    g_free (player->player_label);
+  if (player->icon_name != NULL)
+    g_free (player->icon_name);
+
   if (filename == NULL)
     {
-      player->player_label = g_strdup(player->player);
-      player->icon_name = "applications-multimedia";
-
-      g_free (filename);
+      player->player_label = g_strdup (player->player);
+      player->icon_name = g_strdup ("applications-multimedia");
       return;
     }
 
@@ -628,17 +637,20 @@ pulseaudio_mpris_player_set_details_from_desktop (PulseaudioMprisPlayer *player,
       gchar *name = g_key_file_get_string (key_file, "Desktop Entry", "Name", NULL);
       gchar *icon_name = g_key_file_get_string (key_file, "Desktop Entry", "Icon", NULL);
 
-      player->player_label = g_strdup(name);
-      player->icon_name = g_strdup(icon_name);
+      player->player_label = g_strdup (name);
+      player->icon_name = g_strdup (icon_name);
 
       g_free (name);
       g_free (icon_name);
     }
   else
     {
-      player->player_label = g_strdup(player->player);
-      player->icon_name = "applications-multimedia";
+      player->player_label = g_strdup (player->player);
+      player->icon_name = g_strdup ("applications-multimedia");
     }
+
+  if (full_path != NULL)
+    g_free (full_path);
 
   g_key_file_free (key_file);
   g_free (file);
@@ -768,7 +780,7 @@ pulseaudio_mpris_player_dbus_connect (PulseaudioMprisPlayer *player)
       g_error_free(gerror);
       gerror = NULL;
     }
-    else
+  else
     {
       player->dbus_playlists_proxy = proxy;
     }
@@ -944,7 +956,10 @@ pulseaudio_mpris_player_finalize (GObject *object)
 
   player->watch_id          = 0;
 
-  (*G_OBJECT_CLASS (pulseaudio_mpris_player_parent_class)->finalize) (object);
+  if (player->playlists != NULL)
+    g_hash_table_destroy (player->playlists);
+
+  (*G_OBJECT_CLASS(pulseaudio_mpris_player_parent_class)->finalize)(object);
 }
 
 

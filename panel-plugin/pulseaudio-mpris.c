@@ -196,6 +196,11 @@ pulseaudio_mpris_tick_cb (gpointer user_data)
         }
     }
 
+  /* TODO: Safely free this memory.
+  if (players != NULL)
+    g_strfreev (players);
+  */
+
   return TRUE;
 }
 
@@ -358,6 +363,9 @@ pulseaudio_mpris_finalize (GObject *object)
 
   mpris->config            = NULL;
   mpris->dbus_connection   = NULL;
+
+  if (mpris->players != NULL)
+    g_hash_table_destroy (mpris->players);
 
   (*G_OBJECT_CLASS (pulseaudio_mpris_parent_class)->finalize) (object);
 }

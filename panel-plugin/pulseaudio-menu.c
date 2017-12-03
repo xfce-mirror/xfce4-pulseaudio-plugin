@@ -556,6 +556,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
       gtk_widget_show(mi);
       gtk_menu_shell_append(GTK_MENU_SHELL(menu), mi);
     }
+  g_list_free (sources);
 
   /* MPRIS2 */
 #ifdef HAVE_MPRIS2
@@ -651,6 +652,8 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
                   gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
                 }
             }
+
+          g_strfreev (players);
         }
     }
 #endif

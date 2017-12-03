@@ -549,6 +549,8 @@ pulseaudio_config_set_mpris_players (PulseaudioConfig  *config,
   g_value_set_static_string(&src, player_string);
 
   pulseaudio_config_set_property (G_OBJECT (config), PROP_MPRIS_PLAYERS, &src, NULL);
+
+  g_free (player_string);
 }
 
 
@@ -564,7 +566,10 @@ pulseaudio_config_add_mpris_player (PulseaudioConfig *config,
 
   players = pulseaudio_config_get_mpris_players (config);
   if (g_strv_contains ((const char * const *) players, player))
-    return;
+    {
+      g_strfreev(players);
+      return;
+    }
 
   players_string = g_strjoinv (";", players);
   player_string = g_strjoin (";", players_string, player, NULL);

@@ -123,7 +123,6 @@ struct _PulseaudioPlugin
 
   /* mpris */
   PulseaudioMpris     *mpris;
-  gchar              **players;
 };
 
 
@@ -530,7 +529,6 @@ pulseaudio_plugin_construct (XfcePanelPlugin *plugin)
   /* initialize mpris support */
 #ifdef HAVE_MPRIS2
   pulseaudio_plugin->mpris = pulseaudio_mpris_new (pulseaudio_plugin->config);
-  pulseaudio_plugin->players = pulseaudio_mpris_get_available_players (pulseaudio_plugin->mpris);
 #endif
 
   /* instantiate a button box */
