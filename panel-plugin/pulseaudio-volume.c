@@ -359,9 +359,6 @@ pulseaudio_volume_get_sink_list_cb (pa_context         *context,
                                     int                 eol,
                                     void               *userdata)
 {
-  gchar *name = NULL;
-  gchar *description = NULL;
-
   PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
 
   if (i == NULL)
@@ -370,10 +367,7 @@ pulseaudio_volume_get_sink_list_cb (pa_context         *context,
   if (eol > 0)
     return;
 
-  name = g_strdup (i->name);
-  description = g_strdup (i->description);
-
-  g_hash_table_insert (volume->sinks, name, description);
+  g_hash_table_insert (volume->sinks, g_strdup (i->name), g_strdup (i->description));
 }
 
 
@@ -384,9 +378,6 @@ pulseaudio_volume_get_source_list_cb (pa_context           *context,
                                       int                   eol,
                                       void                 *userdata)
 {
-  gchar *name = NULL;
-  gchar *description = NULL;
-
   PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
 
   if (i == NULL)
@@ -399,10 +390,7 @@ pulseaudio_volume_get_source_list_cb (pa_context           *context,
   if (i->monitor_of_sink != PA_INVALID_INDEX)
     return;
 
-  name = g_strdup (i->name);
-  description = g_strdup (i->description);
-
-  g_hash_table_insert (volume->sources, name, description);
+  g_hash_table_insert (volume->sources, g_strdup (i->name), g_strdup (i->description));
 }
 
 
