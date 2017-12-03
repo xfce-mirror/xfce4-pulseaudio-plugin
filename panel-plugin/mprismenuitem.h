@@ -89,6 +89,9 @@ void         mpris_menu_item_set_can_go_next       (MprisMenuItem *item,
 void         mpris_menu_item_set_can_raise         (MprisMenuItem *item,
                                                     gboolean can_raise);
 
+void         mpris_menu_item_set_can_raise_wnck    (MprisMenuItem *item,
+                                                    gboolean can_raise);
+
 void         mpris_menu_item_set_is_running        (MprisMenuItem *item,
                                                     gboolean running);
 

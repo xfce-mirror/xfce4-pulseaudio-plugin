@@ -34,10 +34,15 @@
 #include <gdk/gdkkeysyms.h>
 #include <gio/gdesktopappinfo.h>
 
+#ifdef HAVE_WNCK
+#define WNCK_I_KNOW_THIS_IS_UNSTABLE = 1
+#include <libwnck/libwnck.h>
+#endif
+
+
+
 /* for DBG/TRACE */
 #include <libxfce4util/libxfce4util.h>
-
-
 
 struct _MprisMenuItemPrivate {
   GtkWidget *title_label;
@@ -52,6 +57,7 @@ struct _MprisMenuItemPrivate {
   gboolean   can_pause;
   gboolean   can_go_next;
   gboolean   can_raise;
+  gboolean   can_raise_wnck;
 
   gboolean   is_running;
   gboolean   is_playing;
@@ -89,6 +95,11 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 /* Static Declarations */
 static void         mpris_menu_item_finalize                (GObject        *object);
 static void         mpris_menu_item_raise                   (MprisMenuItem  *item);
+
+#ifdef HAVE_WNCK
+static void         mpris_menu_item_raise_window            (MprisMenuItem  *item);
+#endif
+
 static void         mpris_menu_item_launch                  (MprisMenuItem  *item);
 static void         mpris_menu_item_raise_or_launch         (MprisMenuItem  *item);
 static GtkWidget *  mpris_menu_item_get_widget_at_event     (MprisMenuItem  *item,
@@ -340,6 +351,21 @@ mpris_menu_item_set_can_raise (MprisMenuItem *item,
 
 
 void
+mpris_menu_item_set_can_raise_wnck (MprisMenuItem *item,
+                                    gboolean       can_raise)
+{
+  MprisMenuItemPrivate *priv;
+
+  g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
+
+  priv = GET_PRIVATE (item);
+
+  priv->can_raise_wnck = can_raise;
+}
+
+
+
+void
 mpris_menu_item_set_is_running (MprisMenuItem *item,
                                 gboolean       running)
 {
@@ -527,9 +553,54 @@ mpris_menu_item_raise (MprisMenuItem *item)
 
   priv = GET_PRIVATE (item);
 
-  if (priv->is_running && priv->can_raise)
-    media_notify (item, "Raise");
+  if (priv->is_running)
+    {
+      if (priv->can_raise)
+        {
+          media_notify (item, "Raise");
+        }
+#ifdef HAVE_WNCK
+      else if (priv->can_raise_wnck)
+        {
+          mpris_menu_item_raise_window (item);
+        }
+#endif
+    }
 }
+
+
+
+#ifdef HAVE_WNCK
+/**
+ * Alternative "Raise" method.
+ * Some media players (e.g. Spotify) do not support the "Raise" method.
+ * This workaround utilizes libwnck to find the correct window and raise it.
+ */
+static void
+mpris_menu_item_raise_window (MprisMenuItem *item)
+{
+  MprisMenuItemPrivate *priv;
+  WnckScreen           *screen = NULL;
+  GList                *window = NULL;
+
+  g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
+
+  priv = GET_PRIVATE (item);
+
+  screen = wnck_screen_get_default ();
+  if (screen != NULL)
+    {
+      wnck_screen_force_update (screen);
+      for (window = wnck_screen_get_windows (screen); window != NULL; window = window->next)
+        {
+          if (0 == g_strcmp0 (priv->title, wnck_window_get_name (WNCK_WINDOW (window->data))))
+            {
+              wnck_window_activate (WNCK_WINDOW (window->data), 0);
+            }
+        }
+    }
+}
+#endif
 
 
 

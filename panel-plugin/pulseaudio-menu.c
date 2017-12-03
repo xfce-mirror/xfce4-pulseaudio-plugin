@@ -588,6 +588,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
                       mpris_menu_item_set_artist (MPRIS_MENU_ITEM (mi), artist);
 
                       mpris_menu_item_set_can_raise (MPRIS_MENU_ITEM (mi), can_raise);
+                      mpris_menu_item_set_can_raise_wnck (MPRIS_MENU_ITEM (mi), pulseaudio_config_get_can_raise_wnck (menu->config));
 
                       mpris_menu_item_set_can_play (MPRIS_MENU_ITEM (mi), can_play);
                       mpris_menu_item_set_can_pause (MPRIS_MENU_ITEM (mi), can_pause);

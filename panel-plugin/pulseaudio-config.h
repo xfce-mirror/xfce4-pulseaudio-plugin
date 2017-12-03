@@ -52,6 +52,10 @@ void               pulseaudio_config_set_mpris_players              (PulseaudioC
 void               pulseaudio_config_add_mpris_player               (PulseaudioConfig     *config,
                                                                      gchar                *player);
 
+void               pulseaudio_config_set_can_raise_wnck             (PulseaudioConfig     *config,
+                                                                     gboolean              can_raise);
+gboolean           pulseaudio_config_get_can_raise_wnck             (PulseaudioConfig     *config);
+
 G_END_DECLS
 
 #endif /* !__PULSEAUDIO_CONFIG_H__ */

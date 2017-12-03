@@ -105,6 +105,12 @@ dnl *******************************
 XDT_CHECK_OPTIONAL_PACKAGE([MPRIS2], [gio-2.0], [2.42], [mpris2],
                            [mpris2 support])
 
+dnl ********************************************
+dnl *** Optional (experimental) WNCK Support ***
+dnl ********************************************
+XDT_CHECK_OPTIONAL_PACKAGE([WNCK], [libwnck-3.0], [3.20], [wnck],
+                           [wnck support])
+
 dnl ***********************************
 dnl *** Check for debugging support ***
 dnl ***********************************
@@ -150,9 +156,10 @@ dnl ***************************
 echo
 echo "Build Configuration:"
 echo
-echo "* Debug Support:          $enable_debug"
-echo "* Use keybinder:          ${KEYBINDER_FOUND:-no}"
-echo "* Use libnotify:          ${LIBNOTIFY_FOUND:-no}"
-echo "* Use MPRIS2:             ${MPRIS2_FOUND:-no}"
-echo "* Default Mixer command:  $DEFAULT_MIXER_COMMAND"
+echo "* Debug Support:                $enable_debug"
+echo "* Use keybinder:                ${KEYBINDER_FOUND:-no}"
+echo "* Use libnotify:                ${LIBNOTIFY_FOUND:-no}"
+echo "* Use MPRIS2:                   ${MPRIS2_FOUND:-no}"
+echo "* Experimenal libwnck support:  ${WNCK_FOUND:-no}"
+echo "* Default Mixer command:        $DEFAULT_MIXER_COMMAND"
 echo

@@ -57,6 +57,7 @@
 #endif
 
 #define DEFAULT_MPRIS_PLAYERS                     ""
+#define DEFAULT_ENABLE_WNCK                       FALSE
 
 
 
@@ -89,6 +90,7 @@ struct _PulseaudioConfig
   gchar           *mixer_command;
   gboolean         enable_mpris;
   gchar           *mpris_players;
+  gboolean         enable_wnck;
 };
 
 
@@ -104,6 +106,7 @@ enum
     PROP_MIXER_COMMAND,
     PROP_ENABLE_MPRIS,
     PROP_MPRIS_PLAYERS,
+    PROP_ENABLE_WNCK,
     N_PROPERTIES,
   };
 
@@ -205,6 +208,15 @@ pulseaudio_config_class_init (PulseaudioConfigClass *klass)
 
 
 
+  g_object_class_install_property (gobject_class,
+                                   PROP_ENABLE_WNCK,
+                                   g_param_spec_boolean ("enable-wnck", NULL, NULL,
+                                                         DEFAULT_ENABLE_WNCK,
+                                                         G_PARAM_READWRITE |
+                                                         G_PARAM_STATIC_STRINGS));
+
+
+
   pulseaudio_config_signals[CONFIGURATION_CHANGED] =
     g_signal_new (g_intern_static_string ("configuration-changed"),
                   G_TYPE_FROM_CLASS (gobject_class),
@@ -227,6 +239,7 @@ pulseaudio_config_init (PulseaudioConfig *config)
   config->mixer_command             = g_strdup (DEFAULT_MIXER_COMMAND);
   config->enable_mpris              = DEFAULT_ENABLE_MPRIS;
   config->mpris_players             = g_strdup (DEFAULT_MPRIS_PLAYERS);
+  config->enable_wnck               = DEFAULT_ENABLE_WNCK;
 }
 
 
@@ -284,6 +297,10 @@ pulseaudio_config_get_property (GObject    *object,
 
     case PROP_MPRIS_PLAYERS:
       g_value_set_string (value, config->mpris_players);
+      break;
+
+    case PROP_ENABLE_WNCK:
+      g_value_set_boolean (value, config->enable_wnck);
       break;
 
     default:
@@ -372,6 +389,9 @@ pulseaudio_config_set_property (GObject      *object,
             {
               config->enable_multimedia_keys = FALSE;
               g_object_notify(G_OBJECT(config), "enable-multimedia-keys");
+
+              config->enable_wnck = FALSE;
+              g_object_notify(G_OBJECT(config), "enable-wnck");
             }
 
           g_signal_emit(G_OBJECT(config), pulseaudio_config_signals[CONFIGURATION_CHANGED], 0);
@@ -383,6 +403,16 @@ pulseaudio_config_set_property (GObject      *object,
       config->mpris_players = g_value_dup_string (value);
       g_object_notify (G_OBJECT (config), "mpris-players");
       g_signal_emit (G_OBJECT (config), pulseaudio_config_signals [CONFIGURATION_CHANGED], 0);
+      break;
+
+    case PROP_ENABLE_WNCK:
+      val_bool = g_value_get_boolean(value);
+      if (config->enable_wnck != val_bool)
+      {
+        config->enable_wnck = val_bool;
+        g_object_notify (G_OBJECT (config), "enable-wnck");
+        g_signal_emit (G_OBJECT (config), pulseaudio_config_signals [CONFIGURATION_CHANGED], 0);
+      }
       break;
 
     default:
@@ -550,6 +580,30 @@ pulseaudio_config_add_mpris_player (PulseaudioConfig *config,
 
 
 
+void
+pulseaudio_config_set_can_raise_wnck (PulseaudioConfig *config,
+                                      gboolean          can_raise)
+{
+  GValue src = { 0, };
+
+  g_return_if_fail(IS_PULSEAUDIO_CONFIG(config));
+
+  g_value_init (&src, G_TYPE_BOOLEAN);
+  g_value_set_boolean (&src, can_raise);
+
+  pulseaudio_config_set_property(G_OBJECT(config), PROP_ENABLE_WNCK, &src, NULL);
+}
+
+
+
+gboolean
+pulseaudio_config_get_can_raise_wnck (PulseaudioConfig *config)
+{
+  return config->enable_wnck;
+}
+
+
+
 PulseaudioConfig *
 pulseaudio_config_new (const gchar     *property_base)
 {
@@ -593,6 +647,10 @@ pulseaudio_config_new (const gchar     *property_base)
 
       property = g_strconcat (property_base, "/mpris-players", NULL);
       xfconf_g_property_bind (channel, property, G_TYPE_STRING, config, "mpris-players");
+      g_free (property);
+
+      property = g_strconcat (property_base, "/enable-wnck", NULL);
+      xfconf_g_property_bind (channel, property, G_TYPE_BOOLEAN, config, "enable-wnck");
       g_free (property);
 
       g_object_notify (G_OBJECT (config), "enable-keyboard-shortcuts");
