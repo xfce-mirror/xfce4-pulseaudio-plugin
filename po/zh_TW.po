@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-29 18:33+0100\n"
-"PO-Revision-Date: 2017-11-30 12:46+0000\n"
+"POT-Creation-Date: 2017-12-03 06:33+0100\n"
+"PO-Revision-Date: 2017-12-03 13:09+0000\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/xfce/xfce-panel-plugins/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -81,6 +81,10 @@ msgid "Enable multimedia keys for playback control"
 msgstr "啟用多媒體鍵以用於播放控制"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:13
+msgid "Enable experimental window focus support"
+msgstr "啟用實驗性視窗焦點支援"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "Media Players"
 msgstr "媒體播放器"
 
@@ -126,12 +130,12 @@ msgstr "輸出"
 msgid "Input"
 msgstr "輸入"
 
-#: ../panel-plugin/pulseaudio-menu.c:623
+#: ../panel-plugin/pulseaudio-menu.c:624
 msgid "Choose Playlist"
 msgstr "選擇播放清單"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:658
+#: ../panel-plugin/pulseaudio-menu.c:659
 msgid "_Audio mixer..."
 msgstr "混音器... (_A)"
 
@@ -145,7 +149,7 @@ msgstr "音量 %d%c （靜音）"
 msgid "Volume %d%c"
 msgstr "音量 %d%c"
 
-#: ../panel-plugin/mprismenuitem.c:357 ../panel-plugin/mprismenuitem.c:430
-#: ../panel-plugin/mprismenuitem.c:795
+#: ../panel-plugin/mprismenuitem.c:383 ../panel-plugin/mprismenuitem.c:456
+#: ../panel-plugin/mprismenuitem.c:866
 msgid "Not currently playing"
 msgstr "目前未播放"
