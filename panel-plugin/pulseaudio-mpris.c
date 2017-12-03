@@ -190,16 +190,14 @@ pulseaudio_mpris_tick_cb (gpointer user_data)
           g_signal_connect (player, "playback-status", G_CALLBACK (pulseaudio_mpris_player_update_cb), mpris);
           g_signal_connect (player, "metadata", G_CALLBACK (pulseaudio_mpris_player_metadata_cb), mpris);
 
-          g_hash_table_insert (mpris->players, players[i], player);
+          g_hash_table_insert (mpris->players, g_strdup (players[i]), player);
 
           pulseaudio_config_add_mpris_player (mpris->config, players[i]);
         }
     }
 
-  /* TODO: Safely free this memory.
   if (players != NULL)
     g_strfreev (players);
-  */
 
   return TRUE;
 }
@@ -393,7 +391,7 @@ pulseaudio_mpris_new (PulseaudioConfig *config)
 
   mpris->config = config;
   mpris->dbus_connection = gconnection;
-  mpris->players = g_hash_table_new (g_str_hash, g_str_equal);
+  mpris->players = g_hash_table_new_full (g_str_hash, g_str_equal, (GDestroyNotify)g_free, (GDestroyNotify)g_free);
   mpris->player_timer_id = g_timeout_add_seconds (1, pulseaudio_mpris_tick_cb, mpris);
 
   return mpris;
