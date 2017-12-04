@@ -26,6 +26,11 @@
 #include <glib.h>
 #include <gtk/gtk.h>
 
+#ifdef HAVE_WNCK
+#define WNCK_I_KNOW_THIS_IS_UNSTABLE = 1
+#include <libwnck/libwnck.h>
+#endif
+
 #include "pulseaudio-mpris-player.h"
 
 
@@ -60,6 +65,8 @@ struct _PulseaudioMprisPlayer
   guint             watch_id;
 
   GHashTable       *playlists;
+
+  gulong            xid;
 };
 
 struct _PulseaudioMprisPlayerClass
@@ -176,6 +183,44 @@ pulseaudio_mpris_player_parse_metadata (PulseaudioMprisPlayer *player,
 
 
 
+#ifdef HAVE_WNCK
+/**
+ * Alternative "Raise" method.
+ * Some media players (e.g. Spotify) do not support the "Raise" method.
+ * This workaround utilizes libwnck to find the correct window and raise it.
+ */
+static void
+pulseaudio_mpris_player_raise_wnck (PulseaudioMprisPlayer *player)
+{
+  WnckScreen           *screen = NULL;
+  GList                *window = NULL;
+
+  screen = wnck_screen_get_default ();
+  if (screen != NULL)
+    {
+      wnck_screen_force_update (screen);
+      if (player->xid == 0L)
+        {
+          for (window = wnck_screen_get_windows (screen); window != NULL; window = window->next)
+            {
+              if (0 == g_strcmp0 (player->player_label, wnck_window_get_name (WNCK_WINDOW (window->data))))
+                {
+                  player->xid = wnck_window_get_xid (WNCK_WINDOW (window->data));
+                }
+            }
+        }
+
+      if (player->xid > 0L)
+        {
+          WnckWindow *wdw = wnck_window_get (player->xid);
+          wnck_window_activate (wdw, 0);
+        }
+    }
+}
+#endif
+
+
+
 void
 pulseaudio_mpris_player_call_player_method (PulseaudioMprisPlayer *player,
                                             const gchar           *method)
@@ -186,6 +231,10 @@ pulseaudio_mpris_player_call_player_method (PulseaudioMprisPlayer *player,
 
   if (g_strcmp0 (method, "Raise") == 0)
     iface = "org.mpris.MediaPlayer2";
+#ifdef HAVE_WNCK
+  else if (g_strcmp0 (method, "RaiseWnck") == 0)
+    return pulseaudio_mpris_player_raise_wnck (player);
+#endif
   else if (g_strcmp0 (method, "Quit") == 0)
     iface = "org.mpris.MediaPlayer2";
   else
@@ -556,6 +605,7 @@ pulseaudio_mpris_player_on_dbus_lost (GDBusConnection *connection,
 
   player->title           = NULL;
   player->artist          = NULL;
+  player->xid             = 0L;
 
   g_signal_emit (player, signals[CONNECTION], 0, player->connected);
 }

@@ -34,11 +34,6 @@
 #include <gdk/gdkkeysyms.h>
 #include <gio/gdesktopappinfo.h>
 
-#ifdef HAVE_WNCK
-#define WNCK_I_KNOW_THIS_IS_UNSTABLE = 1
-#include <libwnck/libwnck.h>
-#endif
-
 
 
 /* for DBG/TRACE */
@@ -474,7 +469,7 @@ mpris_menu_item_class_init (MprisMenuItemClass *item_class)
    * @menuitem: the #MprisMenuItem for which the value changed
    * @value: the mpris signal to emit
    *
-   * Emitted whenever the a media button is clicked.
+   * Emitted whenever a media button is clicked.
    */
   signals[MEDIA_NOTIFY] = g_signal_new ("media-notify",
                                         TYPE_MPRIS_MENU_ITEM,
@@ -561,45 +556,11 @@ mpris_menu_item_raise (MprisMenuItem *item)
 #ifdef HAVE_WNCK
       else if (priv->can_raise_wnck)
         {
-          mpris_menu_item_raise_window (item);
+          media_notify (item, "RaiseWnck");
         }
 #endif
     }
 }
-
-
-
-#ifdef HAVE_WNCK
-/**
- * Alternative "Raise" method.
- * Some media players (e.g. Spotify) do not support the "Raise" method.
- * This workaround utilizes libwnck to find the correct window and raise it.
- */
-static void
-mpris_menu_item_raise_window (MprisMenuItem *item)
-{
-  MprisMenuItemPrivate *priv;
-  WnckScreen           *screen = NULL;
-  GList                *window = NULL;
-
-  g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
-
-  priv = GET_PRIVATE (item);
-
-  screen = wnck_screen_get_default ();
-  if (screen != NULL)
-    {
-      wnck_screen_force_update (screen);
-      for (window = wnck_screen_get_windows (screen); window != NULL; window = window->next)
-        {
-          if (0 == g_strcmp0 (priv->title, wnck_window_get_name (WNCK_WINDOW (window->data))))
-            {
-              wnck_window_activate (WNCK_WINDOW (window->data), 0);
-            }
-        }
-    }
-}
-#endif
 
 
 
