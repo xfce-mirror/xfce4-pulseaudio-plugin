@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-23 06:32+0100\n"
-"PO-Revision-Date: 2017-11-25 02:56+0000\n"
+"POT-Creation-Date: 2017-12-03 06:33+0100\n"
+"PO-Revision-Date: 2017-12-04 22:45+0000\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish (http://www.transifex.com/xfce/xfce-panel-plugins/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgid "PulseAudio Plugin"
 msgstr "PulseAudio-plugin"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:243
+#: ../panel-plugin/pulseaudio-plugin.c:242
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "Justér lydstyrken på PulseAudio-lydsystemet"
 
@@ -81,15 +81,19 @@ msgid "Enable multimedia keys for playback control"
 msgstr "Aktivér multimedietaster for styring af afspilning"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:13
+msgid "Enable experimental window focus support"
+msgstr "Aktivér understøttelse af eksperimentel vinduesfokus"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "Media Players"
 msgstr "Medieafspillere"
 
-#: ../panel-plugin/pulseaudio-plugin.c:245
+#: ../panel-plugin/pulseaudio-plugin.c:244
 msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
 msgstr "Ophavsret © 2014-2017 Andrzej Radecki med flere.\n"
 
-#: ../panel-plugin/pulseaudio-dialog.c:135
-#: ../panel-plugin/pulseaudio-menu.c:258
+#: ../panel-plugin/pulseaudio-dialog.c:136
+#: ../panel-plugin/pulseaudio-menu.c:264
 #, c-format
 msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
@@ -97,51 +101,55 @@ msgid ""
 "%s"
 msgstr "<big><b>Kunne ikke udføre kommandoen \"%s\".</b></big>\n\n%s"
 
-#: ../panel-plugin/pulseaudio-dialog.c:138
-#: ../panel-plugin/pulseaudio-menu.c:261
+#: ../panel-plugin/pulseaudio-dialog.c:139
+#: ../panel-plugin/pulseaudio-menu.c:267
 msgid "Error"
 msgstr "Fejl"
 
-#: ../panel-plugin/pulseaudio-button.c:309
-#: ../panel-plugin/pulseaudio-notify.c:196
+#: ../panel-plugin/pulseaudio-button.c:313
+#: ../panel-plugin/pulseaudio-notify.c:199
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "Ikke forbundet til PulseAudio-serveren"
 
-#: ../panel-plugin/pulseaudio-button.c:311
+#: ../panel-plugin/pulseaudio-button.c:315
 #, c-format
 msgid "Volume %d%% (muted)"
 msgstr "Lydstyrke %d%% (lydløs)"
 
-#: ../panel-plugin/pulseaudio-button.c:313
+#: ../panel-plugin/pulseaudio-button.c:317
 #, c-format
 msgid "Volume %d%%"
 msgstr "Lydstyrke %d%%"
 
-#: ../panel-plugin/pulseaudio-menu.c:459
+#: ../panel-plugin/pulseaudio-menu.c:501
 msgid "Output"
 msgstr "Output"
 
-#: ../panel-plugin/pulseaudio-menu.c:496
+#: ../panel-plugin/pulseaudio-menu.c:540
 msgid "Input"
 msgstr "Input"
 
+#: ../panel-plugin/pulseaudio-menu.c:624
+msgid "Choose Playlist"
+msgstr "Vælg spilleliste"
+
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:585
+#: ../panel-plugin/pulseaudio-menu.c:659
 msgid "_Audio mixer..."
 msgstr "_Lydmikser..."
 
-#: ../panel-plugin/pulseaudio-notify.c:198
+#: ../panel-plugin/pulseaudio-notify.c:201
 #, c-format
 msgid "Volume %d%c (muted)"
 msgstr "Lydstyrke %d%c (lydløs)"
 
-#: ../panel-plugin/pulseaudio-notify.c:200
+#: ../panel-plugin/pulseaudio-notify.c:203
 #, c-format
 msgid "Volume %d%c"
 msgstr "Lydstyrke %d%c"
 
-#: ../panel-plugin/mprismenuitem.c:357 ../panel-plugin/mprismenuitem.c:430
-#: ../panel-plugin/mprismenuitem.c:795
+#: ../panel-plugin/mprismenuitem.c:383 ../panel-plugin/mprismenuitem.c:456
+#: ../panel-plugin/mprismenuitem.c:866
 msgid "Not currently playing"
 msgstr "Afspiller ikke i øjeblikket"
