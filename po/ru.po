@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-29 18:33+0100\n"
-"PO-Revision-Date: 2017-11-30 15:08+0000\n"
+"POT-Creation-Date: 2017-12-03 06:33+0100\n"
+"PO-Revision-Date: 2017-12-03 23:52+0000\n"
 "Last-Translator: Igor <f2404@yandex.ru>\n"
 "Language-Team: Russian (http://www.transifex.com/xfce/xfce-panel-plugins/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -82,6 +82,10 @@ msgid "Enable multimedia keys for playback control"
 msgstr "Управлять воспроизведением с помощью мультимедиа клавиш"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:13
+msgid "Enable experimental window focus support"
+msgstr "Включить экспериментальную поддержку фокуса окна"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "Media Players"
 msgstr "Медиаплееры"
 
@@ -127,12 +131,12 @@ msgstr "Вывод"
 msgid "Input"
 msgstr "Вход"
 
-#: ../panel-plugin/pulseaudio-menu.c:623
+#: ../panel-plugin/pulseaudio-menu.c:624
 msgid "Choose Playlist"
 msgstr "Выберите список воспроизведения"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:658
+#: ../panel-plugin/pulseaudio-menu.c:659
 msgid "_Audio mixer..."
 msgstr "Звуковой _микшер..."
 
@@ -146,7 +150,7 @@ msgstr "Громкость %d%c (откл.)"
 msgid "Volume %d%c"
 msgstr "Громкость %d%c"
 
-#: ../panel-plugin/mprismenuitem.c:357 ../panel-plugin/mprismenuitem.c:430
-#: ../panel-plugin/mprismenuitem.c:795
+#: ../panel-plugin/mprismenuitem.c:383 ../panel-plugin/mprismenuitem.c:456
+#: ../panel-plugin/mprismenuitem.c:866
 msgid "Not currently playing"
 msgstr "Ничего не воспроизводится"
