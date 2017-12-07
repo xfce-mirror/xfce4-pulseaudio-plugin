@@ -184,16 +184,14 @@ pulseaudio_mpris_player_parse_metadata (PulseaudioMprisPlayer *player,
 
 
 #ifdef HAVE_WNCK
-/**
- * Alternative "Raise" method.
- * Some media players (e.g. Spotify) do not support the "Raise" method.
- * This workaround utilizes libwnck to find the correct window and raise it.
- */
 static void
-pulseaudio_mpris_player_raise_wnck (PulseaudioMprisPlayer *player)
+pulseaudio_mpris_player_get_xid (PulseaudioMprisPlayer *player)
 {
   WnckScreen           *screen = NULL;
   GList                *window = NULL;
+
+  if (player->xid > 0L)
+    return;
 
   screen = wnck_screen_get_default ();
   if (screen != NULL)
@@ -206,16 +204,33 @@ pulseaudio_mpris_player_raise_wnck (PulseaudioMprisPlayer *player)
               if (0 == g_strcmp0 (player->player_label, wnck_window_get_name (WNCK_WINDOW (window->data))))
                 {
                   player->xid = wnck_window_get_xid (WNCK_WINDOW (window->data));
+                  if (player->xid > 0L)
+                    return;
                 }
             }
         }
-
-      if (player->xid > 0L)
-        {
-          WnckWindow *wdw = wnck_window_get (player->xid);
-          wnck_window_activate (wdw, 0);
-        }
     }
+}
+
+
+
+/**
+ * Alternative "Raise" method.
+ * Some media players (e.g. Spotify) do not support the "Raise" method.
+ * This workaround utilizes libwnck to find the correct window and raise it.
+ */
+static void
+pulseaudio_mpris_player_raise_wnck (PulseaudioMprisPlayer *player)
+{
+  WnckWindow           *window = NULL;
+
+  pulseaudio_mpris_player_get_xid (player);
+
+  if (player->xid == 0L)
+    return;
+
+  window = wnck_window_get (player->xid);
+  wnck_window_activate (window, 0);
 }
 #endif
 
@@ -578,6 +593,9 @@ pulseaudio_mpris_player_on_dbus_connected (GDBusConnection *connection,
     g_variant_unref (reply);
   }
 
+#ifdef HAVE_WNCK
+  pulseaudio_mpris_player_get_xid (player);
+#endif
 }
 
 
