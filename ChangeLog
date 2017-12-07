@@ -1,4 +1,39 @@
 # created with git log --pretty=format:"%ad %h %s %aN <%aE>" --no-merges --date=short
+2017-12-07 b2f4175 Grab XID when window is first initialized to make the process smoother. Sean Davis <smd.seandavis@gmail.com>
+2017-12-07 60c24d5 I18n: Update translation es (100%). Pablo Lezaeta Reyes [pˈaβ̞lo lˌe̞θaˈeta rˈejɛ] <prflr88@gmail.com>
+2017-12-07 604072c I18n: Update translation he (100%). Elishai Eliyahu <e1907@mm.st>
+2017-12-05 f589342 I18n: Update translation da (100%). Anonymous <noreply@xfce.org>
+2017-12-04 fb418f5 I18n: Update translation hr (100%). Edin Veskovic <edin.lockedin@gmail.com>
+2017-12-04 bbdb0a4 I18n: Update translation ru (100%). Igor <f2404@yandex.ru>
+2017-12-03 bac5679 wnck: Keep connection to xid once found, move logic out of menu item and into player Sean Davis <smd.seandavis@gmail.com>
+2017-12-04 d39b1c1 I18n: Update translation nl (100%). Pjotr <pjotrvertaalt@gmail.com>
+2017-12-04 43bf6fe I18n: Update translation lt (100%). Anonymous <noreply@xfce.org>
+2017-12-04 73dc668 I18n: Update translation fr (100%). Yannick Le Guen <leguen.yannick@gmail.com>
+2017-12-03 7214b13 Simplify GHashTable inserts Sean Davis <smd.seandavis@gmail.com>
+2017-12-03 f22d7ee More memory leak improvements Sean Davis <smd.seandavis@gmail.com>
+2017-12-03 6edbb3e Patch several memory leaks Sean Davis <smd.seandavis@gmail.com>
+2017-12-03 15d046a I18n: Update translation zh_TW (100%). Jeff Huang <s8321414@gmail.com>
+2017-12-03 63b7d33 I18n: Update translation pl (100%). Anonymous <noreply@xfce.org>
+2017-12-02 0f14df6 Add optional libwnck integration for players that do not support CanRaise Sean Davis <smd.seandavis@gmail.com>
+2017-12-02 48e2da4 Detect playlist changes Sean Davis <smd.seandavis@gmail.com>
+2017-12-01 caddaee I18n: Update translation fr (100%). Charles Monzat <superboa@hotmail.fr>
+2017-11-30 4577b97 I18n: Update translation zh_TW (100%). Jeff Huang <s8321414@gmail.com>
+2017-11-30 ab7eee4 I18n: Update translation ru (100%). Igor <f2404@yandex.ru>
+2017-11-30 fbbc679 I18n: Update translation hr (100%). Edin Veskovic <edin.lockedin@gmail.com>
+2017-11-30 8395d3e I18n: Update translation de (100%). Vinzenz Vietzke <vinz@vinzv.de>
+2017-11-30 3b1bb36 I18n: Update translation cs (100%). Michal Várady <miko.vaji@gmail.com>
+2017-11-30 4b14ba5 I18n: Update translation ko (100%). 박정규(Jung-Kyu Park) <bagjunggyu@gmail.com>
+2017-11-29 2c520e6 Handle buggy DBUS responses from Pithos Sean Davis <smd.seandavis@gmail.com>
+2017-11-29 02efab9 Initialize playlists to NULL Sean Davis <smd.seandavis@gmail.com>
+2017-11-29 ef55e6f I18n: Update translation es (100%). Pablo Lezaeta Reyes [pˈaβ̞lo lˌe̞θaˈeta rˈejɛ] <prflr88@gmail.com>
+2017-11-29 5cbe27b Initial playlist support Sean Davis <smd.seandavis@gmail.com>
+2017-11-27 070ad07 I18n: Update translation ru (100%). Igor <f2404@yandex.ru>
+2017-11-27 105badf I18n: Update translation de (100%). Vinzenz Vietzke <vinz@vinzv.de>
+2017-11-26 d2dd6a5 I18n: Update translation sv (100%). Arve Eriksson <031299870@telia.com>
+2017-11-26 6352aa0 I18n: Update translation sk (100%). Dušan Kazik <prescott66@gmail.com>
+2017-11-26 351885e I18n: Add new translation ja (100%). Masato HASHIMOTO <cabezon.hashimoto@gmail.com>
+2017-11-25 b257f88 Back to development Sean Davis <smd.seandavis@gmail.com>
+2017-11-25 66579b5 Preparing for the release Sean Davis <smd.seandavis@gmail.com>
 2017-11-25 29b9296 I18n: Update translation fr (100%). Yannick Le Guen <leguen.yannick@gmail.com>
 2017-11-25 31dc849 I18n: Update translation da (100%). Anonymous <noreply@xfce.org>
 2017-11-24 258a639 I18n: Update translation cs (100%). Michal Várady <miko.vaji@gmail.com>

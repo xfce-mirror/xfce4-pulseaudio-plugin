@@ -1,3 +1,19 @@
+0.3.4
+=====
+
+- New Feature: MPRIS Playlist Support
+  - Implements the org.mpris.MediaPlayer2.Playlists specification.
+  - The most recent 5 playlists are displayed (if supported by the player).
+- New Feature: Experimental libwnck Support
+  - Some media players do not support the Raise method. This optional
+    feature attempts to raise windows by their title.
+- General:
+  - Unexpected error messages sent via DBUS are now handled gracefully.
+  - Numerous memory leaks patched.
+- Translation Updates: Chinese (Taiwan), Croatian, Czech, Danish, Dutch,
+  French, German, Hebrew, Japanese, Korean, Lithuanian, Polish, Russian,
+  Slovak, Spanish, Swedish
+
 0.3.3
 =====
 
