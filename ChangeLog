@@ -1,4 +1,7 @@
 # created with git log --pretty=format:"%ad %h %s %aN <%aE>" --no-merges --date=short
+2017-12-07 c3981cc Merged another translation Sean Davis <smd.seandavis@gmail.com>
+2017-12-07 54bf452 Preparing for the release Sean Davis <smd.seandavis@gmail.com>
+2017-12-07 975d7b6 I18n: Update translation th (100%). Theppitak Karoonboonyanan <theppitak@gmail.com>
 2017-12-07 b2f4175 Grab XID when window is first initialized to make the process smoother. Sean Davis <smd.seandavis@gmail.com>
 2017-12-07 60c24d5 I18n: Update translation es (100%). Pablo Lezaeta Reyes [pˈaβ̞lo lˌe̞θaˈeta rˈejɛ] <prflr88@gmail.com>
 2017-12-07 604072c I18n: Update translation he (100%). Elishai Eliyahu <e1907@mm.st>
