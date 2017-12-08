@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-29 18:33+0100\n"
-"PO-Revision-Date: 2017-11-30 11:21+0000\n"
+"POT-Creation-Date: 2017-12-03 06:33+0100\n"
+"PO-Revision-Date: 2017-12-08 14:21+0000\n"
 "Last-Translator: Vinzenz Vietzke <vinz@vinzv.de>\n"
 "Language-Team: German (http://www.transifex.com/xfce/xfce-panel-plugins/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -82,6 +82,10 @@ msgid "Enable multimedia keys for playback control"
 msgstr "Multimediatasten für die Wiedergabesteuerung aktivieren"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:13
+msgid "Enable experimental window focus support"
+msgstr "Experimentelle Unterstützung für Fensterfokus aktivieren"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "Media Players"
 msgstr "Medienspieler"
 
@@ -127,12 +131,12 @@ msgstr "Ausgabe"
 msgid "Input"
 msgstr "Eingabe"
 
-#: ../panel-plugin/pulseaudio-menu.c:623
+#: ../panel-plugin/pulseaudio-menu.c:624
 msgid "Choose Playlist"
 msgstr "Wiedergabeliste wählen"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:658
+#: ../panel-plugin/pulseaudio-menu.c:659
 msgid "_Audio mixer..."
 msgstr "To_nmischer …"
 
@@ -146,7 +150,7 @@ msgstr "Lautstärke %d%c (Stumm)"
 msgid "Volume %d%c"
 msgstr "Lautstärke %d%c"
 
-#: ../panel-plugin/mprismenuitem.c:357 ../panel-plugin/mprismenuitem.c:430
-#: ../panel-plugin/mprismenuitem.c:795
+#: ../panel-plugin/mprismenuitem.c:383 ../panel-plugin/mprismenuitem.c:456
+#: ../panel-plugin/mprismenuitem.c:866
 msgid "Not currently playing"
 msgstr "Aktuell keine Wiedergabe"
