@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-29 18:33+0100\n"
-"PO-Revision-Date: 2017-11-30 08:54+0000\n"
+"POT-Creation-Date: 2017-12-03 06:33+0100\n"
+"PO-Revision-Date: 2017-12-17 01:06+0000\n"
 "Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/xfce/xfce-panel-plugins/language/cs/)\n"
 "MIME-Version: 1.0\n"
@@ -82,6 +82,10 @@ msgid "Enable multimedia keys for playback control"
 msgstr "Povolit multimediálním klávesám ovládat přehrávání"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:13
+msgid "Enable experimental window focus support"
+msgstr "Povolit podporu experimentálního zaměření oken"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "Media Players"
 msgstr "Přehrávače médií"
 
@@ -127,12 +131,12 @@ msgstr "Výstup"
 msgid "Input"
 msgstr "Vstup"
 
-#: ../panel-plugin/pulseaudio-menu.c:623
+#: ../panel-plugin/pulseaudio-menu.c:624
 msgid "Choose Playlist"
 msgstr "Zvolit seznam médií"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:658
+#: ../panel-plugin/pulseaudio-menu.c:659
 msgid "_Audio mixer..."
 msgstr "_Směšovač zvuku"
 
@@ -146,7 +150,7 @@ msgstr "Hlasitost %d%c (ztlumeno)"
 msgid "Volume %d%c"
 msgstr "Hlasitost %d%c"
 
-#: ../panel-plugin/mprismenuitem.c:357 ../panel-plugin/mprismenuitem.c:430
-#: ../panel-plugin/mprismenuitem.c:795
+#: ../panel-plugin/mprismenuitem.c:383 ../panel-plugin/mprismenuitem.c:456
+#: ../panel-plugin/mprismenuitem.c:866
 msgid "Not currently playing"
 msgstr "Právě se nic nepřehrává"
