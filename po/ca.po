@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-12-03 06:33+0100\n"
-"PO-Revision-Date: 2017-12-30 11:19+0000\n"
+"PO-Revision-Date: 2017-12-30 12:21+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/xfce/xfce-panel-plugins/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgstr "Connector de plafó de PulseAudio"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:2
 msgid "Enable keyboard _shortcuts for volume control"
-msgstr "Habilita drecere_s de teclat per al control de volum"
+msgstr "Habilita les drecere_s de teclat per al control de volum"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:3
 msgid ""
@@ -46,11 +46,11 @@ msgstr "Habilita el control de volum amb les tecles multimèdia. Assegureu-vos q
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:4
 msgid "Show _notifications when volume changes"
-msgstr "Mostra _notificacions quan canviï el volum"
+msgstr "Mostra les _notificacions quan canviï el volum"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:5
 msgid "Enables on-screen volume notifications."
-msgstr "Habilita les notificacions de volum a la pantalla."
+msgstr "Habilita les notificacions en pantalla del volum."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:6
 msgid "Behaviour"
