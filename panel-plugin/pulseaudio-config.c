@@ -45,6 +45,7 @@
 
 #define DEFAULT_ENABLE_KEYBOARD_SHORTCUTS         TRUE
 #define DEFAULT_SHOW_NOTIFICATIONS                TRUE
+#define DEFAULT_ALLOW_LOUDER_THAN_HUNDRED         FALSE
 #define DEFAULT_VOLUME_STEP                       5
 #define DEFAULT_VOLUME_MAX                        150
 
@@ -85,6 +86,7 @@ struct _PulseaudioConfig
   gboolean         enable_keyboard_shortcuts;
   gboolean         enable_multimedia_keys;
   gboolean         show_notifications;
+  gboolean         allow_louder_than_hundred;
   guint            volume_step;
   guint            volume_max;
   gchar           *mixer_command;
@@ -101,6 +103,7 @@ enum
     PROP_ENABLE_KEYBOARD_SHORTCUTS,
     PROP_ENABLE_MULTIMEDIA_KEYS,
     PROP_SHOW_NOTIFICATIONS,
+    PROP_ALLOW_LOUDER_THAN_HUNDRED,
     PROP_VOLUME_STEP,
     PROP_VOLUME_MAX,
     PROP_MIXER_COMMAND,
@@ -158,6 +161,15 @@ pulseaudio_config_class_init (PulseaudioConfigClass *klass)
                                                          DEFAULT_SHOW_NOTIFICATIONS,
                                                          G_PARAM_READWRITE |
                                                          G_PARAM_STATIC_STRINGS));
+
+
+
+ g_object_class_install_property (gobject_class,
+                                  PROP_ALLOW_LOUDER_THAN_HUNDRED,
+                                  g_param_spec_boolean ("allow-louder-than-hundred", NULL, NULL,
+                                                        DEFAULT_ALLOW_LOUDER_THAN_HUNDRED,
+                                                        G_PARAM_READWRITE |
+                                                        G_PARAM_STATIC_STRINGS));
 
 
 
@@ -234,6 +246,7 @@ pulseaudio_config_init (PulseaudioConfig *config)
   config->enable_keyboard_shortcuts = DEFAULT_ENABLE_KEYBOARD_SHORTCUTS;
   config->enable_multimedia_keys    = DEFAULT_ENABLE_MULTIMEDIA_KEYS;
   config->show_notifications        = DEFAULT_SHOW_NOTIFICATIONS;
+  config->allow_louder_than_hundred       = DEFAULT_ALLOW_LOUDER_THAN_HUNDRED;
   config->volume_step               = DEFAULT_VOLUME_STEP;
   config->volume_max                = DEFAULT_VOLUME_MAX;
   config->mixer_command             = g_strdup (DEFAULT_MIXER_COMMAND);
@@ -277,6 +290,10 @@ pulseaudio_config_get_property (GObject    *object,
 
     case PROP_SHOW_NOTIFICATIONS:
       g_value_set_boolean (value, config->show_notifications);
+      break;
+
+    case PROP_ALLOW_LOUDER_THAN_HUNDRED:
+      g_value_set_boolean (value, config->allow_louder_than_hundred);
       break;
 
     case PROP_VOLUME_STEP:
@@ -349,6 +366,16 @@ pulseaudio_config_set_property (GObject      *object,
         {
           config->show_notifications = val_bool;
           g_object_notify (G_OBJECT (config), "show-notifications");
+          g_signal_emit (G_OBJECT (config), pulseaudio_config_signals [CONFIGURATION_CHANGED], 0);
+        }
+      break;
+
+    case PROP_ALLOW_LOUDER_THAN_HUNDRED:
+      val_bool = g_value_get_boolean (value);
+      if (config->allow_louder_than_hundred != val_bool)
+        {
+          config->allow_louder_than_hundred = val_bool;
+          g_object_notify (G_OBJECT (config), "allow-louder-than-hundred");
           g_signal_emit (G_OBJECT (config), pulseaudio_config_signals [CONFIGURATION_CHANGED], 0);
         }
       break;
@@ -451,6 +478,15 @@ pulseaudio_config_get_show_notifications (PulseaudioConfig *config)
   return config->show_notifications;
 }
 
+
+
+gboolean
+pulseaudio_config_get_allow_louder_than_hundred (PulseaudioConfig *config)
+{
+  g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), DEFAULT_ALLOW_LOUDER_THAN_HUNDRED);
+
+  return config->allow_louder_than_hundred;
+}
 
 
 guint

@@ -235,7 +235,12 @@ pulseaudio_button_scroll_event (GtkWidget *widget, GdkEventScroll *event)
   if (event->direction == 1)  // decrease volume
     new_volume = volume - volume_step;
   else if (event->direction == 0)  // increase volume
-    new_volume = MIN (volume + volume_step, MAX (volume, 1.0));
+  {
+    if (!pulseaudio_config_get_allow_louder_than_hundred (button->config))
+      new_volume = MIN (volume + volume_step, MAX (volume, 1.0));
+    else
+      new_volume = volume + volume_step;
+  }
   else
     new_volume = volume;
 
