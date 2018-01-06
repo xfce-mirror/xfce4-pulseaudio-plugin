@@ -670,6 +670,10 @@ pulseaudio_config_new (const gchar     *property_base)
       xfconf_g_property_bind (channel, property, G_TYPE_BOOLEAN, config, "show-notifications");
       g_free (property);
 
+      property = g_strconcat (property_base, "/allow-louder-than-hundred", NULL);
+      xfconf_g_property_bind (channel, property, G_TYPE_BOOLEAN, config, "allow-louder-than-hundred");
+      g_free (property);
+
       property = g_strconcat (property_base, "/volume-step", NULL);
       xfconf_g_property_bind (channel, property, G_TYPE_UINT, config, "volume-step");
       g_free (property);
