@@ -246,7 +246,7 @@ pulseaudio_config_init (PulseaudioConfig *config)
   config->enable_keyboard_shortcuts = DEFAULT_ENABLE_KEYBOARD_SHORTCUTS;
   config->enable_multimedia_keys    = DEFAULT_ENABLE_MULTIMEDIA_KEYS;
   config->show_notifications        = DEFAULT_SHOW_NOTIFICATIONS;
-  config->allow_louder_than_hundred       = DEFAULT_ALLOW_LOUDER_THAN_HUNDRED;
+  config->allow_louder_than_hundred = DEFAULT_ALLOW_LOUDER_THAN_HUNDRED;
   config->volume_step               = DEFAULT_VOLUME_STEP;
   config->volume_max                = DEFAULT_VOLUME_MAX;
   config->mixer_command             = g_strdup (DEFAULT_MIXER_COMMAND);

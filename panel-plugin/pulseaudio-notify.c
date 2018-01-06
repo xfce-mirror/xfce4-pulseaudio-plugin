@@ -170,6 +170,7 @@ pulseaudio_notify_notify (PulseaudioNotify *notify, gboolean mic)
   GError             *error = NULL;
   NotifyNotification *notification;
   gdouble             volume;
+  gdouble             volume_max;
   gint                volume_i;
   gboolean            muted;
   gboolean            connected;
@@ -190,7 +191,12 @@ pulseaudio_notify_notify (PulseaudioNotify *notify, gboolean mic)
   volume = (mic ? pulseaudio_volume_get_volume_mic : pulseaudio_volume_get_volume) (notify->volume);
   muted = (mic ? pulseaudio_volume_get_muted_mic : pulseaudio_volume_get_muted) (notify->volume);
   connected = pulseaudio_volume_get_connected (notify->volume);
-  volume_i = (gint) round (volume * 100);
+  volume_max = pulseaudio_config_get_volume_max(notify->config) / 100.0;
+
+  if (!pulseaudio_config_get_allow_louder_than_hundred (notify->config))
+    volume_i = (gint) round (volume * 100);
+  else
+    volume_i = (gint) round (volume * 100 / volume_max);
 
   if (!connected)
     volume_i = 0;
