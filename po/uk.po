@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Yarema aka Knedlyk <yupadmin@gmail.com>, 2015,2017
+# Yarema aka Knedlyk <yupadmin@gmail.com>, 2015,2017-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-24 00:46+0200\n"
-"PO-Revision-Date: 2017-11-03 11:10+0000\n"
+"POT-Creation-Date: 2017-12-03 06:33+0100\n"
+"PO-Revision-Date: 2018-01-15 16:51+0000\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/xfce/xfce-panel-plugins/language/uk/)\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgid "PulseAudio Plugin"
 msgstr "Додаток PulseAudio"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:226
+#: ../panel-plugin/pulseaudio-plugin.c:242
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "Налаштувати гучність аудіо звукової системи PulseAudio"
 
@@ -77,15 +77,23 @@ msgid "Control playback of media players"
 msgstr "Контроль програвання медіа-програвачів"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
+msgid "Enable multimedia keys for playback control"
+msgstr "Включити мультимедійні кнопки для контролю програвання"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:13
+msgid "Enable experimental window focus support"
+msgstr "Включити експериментальну підтримку фокусу вікна"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "Media Players"
 msgstr "Медіа-програвачі"
 
-#: ../panel-plugin/pulseaudio-plugin.c:228
+#: ../panel-plugin/pulseaudio-plugin.c:244
 msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
 msgstr "Всі права застережено © 2014-2017 Andrzej Radecki та інші.\n"
 
-#: ../panel-plugin/pulseaudio-dialog.c:135
-#: ../panel-plugin/pulseaudio-menu.c:258
+#: ../panel-plugin/pulseaudio-dialog.c:136
+#: ../panel-plugin/pulseaudio-menu.c:264
 #, c-format
 msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
@@ -93,57 +101,55 @@ msgid ""
 "%s"
 msgstr "<big><b>Помилка запуску команди: \"%s\".</b></big>\n\n%s"
 
-#: ../panel-plugin/pulseaudio-dialog.c:138
-#: ../panel-plugin/pulseaudio-menu.c:261
+#: ../panel-plugin/pulseaudio-dialog.c:139
+#: ../panel-plugin/pulseaudio-menu.c:267
 msgid "Error"
 msgstr "Помилка"
 
-#: ../panel-plugin/pulseaudio-button.c:309
-#: ../panel-plugin/pulseaudio-notify.c:196
+#: ../panel-plugin/pulseaudio-button.c:313
+#: ../panel-plugin/pulseaudio-notify.c:199
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "Немає з’єднання з сервером "
 
-#: ../panel-plugin/pulseaudio-button.c:311
+#: ../panel-plugin/pulseaudio-button.c:315
 #, c-format
 msgid "Volume %d%% (muted)"
 msgstr "Гучність %d%% (заглушено)"
 
-#: ../panel-plugin/pulseaudio-button.c:313
+#: ../panel-plugin/pulseaudio-button.c:317
 #, c-format
 msgid "Volume %d%%"
 msgstr "Гучність %d%%"
 
-#: ../panel-plugin/pulseaudio-menu.c:446
+#: ../panel-plugin/pulseaudio-menu.c:501
 msgid "Output"
 msgstr "Вивід"
 
-#: ../panel-plugin/pulseaudio-menu.c:480
+#: ../panel-plugin/pulseaudio-menu.c:540
 msgid "Input"
 msgstr "Ввід"
 
+#: ../panel-plugin/pulseaudio-menu.c:624
+msgid "Choose Playlist"
+msgstr "Вибір списку програвання"
+
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:579
+#: ../panel-plugin/pulseaudio-menu.c:659
 msgid "_Audio mixer..."
 msgstr "_Аудіо мікшер..."
 
-#: ../panel-plugin/pulseaudio-notify.c:198
+#: ../panel-plugin/pulseaudio-notify.c:201
 #, c-format
 msgid "Volume %d%c (muted)"
 msgstr "Гучність %d%c (заглушено)"
 
-#: ../panel-plugin/pulseaudio-notify.c:200
+#: ../panel-plugin/pulseaudio-notify.c:203
 #, c-format
 msgid "Volume %d%c"
 msgstr "Гучність %d%c"
 
-#. TRANSLATORS: <b>{Input/Output} ({Device Name})</b>
-#: ../panel-plugin/devicemenuitem.c:164
-#, c-format
-msgid "<b>%s (%s)</b>"
-msgstr "<b>%s (%s)</b>"
-
-#: ../panel-plugin/mprismenuitem.c:357 ../panel-plugin/mprismenuitem.c:430
-#: ../panel-plugin/mprismenuitem.c:795
+#: ../panel-plugin/mprismenuitem.c:383 ../panel-plugin/mprismenuitem.c:456
+#: ../panel-plugin/mprismenuitem.c:866
 msgid "Not currently playing"
 msgstr "Зараз не програється"
