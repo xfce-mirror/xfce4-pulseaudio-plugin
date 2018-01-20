@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-12-03 06:33+0100\n"
-"PO-Revision-Date: 2018-01-19 07:47+0000\n"
+"PO-Revision-Date: 2018-01-20 04:04+0000\n"
 "Last-Translator: Seán Ó Séaghdha <sean.anseo@gmail.com>\n"
 "Language-Team: Irish (http://www.transifex.com/xfce/xfce-panel-plugins/language/ga/)\n"
 "MIME-Version: 1.0\n"
@@ -78,11 +78,11 @@ msgstr "Rialaigh athsheinm trí sheinnteoirí meán"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
 msgid "Enable multimedia keys for playback control"
-msgstr ""
+msgstr "Cumasaigh eochracha meán le haghaidh rialú athsheanma"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "Enable experimental window focus support"
-msgstr ""
+msgstr "Cumasaigh tacaíocht thrialach d’fhócas fuinneog"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "Media Players"
@@ -99,7 +99,7 @@ msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
 "\n"
 "%s"
-msgstr ""
+msgstr "<big><b>Theip ar rith an ordaithe \"%s\".</b></big>\n\n%s"
 
 #: ../panel-plugin/pulseaudio-dialog.c:139
 #: ../panel-plugin/pulseaudio-menu.c:267
@@ -110,17 +110,17 @@ msgstr "Earráid"
 #: ../panel-plugin/pulseaudio-notify.c:199
 #, c-format
 msgid "Not connected to the PulseAudio server"
-msgstr ""
+msgstr "Níl nasc ann don fhreastalaí PulseAudio"
 
 #: ../panel-plugin/pulseaudio-button.c:315
 #, c-format
 msgid "Volume %d%% (muted)"
-msgstr ""
+msgstr "Airde %d%% (gan fuaim)"
 
 #: ../panel-plugin/pulseaudio-button.c:317
 #, c-format
 msgid "Volume %d%%"
-msgstr ""
+msgstr "Airde %d%%"
 
 #: ../panel-plugin/pulseaudio-menu.c:501
 msgid "Output"
@@ -142,14 +142,14 @@ msgstr "Meascthóir _Fuaime..."
 #: ../panel-plugin/pulseaudio-notify.c:201
 #, c-format
 msgid "Volume %d%c (muted)"
-msgstr ""
+msgstr "Airde %d%c (gan fuaim)"
 
 #: ../panel-plugin/pulseaudio-notify.c:203
 #, c-format
 msgid "Volume %d%c"
-msgstr ""
+msgstr "Airde %d%c"
 
 #: ../panel-plugin/mprismenuitem.c:383 ../panel-plugin/mprismenuitem.c:456
 #: ../panel-plugin/mprismenuitem.c:866
 msgid "Not currently playing"
-msgstr ""
+msgstr "Gan seinm faoi láthair"
