@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2016-2017
+# Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2016-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-24 00:46+0200\n"
-"PO-Revision-Date: 2017-10-31 16:24+0000\n"
+"POT-Creation-Date: 2017-12-03 06:33+0100\n"
+"PO-Revision-Date: 2018-01-21 08:34+0000\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh (http://www.transifex.com/xfce/xfce-panel-plugins/language/kk/)\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgid "PulseAudio Plugin"
 msgstr "PulseAudio плагині"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:226
+#: ../panel-plugin/pulseaudio-plugin.c:242
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "PulseAudio дыбыс жүйесінің аудио деңгейлерін басқару"
 
@@ -77,15 +77,23 @@ msgid "Control playback of media players"
 msgstr "Медиа плеерлер ойнатуын басқару"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
+msgid "Enable multimedia keys for playback control"
+msgstr "Ойнатуды басқару үшін мультимедиа пернелерін іске қосу"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:13
+msgid "Enable experimental window focus support"
+msgstr "Сынамалы түрде терезелер фокусына қолдауды іске қосу"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "Media Players"
 msgstr "Медиа плеерлер"
 
-#: ../panel-plugin/pulseaudio-plugin.c:228
+#: ../panel-plugin/pulseaudio-plugin.c:244
 msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
 msgstr "Copyright © 2014-2017 Andrzej Radecki et al.\n"
 
-#: ../panel-plugin/pulseaudio-dialog.c:135
-#: ../panel-plugin/pulseaudio-menu.c:258
+#: ../panel-plugin/pulseaudio-dialog.c:136
+#: ../panel-plugin/pulseaudio-menu.c:264
 #, c-format
 msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
@@ -93,57 +101,55 @@ msgid ""
 "%s"
 msgstr "<big><b>\"%s\" командасын жөнелту қатесі.</b></big>\n\n%s"
 
-#: ../panel-plugin/pulseaudio-dialog.c:138
-#: ../panel-plugin/pulseaudio-menu.c:261
+#: ../panel-plugin/pulseaudio-dialog.c:139
+#: ../panel-plugin/pulseaudio-menu.c:267
 msgid "Error"
 msgstr "Қате"
 
-#: ../panel-plugin/pulseaudio-button.c:309
-#: ../panel-plugin/pulseaudio-notify.c:196
+#: ../panel-plugin/pulseaudio-button.c:313
+#: ../panel-plugin/pulseaudio-notify.c:199
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "PulseAudio серверіне байланыспаған"
 
-#: ../panel-plugin/pulseaudio-button.c:311
+#: ../panel-plugin/pulseaudio-button.c:315
 #, c-format
 msgid "Volume %d%% (muted)"
 msgstr "Дыбыс деңгейі %d%% (басылған)"
 
-#: ../panel-plugin/pulseaudio-button.c:313
+#: ../panel-plugin/pulseaudio-button.c:317
 #, c-format
 msgid "Volume %d%%"
 msgstr "Дыбыс деңгейі %d%%"
 
-#: ../panel-plugin/pulseaudio-menu.c:446
+#: ../panel-plugin/pulseaudio-menu.c:501
 msgid "Output"
 msgstr "Шығыс"
 
-#: ../panel-plugin/pulseaudio-menu.c:480
+#: ../panel-plugin/pulseaudio-menu.c:540
 msgid "Input"
 msgstr "Кіріс"
 
+#: ../panel-plugin/pulseaudio-menu.c:624
+msgid "Choose Playlist"
+msgstr "Ойнату тізімін таңдау"
+
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:579
+#: ../panel-plugin/pulseaudio-menu.c:659
 msgid "_Audio mixer..."
 msgstr "_Аудио миксері..."
 
-#: ../panel-plugin/pulseaudio-notify.c:198
+#: ../panel-plugin/pulseaudio-notify.c:201
 #, c-format
 msgid "Volume %d%c (muted)"
 msgstr "Дыбыс деңгейі %d%c (басылған)"
 
-#: ../panel-plugin/pulseaudio-notify.c:200
+#: ../panel-plugin/pulseaudio-notify.c:203
 #, c-format
 msgid "Volume %d%c"
 msgstr "Дыбыс деңгейі %d%c"
 
-#. TRANSLATORS: <b>{Input/Output} ({Device Name})</b>
-#: ../panel-plugin/devicemenuitem.c:164
-#, c-format
-msgid "<b>%s (%s)</b>"
-msgstr "<b>%s (%s)</b>"
-
-#: ../panel-plugin/mprismenuitem.c:357 ../panel-plugin/mprismenuitem.c:430
-#: ../panel-plugin/mprismenuitem.c:795
+#: ../panel-plugin/mprismenuitem.c:383 ../panel-plugin/mprismenuitem.c:456
+#: ../panel-plugin/mprismenuitem.c:866
 msgid "Not currently playing"
 msgstr "Ағымдағы уақытта ойнатып тұрған жоқ"
