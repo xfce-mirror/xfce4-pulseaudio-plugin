@@ -149,13 +149,23 @@ pulseaudio_mpris_player_parse_metadata (PulseaudioMprisPlayer *player,
 
   gchar **artists;
 
+  if (player->title != NULL)
+    {
+      g_free(player->title);
+      player->title = NULL;
+    }
+
+  if (player->artist != NULL)
+    {
+      g_free(player->artist);
+      player->artist = NULL;
+    }
+
   g_variant_iter_init (&iter, dictionary);
   while (g_variant_iter_loop (&iter, "{sv}", &key, &value))
     {
       if (0 == g_ascii_strcasecmp (key, "xesam:title"))
         {
-          if (player->title != NULL)
-            g_free (player->title);
           player->title = g_strdup(g_variant_get_string(value, NULL));
         }
       else if (0 == g_ascii_strcasecmp (key, "xesam:artist"))
@@ -163,9 +173,6 @@ pulseaudio_mpris_player_parse_metadata (PulseaudioMprisPlayer *player,
           artists = g_variant_dup_strv (value, NULL);
           if (artists != NULL)
             {
-              if (player->artist != NULL)
-                g_free(player->artist);
-
               if (g_strv_length (artists) > 0)
                 {
                   player->artist = g_strdup (artists[0]);
