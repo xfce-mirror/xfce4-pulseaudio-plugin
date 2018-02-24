@@ -536,6 +536,26 @@ pulseaudio_volume_get_connected (PulseaudioVolume *volume)
 
 
 
+gboolean
+pulseaudio_volume_get_sink_connected (PulseaudioVolume *volume)
+{
+  g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), FALSE);
+
+  return volume->sink_connected;
+}
+
+
+
+gboolean
+pulseaudio_volume_get_source_connected (PulseaudioVolume *volume)
+{
+  g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), FALSE);
+
+  return volume->source_connected;
+}
+
+
+
 static gdouble
 pulseaudio_volume_v2d (PulseaudioVolume *volume,
                        pa_volume_t       pa_volume)
@@ -737,10 +757,10 @@ pulseaudio_volume_set_volume (PulseaudioVolume *volume,
   vol_trim = MIN (MAX (vol, 0.0), vol_max);
 
   if (volume->volume != vol_trim)
-    {
-      volume->volume = vol_trim;
-      pa_context_get_server_info (volume->pa_context, pulseaudio_volume_set_volume_cb1, volume);
-    }
+  {
+    volume->volume = vol_trim;
+    pa_context_get_server_info (volume->pa_context, pulseaudio_volume_set_volume_cb1, volume);
+  }
 }
 
 

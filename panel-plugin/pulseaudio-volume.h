@@ -39,6 +39,8 @@ GType                   pulseaudio_volume_get_type                (void) G_GNUC_
 PulseaudioVolume       *pulseaudio_volume_new                     (PulseaudioConfig *config);
 
 gboolean                pulseaudio_volume_get_connected           (PulseaudioVolume *volume);
+gboolean                pulseaudio_volume_get_sink_connected      (PulseaudioVolume *volume);
+gboolean                pulseaudio_volume_get_source_connected    (PulseaudioVolume *volume);
 
 gdouble                 pulseaudio_volume_get_volume              (PulseaudioVolume *volume);
 void                    pulseaudio_volume_set_volume              (PulseaudioVolume *volume,
