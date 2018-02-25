@@ -55,6 +55,7 @@
 #define DEFAULT_ENABLE_MPRIS                      FALSE
 #define DEFAULT_ENABLE_MULTIMEDIA_KEYS            FALSE
 #endif
+#define DEFAULT_BLACKLISTED_PLAYERS               ""
 
 #define DEFAULT_MPRIS_PLAYERS                     ""
 #define DEFAULT_ENABLE_WNCK                       FALSE
@@ -90,6 +91,7 @@ struct _PulseaudioConfig
   gchar           *mixer_command;
   gboolean         enable_mpris;
   gchar           *mpris_players;
+  gchar           *blacklisted_players;
   gboolean         enable_wnck;
 };
 
@@ -106,6 +108,7 @@ enum
     PROP_MIXER_COMMAND,
     PROP_ENABLE_MPRIS,
     PROP_MPRIS_PLAYERS,
+    PROP_BLACKLISTED_PLAYERS,
     PROP_ENABLE_WNCK,
     N_PROPERTIES,
   };
@@ -209,6 +212,16 @@ pulseaudio_config_class_init (PulseaudioConfigClass *klass)
 
 
   g_object_class_install_property (gobject_class,
+                                   PROP_BLACKLISTED_PLAYERS,
+                                   g_param_spec_string ("blacklisted-players",
+                                                        NULL, NULL,
+                                                        DEFAULT_BLACKLISTED_PLAYERS,
+                                                        G_PARAM_READWRITE |
+                                                        G_PARAM_STATIC_STRINGS));
+
+
+
+  g_object_class_install_property (gobject_class,
                                    PROP_ENABLE_WNCK,
                                    g_param_spec_boolean ("enable-wnck", NULL, NULL,
                                                          DEFAULT_ENABLE_WNCK,
@@ -239,6 +252,7 @@ pulseaudio_config_init (PulseaudioConfig *config)
   config->mixer_command             = g_strdup (DEFAULT_MIXER_COMMAND);
   config->enable_mpris              = DEFAULT_ENABLE_MPRIS;
   config->mpris_players             = g_strdup (DEFAULT_MPRIS_PLAYERS);
+  config->blacklisted_players       = g_strdup (DEFAULT_BLACKLISTED_PLAYERS);
   config->enable_wnck               = DEFAULT_ENABLE_WNCK;
 }
 
@@ -297,6 +311,10 @@ pulseaudio_config_get_property (GObject    *object,
 
     case PROP_MPRIS_PLAYERS:
       g_value_set_string (value, config->mpris_players);
+      break;
+
+    case PROP_BLACKLISTED_PLAYERS:
+      g_value_set_string (value, config->blacklisted_players);
       break;
 
     case PROP_ENABLE_WNCK:
@@ -402,6 +420,13 @@ pulseaudio_config_set_property (GObject      *object,
       g_free (config->mpris_players);
       config->mpris_players = g_value_dup_string (value);
       g_object_notify (G_OBJECT (config), "mpris-players");
+      g_signal_emit (G_OBJECT (config), pulseaudio_config_signals [CONFIGURATION_CHANGED], 0);
+      break;
+
+    case PROP_BLACKLISTED_PLAYERS:
+      g_free (config->blacklisted_players);
+      config->blacklisted_players = g_value_dup_string (value);
+      g_object_notify (G_OBJECT (config), "blacklisted-players");
       g_signal_emit (G_OBJECT (config), pulseaudio_config_signals [CONFIGURATION_CHANGED], 0);
       break;
 
@@ -572,7 +597,10 @@ pulseaudio_config_add_mpris_player (PulseaudioConfig *config,
     }
 
   players_string = g_strjoinv (";", players);
-  player_string = g_strjoin (";", players_string, player, NULL);
+  if (g_strv_length (players) > 0)
+    player_string = g_strjoin (";", players_string, player, NULL);
+  else
+    player_string = g_strdup (player);
   player_list = g_strsplit(player_string, ";", 0);
 
   pulseaudio_config_set_mpris_players (config, player_list);
@@ -581,6 +609,169 @@ pulseaudio_config_add_mpris_player (PulseaudioConfig *config,
   g_free (player_string);
   g_free (players_string);
   g_strfreev (players);
+}
+
+
+
+static gchar **
+pulseaudio_config_get_blacklisted_players (PulseaudioConfig *config)
+{
+  if (!IS_PULSEAUDIO_CONFIG (config))
+    {
+      return g_strsplit (DEFAULT_BLACKLISTED_PLAYERS, ";", 1);
+    }
+
+  return g_strsplit (config->blacklisted_players, ";", 0);
+}
+
+
+
+static void
+pulseaudio_config_set_blacklisted_players (PulseaudioConfig  *config,
+                                           gchar            **players)
+{
+  GSList *player_array;
+  gchar  *player_string;
+  GValue  src = { 0, };
+  guint   index = 0;
+  guint   i = 0;
+  GSList *list = NULL;
+
+  g_return_if_fail (IS_PULSEAUDIO_CONFIG (config));
+
+  player_array = NULL;
+  for (i = 0; i < g_strv_length (players); i++)
+    {
+      player_array = g_slist_prepend (player_array, players[i]);
+    }
+
+  player_array = g_slist_sort (player_array, (GCompareFunc) compare_players);
+
+  for (list = player_array; list != NULL; list = g_slist_next (list))
+    {
+      players[index] = list->data;
+      index++;
+    }
+
+  g_slist_free (player_array);
+
+  player_string = g_strjoinv (";", players);
+
+  g_value_init(&src, G_TYPE_STRING);
+  g_value_set_static_string(&src, player_string);
+
+  pulseaudio_config_set_property (G_OBJECT (config), PROP_BLACKLISTED_PLAYERS, &src, NULL);
+
+  g_free (player_string);
+}
+
+
+
+void
+pulseaudio_config_player_blacklist_add (PulseaudioConfig *config,
+                                        const gchar      *player)
+{
+  gchar **players;
+  gchar **player_list;
+  gchar  *players_string;
+  gchar  *player_string;
+
+  players = pulseaudio_config_get_blacklisted_players (config);
+  if (g_strv_contains ((const char * const *) players, player))
+    {
+      g_strfreev(players);
+      return;
+    }
+
+  players_string = g_strjoinv (";", players);
+  if (g_strv_length (players) > 0)
+    player_string = g_strjoin (";", players_string, player, NULL);
+  else
+    player_string = g_strdup (player);
+
+  player_list = g_strsplit(player_string, ";", 0);
+
+  pulseaudio_config_set_blacklisted_players (config, player_list);
+
+  g_strfreev (player_list);
+  g_free (player_string);
+  g_free (players_string);
+  g_strfreev (players);
+}
+
+
+
+void
+pulseaudio_config_player_blacklist_remove (PulseaudioConfig *config,
+                                           const gchar      *player)
+{
+  GString  *string;
+  gchar   **players;
+  gchar   **player_list;
+  gchar    *player_string;
+  guint     i;
+
+  string = g_string_new ("");
+
+  players = pulseaudio_config_get_blacklisted_players (config);
+  if (players != NULL)
+    {
+      for (i = 0; i < g_strv_length (players); i++)
+        {
+          if (g_strcmp0(player, players[i]) != 0)
+          {
+            string = g_string_append (string, players[0]);
+          }
+        }
+    }
+
+  player_string = g_string_free (string, FALSE);
+  player_list = g_strsplit(player_string, ";", 0);
+
+  pulseaudio_config_set_blacklisted_players (config, player_list);
+
+  g_strfreev (player_list);
+  g_free (player_string);
+  g_strfreev (players);
+}
+
+
+
+gboolean
+pulseaudio_config_player_blacklist_lookup (PulseaudioConfig *config,
+                                           gchar            *player)
+{
+  gchar    **players;
+  gboolean   found = FALSE;
+  players = pulseaudio_config_get_blacklisted_players (config);
+  if (g_strv_contains ((const char * const *) players, player))
+    {
+      found = TRUE;
+    }
+
+  g_strfreev(players);
+  return found;
+}
+
+
+
+void
+pulseaudio_config_clear_known_players (PulseaudioConfig *config)
+{
+  gchar  *player_string;
+  GValue  src = { 0, };
+
+  g_return_if_fail (IS_PULSEAUDIO_CONFIG (config));
+
+  player_string = g_strdup ("");
+
+  g_value_init(&src, G_TYPE_STRING);
+  g_value_set_static_string(&src, player_string);
+
+  pulseaudio_config_set_property (G_OBJECT (config), PROP_BLACKLISTED_PLAYERS, &src, NULL);
+  pulseaudio_config_set_property (G_OBJECT (config), PROP_MPRIS_PLAYERS, &src, NULL);
+
+  g_free (player_string);
 }
 
 
@@ -652,6 +843,10 @@ pulseaudio_config_new (const gchar     *property_base)
 
       property = g_strconcat (property_base, "/mpris-players", NULL);
       xfconf_g_property_bind (channel, property, G_TYPE_STRING, config, "mpris-players");
+      g_free (property);
+
+      property = g_strconcat (property_base, "/blacklisted-players", NULL);
+      xfconf_g_property_bind (channel, property, G_TYPE_STRING, config, "blacklisted-players");
       g_free (property);
 
       property = g_strconcat (property_base, "/enable-wnck", NULL);

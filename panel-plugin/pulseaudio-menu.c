@@ -567,6 +567,9 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
         {
           for (i = 0; i < g_strv_length (players); i++)
             {
+              if (pulseaudio_config_player_blacklist_lookup (menu->config, players[i]))
+                continue;
+
               mi = mpris_menu_item_new_from_player_name (players[i]);
               if (mi != NULL)
                 {

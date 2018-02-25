@@ -73,6 +73,9 @@ struct _PulseaudioDialog
 
   GObject           *dialog;
   PulseaudioConfig  *config;
+
+  GtkWidget         *treeview;
+  GtkWidget         *revealer;
 };
 
 
@@ -146,11 +149,62 @@ pulseaudio_dialog_run_mixer (PulseaudioDialog *dialog,
 
 
 static void
+pulseaudio_dialog_player_toggled_cb (GtkCellRendererToggle *toggle, gchar *path, gpointer user_data)
+{
+  PulseaudioDialog *dialog = PULSEAUDIO_DIALOG (user_data);
+  GtkTreeModel     *model;
+  GtkTreePath      *treepath;
+  GtkTreeIter       iter;
+  GValue            hidden_val = {0,}, player_val = {0,};
+  gboolean          hidden;
+  const gchar      *player;
+
+  model = GTK_TREE_MODEL(gtk_tree_view_get_model(GTK_TREE_VIEW(dialog->treeview)));
+  treepath = gtk_tree_path_new_from_string (path);
+  gtk_tree_model_get_iter (model, &iter, treepath);
+
+  gtk_tree_model_get_value (model, &iter, 1, &player_val);
+  gtk_tree_model_get_value (model, &iter, 2, &hidden_val);
+  hidden = !g_value_get_boolean(&hidden_val);
+  player = g_value_get_string(&player_val);
+
+  gtk_list_store_set(GTK_LIST_STORE(model), &iter, 2, hidden, -1);
+
+  if (hidden)
+    pulseaudio_config_player_blacklist_add (dialog->config, player);
+  else
+    pulseaudio_config_player_blacklist_remove (dialog->config, player);
+}
+
+
+
+static void
+pulseaudio_dialog_clear_players_cb (GtkButton *button,
+                                    gpointer  *user_data)
+{
+  PulseaudioDialog *dialog = PULSEAUDIO_DIALOG (user_data);
+  GtkListStore     *liststore;
+
+  pulseaudio_config_clear_known_players (dialog->config);
+
+  liststore = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(dialog->treeview)));
+  gtk_list_store_clear (liststore);
+
+  gtk_revealer_set_reveal_child (GTK_REVEALER(dialog->revealer), TRUE);
+}
+
+
+
+static void
 pulseaudio_dialog_build (PulseaudioDialog *dialog)
 {
-  GtkBuilder  *builder = GTK_BUILDER (dialog);
-  GObject     *object;
-  GError      *error = NULL;
+  GtkBuilder   *builder = GTK_BUILDER (dialog);
+  GObject      *object;
+  GtkListStore *liststore;
+  GtkTreeIter   iter;
+  GError       *error = NULL;
+  gchar       **players;
+  guint         i;
 
   if (xfce_titled_dialog_get_type () == 0)
     return;
@@ -206,8 +260,8 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
                                 G_CALLBACK (pulseaudio_dialog_run_mixer), dialog);
 
 #ifdef HAVE_MPRIS2
-      object = gtk_builder_get_object (builder, "checkbutton-mpris-support");
-      g_return_if_fail (GTK_IS_CHECK_BUTTON (object));
+      object = gtk_builder_get_object (builder, "switch-mpris-support");
+      g_return_if_fail (GTK_IS_SWITCH (object));
       g_object_bind_property (G_OBJECT (dialog->config), "enable-mpris",
                               G_OBJECT (object), "active",
                               G_BINDING_SYNC_CREATE | G_BINDING_BIDIRECTIONAL);
@@ -222,22 +276,54 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
                              G_OBJECT(object), "sensitive",
                              G_BINDING_SYNC_CREATE | G_BINDING_BIDIRECTIONAL);
 
+      object = gtk_builder_get_object(builder, "section_mp_content_1");
+      g_object_bind_property(G_OBJECT(dialog->config), "enable-mpris",
+                             G_OBJECT(object), "sensitive",
+                             G_BINDING_SYNC_CREATE | G_BINDING_BIDIRECTIONAL);
+
+      object = gtk_builder_get_object(builder, "section_mp_content_2");
+      g_object_bind_property(G_OBJECT(dialog->config), "enable-mpris",
+                             G_OBJECT(object), "sensitive",
+                             G_BINDING_SYNC_CREATE | G_BINDING_BIDIRECTIONAL);
+
+      /* Populate the liststore */
+      dialog->treeview = GTK_WIDGET(gtk_builder_get_object(builder, "player_tree_view"));
+      liststore = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(dialog->treeview)));
+      players = pulseaudio_config_get_mpris_players (dialog->config);
+      if (players != NULL)
+        {
+          for (i = 0; i < g_strv_length (players); i++)
+            {
+              gtk_list_store_append(liststore, &iter);
+              gtk_list_store_set(liststore, &iter,
+                                 0, players[i],
+                                 1, players[i],
+                                 2, pulseaudio_config_player_blacklist_lookup(dialog->config, players[i]),
+                                 -1);
+            }
+        }
+      g_strfreev (players);
+
+      object = gtk_builder_get_object(builder, "col_hidden_renderer");
+      g_signal_connect (object, "toggled", (GCallback) pulseaudio_dialog_player_toggled_cb, dialog);
+
+      object = gtk_builder_get_object(builder, "clear_players");
+      g_signal_connect (object, "clicked", (GCallback) pulseaudio_dialog_clear_players_cb, dialog);
+
+      dialog->revealer = GTK_WIDGET(gtk_builder_get_object(builder, "restart_revealer"));
+
       object = gtk_builder_get_object(builder, "checkbutton-wnck");
       g_return_if_fail(GTK_IS_CHECK_BUTTON(object));
 #ifdef HAVE_WNCK
       g_object_bind_property(G_OBJECT(dialog->config), "enable-wnck",
                              G_OBJECT(object), "active",
                              G_BINDING_SYNC_CREATE | G_BINDING_BIDIRECTIONAL);
-
-      g_object_bind_property(G_OBJECT(dialog->config), "enable-mpris",
-                             G_OBJECT(object), "sensitive",
-                             G_BINDING_SYNC_CREATE | G_BINDING_BIDIRECTIONAL);
 #else
       gtk_widget_set_visible(GTK_WIDGET(object), FALSE);
 #endif
 
 #else
-      object = gtk_builder_get_object (builder, "media-player-frame");
+      object = gtk_builder_get_object (builder, "section_mp_content");
       gtk_widget_set_visible (GTK_WIDGET (object), FALSE);
 #endif
     }
