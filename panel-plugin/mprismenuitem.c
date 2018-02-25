@@ -91,10 +91,6 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 static void         mpris_menu_item_finalize                (GObject        *object);
 static void         mpris_menu_item_raise                   (MprisMenuItem  *item);
 
-#ifdef HAVE_WNCK
-static void         mpris_menu_item_raise_window            (MprisMenuItem  *item);
-#endif
-
 static void         mpris_menu_item_launch                  (MprisMenuItem  *item);
 static void         mpris_menu_item_raise_or_launch         (MprisMenuItem  *item);
 static GtkWidget *  mpris_menu_item_get_widget_at_event     (MprisMenuItem  *item,

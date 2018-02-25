@@ -53,6 +53,10 @@ static void                 pulseaudio_volume_get_source_list_cb (pa_context    
                                                                   const pa_source_info *i,
                                                                   int                   eol,
                                                                   void                 *userdata);
+static void                 pulseaudio_volume_move_sink_input    (pa_context           *context,
+                                                                  const                 pa_sink_input_info *i,
+                                                                  int                   eol,
+                                                                  void                 *userdata);
 
 
 
@@ -925,6 +929,8 @@ pulseaudio_volume_default_sink_changed_info_cb (pa_context         *context,
 
   pa_context_move_sink_input_by_index (context, volume->sink_index, i->index, NULL, NULL);
   volume->sink_index = (guint)i->index;
+
+  pa_context_get_sink_input_info_list (volume->pa_context, pulseaudio_volume_move_sink_input, volume);
 }
 
 
@@ -938,6 +944,22 @@ pulseaudio_volume_default_sink_changed (pa_context *context,
 
   if (success)
     pa_context_get_sink_info_by_name (volume->pa_context, volume->default_sink_name, pulseaudio_volume_default_sink_changed_info_cb, volume);
+}
+
+
+
+static void
+pulseaudio_volume_move_sink_input (pa_context               *context,
+                                   const pa_sink_input_info *i,
+                                   int                       eol,
+                                   void                     *userdata)
+{
+  PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
+
+  if (i == NULL) return;
+  if (eol > 0) return;
+
+  pa_context_move_sink_input_by_name (context, i->index, volume->default_sink_name, NULL, NULL);
 }
 
 
