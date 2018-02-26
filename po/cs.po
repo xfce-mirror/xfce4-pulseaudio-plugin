@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Michal Várady <miko.vaji@gmail.com>, 2015,2017
+# Michal Várady <miko.vaji@gmail.com>, 2015,2017-2018
 # Petr Šimáček <petr.simacek@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-03 06:33+0100\n"
-"PO-Revision-Date: 2017-12-17 01:06+0000\n"
+"POT-Creation-Date: 2018-02-25 18:32+0100\n"
+"PO-Revision-Date: 2018-02-26 21:46+0000\n"
 "Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/xfce/xfce-panel-plugins/language/cs/)\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgid "PulseAudio Plugin"
 msgstr "Zásuvný modul PulseAudio"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:242
+#: ../panel-plugin/pulseaudio-plugin.c:241
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "Nastavení hlasitosti zvukového systému PulseAudio"
 
@@ -70,30 +70,54 @@ msgid "_Run Audio Mixer..."
 msgstr "_Spustit Směšovač zvuku..."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:10
-msgid "Sound settings"
+msgid "Sound Settings"
 msgstr "Nastavení zvuku"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:11
-msgid "Control playback of media players"
-msgstr "Ovládání přehrávání přehrávačů médií"
+msgid "General"
+msgstr "Obecné"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
+msgid "Control Playback of Media Players"
+msgstr "Ovládání přehrávání přehrávačů médií"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "Enable multimedia keys for playback control"
 msgstr "Povolit multimediálním klávesám ovládat přehrávání"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:13
+#: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "Enable experimental window focus support"
 msgstr "Povolit podporu experimentálního zaměření oken"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:14
+#: ../panel-plugin/pulseaudio-dialog.glade.h:15
+msgid "Title"
+msgstr "Titulek"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:16
+msgid "Hidden"
+msgstr "Skrytá"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:17
+msgid "Clear Known Items"
+msgstr "Vymazat známé položky"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:18
+msgid "Please restart your panel for additional players to be displayed."
+msgstr "Přídavné přehrávače se zobrazí po restartu panelu."
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:19
+msgid "Known Media Players"
+msgstr "Známé přehrávače médií"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:20
 msgid "Media Players"
 msgstr "Přehrávače médií"
 
-#: ../panel-plugin/pulseaudio-plugin.c:244
+#: ../panel-plugin/pulseaudio-plugin.c:243
 msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
 msgstr "Copyright © 2014-2017 Andrzej Radecki a další.\n"
 
-#: ../panel-plugin/pulseaudio-dialog.c:136
+#: ../panel-plugin/pulseaudio-dialog.c:139
 #: ../panel-plugin/pulseaudio-menu.c:264
 #, c-format
 msgid ""
@@ -102,23 +126,23 @@ msgid ""
 "%s"
 msgstr "<big><b>Nepodařilo se spustit příkaz \"%s\".</b></big>\n\n%s"
 
-#: ../panel-plugin/pulseaudio-dialog.c:139
+#: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:267
 msgid "Error"
 msgstr "Chyba"
 
-#: ../panel-plugin/pulseaudio-button.c:313
+#: ../panel-plugin/pulseaudio-button.c:333
 #: ../panel-plugin/pulseaudio-notify.c:199
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "Nepřipojeno k serveru PulseAudio"
 
-#: ../panel-plugin/pulseaudio-button.c:315
+#: ../panel-plugin/pulseaudio-button.c:335
 #, c-format
 msgid "Volume %d%% (muted)"
 msgstr "Hlasitost %d%% (ztlumeno)"
 
-#: ../panel-plugin/pulseaudio-button.c:317
+#: ../panel-plugin/pulseaudio-button.c:337
 #, c-format
 msgid "Volume %d%%"
 msgstr "Hlasitost %d%%"
@@ -131,12 +155,12 @@ msgstr "Výstup"
 msgid "Input"
 msgstr "Vstup"
 
-#: ../panel-plugin/pulseaudio-menu.c:624
+#: ../panel-plugin/pulseaudio-menu.c:628
 msgid "Choose Playlist"
 msgstr "Zvolit seznam médií"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:659
+#: ../panel-plugin/pulseaudio-menu.c:665
 msgid "_Audio mixer..."
 msgstr "_Směšovač zvuku"
 
@@ -150,7 +174,7 @@ msgstr "Hlasitost %d%c (ztlumeno)"
 msgid "Volume %d%c"
 msgstr "Hlasitost %d%c"
 
-#: ../panel-plugin/mprismenuitem.c:383 ../panel-plugin/mprismenuitem.c:456
-#: ../panel-plugin/mprismenuitem.c:866
+#: ../panel-plugin/mprismenuitem.c:373 ../panel-plugin/mprismenuitem.c:446
+#: ../panel-plugin/mprismenuitem.c:822
 msgid "Not currently playing"
 msgstr "Právě se nic nepřehrává"
