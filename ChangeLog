@@ -1,4 +1,42 @@
-# created with git log --pretty=format:"%ad %h %s %aN <%aE>" --no-merges --date=short
+2018-02-26 3e15dfa Preparing for the release Sean Davis <smd.seandavis@gmail.com>
+2018-02-27 884f50d I18n: Update translation nl (100%). Pjotr <pjotrvertaalt@gmail.com>
+2018-02-27 6d87883 I18n: Update translation lt (100%). Anonymous <noreply@xfce.org>
+2018-02-27 629cfa6 I18n: Update translation hr (100%). Edin Veskovic <edin.lockedin@gmail.com>
+2018-02-27 333545e I18n: Update translation es (97%). Anonymous <noreply@xfce.org>
+2018-02-27 17b8739 I18n: Update translation de (100%). Vinzenz Vietzke <vinz@vinzv.de>
+2018-02-27 0421065 I18n: Update translation cs (100%). Michal Várady <miko.vaji@gmail.com>
+2018-02-27 90a2a17 I18n: Update translation ca (100%). Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>
+2018-02-26 55a6b95 I18n: Update translation ru (100%). Igor <f2404@yandex.ru>
+2018-02-26 396d594 I18n: Update translation da (100%). Anonymous <noreply@xfce.org>
+2018-02-26 f30dc13 I18n: Update translation fr (100%). Yannick Le Guen <leguen.yannick@gmail.com>
+2018-02-25 ef5822f Move streams on default output device change (Bug #14157) Sean Davis <smd.seandavis@gmail.com>
+2018-02-25 e9a1fba Management of known players, notebook-style preferences (Bug #13903) Sean Davis <smd.seandavis@gmail.com>
+2018-02-24 a30f6d2 I18n: Update translation el (100%). Πέτρος Σαμαράς <psamaras1@gmail.com>
+2018-02-24 8fe88d6 MPRIS2: stale data retained after Metadata signal (Bug #14068) Sean Davis <smd.seandavis@gmail.com>
+2018-02-24 77e1080 Wait for the pulseaudio volume sink to be connected to get the current volume state at startup (Bugs #14071, #13677) Sean Davis <smd.seandavis@gmail.com>
+2018-01-21 fc41b1c I18n: Update translation kk (100%). Baurzhan Muftakhidinov <baurthefirst@gmail.com>
+2018-01-20 2e4fb95 I18n: Update translation ga (100%). Seán Ó Séaghdha <sean.anseo@gmail.com>
+2018-01-20 e573f82 I18n: Update translation pt_BR (100%). Michael Martins <michaelfm21@gmail.com>
+2018-01-19 3435788 I18n: Add new translation ga (68%). Seán Ó Séaghdha <sean.anseo@gmail.com>
+2018-01-16 5db6165 I18n: Update translation es (100%). acutbal <acutbal@gmail.com>
+2018-01-15 dc51a4c I18n: Update translation uk (100%). Yarema aka Knedlyk <yupadmin@gmail.com>
+2017-12-31 d34351b I18n: Update translation ca (100%). Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>
+2017-12-31 69e50ca I18n: Update translation ca (100%). Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>
+2017-12-30 0313ebc I18n: Update translation ca (100%). Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>
+2017-12-30 766fbe8 I18n: Update translation ca (100%). Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>
+2017-12-28 eefdd64 I18n: Update translation zh_CN (100%). Sam Zhang <samzh@outlook.com>
+2017-12-27 d6344f3 I18n: Update translation ca (100%). Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>
+2017-12-24 bf79a81 I18n: Update translation pt_BR (100%). Andre Miranda <andre42m@gmail.com>
+2017-12-22 8690aa4 I18n: Update translation tr (100%). Necdet Yücel <necdetyucel@gmail.com>
+2017-12-21 d1adda9 I18n: Update translation sr (100%). Саша Петровић <salepetronije@gmail.com>
+2017-12-17 3284be9 I18n: Update translation cs (100%). Michal Várady <miko.vaji@gmail.com>
+2017-12-13 740e0fa I18n: Update translation ms (100%). abuyop <abuyop@gmail.com>
+2017-12-12 fd49250 I18n: Update translation pt (100%). Nuno Miguel <nunomgue@gmail.com>
+2017-12-10 5161f4c I18n: Update translation ja (100%). Masato HASHIMOTO <cabezon.hashimoto@gmail.com>
+2017-12-09 02af95b I18n: Update translation sk (100%). Dušan Kazik <prescott66@gmail.com>
+2017-12-08 bad7baa I18n: Update translation de (100%). Vinzenz Vietzke <vinz@vinzv.de>
+2017-12-07 f978def Back to development Sean Davis <smd.seandavis@gmail.com>
+2017-12-07 e055393 Updated changelog Sean Davis <smd.seandavis@gmail.com>
 2017-12-07 c3981cc Merged another translation Sean Davis <smd.seandavis@gmail.com>
 2017-12-07 54bf452 Preparing for the release Sean Davis <smd.seandavis@gmail.com>
 2017-12-07 975d7b6 I18n: Update translation th (100%). Theppitak Karoonboonyanan <theppitak@gmail.com>
