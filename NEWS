@@ -1,3 +1,21 @@
+0.3.5
+=====
+
+- New Feature: Move streams on default output device change (Xfce #14157)
+  - Prior to this update, when a new output device was selected, any existing
+    streams had to be moved using pavucontrol. This change automatically
+    moves any active output streams to the newly selected device.
+- New Feature: Management of known MPRIS2 players (Xfce #13903)
+  - Known players can now be cleared or selectively hidden from the menu.
+- Bug Fixes:
+  - Wait for the pulseaudio volume sink to be connected to get the current
+    volume state at startup (Xfce #14071, #13677)
+  - MPRIS2: stale data retained after Metadata signal (Xfce #14068)
+- Translation Updates: Catalan, Chinese (China), Croatian, Czech, Danish,
+  Dutch, French, German, Greek, Irish, Japanese, Kazakh, Lithuanian, Malay,
+  Portuguese, Portuguese (Brazil), Russian, Serbian, Slovak, Spanish,
+  Turkish, Ukrainian
+
 0.3.4
 =====
 
@@ -145,4 +163,3 @@ Bugfix release for issues with Gtk+-3.14:
 =====
 
 - Initial version
-
