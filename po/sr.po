@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Саша Петровић <salepetronije@gmail.com>, 2015,2017
+# Саша Петровић <salepetronije@gmail.com>, 2015,2017-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-03 06:33+0100\n"
-"PO-Revision-Date: 2017-12-21 13:40+0000\n"
+"POT-Creation-Date: 2018-02-25 18:32+0100\n"
+"PO-Revision-Date: 2018-03-01 08:53+0000\n"
 "Last-Translator: Саша Петровић <salepetronije@gmail.com>\n"
 "Language-Team: Serbian (http://www.transifex.com/xfce/xfce-panel-plugins/language/sr/)\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgid "PulseAudio Plugin"
 msgstr "Прикључак звука Пулсаудија"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:242
+#: ../panel-plugin/pulseaudio-plugin.c:241
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "Подесите гласноћу звучног система Пулсаудија"
 
@@ -69,30 +69,54 @@ msgid "_Run Audio Mixer..."
 msgstr "_Покрени мешач звука..."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:10
-msgid "Sound settings"
-msgstr "Звучне поставке"
+msgid "Sound Settings"
+msgstr "Поставке звука"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:11
-msgid "Control playback of media players"
-msgstr "Управља извођењем садржаја"
+msgid "General"
+msgstr "Опште"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
+msgid "Control Playback of Media Players"
+msgstr "Управљај извођачима садржаја"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "Enable multimedia keys for playback control"
 msgstr "Омогући дугмад за управљање садржајима"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:13
+#: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "Enable experimental window focus support"
 msgstr "Омогући пробни прозор жиже"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:14
+#: ../panel-plugin/pulseaudio-dialog.glade.h:15
+msgid "Title"
+msgstr "Наслов"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:16
+msgid "Hidden"
+msgstr "Скривен"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:17
+msgid "Clear Known Items"
+msgstr "Очисти познате ставке"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:18
+msgid "Please restart your panel for additional players to be displayed."
+msgstr "Молим, препокрените полицу ради приказивања додатних извођача."
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:19
+msgid "Known Media Players"
+msgstr "Познати извођачи звука"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:20
 msgid "Media Players"
 msgstr "Извођачи садржаја"
 
-#: ../panel-plugin/pulseaudio-plugin.c:244
+#: ../panel-plugin/pulseaudio-plugin.c:243
 msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
 msgstr "Права умножавања © 2014-2017 Андреј Радецки (Andrzej Radecki et al).\n"
 
-#: ../panel-plugin/pulseaudio-dialog.c:136
+#: ../panel-plugin/pulseaudio-dialog.c:139
 #: ../panel-plugin/pulseaudio-menu.c:264
 #, c-format
 msgid ""
@@ -101,23 +125,23 @@ msgid ""
 "%s"
 msgstr "<big><b>Нисам успео да извршим наредбу „%s“.</b></big>\n\n%s"
 
-#: ../panel-plugin/pulseaudio-dialog.c:139
+#: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:267
 msgid "Error"
 msgstr "Грeшкa"
 
-#: ../panel-plugin/pulseaudio-button.c:313
+#: ../panel-plugin/pulseaudio-button.c:333
 #: ../panel-plugin/pulseaudio-notify.c:199
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "Нема везе са служитељем Пулсаудија"
 
-#: ../panel-plugin/pulseaudio-button.c:315
+#: ../panel-plugin/pulseaudio-button.c:335
 #, c-format
 msgid "Volume %d%% (muted)"
 msgstr "Гласноћа је %d%% (умукнуто)"
 
-#: ../panel-plugin/pulseaudio-button.c:317
+#: ../panel-plugin/pulseaudio-button.c:337
 #, c-format
 msgid "Volume %d%%"
 msgstr "Гласноћа је %d%%"
@@ -130,12 +154,12 @@ msgstr "Излаз"
 msgid "Input"
 msgstr "Улаз"
 
-#: ../panel-plugin/pulseaudio-menu.c:624
+#: ../panel-plugin/pulseaudio-menu.c:628
 msgid "Choose Playlist"
 msgstr "Изаберите списак за извођење"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:659
+#: ../panel-plugin/pulseaudio-menu.c:665
 msgid "_Audio mixer..."
 msgstr "Мешач _звука..."
 
@@ -149,7 +173,7 @@ msgstr "Гласноћа је %d%c (умукнуто)"
 msgid "Volume %d%c"
 msgstr "Гласноћа је %d%c"
 
-#: ../panel-plugin/mprismenuitem.c:383 ../panel-plugin/mprismenuitem.c:456
-#: ../panel-plugin/mprismenuitem.c:866
+#: ../panel-plugin/mprismenuitem.c:373 ../panel-plugin/mprismenuitem.c:446
+#: ../panel-plugin/mprismenuitem.c:822
 msgid "Not currently playing"
 msgstr "Тренутно се не изводи"
