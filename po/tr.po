@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Necdet Yücel <necdetyucel@gmail.com>, 2015,2017
+# Necdet Yücel <necdetyucel@gmail.com>, 2015,2017-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-03 06:33+0100\n"
-"PO-Revision-Date: 2017-12-21 22:18+0000\n"
+"POT-Creation-Date: 2018-02-25 18:32+0100\n"
+"PO-Revision-Date: 2018-03-05 00:26+0000\n"
 "Last-Translator: Necdet Yücel <necdetyucel@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/xfce/xfce-panel-plugins/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgid "PulseAudio Plugin"
 msgstr "PulseAudio Eklentisi"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:242
+#: ../panel-plugin/pulseaudio-plugin.c:241
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "PulseAudio ses sisteminin ses yüksekliğini ayarlayın"
 
@@ -69,30 +69,54 @@ msgid "_Run Audio Mixer..."
 msgstr "_Ses Karıştırıcısını Çalıştır..."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:10
-msgid "Sound settings"
-msgstr "Ses ayarları"
+msgid "Sound Settings"
+msgstr "Ses Ayarları"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:11
-msgid "Control playback of media players"
-msgstr "Medya oynatıcıların oynatımını kontrol edin"
+msgid "General"
+msgstr "Genel"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
+msgid "Control Playback of Media Players"
+msgstr "Medya oynatıcıların oynatımını kontrol edin"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "Enable multimedia keys for playback control"
 msgstr "Çalma kontrolü için multimedya tuşlarını etkinleştir"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:13
+#: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "Enable experimental window focus support"
 msgstr "Deneysel pencere odaklanma desteğini etkinleştir"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:14
+#: ../panel-plugin/pulseaudio-dialog.glade.h:15
+msgid "Title"
+msgstr "Başlık"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:16
+msgid "Hidden"
+msgstr "Gizli"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:17
+msgid "Clear Known Items"
+msgstr "Bilinen Ögeleri Temizle"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:18
+msgid "Please restart your panel for additional players to be displayed."
+msgstr "Ek oynatıcıların gösterilmesi için lütfen panelinizi yeniden başlatın."
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:19
+msgid "Known Media Players"
+msgstr "Bilinen Medya Oynatıcıları"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:20
 msgid "Media Players"
 msgstr "Medya Oynatıcılar"
 
-#: ../panel-plugin/pulseaudio-plugin.c:244
+#: ../panel-plugin/pulseaudio-plugin.c:243
 msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
 msgstr "Telif Hakkı © 2014-2017 Andrzej Radecki ve ark.\n"
 
-#: ../panel-plugin/pulseaudio-dialog.c:136
+#: ../panel-plugin/pulseaudio-dialog.c:139
 #: ../panel-plugin/pulseaudio-menu.c:264
 #, c-format
 msgid ""
@@ -101,23 +125,23 @@ msgid ""
 "%s"
 msgstr "<big><b>\"%s\" komutu çalıştırılamadı.</b></big>\n\n%s"
 
-#: ../panel-plugin/pulseaudio-dialog.c:139
+#: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:267
 msgid "Error"
 msgstr "Hata"
 
-#: ../panel-plugin/pulseaudio-button.c:313
+#: ../panel-plugin/pulseaudio-button.c:333
 #: ../panel-plugin/pulseaudio-notify.c:199
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "PulseAudio sunucusuna bağlı değil"
 
-#: ../panel-plugin/pulseaudio-button.c:315
+#: ../panel-plugin/pulseaudio-button.c:335
 #, c-format
 msgid "Volume %d%% (muted)"
 msgstr "Ses %d%% (sessiz)"
 
-#: ../panel-plugin/pulseaudio-button.c:317
+#: ../panel-plugin/pulseaudio-button.c:337
 #, c-format
 msgid "Volume %d%%"
 msgstr "Ses %d%%"
@@ -130,12 +154,12 @@ msgstr "Çıkış"
 msgid "Input"
 msgstr "Giriş"
 
-#: ../panel-plugin/pulseaudio-menu.c:624
+#: ../panel-plugin/pulseaudio-menu.c:628
 msgid "Choose Playlist"
 msgstr "Çalma Listesini Seç"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:659
+#: ../panel-plugin/pulseaudio-menu.c:665
 msgid "_Audio mixer..."
 msgstr "_Ses karıştırıcısı..."
 
@@ -149,7 +173,7 @@ msgstr "Ses %d%c (sessiz)"
 msgid "Volume %d%c"
 msgstr "Ses %d%c"
 
-#: ../panel-plugin/mprismenuitem.c:383 ../panel-plugin/mprismenuitem.c:456
-#: ../panel-plugin/mprismenuitem.c:866
+#: ../panel-plugin/mprismenuitem.c:373 ../panel-plugin/mprismenuitem.c:446
+#: ../panel-plugin/mprismenuitem.c:822
 msgid "Not currently playing"
 msgstr "Şimdi çalışmıyor"
