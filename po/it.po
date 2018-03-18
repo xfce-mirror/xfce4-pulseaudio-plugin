@@ -4,14 +4,15 @@
 # 
 # Translators:
 # Cristian Marchi <cri.penta@gmail.com>, 2015
+# Emanuele Petriglia <inbox@emanuelepetriglia.me>, 2018
 # Enrico B. <enricobe@hotmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-29 06:37+0200\n"
-"PO-Revision-Date: 2017-09-23 21:43+0000\n"
-"Last-Translator: Xfce Bot <transifex@xfce.org>\n"
+"POT-Creation-Date: 2018-02-25 18:32+0100\n"
+"PO-Revision-Date: 2018-03-18 16:21+0000\n"
+"Last-Translator: Emanuele Petriglia <inbox@emanuelepetriglia.me>\n"
 "Language-Team: Italian (http://www.transifex.com/xfce/xfce-panel-plugins/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,7 +25,7 @@ msgid "PulseAudio Plugin"
 msgstr "Plugin PulseAudio"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:226
+#: ../panel-plugin/pulseaudio-plugin.c:241
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "Controlla il volume del suono per il sistema sonoro PulseAudio"
 
@@ -70,23 +71,55 @@ msgid "_Run Audio Mixer..."
 msgstr "_Avvia Mixer Audio"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:10
-msgid "Sound settings"
-msgstr "Impostazioni del suono"
+msgid "Sound Settings"
+msgstr "Impostazioni audio"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:11
-msgid "Control playback of media players"
-msgstr ""
+msgid "General"
+msgstr "Generale"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
-msgid "Media Players"
-msgstr ""
+msgid "Control Playback of Media Players"
+msgstr "Controllo della riproduzione dei riproduttori musicali"
 
-#: ../panel-plugin/pulseaudio-plugin.c:228
+#: ../panel-plugin/pulseaudio-dialog.glade.h:13
+msgid "Enable multimedia keys for playback control"
+msgstr "Abilita il controllo della riproduzione con i pulsanti multimediali"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:14
+msgid "Enable experimental window focus support"
+msgstr "Abilita il support alla messa a fuoco delle finestre"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:15
+msgid "Title"
+msgstr "Titolo"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:16
+msgid "Hidden"
+msgstr "Nascosto"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:17
+msgid "Clear Known Items"
+msgstr "Pulisci gli elementi conosciuti"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:18
+msgid "Please restart your panel for additional players to be displayed."
+msgstr "Per favore ravviare il pannello per mostrare riproduttori aggiuntivi"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:19
+msgid "Known Media Players"
+msgstr "Riproduttori multimediali conosciuti"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:20
+msgid "Media Players"
+msgstr "Riproduttori multimediali"
+
+#: ../panel-plugin/pulseaudio-plugin.c:243
 msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
 msgstr ""
 
-#: ../panel-plugin/pulseaudio-dialog.c:136
-#: ../panel-plugin/pulseaudio-menu.c:242
+#: ../panel-plugin/pulseaudio-dialog.c:139
+#: ../panel-plugin/pulseaudio-menu.c:264
 #, c-format
 msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
@@ -94,59 +127,55 @@ msgid ""
 "%s"
 msgstr "<big><b>Impossibile eseguire il comando \"%s\".</b></big>\n\n%s"
 
-#: ../panel-plugin/pulseaudio-dialog.c:139
-#: ../panel-plugin/pulseaudio-menu.c:245
+#: ../panel-plugin/pulseaudio-dialog.c:142
+#: ../panel-plugin/pulseaudio-menu.c:267
 msgid "Error"
 msgstr "Errore"
 
-#: ../panel-plugin/pulseaudio-button.c:315
-#: ../panel-plugin/pulseaudio-notify.c:200
+#: ../panel-plugin/pulseaudio-button.c:333
+#: ../panel-plugin/pulseaudio-notify.c:199
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "Non connesso al server pulseaudio"
 
-#: ../panel-plugin/pulseaudio-button.c:317
+#: ../panel-plugin/pulseaudio-button.c:335
 #, c-format
 msgid "Volume %d%% (muted)"
 msgstr "Volume %d%% (muto)"
 
-#: ../panel-plugin/pulseaudio-button.c:319
+#: ../panel-plugin/pulseaudio-button.c:337
 #, c-format
 msgid "Volume %d%%"
 msgstr "Volume %d%%"
 
-#: ../panel-plugin/pulseaudio-menu.c:429
-msgid "<b>Audio output volume</b>"
-msgstr "<b>Volume uscita audio</b>"
+#: ../panel-plugin/pulseaudio-menu.c:501
+msgid "Output"
+msgstr "Uscita"
 
-#: ../panel-plugin/pulseaudio-menu.c:440
-msgid "_Mute audio output"
-msgstr "M_uta l'uscita audio"
+#: ../panel-plugin/pulseaudio-menu.c:540
+msgid "Input"
+msgstr "Entrata"
 
-#: ../panel-plugin/pulseaudio-menu.c:453
-msgid "<b>Audio input volume</b>"
-msgstr ""
-
-#: ../panel-plugin/pulseaudio-menu.c:464
-msgid "_Mute audio input"
-msgstr ""
+#: ../panel-plugin/pulseaudio-menu.c:628
+msgid "Choose Playlist"
+msgstr "Scegliere scaletta"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:543
+#: ../panel-plugin/pulseaudio-menu.c:665
 msgid "_Audio mixer..."
 msgstr "Mixer _audio"
 
-#: ../panel-plugin/pulseaudio-notify.c:202
+#: ../panel-plugin/pulseaudio-notify.c:201
 #, c-format
 msgid "Volume %d%c (muted)"
 msgstr "Volume %d%c (muto)"
 
-#: ../panel-plugin/pulseaudio-notify.c:204
+#: ../panel-plugin/pulseaudio-notify.c:203
 #, c-format
 msgid "Volume %d%c"
 msgstr "Volume %d%c"
 
-#: ../panel-plugin/mprismenuitem.c:311 ../panel-plugin/mprismenuitem.c:575
-#: ../panel-plugin/mprismenuitem.c:594
+#: ../panel-plugin/mprismenuitem.c:373 ../panel-plugin/mprismenuitem.c:446
+#: ../panel-plugin/mprismenuitem.c:822
 msgid "Not currently playing"
-msgstr ""
+msgstr "Attualmente non in riproduzione"
