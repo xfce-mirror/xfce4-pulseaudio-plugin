@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-25 18:32+0100\n"
-"PO-Revision-Date: 2018-03-19 11:31+0000\n"
+"PO-Revision-Date: 2018-03-19 11:34+0000\n"
 "Last-Translator: José Vieira <jvieira33@sapo.pt>\n"
 "Language-Team: Portuguese (http://www.transifex.com/xfce/xfce-panel-plugins/language/pt/)\n"
 "MIME-Version: 1.0\n"
@@ -79,7 +79,7 @@ msgstr "Geral"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
 msgid "Control Playback of Media Players"
-msgstr ""
+msgstr "Controlar Playback dos Reprodutores de Média"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "Enable multimedia keys for playback control"
@@ -103,11 +103,11 @@ msgstr "Remover Itens Conhecidos"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:18
 msgid "Please restart your panel for additional players to be displayed."
-msgstr ""
+msgstr "Reiniciar o painel para que reprodutores adicionais sejam exibidos."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:19
 msgid "Known Media Players"
-msgstr ""
+msgstr "Reprodutores de Média Conhecidos"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:20
 msgid "Media Players"
