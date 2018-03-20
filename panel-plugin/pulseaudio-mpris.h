@@ -55,6 +55,11 @@ gboolean                pulseaudio_mpris_get_player_snapshot   (PulseaudioMpris 
                                                                 gboolean         *can_raise,
                                                                 GList           **playlists);
 
+gboolean                pulseaudio_mpris_get_player_summary    (const gchar      *player,
+                                                                gchar           **name,
+                                                                gchar           **icon_name,
+                                                                gchar           **full_path);
+
 gboolean                pulseaudio_mpris_notify_player         (PulseaudioMpris  *mpris,
                                                                 const gchar      *name,
                                                                 const gchar      *message);

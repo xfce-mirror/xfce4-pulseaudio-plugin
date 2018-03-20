@@ -29,6 +29,7 @@
 #endif
 
 #include "mprismenuitem.h"
+#include "pulseaudio-mpris.h"
 
 #include <gdk/gdk.h>
 #include <gdk/gdkkeysyms.h>
@@ -114,7 +115,6 @@ static void         gtk_label_set_markup_printf_escaped     (GtkLabel       *lab
                                                              const gchar    *format,
                                                                              ...);
 static void         update_packing                          (MprisMenuItem  *item);
-static gchar *      find_desktop_entry                      (const gchar    *player_name);
 
 
 
@@ -156,34 +156,16 @@ GtkWidget*
 mpris_menu_item_new_from_player_name (const gchar *player)
 {
   GtkWidget *widget = NULL;
-  GKeyFile  *key_file;
-  gchar     *file;
-  gchar     *filename;
+  gchar     *name;
+  gchar     *icon_name;
   gchar     *full_path;
 
-  filename = find_desktop_entry (player);
-  if (filename == NULL)
-    {
-      return NULL;
-    }
-
-  file = g_strconcat("applications/", filename, NULL);
-  g_free (filename);
-
-  key_file = g_key_file_new();
-  if (g_key_file_load_from_data_dirs (key_file, file, &full_path, G_KEY_FILE_NONE, NULL))
-    {
-      gchar *name = g_key_file_get_string (key_file, "Desktop Entry", "Name", NULL);
-      gchar *icon_name = g_key_file_get_string (key_file, "Desktop Entry", "Icon", NULL);
-
-      widget = mpris_menu_item_new_with_player (player, name, icon_name, full_path);
-
-      g_free (name);
-      g_free (icon_name);
-    }
-
-  g_key_file_free (key_file);
-  g_free (file);
+  if (pulseaudio_mpris_get_player_summary (player, &name, &icon_name, &full_path)) {
+    widget = mpris_menu_item_new_with_player (player, name, icon_name, full_path);
+    g_free (name);
+    g_free (icon_name);
+    g_free (full_path);
+  }
 
   return widget;
 }
@@ -843,47 +825,4 @@ G_GNUC_END_IGNORE_DEPRECATIONS
   gtk_widget_show_all (priv->vbox);
 
   gtk_container_add (GTK_CONTAINER (item), priv->hbox);
-}
-
-
-
-static gchar *
-find_desktop_entry (const gchar *player_name)
-{
-  GKeyFile  *key_file;
-  gchar     *file;
-  gchar     *filename = NULL;
-  gchar     *full_path;
-
-  file = g_strconcat ("applications/", player_name, ".desktop", NULL);
-
-  key_file = g_key_file_new();
-  if (g_key_file_load_from_data_dirs (key_file, file, &full_path, G_KEY_FILE_NONE, NULL))
-    {
-      filename = g_strconcat (player_name, ".desktop", NULL);
-    }
-  else
-    {
-      /* Support reverse domain name (RDN) formatted launchers. */
-      gchar ***results = g_desktop_app_info_search (player_name);
-      gint i, j;
-
-      for (i = 0; results[i]; i++)
-        {
-          for (j = 0; results[i][j]; j++)
-            {
-              if (filename == NULL)
-                {
-                  filename = g_strdup (results[i][j]);
-                }
-            }
-          g_strfreev (results[i]);
-      }
-      g_free (results);
-    }
-
-  g_key_file_free (key_file);
-  g_free (file);
-
-  return filename;
 }

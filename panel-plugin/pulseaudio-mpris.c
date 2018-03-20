@@ -24,6 +24,7 @@
 #include <gio/gio.h>
 #include <glib.h>
 #include <gtk/gtk.h>
+#include <gio/gdesktopappinfo.h>
 
 #include "pulseaudio-mpris.h"
 #include "pulseaudio-mpris-player.h"
@@ -63,6 +64,54 @@ static int signals[LAST_SIGNAL] = { 0 };
 
 
 G_DEFINE_TYPE (PulseaudioMpris, pulseaudio_mpris, G_TYPE_OBJECT)
+
+
+
+static gchar *
+find_desktop_entry (const gchar *player_name)
+{
+  GKeyFile  *key_file;
+  gchar     *file = NULL;
+  gchar     *filename = NULL;
+  gchar     *full_path = NULL;
+
+  file = g_strconcat ("applications/", player_name, ".desktop", NULL);
+
+  key_file = g_key_file_new();
+  if (g_key_file_load_from_data_dirs (key_file, file, &full_path, G_KEY_FILE_NONE, NULL))
+    {
+      filename = g_strconcat (player_name, ".desktop", NULL);
+    }
+  else
+    {
+      /* Support reverse domain name (RDN) formatted launchers. */
+      gchar ***results = g_desktop_app_info_search (player_name);
+      gint i, j;
+
+      for (i = 0; results[i]; i++)
+        {
+          for (j = 0; results[i][j]; j++)
+            {
+              if (filename == NULL)
+                {
+                  filename = g_strdup (results[i][j]);
+                }
+            }
+          g_strfreev (results[i]);
+      }
+      g_free (results);
+    }
+
+  g_key_file_free (key_file);
+
+  if (file)
+    g_free (file);
+
+  if (full_path)
+    g_free (full_path);
+
+  return filename;
+}
 
 
 
@@ -260,6 +309,43 @@ pulseaudio_mpris_get_player_snapshot (PulseaudioMpris  *mpris,
     }
 
   return FALSE;
+}
+
+
+
+gboolean
+pulseaudio_mpris_get_player_summary (const gchar  *player,
+                                     gchar       **name,
+                                     gchar       **icon_name,
+                                     gchar       **full_path)
+{
+  GKeyFile  *key_file;
+  gchar     *file;
+  gchar     *filename;
+  gchar     *path;
+
+  filename = find_desktop_entry (player);
+  if (filename == NULL)
+    {
+      return FALSE;
+    }
+
+  file = g_strconcat("applications/", filename, NULL);
+  g_free (filename);
+
+  key_file = g_key_file_new();
+  if (g_key_file_load_from_data_dirs (key_file, file, &path, G_KEY_FILE_NONE, NULL))
+    {
+      *name = g_key_file_get_string (key_file, "Desktop Entry", "Name", NULL);
+      *icon_name = g_key_file_get_string (key_file, "Desktop Entry", "Icon", NULL);
+      *full_path = g_strdup (path);
+      g_free (path);
+    }
+
+  g_key_file_free (key_file);
+  g_free (file);
+
+  return TRUE;
 }
 
 

@@ -42,6 +42,7 @@
 
 #include "pulseaudio-dialog.h"
 #include "pulseaudio-dialog_ui.h"
+#include "pulseaudio-mpris.h"
 
 #define PLUGIN_WEBSITE  "https://docs.xfce.org/apps/pulseaudio-plugin/start"
 
@@ -164,11 +165,11 @@ pulseaudio_dialog_player_toggled_cb (GtkCellRendererToggle *toggle, gchar *path,
   gtk_tree_model_get_iter (model, &iter, treepath);
 
   gtk_tree_model_get_value (model, &iter, 1, &player_val);
-  gtk_tree_model_get_value (model, &iter, 2, &hidden_val);
+  gtk_tree_model_get_value (model, &iter, 3, &hidden_val);
   hidden = !g_value_get_boolean(&hidden_val);
   player = g_value_get_string(&player_val);
 
-  gtk_list_store_set(GTK_LIST_STORE(model), &iter, 2, hidden, -1);
+  gtk_list_store_set(GTK_LIST_STORE(model), &iter, 3, hidden, -1);
 
   if (hidden)
     pulseaudio_config_player_blacklist_add (dialog->config, player);
@@ -294,12 +295,19 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
         {
           for (i = 0; i < g_strv_length (players); i++)
             {
-              gtk_list_store_append(liststore, &iter);
-              gtk_list_store_set(liststore, &iter,
-                                 0, players[i],
+              gchar *name = NULL;
+              gchar *icon_name = NULL;
+              gchar *full_path = NULL;
+
+              if (pulseaudio_mpris_get_player_summary (players[i], &name, &icon_name, &full_path)) {
+                gtk_list_store_append(liststore, &iter);
+                gtk_list_store_set(liststore, &iter,
+                                 0, icon_name,
                                  1, players[i],
-                                 2, pulseaudio_config_player_blacklist_lookup(dialog->config, players[i]),
+                                 2, name,
+                                 3, pulseaudio_config_player_blacklist_lookup(dialog->config, players[i]),
                                  -1);
+              }
             }
         }
       g_strfreev (players);
