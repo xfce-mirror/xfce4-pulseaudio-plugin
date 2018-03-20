@@ -1,3 +1,24 @@
+# created with git log --pretty=format:"%ad %h %s %aN <%aE>" --no-merges --date=short
+2018-03-19 1e1166e Use correct player names and icons in the preferences dialog Sean Davis <smd.seandavis@gmail.com>
+2018-03-19 266d1f4 I18n: Update translation pt (100%). José Vieira <jvieira33@sapo.pt>
+2018-03-19 c08b3e0 I18n: Update translation pt (91%). José Vieira <jvieira33@sapo.pt>
+2018-03-18 3c3c7a0 I18n: Update translation it (97%). Emanuele Petriglia <inbox@emanuelepetriglia.me>
+2018-03-17 c622b53 I18n: Update translation fr (100%). Charles Monzat <superboa@hotmail.fr>
+2018-03-13 d991d15 I18n: Update translation zh_CN (100%). 玉堂白鹤 <yjwork@qq.com>
+2018-03-11 db7c049 I18n: Update translation ms (100%). abuyop <abuyop@gmail.com>
+2018-03-10 eaa8ffe I18n: Update translation nb (80%). Erlend Østlie <erlendandreas12368@gmail.com>
+2018-03-05 7f66b42 I18n: Update translation tr (100%). Necdet Yücel <necdetyucel@gmail.com>
+2018-03-03 e6decf2 I18n: Update translation hr (100%). Ivica  Kolić <ikoli@yahoo.com>
+2018-03-02 6cd0c72 I18n: Update translation sv (100%). Xfce Bot <transifex@xfce.org>
+2018-03-02 ded8eed I18n: Update translation es (100%). Pablo Lezaeta Reyes [pˈaβ̞lo lˌe̞θaˈeta rˈejɛ] <prflr88@gmail.com>
+2018-03-01 1cf7a53 I18n: Update translation sr (100%). Саша Петровић <salepetronije@gmail.com>
+2018-03-01 774a085 I18n: Update translation pt_BR (100%). Andre Miranda <andre42m@gmail.com>
+2018-02-27 4d5b61e I18n: Update translation zh_CN (88%). SamHX <samzh@outlook.com>
+2018-02-27 4cb75b6 I18n: Update translation kk (100%). Baurzhan Muftakhidinov <baurthefirst@gmail.com>
+2018-02-27 616490f I18n: Update translation he (100%). Elishai Eliyahu <e1907@mm.st>
+2018-02-27 6137982 I18n: Update translation ca (100%). Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>
+2018-02-26 142ec01 Back to development Sean Davis <smd.seandavis@gmail.com>
+2018-02-26 7400990 Update changelog Sean Davis <smd.seandavis@gmail.com>
 2018-02-26 3e15dfa Preparing for the release Sean Davis <smd.seandavis@gmail.com>
 2018-02-27 884f50d I18n: Update translation nl (100%). Pjotr <pjotrvertaalt@gmail.com>
 2018-02-27 6d87883 I18n: Update translation lt (100%). Anonymous <noreply@xfce.org>
