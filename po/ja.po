@@ -4,14 +4,14 @@
 # 
 # Translators:
 # Nobuhiro Iwamatsu <iwamatsu@nigauri.org>, 2016
-# Nobuhiro Iwamatsu <iwamatsu@nigauri.org>, 2016
+# Nobuhiro Iwamatsu <iwamatsu@nigauri.org>, 2016,2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-03 06:33+0100\n"
-"PO-Revision-Date: 2017-12-10 11:29+0000\n"
-"Last-Translator: Masato HASHIMOTO <cabezon.hashimoto@gmail.com>\n"
+"POT-Creation-Date: 2018-02-25 18:32+0100\n"
+"PO-Revision-Date: 2018-04-03 23:38+0000\n"
+"Last-Translator: Nobuhiro Iwamatsu <iwamatsu@nigauri.org>\n"
 "Language-Team: Japanese (http://www.transifex.com/xfce/xfce-panel-plugins/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,7 +24,7 @@ msgid "PulseAudio Plugin"
 msgstr "PulseAudio プラグイン"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:242
+#: ../panel-plugin/pulseaudio-plugin.c:241
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "PulseAudio サウンドシステムの音量を調整します"
 
@@ -70,30 +70,54 @@ msgid "_Run Audio Mixer..."
 msgstr "オーディオミキサーを起動(_R)..."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:10
-msgid "Sound settings"
+msgid "Sound Settings"
 msgstr "サウンド設定"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:11
-msgid "Control playback of media players"
-msgstr "メディアプレーヤーの再生を制御する"
+msgid "General"
+msgstr "一般"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
+msgid "Control Playback of Media Players"
+msgstr "メディアプレーヤーの再生を制御する"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "Enable multimedia keys for playback control"
 msgstr "再生制御のマルチメディアキーを有効にします"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:13
+#: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "Enable experimental window focus support"
 msgstr "試験機能のウィンドウフォーカスサポートを有効にする"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:14
+#: ../panel-plugin/pulseaudio-dialog.glade.h:15
+msgid "Title"
+msgstr "題名"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:16
+msgid "Hidden"
+msgstr "非表示"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:17
+msgid "Clear Known Items"
+msgstr "既知のアイテムをクリアする"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:18
+msgid "Please restart your panel for additional players to be displayed."
+msgstr "追加プレーヤーを表示するために、パネルを再起動してください。"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:19
+msgid "Known Media Players"
+msgstr "既知のメディアプレーヤー"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:20
 msgid "Media Players"
 msgstr "メディアプレーヤー"
 
-#: ../panel-plugin/pulseaudio-plugin.c:244
+#: ../panel-plugin/pulseaudio-plugin.c:243
 msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
 msgstr "Copyright © 2014-2017 Andrzej Radecki et al.\n"
 
-#: ../panel-plugin/pulseaudio-dialog.c:136
+#: ../panel-plugin/pulseaudio-dialog.c:139
 #: ../panel-plugin/pulseaudio-menu.c:264
 #, c-format
 msgid ""
@@ -102,23 +126,23 @@ msgid ""
 "%s"
 msgstr "<big><b>コマンド \"%s\" の実行に失敗しました。</b></big>\n\n%s"
 
-#: ../panel-plugin/pulseaudio-dialog.c:139
+#: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:267
 msgid "Error"
 msgstr "エラー"
 
-#: ../panel-plugin/pulseaudio-button.c:313
+#: ../panel-plugin/pulseaudio-button.c:333
 #: ../panel-plugin/pulseaudio-notify.c:199
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "PulseAudio サーバーに接続されていません"
 
-#: ../panel-plugin/pulseaudio-button.c:315
+#: ../panel-plugin/pulseaudio-button.c:335
 #, c-format
 msgid "Volume %d%% (muted)"
 msgstr "音量 %d%% (ミュート)"
 
-#: ../panel-plugin/pulseaudio-button.c:317
+#: ../panel-plugin/pulseaudio-button.c:337
 #, c-format
 msgid "Volume %d%%"
 msgstr "音量 %d%%"
@@ -131,12 +155,12 @@ msgstr "出力"
 msgid "Input"
 msgstr "入力"
 
-#: ../panel-plugin/pulseaudio-menu.c:624
+#: ../panel-plugin/pulseaudio-menu.c:628
 msgid "Choose Playlist"
 msgstr "プレイリストの選択"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:659
+#: ../panel-plugin/pulseaudio-menu.c:665
 msgid "_Audio mixer..."
 msgstr "オーディオミキサー…(_A)"
 
@@ -150,7 +174,7 @@ msgstr "音量 %d%c (ミュート)"
 msgid "Volume %d%c"
 msgstr "音量 %d%c"
 
-#: ../panel-plugin/mprismenuitem.c:383 ../panel-plugin/mprismenuitem.c:456
-#: ../panel-plugin/mprismenuitem.c:866
+#: ../panel-plugin/mprismenuitem.c:373 ../panel-plugin/mprismenuitem.c:446
+#: ../panel-plugin/mprismenuitem.c:822
 msgid "Not currently playing"
 msgstr "再生していません"
