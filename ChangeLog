@@ -1,4 +1,11 @@
 # created with git log --pretty=format:"%ad %h %s %aN <%aE>" --no-merges --date=short
+2018-04-06 db2e9b5 I18n: Update translation en_AU (100%). John Humphrys <john.humphrys@protonmail.com>
+2018-04-04 de965d8 I18n: Update translation ja (100%). Nobuhiro Iwamatsu <iwamatsu@nigauri.org>
+2018-04-01 cd0f140 I18n: Update translation el (100%). Anonymous <noreply@xfce.org>
+2018-03-31 8cb6817 I18n: Update translation it (100%). Emanuele Petriglia <inbox@emanuelepetriglia.me>
+2018-03-23 295e3b1 I18n: Update translation uk (100%). Yarema aka Knedlyk <yupadmin@gmail.com>
+2018-03-19 38295e1 Back to development Sean Davis <smd.seandavis@gmail.com>
+2018-03-19 06b74ca Update for release Sean Davis <smd.seandavis@gmail.com>
 2018-03-19 1e1166e Use correct player names and icons in the preferences dialog Sean Davis <smd.seandavis@gmail.com>
 2018-03-19 266d1f4 I18n: Update translation pt (100%). José Vieira <jvieira33@sapo.pt>
 2018-03-19 c08b3e0 I18n: Update translation pt (91%). José Vieira <jvieira33@sapo.pt>
