@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-25 18:32+0100\n"
-"PO-Revision-Date: 2018-04-28 21:15+0000\n"
+"PO-Revision-Date: 2018-04-29 10:51+0000\n"
 "Last-Translator: Balázs Meskó <meskobalazs@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/xfce/xfce-panel-plugins/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -99,23 +99,23 @@ msgstr "Rejtett"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:17
 msgid "Clear Known Items"
-msgstr ""
+msgstr "Ismert elemek törlése"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:18
 msgid "Please restart your panel for additional players to be displayed."
-msgstr ""
+msgstr "Indítsa újra a panel a további lejátszók megjelenítéséhez."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:19
 msgid "Known Media Players"
-msgstr ""
+msgstr "Ismert médialejátszó"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:20
 msgid "Media Players"
-msgstr ""
+msgstr "Médialejátszó"
 
 #: ../panel-plugin/pulseaudio-plugin.c:243
 msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
-msgstr ""
+msgstr "Copyright © 2014-2017 Andrzej Radecki et al.\n"
 
 #: ../panel-plugin/pulseaudio-dialog.c:139
 #: ../panel-plugin/pulseaudio-menu.c:264
@@ -149,15 +149,15 @@ msgstr "Hangerő %d%%"
 
 #: ../panel-plugin/pulseaudio-menu.c:501
 msgid "Output"
-msgstr ""
+msgstr "Kimenet"
 
 #: ../panel-plugin/pulseaudio-menu.c:540
 msgid "Input"
-msgstr ""
+msgstr "Bemenet"
 
 #: ../panel-plugin/pulseaudio-menu.c:628
 msgid "Choose Playlist"
-msgstr ""
+msgstr "Válasszon lejátszólistát"
 
 #. Audio mixers
 #: ../panel-plugin/pulseaudio-menu.c:665
@@ -177,4 +177,4 @@ msgstr "Hangerő %d%c"
 #: ../panel-plugin/mprismenuitem.c:373 ../panel-plugin/mprismenuitem.c:446
 #: ../panel-plugin/mprismenuitem.c:822
 msgid "Not currently playing"
-msgstr ""
+msgstr "Jelenleg nincs lejátszás"
