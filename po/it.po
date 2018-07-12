@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-25 18:32+0100\n"
-"PO-Revision-Date: 2018-07-11 15:06+0000\n"
+"PO-Revision-Date: 2018-07-12 09:35+0000\n"
 "Last-Translator: Emanuele Petriglia <inbox@emanuelepetriglia.me>\n"
 "Language-Team: Italian (http://www.transifex.com/xfce/xfce-panel-plugins/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:1
 msgid "PulseAudio Plugin"
-msgstr "Plugin PulseAudio"
+msgstr "Componente aggiuntivo PulseAudio"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
 #: ../panel-plugin/pulseaudio-plugin.c:241
@@ -31,7 +31,7 @@ msgstr "Controlla il volume del suono per il sistema sonoro PulseAudio"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:1
 msgid "PulseAudio Panel Plugin"
-msgstr "Plugin PulseAudio del pannello"
+msgstr "Componente aggiuntivo PulseAudio del pannello"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:2
 msgid "Enable keyboard _shortcuts for volume control"
@@ -42,7 +42,7 @@ msgid ""
 "Enables volume control using multimedia keys. Make sure no other application"
 " that listens to these keys (e.g. xfce4-volumed) is running in the "
 "background."
-msgstr "Abilita il controllo del volume con i pulsanti multimediali. Assicurarsi che nessun'altra applicazione di controllo di questi pulsanti (per esempio xfce4-volumed) sia in esecuzione in background."
+msgstr "Abilita il controllo del volume con i pulsanti multimediali. Assicurarsi che nessun'altra applicazione di controllo di questi pulsanti (per esempio xfce4-volumed) sia in esecuzione in sfondo."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:4
 msgid "Show _notifications when volume changes"
@@ -50,7 +50,7 @@ msgstr "Mostra _notifiche quando il volume cambia"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:5
 msgid "Enables on-screen volume notifications."
-msgstr "Abilita le notifiche del volume sullo schermo"
+msgstr "Abilita le notifiche del volume sullo schermo."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:6
 msgid "Behaviour"
@@ -68,7 +68,7 @@ msgstr "Mixer audio che può essere eseguito dal menu contestuale, per esempio \
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:9
 msgid "_Run Audio Mixer..."
-msgstr "_Avvia Mixer Audio"
+msgstr "_Avvia Mixer Audio…"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:10
 msgid "Sound Settings"
@@ -88,7 +88,7 @@ msgstr "Abilita il controllo della riproduzione con i pulsanti multimediali"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "Enable experimental window focus support"
-msgstr "Abilita il support alla messa a fuoco delle finestre"
+msgstr "Abilita il supporto alla messa a fuoco delle finestre"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:15
 msgid "Title"
@@ -104,7 +104,7 @@ msgstr "Pulisci gli elementi conosciuti"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:18
 msgid "Please restart your panel for additional players to be displayed."
-msgstr "Per favore ravviare il pannello per mostrare riproduttori aggiuntivi"
+msgstr "Ravviare il pannello per mostrare riproduttori aggiuntivi."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:19
 msgid "Known Media Players"
@@ -136,7 +136,7 @@ msgstr "Errore"
 #: ../panel-plugin/pulseaudio-notify.c:199
 #, c-format
 msgid "Not connected to the PulseAudio server"
-msgstr "Non connesso al server pulseaudio"
+msgstr "Non connesso al server PulseAudio"
 
 #: ../panel-plugin/pulseaudio-button.c:335
 #, c-format
