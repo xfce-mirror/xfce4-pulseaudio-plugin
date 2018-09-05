@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.0 -->
+<!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
   <requires lib="libxfce4ui-2" version="4.11"/>
@@ -91,7 +91,7 @@
                 <property name="can_focus">False</property>
                 <property name="border_width">12</property>
                 <property name="orientation">vertical</property>
-                <property name="spacing">12</property>
+                <property name="spacing">18</property>
                 <child>
                   <object class="GtkFrame" id="frame1">
                     <property name="visible">True</property>
@@ -104,7 +104,6 @@
                         <property name="can_focus">False</property>
                         <property name="top_padding">6</property>
                         <property name="left_padding">12</property>
-                        <property name="right_padding">12</property>
                         <child>
                           <object class="GtkBox" id="vbox2">
                             <property name="visible">True</property>
@@ -178,7 +177,6 @@
                         <property name="can_focus">False</property>
                         <property name="top_padding">6</property>
                         <property name="left_padding">12</property>
-                        <property name="right_padding">12</property>
                         <child>
                           <object class="GtkGrid">
                             <property name="visible">True</property>
@@ -265,9 +263,12 @@
               <object class="GtkBox" id="section_mp_content">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="border_width">10</property>
+                <property name="margin_left">10</property>
+                <property name="margin_right">10</property>
+                <property name="margin_top">7</property>
+                <property name="margin_bottom">12</property>
                 <property name="orientation">vertical</property>
-                <property name="spacing">12</property>
+                <property name="spacing">18</property>
                 <child>
                   <object class="GtkBox">
                     <property name="visible">True</property>
@@ -279,6 +280,7 @@
                       <object class="GtkBox">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="spacing">12</property>
                         <child>
                           <object class="GtkLabel">
                             <property name="visible">True</property>
@@ -317,9 +319,7 @@
                       <object class="GtkAlignment" id="section_mp_content_1">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="top_padding">3</property>
                         <property name="left_padding">12</property>
-                        <property name="right_padding">12</property>
                         <child>
                           <object class="GtkBox">
                             <property name="visible">True</property>
@@ -387,7 +387,6 @@
                         <property name="can_focus">False</property>
                         <property name="top_padding">6</property>
                         <property name="left_padding">12</property>
-                        <property name="right_padding">12</property>
                         <child>
                           <object class="GtkBox">
                             <property name="visible">True</property>
