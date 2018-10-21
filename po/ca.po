@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-25 18:32+0100\n"
-"PO-Revision-Date: 2018-02-27 08:30+0000\n"
+"PO-Revision-Date: 2018-10-21 08:18+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/xfce/xfce-panel-plugins/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr "Ajusta el volum d'àudio del sistema de so de PulseAudio"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:1
 msgid "PulseAudio Panel Plugin"
-msgstr "Connector de plafó de PulseAudio"
+msgstr "Connector de tauler de PulseAudio"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:2
 msgid "Enable keyboard _shortcuts for volume control"
@@ -104,7 +104,7 @@ msgstr "Neteja els ítems coneguts"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:18
 msgid "Please restart your panel for additional players to be displayed."
-msgstr "Reinicieu el vostre plafó per tal que tinguin visibilitat els reproductors addicionals."
+msgstr "Reinicieu el vostre tauler per tal que tinguin visibilitat els reproductors addicionals."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:19
 msgid "Known Media Players"
