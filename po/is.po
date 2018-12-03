@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-25 18:32+0100\n"
-"PO-Revision-Date: 2018-11-06 16:52+0000\n"
+"PO-Revision-Date: 2018-11-29 07:13+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic (http://www.transifex.com/xfce/xfce-panel-plugins/language/is/)\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr "PulseAudio-viðbót"
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
 #: ../panel-plugin/pulseaudio-plugin.c:241
 msgid "Adjust the audio volume of the PulseAudio sound system"
-msgstr ""
+msgstr "Stilla hljóðstyrk PulseAudio hljóðkerfisins"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:1
 msgid "PulseAudio Panel Plugin"
@@ -40,15 +40,15 @@ msgid ""
 "Enables volume control using multimedia keys. Make sure no other application"
 " that listens to these keys (e.g. xfce4-volumed) is running in the "
 "background."
-msgstr ""
+msgstr "Virkjar stýringu hljóðstyrks með margmiðlunarlyklum. Gakktu úr skugga um að ekkert annað forrit sem skynjar þessa lykla (t.d. xfce4-volumed) sé að keyra í bakgrunni."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:4
 msgid "Show _notifications when volume changes"
-msgstr ""
+msgstr "Birta tilky_nningar þegar hljóðstyrkur breytist"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:5
 msgid "Enables on-screen volume notifications."
-msgstr ""
+msgstr "Virkjar skjátilkynningar vegna hljóðstyrks."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:6
 msgid "Behaviour"
@@ -62,7 +62,7 @@ msgstr "Hljóð_blandari"
 msgid ""
 "Audio mixer command that can be executed from the context menu, e.g. "
 "\"pavucontrol\", \"unity-control-center sound\"."
-msgstr ""
+msgstr "Skipun hljóðblandara sem hægt er að keyra úr samhengisvalmyndinni, t.d. \"pavucontrol\", \"unity-control-center sound\"."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:9
 msgid "_Run Audio Mixer..."
@@ -86,7 +86,7 @@ msgstr "Virkja margmiðlunarhnappa á lyklaborði til stýringar á afspilun"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "Enable experimental window focus support"
-msgstr ""
+msgstr "Virkja stuðning á tilraunastigi við virkni glugga"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:15
 msgid "Title"
@@ -102,7 +102,7 @@ msgstr "Hreinsa þekkt atriði"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:18
 msgid "Please restart your panel for additional players to be displayed."
-msgstr ""
+msgstr "Endurræstu skjástikuna svo hægt sé að birta viðbótarspilara."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:19
 msgid "Known Media Players"
@@ -123,7 +123,7 @@ msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
 "\n"
 "%s"
-msgstr ""
+msgstr "<big><b>Mistókst að framkvæma skipunina \"%s\".</b></big>\n\n%s"
 
 #: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:267
