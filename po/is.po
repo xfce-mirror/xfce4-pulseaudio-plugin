@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Sveinn í Felli <sv1@fellsnet.is>, 2015,2018
+# Sveinn í Felli <sv1@fellsnet.is>, 2015,2018-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-25 18:32+0100\n"
-"PO-Revision-Date: 2018-11-29 07:13+0000\n"
+"PO-Revision-Date: 2019-05-10 11:28+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic (http://www.transifex.com/xfce/xfce-panel-plugins/language/is/)\n"
 "MIME-Version: 1.0\n"
@@ -102,7 +102,7 @@ msgstr "Hreinsa þekkt atriði"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:18
 msgid "Please restart your panel for additional players to be displayed."
-msgstr "Endurræstu skjástikuna svo hægt sé að birta viðbótarspilara."
+msgstr "Endurræstu skjástikuna svo hægt sé að birta fleiri spilara."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:19
 msgid "Known Media Players"
