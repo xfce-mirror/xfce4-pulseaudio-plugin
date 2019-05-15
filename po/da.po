@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-25 18:32+0100\n"
-"PO-Revision-Date: 2019-05-04 16:03+0000\n"
+"PO-Revision-Date: 2019-05-14 22:54+0000\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish (http://www.transifex.com/xfce/xfce-panel-plugins/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -44,11 +44,11 @@ msgstr "Aktiverer lydstyrkeregulering ved brug af multimedie-taster. Sørg for a
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:4
 msgid "Show _notifications when volume changes"
-msgstr "Vis _notifikationer når lydstyrken ændres"
+msgstr "Vis _underretninger når lydstyrken ændres"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:5
 msgid "Enables on-screen volume notifications."
-msgstr "Aktiverer lydstyrke-notifikationer på skærmen."
+msgstr "Aktiverer lydstyrke-underretninger på skærmen."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:6
 msgid "Behaviour"
