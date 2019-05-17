@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-25 18:32+0100\n"
-"PO-Revision-Date: 2019-05-15 17:59+0000\n"
+"PO-Revision-Date: 2019-05-17 11:50+0000\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish (http://www.transifex.com/xfce/xfce-panel-plugins/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -66,7 +66,7 @@ msgstr "Lydmikser-kommando som kan udføres fra genvejsmenuen, f.eks. \"pavucont
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:9
 msgid "_Run Audio Mixer..."
-msgstr "_Kør lydmikser..."
+msgstr "_Kør lydmikser ..."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:10
 msgid "Sound Settings"
@@ -161,7 +161,7 @@ msgstr "Vælg spilleliste"
 #. Audio mixers
 #: ../panel-plugin/pulseaudio-menu.c:665
 msgid "_Audio mixer..."
-msgstr "_Lydmikser..."
+msgstr "_Lydmikser ..."
 
 #: ../panel-plugin/pulseaudio-notify.c:201
 #, c-format
