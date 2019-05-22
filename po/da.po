@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-25 18:32+0100\n"
-"PO-Revision-Date: 2019-05-17 11:50+0000\n"
+"PO-Revision-Date: 2019-05-21 22:32+0000\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish (http://www.transifex.com/xfce/xfce-panel-plugins/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -156,7 +156,7 @@ msgstr "Input"
 
 #: ../panel-plugin/pulseaudio-menu.c:628
 msgid "Choose Playlist"
-msgstr "Vælg spilleliste"
+msgstr "Vælg afspilningsliste"
 
 #. Audio mixers
 #: ../panel-plugin/pulseaudio-menu.c:665
