@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-25 18:32+0100\n"
-"PO-Revision-Date: 2019-05-21 22:32+0000\n"
+"PO-Revision-Date: 2019-06-05 13:31+0000\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish (http://www.transifex.com/xfce/xfce-panel-plugins/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr "PulseAudio-plugin"
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
 #: ../panel-plugin/pulseaudio-plugin.c:241
 msgid "Adjust the audio volume of the PulseAudio sound system"
-msgstr "Justér lydstyrken på PulseAudio-lydsystemet"
+msgstr "Juster lydstyrken på PulseAudio-lydsystemet"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:1
 msgid "PulseAudio Panel Plugin"
