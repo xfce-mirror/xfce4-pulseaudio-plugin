@@ -20,7 +20,7 @@
 #define __PULSEAUDIO_CONFIG_H__
 
 #include <glib.h>
-#include <dbus/dbus-glib.h>
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 

@@ -24,6 +24,7 @@ AC_PREREQ([2.50])
 AC_CONFIG_HEADERS([config.h])
 AC_CANONICAL_TARGET()
 AC_REVISION([@REVISION@])
+AC_CONFIG_MACRO_DIRS([m4])
 
 dnl ***************************
 dnl *** Initialize automake ***
