@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-25 18:32+0100\n"
-"PO-Revision-Date: 2019-07-24 09:38+0000\n"
+"PO-Revision-Date: 2019-08-11 05:42+0000\n"
 "Last-Translator: Kjell Cato Heskjestad <cato@heskjestad.xyz>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/xfce/xfce-panel-plugins/language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -38,14 +38,14 @@ msgstr "Et panel-tillegg for PulseAudio"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:2
 msgid "Enable keyboard _shortcuts for volume control"
-msgstr "Skru på tastatur-snarveier for lydstyrke-justering"
+msgstr "Slå på tastatursnarveier for justering av lydstyrke"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:3
 msgid ""
 "Enables volume control using multimedia keys. Make sure no other application"
 " that listens to these keys (e.g. xfce4-volumed) is running in the "
 "background."
-msgstr "Skrur på lydstyrkejustering ved bruk av multimedia-knapper. Forsikre deg om at ingen andre programmer som styres av disse knappene (eksempelvis xfce4-volumed) kjører i bakgrunnen."
+msgstr "Slår på lydstyrkejustering ved bruk av multimedia-knapper. Forsikre deg om at ingen andre programmer som styres av disse knappene (eksempelvis xfce4-volumed) kjører i bakgrunnen."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:4
 msgid "Show _notifications when volume changes"
@@ -53,7 +53,7 @@ msgstr "Vis merknad når lydstyrken endres"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:5
 msgid "Enables on-screen volume notifications."
-msgstr "Skru på skjermbaserte lydstyrke-merknader."
+msgstr "Slå på skjermbaserte lydstyrke-merknader."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:6
 msgid "Behaviour"
@@ -67,11 +67,11 @@ msgstr "Lyd_mikser"
 msgid ""
 "Audio mixer command that can be executed from the context menu, e.g. "
 "\"pavucontrol\", \"unity-control-center sound\"."
-msgstr "Lyd-mikser-kommando som kan utføres fra innholdsmenyen, eksempelvis \"pavucontrol\" eller \"unity-control-center sound\"."
+msgstr "Lydmikser-kommando som kan utføres fra innholdsmenyen, eksempelvis «pavucontrol» eller «unity-control-center sound»."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:9
 msgid "_Run Audio Mixer..."
-msgstr "Kjør lyd-mixer"
+msgstr "Kjør lydmikser …"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:10
 msgid "Sound Settings"
@@ -166,7 +166,7 @@ msgstr "Velg spilleliste"
 #. Audio mixers
 #: ../panel-plugin/pulseaudio-menu.c:665
 msgid "_Audio mixer..."
-msgstr "Lydmixer …"
+msgstr "Lydmikser …"
 
 #: ../panel-plugin/pulseaudio-notify.c:201
 #, c-format
