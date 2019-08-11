@@ -1,4 +1,59 @@
 # created with git log --pretty=format:"%ad %h %s %aN <%aE>" --no-merges --date=short
+2019-08-11 4a0075b I18n: Update translation nb (100%). Kjell Cato Heskjestad <cato@heskjestad.xyz>
+2019-08-03 9f30975 I18n: Update translation gl (100%). Daniel Muñiz Fontoira <dani@damufo.com>
+2019-07-26 8623e3f I18n: Add new translation hy_AM (100%). Real School <translator_students@realschool.am>
+2019-07-24 2c00f33 I18n: Update translation nb (100%). Kjell Cato Heskjestad <cato@heskjestad.xyz>
+2019-07-17 54c04b2 I18n: Update translation fi (100%). Jiri Grönroos <jiri.gronroos@iki.fi>
+2019-06-23 2ef8258 I18n: Update translation pt (100%). Hugo Carvalho <hugokarvalho@hotmail.com>
+2019-06-18 6e1f5fb I18n: Update translation da (100%). Anonymous <noreply@xfce.org>
+2019-06-05 9453d2c I18n: Update translation da (100%). Anonymous <noreply@xfce.org>
+2019-05-22 ab29ab3 I18n: Update translation da (100%). Anonymous <noreply@xfce.org>
+2019-05-17 97ef904 I18n: Add new translation ie (97%). Anonymous <noreply@xfce.org>
+2019-05-17 05eae10 I18n: Update translation da (100%). Anonymous <noreply@xfce.org>
+2019-05-16 47d53d4 I18n: Update translation da (100%). Anonymous <noreply@xfce.org>
+2019-05-15 a79e535 I18n: Update translation da (100%). Anonymous <noreply@xfce.org>
+2019-05-10 41f4285 I18n: Update translation is (100%). Sveinn í Felli <sv1@fellsnet.is>
+2019-05-08 8a86047 I18n: Update translation zh_CN (100%). 玉堂白鹤 <yjwork@qq.com>
+2019-05-08 538729f I18n: Update translation uk (100%). Yarema aka Knedlyk <yupadmin@gmail.com>
+2019-05-08 7d1bd2c I18n: Update translation sl (68%). Xfce Bot <transifex@xfce.org>
+2019-05-08 be81a1b I18n: Update translation pl (100%). Anonymous <noreply@xfce.org>
+2019-05-08 58bf8f4 I18n: Update translation oc (60%). Xfce Bot <transifex@xfce.org>
+2019-05-08 d36dccd I18n: Update translation lt (100%). Anonymous <noreply@xfce.org>
+2019-05-08 6319adf I18n: Update translation kk (100%). Baurzhan Muftakhidinov <baurthefirst@gmail.com>
+2019-05-08 6668f1d I18n: Update translation it (100%). Emanuele Petriglia <transifex@emanuelepetriglia.com>
+2019-05-08 27a5baa I18n: Update translation id (74%). Xfce Bot <transifex@xfce.org>
+2019-05-08 1e9a1a9 I18n: Update translation he (100%). Elishai Eliyahu <e1907@mm.st>
+2019-05-08 e55d2ce I18n: Update translation ga (77%). Xfce Bot <transifex@xfce.org>
+2019-05-08 9a9466a I18n: Update translation fr (100%). Charles Monzat <c.monzat@laposte.net>
+2019-05-08 9775d99 I18n: Update translation eu (100%). Anonymous <noreply@xfce.org>
+2019-05-08 246dde5 I18n: Update translation en_AU (100%). John Humphrys <john.humphrys@pm.me>
+2019-05-08 08bc334 I18n: Update translation cs (100%). Michal Várady <miko.vaji@gmail.com>
+2019-05-08 57a36d5 I18n: Update translation bg (100%). Kiril Kirilov <cybercop_montana@abv.bg>
+2019-05-04 2934b7d I18n: Update translation da (100%). Anonymous <noreply@xfce.org>
+2019-01-28 50f3f86 I18n: Add new translation eu (100%). beriain <beriain@bitmessage.ch>
+2018-12-03 1be44c1 I18n: Update translation is (100%). Sveinn í Felli <sv1@fellsnet.is>
+2018-12-03 41c9ba4 I18n: Update translation fi (100%). Anonymous <noreply@xfce.org>
+2018-11-19 2e4bc8a I18n: Update translation sk (100%). Dušan Kazik <prescott66@gmail.com>
+2018-11-06 97438d4 I18n: Update translation is (77%). Sveinn í Felli <sv1@fellsnet.is>
+2018-10-21 83191de I18n: Update translation ca (100%). Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>
+2018-09-04 2c2eb0c Preferences: Improve spacing Sean Davis <smd.seandavis@gmail.com>
+2018-07-16 2e3abbf I18n: Update translation zh_TW (100%). Hsiu-Ming Chang <cges30901@gmail.com>
+2018-07-16 1f67471 I18n: Update translation fi (97%). Anonymous <noreply@xfce.org>
+2018-07-13 42e39c4 I18n: Update translation gl (100%). Anonymous <noreply@xfce.org>
+2018-07-12 82a9065 I18n: Update translation it (100%). Emanuele Petriglia <inbox@emanuelepetriglia.me>
+2018-07-11 c5c5140 I18n: Update translation it (100%). Emanuele Petriglia <inbox@emanuelepetriglia.me>
+2018-06-30 5b33082 I18n: Update translation pt (100%). Alexandre Fidalgo <alexandremagnos15@gmail.com>
+2018-06-29 dfa942a I18n: Update translation pt (100%). Alexandre Fidalgo <alexandremagnos15@gmail.com>
+2018-06-24 b65310b I18n: Add new translation be (100%). Zmicer Turok <zmicerturok@gmail.com>
+2018-06-16 3092872 I18n: Update translation th (100%). Theppitak Karoonboonyanan <theppitak@gmail.com>
+2018-05-26 7c02cb2 I18n: Update translation ko (100%). Seong-ho Cho <darkcircle.0426@gmail.com>
+2018-05-17 4e078d6 I18n: Update translation pt_BR (100%). Michael Martins <michaelfm21@gmail.com>
+2018-05-16 60d4094 I18n: Add new translation fi (88%). Anonymous <noreply@xfce.org>
+2018-05-01 41ebe11 I18n: Update translation de (100%). Vinzenz Vietzke <vinz@vinzv.de>
+2018-04-29 64cf259 I18n: Update translation hu (100%). Balázs Meskó <meskobalazs@gmail.com>
+2018-04-29 cf8b82e I18n: Update translation hu (74%). Balázs Meskó <meskobalazs@gmail.com>
+2018-04-11 32dac4c Back to development Sean Davis <smd.seandavis@gmail.com>
+2018-04-11 66231b3 Update for release Sean Davis <smd.seandavis@gmail.com>
 2018-04-06 db2e9b5 I18n: Update translation en_AU (100%). John Humphrys <john.humphrys@protonmail.com>
 2018-04-04 de965d8 I18n: Update translation ja (100%). Nobuhiro Iwamatsu <iwamatsu@nigauri.org>
 2018-04-01 cd0f140 I18n: Update translation el (100%). Anonymous <noreply@xfce.org>
