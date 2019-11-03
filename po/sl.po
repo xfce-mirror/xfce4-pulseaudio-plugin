@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Arnold Marko <arnold.marko@gmail.com>, 2019
 # Kernc, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-25 18:32+0100\n"
-"PO-Revision-Date: 2018-02-25 17:32+0000\n"
-"Last-Translator: Xfce Bot <transifex@xfce.org>\n"
+"PO-Revision-Date: 2019-11-03 19:40+0000\n"
+"Last-Translator: Arnold Marko <arnold.marko@gmail.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/xfce/xfce-panel-plugins/language/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,7 +21,7 @@ msgstr ""
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:1
 msgid "PulseAudio Plugin"
-msgstr "PulseAudio vstavek"
+msgstr "PulseAudio vtičnik"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
 #: ../panel-plugin/pulseaudio-plugin.c:241
@@ -29,18 +30,18 @@ msgstr "Prilagodi glasnost PulseAudio zvočnega sistema"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:1
 msgid "PulseAudio Panel Plugin"
-msgstr "PulseAudio vstavek"
+msgstr "PulseAudio vtičnik"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:2
 msgid "Enable keyboard _shortcuts for volume control"
-msgstr "Omogoči bližnjične tipke za prilagajanje gla_snosti"
+msgstr "Omogoči bližnjice na tipkovnici za prilagajanje gla_snosti"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:3
 msgid ""
 "Enables volume control using multimedia keys. Make sure no other application"
 " that listens to these keys (e.g. xfce4-volumed) is running in the "
 "background."
-msgstr "Omogoči upravljanje glasnosti z večpredstavnostnimi tipkami. Preden omogočite, se prepričajte, da se noben drug program (npr. xfce4-volumed) ne odziva na pritiske na te tipke."
+msgstr "Omogoči upravljanje glasnosti z večpredstavnostnimi tipkami. Poskrbite, da v ozadju ne teče kakšna druga aplikacija, ki bi odčitavala te tipke (npr. xfce4-volumed)."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:4
 msgid "Show _notifications when volume changes"
@@ -48,7 +49,7 @@ msgstr "Pokaži obvestila ob spremembi glas_nosti"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:5
 msgid "Enables on-screen volume notifications."
-msgstr "Omogoči vidna obvestila na zaslonu"
+msgstr "Omogoči zaslonska obvestila o glasnosti"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:6
 msgid "Behaviour"
@@ -62,7 +63,7 @@ msgstr "Mešalnik zvoka"
 msgid ""
 "Audio mixer command that can be executed from the context menu, e.g. "
 "\"pavucontrol\", \"unity-control-center sound\"."
-msgstr "Ukaz za mešanje zvoka, ki bo zagnan ob izbiri v kontekstnem meniju, npr. \"pavucontrol\" ali \"unity-control-center sound\"."
+msgstr "Ukaz za mešanje zvoka, ki je lahko zagnan iz kontekstualnega menija, npr. \"pavucontrol\" ali \"unity-control-center sound\"."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:9
 msgid "_Run Audio Mixer..."
@@ -70,7 +71,7 @@ msgstr "_Zaženi mešalnik zvoka..."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:10
 msgid "Sound Settings"
-msgstr ""
+msgstr "Nastavitve zvoka"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:11
 msgid "General"
@@ -78,19 +79,19 @@ msgstr "Splošno"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
 msgid "Control Playback of Media Players"
-msgstr ""
+msgstr "Nadzor predvajanja z medijskimi predvajalniki"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "Enable multimedia keys for playback control"
-msgstr ""
+msgstr "Omogoči večpredstavnostne tipke za nadzorovanje predvajanja"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "Enable experimental window focus support"
-msgstr ""
+msgstr "Omogoči eksperimentalno podporo za fokusiranje okna"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:15
 msgid "Title"
-msgstr ""
+msgstr "Naslov"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:16
 msgid "Hidden"
@@ -98,15 +99,15 @@ msgstr "Skrito"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:17
 msgid "Clear Known Items"
-msgstr ""
+msgstr "Počiti znane predmete"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:18
 msgid "Please restart your panel for additional players to be displayed."
-msgstr ""
+msgstr "Ponovno zaženite pult, da se prikažejo dodatni predvajalniki."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:19
 msgid "Known Media Players"
-msgstr ""
+msgstr "Znani medijski predvajalniki"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:20
 msgid "Media Players"
@@ -148,15 +149,15 @@ msgstr "Glasnost %d%%"
 
 #: ../panel-plugin/pulseaudio-menu.c:501
 msgid "Output"
-msgstr ""
+msgstr "Izhod"
 
 #: ../panel-plugin/pulseaudio-menu.c:540
 msgid "Input"
-msgstr ""
+msgstr "Vhod"
 
 #: ../panel-plugin/pulseaudio-menu.c:628
 msgid "Choose Playlist"
-msgstr ""
+msgstr "Izberi seznam predvajanja"
 
 #. Audio mixers
 #: ../panel-plugin/pulseaudio-menu.c:665
