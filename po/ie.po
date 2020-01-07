@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Caarmi, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-25 18:32+0100\n"
-"PO-Revision-Date: 2019-05-17 10:56+0000\n"
-"Last-Translator: Ольга Смирнова\n"
+"PO-Revision-Date: 2020-01-07 07:13+0000\n"
+"Last-Translator: Caarmi\n"
 "Language-Team: Interlingue (http://www.transifex.com/xfce/xfce-panel-plugins/language/ie/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -85,7 +86,7 @@ msgstr "Activar tastes de multimedia por controlar reproduction"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "Enable experimental window focus support"
-msgstr ""
+msgstr "Activar li experimental suporte del foco de fenestre"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:15
 msgid "Title"
