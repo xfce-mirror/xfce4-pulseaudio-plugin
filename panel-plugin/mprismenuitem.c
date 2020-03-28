@@ -35,6 +35,7 @@
 #include <gdk/gdkkeysyms.h>
 #include <gio/gdesktopappinfo.h>
 
+#include <exo/exo.h>
 
 
 /* for DBG/TRACE */
@@ -145,7 +146,16 @@ mpris_menu_item_new_with_player (const gchar *player,
 
   gtk_widget_add_events (GTK_WIDGET(menu_item), GDK_SCROLL_MASK|GDK_POINTER_MOTION_MASK|GDK_BUTTON_MOTION_MASK);
 
-  gtk_image_set_from_icon_name (GTK_IMAGE (priv->image), icon_name, GTK_ICON_SIZE_LARGE_TOOLBAR);
+  if (g_file_test (icon_name, G_FILE_TEST_EXISTS) && !g_file_test (icon_name, G_FILE_TEST_IS_DIR)) {
+    GdkPixbuf *buf = exo_gdk_pixbuf_new_from_file_at_max_size (icon_name, 24, 24, TRUE, NULL);
+    if (buf != NULL) {
+      gtk_image_set_from_pixbuf (GTK_IMAGE (priv->image), buf);
+    } else {
+      gtk_image_set_from_icon_name (GTK_IMAGE (priv->image), "audio-player", GTK_ICON_SIZE_LARGE_TOOLBAR);
+    }
+  } else {
+    gtk_image_set_from_icon_name (GTK_IMAGE (priv->image), icon_name, GTK_ICON_SIZE_LARGE_TOOLBAR);
+  }
 
   return GTK_WIDGET(menu_item);
 }

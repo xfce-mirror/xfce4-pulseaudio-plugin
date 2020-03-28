@@ -60,6 +60,7 @@ libpulseaudio_plugin_la_CFLAGS = \
 	$(KEYBINDER_CFLAGS) \
 	$(LIBNOTIFY_CFLAGS) \
 	$(MPRIS2_CFLAGS) \
+	$(EXO_CFLAGS) \
 	$(WNCK_CFLAGS) \
 	$(PLATFORM_CFLAGS)
 
@@ -81,6 +82,7 @@ libpulseaudio_plugin_la_LIBADD = \
 	$(KEYBINDER_LIBS) \
 	$(LIBNOTIFY_LIBS) \
 	$(MPRIS2_LIBS) \
+	$(EXO_LIBS) \
 	$(WNCK_LIBS) \
 	$(LIBM)
 
