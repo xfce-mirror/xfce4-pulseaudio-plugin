@@ -141,6 +141,67 @@ pulseaudio_mpris_player_class_init (PulseaudioMprisPlayerClass *klass)
 
 
 
+static gboolean
+pulseaudio_mpris_player_can_condition_track_info (PulseaudioMprisPlayer *player)
+{
+  if (player->title == NULL || player->artist == NULL)
+    return FALSE;
+
+  if (!g_utf8_validate (player->title, -1, NULL) || !g_utf8_validate (player->artist, -1, NULL))
+    return FALSE;
+
+  if (g_utf8_strlen (player->title, -1) <= 0 || g_utf8_strlen (player->artist, -1) <= 0)
+    return FALSE;
+
+  return TRUE;
+}
+
+
+static gboolean
+pulseaudio_mpris_player_condition_track_info (PulseaudioMprisPlayer *player,
+                                              const gchar           *delimiter)
+{
+  gchar    *lookup = NULL;
+  gchar    *replace = NULL;
+  gboolean  found = FALSE;
+
+  lookup = g_strconcat (player->artist, delimiter, NULL);
+  if (g_str_has_prefix (player->title, lookup))
+    {
+      replace = g_utf8_substring (player->title, g_utf8_strlen (lookup, -1), g_utf8_strlen (player->title, -1));
+      g_free (player->title);
+      player->title = replace;
+      found = TRUE;
+    }
+  g_free (lookup);
+
+  if (found)
+    return TRUE;
+
+  // Track titles match ARTIST - TITLE
+  if (g_str_has_suffix (player->artist, "VEVO"))
+    {
+      gchar **components = g_strsplit (player->title, delimiter, 2);
+
+      if (g_strv_length (components) == 2)
+        {
+          g_free (player->artist);
+          player->artist = g_strdup (components[0]);
+
+          g_free (player->title);
+          player->title = g_strdup (components[1]);
+
+          found = TRUE;
+        }
+
+      g_strfreev (components);
+    }
+
+  return found;
+}
+
+
+
 static void
 pulseaudio_mpris_player_parse_metadata (PulseaudioMprisPlayer *player,
                                         GVariant              *dictionary)
@@ -195,6 +256,15 @@ pulseaudio_mpris_player_parse_metadata (PulseaudioMprisPlayer *player,
             }
         }
     }
+
+  if (!pulseaudio_mpris_player_can_condition_track_info (player))
+    return;
+
+  if (pulseaudio_mpris_player_condition_track_info (player, " - "))
+    return;
+
+  if (pulseaudio_mpris_player_condition_track_info (player, ": "))
+    return;
 }
 
 
