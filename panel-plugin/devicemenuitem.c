@@ -48,10 +48,8 @@ enum {
 static guint signals[LAST_SIGNAL] = { 0 };
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-G_DEFINE_TYPE (DeviceMenuItem, device_menu_item, GTK_TYPE_MENU_ITEM)
+G_DEFINE_TYPE_WITH_PRIVATE (DeviceMenuItem, device_menu_item, GTK_TYPE_MENU_ITEM)
 G_GNUC_END_IGNORE_DEPRECATIONS
-
-#define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), TYPE_DEVICE_MENU_ITEM, DeviceMenuItemPrivate))
 
 
 
@@ -73,7 +71,7 @@ device_menu_item_new_with_label (const gchar *label)
 
   device_item = DEVICE_MENU_ITEM (g_object_new (TYPE_DEVICE_MENU_ITEM, NULL));
 
-  priv = GET_PRIVATE (device_item);
+  priv = device_menu_item_get_instance_private (device_item);
 
   priv->submenu = gtk_menu_new ();
   priv->title = g_strdup (label);
@@ -106,7 +104,7 @@ device_menu_item_add_device (DeviceMenuItem *item,
   DeviceMenuItemPrivate *priv;
   GtkWidget             *mi;
 
-  priv = GET_PRIVATE (item);
+  priv = device_menu_item_get_instance_private (item);
 
   mi = gtk_radio_menu_item_new_with_label (priv->group, description);
   g_object_set_data_full (G_OBJECT (mi), "name", g_strdup (name), (GDestroyNotify) g_free);
@@ -132,7 +130,7 @@ device_menu_item_set_device_by_name (DeviceMenuItem *item,
 
   g_return_if_fail (IS_DEVICE_MENU_ITEM (item));
 
-  priv = GET_PRIVATE (item);
+  priv = device_menu_item_get_instance_private (item);
 
   children = gtk_container_get_children (GTK_CONTAINER (priv->submenu));
 
@@ -179,8 +177,6 @@ device_menu_item_class_init (DeviceMenuItemClass *item_class)
                                           g_cclosure_marshal_VOID__STRING,
                                           G_TYPE_NONE,
                                           1, G_TYPE_STRING);
-
-  g_type_class_add_private (item_class, sizeof (DeviceMenuItemPrivate));
 }
 
 
@@ -190,7 +186,7 @@ device_menu_item_init (DeviceMenuItem *item)
 {
   DeviceMenuItemPrivate *priv;
 
-  priv = GET_PRIVATE (item);
+  priv = device_menu_item_get_instance_private (item);
 
   priv->submenu = NULL;
   priv->label = NULL;
@@ -207,7 +203,7 @@ device_menu_item_finalize (GObject *object)
   DeviceMenuItemPrivate *priv;
 
   item = DEVICE_MENU_ITEM (object);
-  priv = GET_PRIVATE (item);
+  priv = device_menu_item_get_instance_private (item);
 
   if (priv->title)
     g_free (priv->title);

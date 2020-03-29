@@ -82,10 +82,8 @@ enum {
 static guint signals[LAST_SIGNAL] = { 0 };
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-G_DEFINE_TYPE (MprisMenuItem, mpris_menu_item, GTK_TYPE_IMAGE_MENU_ITEM)
+G_DEFINE_TYPE_WITH_PRIVATE (MprisMenuItem, mpris_menu_item, GTK_TYPE_IMAGE_MENU_ITEM)
 G_GNUC_END_IGNORE_DEPRECATIONS
-
-#define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), TYPE_MPRIS_MENU_ITEM, MprisMenuItemPrivate))
 
 
 
@@ -133,7 +131,7 @@ mpris_menu_item_new_with_player (const gchar *player,
 
   menu_item = MPRIS_MENU_ITEM (g_object_new (TYPE_MPRIS_MENU_ITEM, NULL));
 
-  priv = GET_PRIVATE (menu_item);
+  priv = mpris_menu_item_get_instance_private (menu_item);
 
   priv->player = g_strdup(player);
   if (title != NULL)
@@ -189,7 +187,7 @@ mpris_menu_item_get_player (MprisMenuItem *item)
 
   g_return_val_if_fail (IS_MPRIS_MENU_ITEM (item), NULL);
 
-  priv = GET_PRIVATE (item);
+  priv = mpris_menu_item_get_instance_private (item);
 
   return priv->player;
 }
@@ -204,7 +202,7 @@ mpris_menu_item_set_title (MprisMenuItem *item,
 
   g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
 
-  priv = GET_PRIVATE (item);
+  priv = mpris_menu_item_get_instance_private (item);
 
   if (title == NULL || *title == '\0')
     gtk_label_set_markup_printf_escaped (GTK_LABEL (priv->title_label), "<b>%s</b>", priv->title);
@@ -222,7 +220,7 @@ mpris_menu_item_set_artist (MprisMenuItem *item,
 
   g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
 
-  priv = GET_PRIVATE (item);
+  priv = mpris_menu_item_get_instance_private (item);
 
   if (artist == NULL || *artist == '\0')
     gtk_label_set_label (GTK_LABEL (priv->artist_label), NULL);
@@ -240,7 +238,7 @@ mpris_menu_item_set_can_go_previous (MprisMenuItem *item,
 
   g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
 
-  priv = GET_PRIVATE (item);
+  priv = mpris_menu_item_get_instance_private (item);
 
   priv->can_go_previous = enabled;
 
@@ -260,7 +258,7 @@ mpris_menu_item_set_can_play (MprisMenuItem *item,
 
   g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
 
-  priv = GET_PRIVATE (item);
+  priv = mpris_menu_item_get_instance_private (item);
 
   priv->can_play = enabled;
 
@@ -280,7 +278,7 @@ mpris_menu_item_set_can_pause (MprisMenuItem *item,
 
   g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
 
-  priv = GET_PRIVATE (item);
+  priv = mpris_menu_item_get_instance_private (item);
 
   priv->can_pause = enabled;
 
@@ -305,7 +303,7 @@ mpris_menu_item_set_can_go_next (MprisMenuItem *item,
 
   g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
 
-  priv = GET_PRIVATE (item);
+  priv = mpris_menu_item_get_instance_private (item);
 
   priv->can_go_next = enabled;
 
@@ -325,7 +323,7 @@ mpris_menu_item_set_can_raise (MprisMenuItem *item,
 
   g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
 
-  priv = GET_PRIVATE (item);
+  priv = mpris_menu_item_get_instance_private (item);
 
   priv->can_raise = can_raise;
 }
@@ -340,7 +338,7 @@ mpris_menu_item_set_can_raise_wnck (MprisMenuItem *item,
 
   g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
 
-  priv = GET_PRIVATE (item);
+  priv = mpris_menu_item_get_instance_private (item);
 
   priv->can_raise_wnck = can_raise;
 }
@@ -355,7 +353,7 @@ mpris_menu_item_set_is_running (MprisMenuItem *item,
 
   g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
 
-  priv = GET_PRIVATE (item);
+  priv = mpris_menu_item_get_instance_private (item);
 
   priv->is_running = running;
 
@@ -391,7 +389,7 @@ mpris_menu_item_set_is_playing (MprisMenuItem *item,
 
   g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
 
-  priv = GET_PRIVATE (item);
+  priv = mpris_menu_item_get_instance_private (item);
 
   priv->is_playing = playing;
 
@@ -423,7 +421,7 @@ mpris_menu_item_set_is_stopped (MprisMenuItem *item,
 
   g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
 
-  priv = GET_PRIVATE (item);
+  priv = mpris_menu_item_get_instance_private (item);
 
   priv->is_stopped = stopped;
 
@@ -466,8 +464,6 @@ mpris_menu_item_class_init (MprisMenuItemClass *item_class)
                                         g_cclosure_marshal_VOID__STRING,
                                         G_TYPE_NONE,
                                         1, G_TYPE_STRING);
-
-  g_type_class_add_private (item_class, sizeof (MprisMenuItemPrivate));
 }
 
 
@@ -477,7 +473,7 @@ mpris_menu_item_init (MprisMenuItem *item)
 {
   MprisMenuItemPrivate *priv;
 
-  priv = GET_PRIVATE (item);
+  priv = mpris_menu_item_get_instance_private (item);
 
   priv->title_label = NULL;
   priv->artist_label = NULL;
@@ -502,7 +498,7 @@ mpris_menu_item_finalize (GObject *object)
   MprisMenuItemPrivate *priv;
 
   item = MPRIS_MENU_ITEM (object);
-  priv = GET_PRIVATE (item);
+  priv = mpris_menu_item_get_instance_private (item);
 
   if (priv->player)
     g_free (priv->player);
@@ -533,7 +529,7 @@ mpris_menu_item_raise (MprisMenuItem *item)
 
   g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
 
-  priv = GET_PRIVATE (item);
+  priv = mpris_menu_item_get_instance_private (item);
 
   if (priv->is_running)
     {
@@ -560,7 +556,7 @@ mpris_menu_item_launch (MprisMenuItem *item)
 
   g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
 
-  priv = GET_PRIVATE (item);
+  priv = mpris_menu_item_get_instance_private (item);
 
   if (priv->is_running)
     return;
@@ -582,7 +578,7 @@ mpris_menu_item_raise_or_launch (MprisMenuItem *item)
 
   g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
 
-  priv = GET_PRIVATE (item);
+  priv = mpris_menu_item_get_instance_private (item);
 
   if (priv->is_running)
     mpris_menu_item_raise (item);
@@ -602,7 +598,7 @@ mpris_menu_item_get_widget_at_event (MprisMenuItem  *item,
 
   g_return_val_if_fail (IS_MPRIS_MENU_ITEM (item), NULL);
 
-  priv = GET_PRIVATE (item);
+  priv = mpris_menu_item_get_instance_private (item);
 
   gtk_widget_get_allocation (priv->button_box, &alloc);
   gtk_widget_translate_coordinates (GTK_WIDGET (item), priv->button_box, event->x, event->y, &x, &y);
@@ -768,7 +764,7 @@ update_packing (MprisMenuItem *item)
 
   g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
 
-  priv = GET_PRIVATE (item);
+  priv = mpris_menu_item_get_instance_private (item);
 
   TRACE("entering");
 

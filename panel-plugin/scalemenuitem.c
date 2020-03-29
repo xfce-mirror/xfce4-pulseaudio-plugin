@@ -66,12 +66,8 @@ static guint signals[LAST_SIGNAL] = { 0 };
 
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-G_DEFINE_TYPE (ScaleMenuItem, scale_menu_item, GTK_TYPE_IMAGE_MENU_ITEM)
+G_DEFINE_TYPE_WITH_PRIVATE (ScaleMenuItem, scale_menu_item, GTK_TYPE_IMAGE_MENU_ITEM)
 G_GNUC_END_IGNORE_DEPRECATIONS
-
-
-
-#define GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), TYPE_SCALE_MENU_ITEM, ScaleMenuItemPrivate))
 
 
 
@@ -106,7 +102,7 @@ scale_menu_item_new_with_range (gdouble min,
 
   scale_item = SCALE_MENU_ITEM (g_object_new (TYPE_SCALE_MENU_ITEM, NULL));
 
-  priv = GET_PRIVATE (scale_item);
+  priv = scale_menu_item_get_instance_private (scale_item);
 
   /* Configure the menu item image */
   priv->image = gtk_image_new ();
@@ -159,7 +155,7 @@ scale_menu_item_get_value (ScaleMenuItem *item)
 
   g_return_val_if_fail (IS_SCALE_MENU_ITEM (item), 0.0);
 
-  priv = GET_PRIVATE (item);
+  priv = scale_menu_item_get_instance_private (item);
 
   return gtk_range_get_value (GTK_RANGE (priv->scale));
 }
@@ -174,7 +170,7 @@ scale_menu_item_set_value (ScaleMenuItem *item,
 
   g_return_if_fail (IS_SCALE_MENU_ITEM (item));
 
-  priv = GET_PRIVATE (item);
+  priv = scale_menu_item_get_instance_private (item);
 
   gtk_range_set_value (GTK_RANGE (priv->scale), value);
 }
@@ -188,7 +184,7 @@ scale_menu_item_get_muted (ScaleMenuItem *item)
 
   g_return_val_if_fail (IS_SCALE_MENU_ITEM (item), TRUE);
 
-  priv = GET_PRIVATE (item);
+  priv = scale_menu_item_get_instance_private (item);
 
   return !gtk_switch_get_active (GTK_SWITCH (priv->mute_toggle));
 }
@@ -203,7 +199,7 @@ scale_menu_item_set_muted (ScaleMenuItem *item,
 
   g_return_if_fail (IS_SCALE_MENU_ITEM (item));
 
-  priv = GET_PRIVATE (item);
+  priv = scale_menu_item_get_instance_private (item);
 
   gtk_switch_set_active (GTK_SWITCH (priv->mute_toggle), !muted);
 
@@ -220,7 +216,7 @@ scale_menu_item_set_base_icon_name (ScaleMenuItem *item,
 
   g_return_if_fail (IS_SCALE_MENU_ITEM (item));
 
-  priv = GET_PRIVATE (item);
+  priv = scale_menu_item_get_instance_private (item);
 
   if (priv->icon_name)
     g_free (priv->icon_name);
@@ -302,8 +298,6 @@ scale_menu_item_class_init (ScaleMenuItemClass *item_class)
                                     NULL, NULL,
                                     g_cclosure_marshal_VOID__VOID,
                                     G_TYPE_NONE, 0);
-
-  g_type_class_add_private (item_class, sizeof (ScaleMenuItemPrivate));
 }
 
 
@@ -313,7 +307,7 @@ scale_menu_item_init (ScaleMenuItem *self)
 {
   ScaleMenuItemPrivate *priv;
 
-  priv = GET_PRIVATE (self);
+  priv = scale_menu_item_get_instance_private (self);
 
   priv->scale = NULL;
   priv->image = NULL;
@@ -332,7 +326,7 @@ scale_menu_item_finalize (GObject *object)
   ScaleMenuItemPrivate *priv;
 
   self = SCALE_MENU_ITEM (object);
-  priv = GET_PRIVATE (self);
+  priv = scale_menu_item_get_instance_private (self);
 
   if (priv->icon_name)
     g_free (priv->icon_name);
@@ -351,7 +345,7 @@ scale_menu_item_finalize (GObject *object)
 static void
 scale_menu_item_update_icon (ScaleMenuItem *self)
 {
-  ScaleMenuItemPrivate *priv = GET_PRIVATE (self);
+  ScaleMenuItemPrivate *priv = scale_menu_item_get_instance_private (self);
   gchar                *icon_name = NULL;
   gdouble               value = gtk_range_get_value (GTK_RANGE (priv->scale));
 
@@ -397,7 +391,7 @@ scale_menu_item_button_press_event (GtkWidget      *item,
 
   g_return_val_if_fail (IS_SCALE_MENU_ITEM (item), FALSE);
 
-  priv = GET_PRIVATE (item);
+  priv = scale_menu_item_get_instance_private (SCALE_MENU_ITEM (item));
 
   gtk_widget_get_allocation (priv->mute_toggle, &alloc);
   gtk_widget_translate_coordinates (GTK_WIDGET (item), priv->mute_toggle, event->x, event->y, &x, &y);
@@ -436,7 +430,7 @@ scale_menu_item_button_release_event (GtkWidget      *item,
 
   g_return_val_if_fail (IS_SCALE_MENU_ITEM (item), FALSE);
 
-  priv = GET_PRIVATE (item);
+  priv = scale_menu_item_get_instance_private (SCALE_MENU_ITEM (item));
 
   gtk_widget_get_allocation (priv->mute_toggle, &alloc);
   gtk_widget_translate_coordinates (GTK_WIDGET (item), priv->mute_toggle, event->x, event->y, &x, &y);
@@ -476,7 +470,7 @@ scale_menu_item_motion_notify_event (GtkWidget      *item,
 
   g_return_val_if_fail (IS_SCALE_MENU_ITEM (item), FALSE);
 
-  priv = GET_PRIVATE (item);
+  priv = scale_menu_item_get_instance_private (SCALE_MENU_ITEM (item));
   scale = priv->scale;
 
   gtk_widget_get_allocation (priv->scale, &alloc);
@@ -501,7 +495,7 @@ menu_hidden (GtkWidget     *menu,
   g_return_if_fail (IS_SCALE_MENU_ITEM (scale));
   g_return_if_fail (GTK_IS_MENU (menu));
 
-  priv = GET_PRIVATE (scale);
+  priv = scale_menu_item_get_instance_private (scale);
 
   if (priv->grabbed)
     {
