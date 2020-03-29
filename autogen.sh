@@ -2,7 +2,7 @@
 #
 # $Id: autogen.sh 2398 2007-01-17 17:47:38Z nick $
 #
-# Copyright (c) 2002-2007
+# Copyright (c) 2002-2020
 #         The Xfce development team. All rights reserved.
 #
 

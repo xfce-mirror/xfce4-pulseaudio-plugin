@@ -227,6 +227,7 @@ pulseaudio_plugin_show_about (XfcePanelPlugin *plugin)
       "Steve Dodier-Lazaro <sidi@xfce.org>",
       "Viktor Odintsev <zakhams@gmail.com>",
       "Matthieu Mota <matthieumota@gmail.com>",
+      "Sean Davis <bluesabre@xfce.org>",
       NULL
     };
 
@@ -240,7 +241,7 @@ pulseaudio_plugin_show_about (XfcePanelPlugin *plugin)
                          "program-name", PACKAGE_NAME,
                          "comments",     _("Adjust the audio volume of the PulseAudio sound system"),
                          "website",      "https://docs.xfce.org/panel-plugins/xfce4-pulseaudio-plugin",
-                         "copyright",    _("Copyright \xc2\xa9 2014-2017 Andrzej Radecki et al.\n"),
+                         "copyright",    _("Copyright \xc2\xa9 2014-2020 Andrzej Radecki et al.\n"),
                          "authors",      auth,
                          NULL);
 
