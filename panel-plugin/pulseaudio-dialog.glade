@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.1 -->
+<!-- Generated with glade 3.22.2 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
   <requires lib="libxfce4ui-2" version="4.11"/>
@@ -15,8 +15,8 @@
   </object>
   <object class="GtkListStore" id="liststore1">
     <columns>
-      <!-- column-name icon_name -->
-      <column type="gchararray"/>
+      <!-- column-name pixbuf -->
+      <column type="GdkPixbuf"/>
       <!-- column-name player -->
       <column type="gchararray"/>
       <!-- column-name label -->
@@ -414,7 +414,7 @@
                                         <child>
                                           <object class="GtkCellRendererPixbuf" id="col_icon_renderer"/>
                                           <attributes>
-                                            <attribute name="icon-name">0</attribute>
+                                            <attribute name="pixbuf">0</attribute>
                                           </attributes>
                                         </child>
                                       </object>

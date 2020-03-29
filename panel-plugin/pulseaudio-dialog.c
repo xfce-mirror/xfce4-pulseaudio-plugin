@@ -44,6 +44,8 @@
 #include "pulseaudio-dialog_ui.h"
 #include "pulseaudio-mpris.h"
 
+#include <exo/exo.h>
+
 #define PLUGIN_WEBSITE  "https://docs.xfce.org/apps/pulseaudio-plugin/start"
 
 #ifdef LIBXFCE4UI_CHECK_VERSION
@@ -298,11 +300,32 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
               gchar *name = NULL;
               gchar *icon_name = NULL;
               gchar *full_path = NULL;
+              GdkPixbuf *buf = NULL;
 
               if (pulseaudio_mpris_get_player_summary (players[i], &name, &icon_name, &full_path)) {
+                if (g_file_test (icon_name, G_FILE_TEST_EXISTS) && !g_file_test (icon_name, G_FILE_TEST_IS_DIR)) {
+                  buf = exo_gdk_pixbuf_new_from_file_at_max_size (icon_name, 16, 16, TRUE, NULL);
+                }
+
+                if (!buf) {
+                  GtkIconTheme *icon_theme = gtk_icon_theme_get_default ();
+                  buf = gtk_icon_theme_load_icon (icon_theme,
+                                                  icon_name,
+                                                  16,
+                                                  GTK_ICON_LOOKUP_FORCE_SIZE,
+                                                  NULL);
+                  if (!buf) {
+                    buf = gtk_icon_theme_load_icon (icon_theme,
+                                                  "audio-player",
+                                                  16,
+                                                  GTK_ICON_LOOKUP_FORCE_SIZE,
+                                                  NULL);
+                  }
+                }
+
                 gtk_list_store_append(liststore, &iter);
                 gtk_list_store_set(liststore, &iter,
-                                 0, icon_name,
+                                 0, buf,
                                  1, players[i],
                                  2, name,
                                  3, pulseaudio_config_player_blacklist_lookup(dialog->config, players[i]),
