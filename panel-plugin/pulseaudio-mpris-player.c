@@ -53,12 +53,14 @@ struct _PulseaudioMprisPlayer
 
   gchar            *title;
   gchar            *artist;
+  gchar            *full_path;
 
   gboolean          can_go_next;
   gboolean          can_go_previous;
   gboolean          can_pause;
   gboolean          can_play;
   gboolean          can_raise;
+  gboolean          can_launch;
 
   PlaybackStatus    playback_status;
 
@@ -425,6 +427,12 @@ pulseaudio_mpris_player_parse_playback_status (PulseaudioMprisPlayer *player,
 
 
 static void
+pulseaudio_mpris_player_set_details_from_desktop (PulseaudioMprisPlayer *player,
+                                                  const gchar           *player_name);
+
+
+
+static void
 pulseaudio_mpris_player_parse_player_properties (PulseaudioMprisPlayer *player,
                                                  GVariant              *properties)
 {
@@ -490,6 +498,7 @@ pulseaudio_mpris_player_parse_media_player_properties (PulseaudioMprisPlayer *pl
   GVariantIter  iter;
   GVariant     *value;
   const gchar  *key;
+  const gchar  *filename = NULL;
 
   g_variant_iter_init (&iter, properties);
 
@@ -498,6 +507,11 @@ pulseaudio_mpris_player_parse_media_player_properties (PulseaudioMprisPlayer *pl
       if (0 == g_ascii_strcasecmp (key, "CanRaise"))
         {
           player->can_raise = g_variant_get_boolean(value);
+        }
+      else if (0 == g_ascii_strcasecmp (key, "DesktopEntry"))
+        {
+          filename = g_variant_get_string(value, NULL);
+          pulseaudio_mpris_player_set_details_from_desktop (player, filename);
         }
     }
 }
@@ -724,8 +738,10 @@ pulseaudio_mpris_player_set_details_from_desktop (PulseaudioMprisPlayer *player,
       player->icon_name = g_strdup ("applications-multimedia");
     }
 
-  if (full_path != NULL)
+  if (full_path != NULL) {
+    player->full_path = g_strdup (full_path);
     g_free (full_path);
+  }
 
   g_key_file_free (key_file);
   g_free (file);
@@ -771,6 +787,8 @@ pulseaudio_mpris_player_set_player (PulseaudioMprisPlayer *player,
 
   pulseaudio_mpris_player_set_details_from_desktop (player, player_name);
   pulseaudio_mpris_player_dbus_connect (player);
+
+  player->can_launch = player->full_path != NULL;
 }
 
 
@@ -905,6 +923,14 @@ pulseaudio_mpris_player_get_artist (PulseaudioMprisPlayer *player)
 
 
 
+const gchar *
+pulseaudio_mpris_player_get_full_path (PulseaudioMprisPlayer *player)
+{
+  return player->full_path;
+}
+
+
+
 gboolean
 pulseaudio_mpris_player_is_connected (PulseaudioMprisPlayer *player)
 {
@@ -970,6 +996,14 @@ pulseaudio_mpris_player_can_raise (PulseaudioMprisPlayer *player)
 
 
 gboolean
+pulseaudio_mpris_player_can_launch (PulseaudioMprisPlayer *player)
+{
+  return player->can_launch;
+}
+
+
+
+gboolean
 pulseaudio_mpris_player_is_equal (PulseaudioMprisPlayer *a,
                                   PulseaudioMprisPlayer *b)
 {
@@ -990,6 +1024,7 @@ pulseaudio_mpris_player_init (PulseaudioMprisPlayer *player)
 
   player->title             = NULL;
   player->artist            = NULL;
+  player->full_path         = NULL;
 
   player->can_go_next       = FALSE;
   player->can_go_previous   = FALSE;
@@ -1020,6 +1055,7 @@ pulseaudio_mpris_player_finalize (GObject *object)
 
   player->title             = NULL;
   player->artist            = NULL;
+  player->full_path         = NULL;
 
   player->can_go_next       = FALSE;
   player->can_go_previous   = FALSE;

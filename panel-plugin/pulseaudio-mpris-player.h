@@ -57,6 +57,7 @@ const gchar            *pulseaudio_mpris_player_get_player_title   (PulseaudioMp
 const gchar            *pulseaudio_mpris_player_get_icon_name      (PulseaudioMprisPlayer *player);
 const gchar            *pulseaudio_mpris_player_get_title          (PulseaudioMprisPlayer *player);
 const gchar            *pulseaudio_mpris_player_get_artist         (PulseaudioMprisPlayer *player);
+const gchar            *pulseaudio_mpris_player_get_full_path      (PulseaudioMprisPlayer *player);
 
 gboolean                pulseaudio_mpris_player_is_connected       (PulseaudioMprisPlayer *player);
 gboolean                pulseaudio_mpris_player_is_playing         (PulseaudioMprisPlayer *player);
@@ -67,6 +68,7 @@ gboolean                pulseaudio_mpris_player_can_pause          (PulseaudioMp
 gboolean                pulseaudio_mpris_player_can_go_previous    (PulseaudioMprisPlayer *player);
 gboolean                pulseaudio_mpris_player_can_go_next        (PulseaudioMprisPlayer *player);
 gboolean                pulseaudio_mpris_player_can_raise          (PulseaudioMprisPlayer *player);
+gboolean                pulseaudio_mpris_player_can_launch         (PulseaudioMprisPlayer *player);
 
 gboolean                pulseaudio_mpris_player_is_equal           (PulseaudioMprisPlayer *a,
                                                                     PulseaudioMprisPlayer *b);
