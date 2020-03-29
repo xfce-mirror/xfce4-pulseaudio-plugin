@@ -1,3 +1,20 @@
+0.4.3
+=====
+- Build now requires exo-2 0.11 or newer
+- Fixed various memory leaks and warnings
+- Removed unused dbus-glib include (Xfce #15343)
+- Replaced g_type_class_add_private deprecations
+- Updated copyright years
+- Updated URLs from goodies.x.o to docs.x.o (Xfce #16173)
+- MPRIS: Added support for filename icons (Xfce #14329)
+- MPRIS: Added support for single-string variants on xesam:artist
+- MPRIS: Added support for the DesktopEntry property (Xfce #14412)
+- MPRIS: Added support for the plasma-browser-integration plugin (Xfce #15487)
+- MPRIS: Added title/artist conditioning from the track title
+- Preferences: Fixed icon rendering known players
+- Translation Updates:
+  Albanian, Belarusian, Chinese (Taiwan), Galician, Interlingue, Slovenian
+
 0.4.2
 =====
 - Preferences: Improve spacing
