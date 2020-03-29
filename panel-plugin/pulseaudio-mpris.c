@@ -353,6 +353,43 @@ pulseaudio_mpris_get_player_snapshot (PulseaudioMpris  *mpris,
 
 
 
+static gboolean
+pulseaudio_mpris_get_player_summary_from_desktop (const gchar  *player_id,
+                                                  gchar       **name,
+                                                  gchar       **icon_name,
+                                                  gchar       **full_path)
+{
+  GKeyFile  *key_file;
+  gchar     *file;
+  gchar     *filename;
+  gchar     *path;
+
+  filename = find_desktop_entry (player_id);
+  if (filename == NULL)
+    {
+      return FALSE;
+    }
+
+  file = g_strconcat("applications/", filename, NULL);
+  g_free (filename);
+
+  key_file = g_key_file_new();
+  if (g_key_file_load_from_data_dirs (key_file, file, &path, G_KEY_FILE_NONE, NULL))
+    {
+      *name = g_key_file_get_string (key_file, "Desktop Entry", "Name", NULL);
+      *icon_name = g_key_file_get_string (key_file, "Desktop Entry", "Icon", NULL);
+      *full_path = g_strdup (path);
+      g_free (path);
+    }
+
+  g_key_file_free (key_file);
+  g_free (file);
+
+  return TRUE;
+}
+
+
+
 gboolean
 pulseaudio_mpris_get_player_summary (const gchar  *player_id,
                                      gchar       **name,
@@ -363,7 +400,7 @@ pulseaudio_mpris_get_player_summary (const gchar  *player_id,
   player = PULSEAUDIO_MPRIS_PLAYER (g_hash_table_lookup (mpris_instance->players, player_id));
 
   if (player == NULL)
-    return FALSE;
+    return pulseaudio_mpris_get_player_summary_from_desktop (player_id, name, icon_name, full_path);
 
   *name = g_strdup (pulseaudio_mpris_player_get_player_title (player));
   *icon_name = g_strdup (pulseaudio_mpris_player_get_icon_name (player));
