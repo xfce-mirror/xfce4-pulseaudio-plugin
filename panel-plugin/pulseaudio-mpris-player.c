@@ -172,19 +172,26 @@ pulseaudio_mpris_player_parse_metadata (PulseaudioMprisPlayer *player,
         }
       else if (0 == g_ascii_strcasecmp (key, "xesam:artist"))
         {
-          artists = g_variant_dup_strv (value, NULL);
-          if (artists != NULL)
+          if (g_variant_is_of_type (value, G_VARIANT_TYPE_STRING))
             {
-              if (g_strv_length (artists) > 0)
+              player->artist = g_strdup (g_variant_get_string(value, NULL));
+            }
+          else
+            {
+              artists = g_variant_dup_strv (value, NULL);
+              if (artists != NULL)
                 {
-                  player->artist = g_strdup (artists[0]);
-                }
-              else
-                {
-                  player->artist = g_strdup ("");
-                }
+                  if (g_strv_length (artists) > 0)
+                    {
+                      player->artist = g_strdup (artists[0]);
+                    }
+                  else
+                    {
+                      player->artist = g_strdup ("");
+                    }
 
-              g_strfreev (artists);
+                  g_strfreev (artists);
+                }
             }
         }
     }
