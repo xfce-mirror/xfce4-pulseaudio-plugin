@@ -301,27 +301,33 @@ pulseaudio_menu_volume_changed (PulseaudioMenu   *menu,
   g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
   g_return_if_fail (IS_PULSEAUDIO_VOLUME (volume));
 
-  g_signal_handlers_block_by_func (G_OBJECT (menu->output_scale),
-                                   pulseaudio_menu_mute_output_item_toggled,
-                                   menu);
-  scale_menu_item_set_muted (SCALE_MENU_ITEM (menu->output_scale),
-                                  pulseaudio_volume_get_muted (volume));
-  g_signal_handlers_unblock_by_func (G_OBJECT (menu->output_scale),
-                                     pulseaudio_menu_mute_output_item_toggled,
-                                     menu);
+  if (menu->output_scale != NULL)
+    {
+      g_signal_handlers_block_by_func (G_OBJECT (menu->output_scale),
+                                       pulseaudio_menu_mute_output_item_toggled,
+                                       menu);
+      scale_menu_item_set_muted (SCALE_MENU_ITEM (menu->output_scale),
+                                 pulseaudio_volume_get_muted (volume));
+      g_signal_handlers_unblock_by_func (G_OBJECT (menu->output_scale),
+                                         pulseaudio_menu_mute_output_item_toggled,
+                                         menu);
+      scale_menu_item_set_value (SCALE_MENU_ITEM (menu->output_scale),
+                                 pulseaudio_volume_get_volume (menu->volume) * 100.0);
+    }
 
-  scale_menu_item_set_value (SCALE_MENU_ITEM (menu->output_scale), pulseaudio_volume_get_volume (menu->volume) * 100.0);
-
-  g_signal_handlers_block_by_func (G_OBJECT (menu->input_scale),
-                                   pulseaudio_menu_mute_input_item_toggled,
-                                   menu);
-  scale_menu_item_set_muted (SCALE_MENU_ITEM (menu->input_scale),
-                                  pulseaudio_volume_get_muted_mic (volume));
-  g_signal_handlers_unblock_by_func (G_OBJECT (menu->input_scale),
-                                     pulseaudio_menu_mute_input_item_toggled,
-                                     menu);
-
-  scale_menu_item_set_value (SCALE_MENU_ITEM (menu->input_scale), pulseaudio_volume_get_volume_mic (menu->volume) * 100.0);
+  if (menu->input_scale != NULL)
+    {
+      g_signal_handlers_block_by_func (G_OBJECT (menu->input_scale),
+                                       pulseaudio_menu_mute_input_item_toggled,
+                                       menu);
+      scale_menu_item_set_muted (SCALE_MENU_ITEM (menu->input_scale),
+                                 pulseaudio_volume_get_muted_mic (volume));
+      g_signal_handlers_unblock_by_func (G_OBJECT (menu->input_scale),
+                                         pulseaudio_menu_mute_input_item_toggled,
+                                         menu);
+      scale_menu_item_set_value (SCALE_MENU_ITEM (menu->input_scale),
+                                 pulseaudio_volume_get_volume_mic (menu->volume) * 100.0);
+    }
 }
 
 

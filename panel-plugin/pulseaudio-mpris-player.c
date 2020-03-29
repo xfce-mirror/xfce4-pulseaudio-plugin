@@ -732,14 +732,13 @@ static gchar *
 find_desktop_entry (const gchar *player_name)
 {
   GKeyFile  *key_file;
-  gchar     *file;
+  gchar     *file = NULL;
   gchar     *filename = NULL;
-  gchar     *full_path;
 
   file = g_strconcat ("applications/", player_name, ".desktop", NULL);
 
   key_file = g_key_file_new();
-  if (g_key_file_load_from_data_dirs (key_file, file, &full_path, G_KEY_FILE_NONE, NULL))
+  if (g_key_file_load_from_data_dirs (key_file, file, NULL, G_KEY_FILE_NONE, NULL))
     {
       filename = g_strconcat (player_name, ".desktop", NULL);
     }
@@ -764,7 +763,9 @@ find_desktop_entry (const gchar *player_name)
     }
 
   g_key_file_free (key_file);
-  g_free (file);
+
+  if (file)
+    g_free (file);
 
   return filename;
 }
