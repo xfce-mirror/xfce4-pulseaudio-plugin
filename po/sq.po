@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Besnik <besnik@programeshqip.org>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-25 18:32+0100\n"
-"PO-Revision-Date: 2020-01-29 12:30+0000\n"
+"POT-Creation-Date: 2020-03-29 18:32+0200\n"
+"PO-Revision-Date: 2020-03-30 10:37+0000\n"
 "Last-Translator: Besnik <besnik@programeshqip.org>\n"
 "Language-Team: Albanian (http://www.transifex.com/xfce/xfce-panel-plugins/language/sq/)\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +23,7 @@ msgid "PulseAudio Plugin"
 msgstr "Shtojcë për PulseAudio"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:241
+#: ../panel-plugin/pulseaudio-plugin.c:242
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "Rregulloni volumin e zërit të sistemit PulseAudio të tingujve"
 
@@ -111,11 +112,11 @@ msgstr "Lojtës Media të Ditur"
 msgid "Media Players"
 msgstr "Lojtës Media"
 
-#: ../panel-plugin/pulseaudio-plugin.c:243
-msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
-msgstr "Të drejta kopjimi © 2014-2017 Andrzej Radecki et al.\n"
+#: ../panel-plugin/pulseaudio-plugin.c:244
+msgid "Copyright © 2014-2020 Andrzej Radecki et al.\n"
+msgstr "Të drejta kopjimi © 2014-2020 Andrzej Radecki et al.\n"
 
-#: ../panel-plugin/pulseaudio-dialog.c:139
+#: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:264
 #, c-format
 msgid ""
@@ -124,7 +125,7 @@ msgid ""
 "%s"
 msgstr "<big><b>S’u arrit të përmbushej urdhri \"%s\".</b></big>\n\n%s"
 
-#: ../panel-plugin/pulseaudio-dialog.c:142
+#: ../panel-plugin/pulseaudio-dialog.c:145
 #: ../panel-plugin/pulseaudio-menu.c:267
 msgid "Error"
 msgstr "Gabim"
@@ -145,20 +146,20 @@ msgstr "Volumi %d%% (heshtuar)"
 msgid "Volume %d%%"
 msgstr "Volumi %d%%"
 
-#: ../panel-plugin/pulseaudio-menu.c:501
+#: ../panel-plugin/pulseaudio-menu.c:507
 msgid "Output"
 msgstr "Dalje"
 
-#: ../panel-plugin/pulseaudio-menu.c:540
+#: ../panel-plugin/pulseaudio-menu.c:546
 msgid "Input"
 msgstr "Hyrje"
 
-#: ../panel-plugin/pulseaudio-menu.c:628
+#: ../panel-plugin/pulseaudio-menu.c:634
 msgid "Choose Playlist"
 msgstr "Zgjidhni Luajlistë"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:665
+#: ../panel-plugin/pulseaudio-menu.c:671
 msgid "_Audio mixer..."
 msgstr "Përzierës _audio…"
 
@@ -172,7 +173,7 @@ msgstr "Volumi %d%c (heshtuar)"
 msgid "Volume %d%c"
 msgstr "Volumi %d%c"
 
-#: ../panel-plugin/mprismenuitem.c:373 ../panel-plugin/mprismenuitem.c:446
-#: ../panel-plugin/mprismenuitem.c:822
+#: ../panel-plugin/mprismenuitem.c:363 ../panel-plugin/mprismenuitem.c:436
+#: ../panel-plugin/mprismenuitem.c:810
 msgid "Not currently playing"
 msgstr "S’po luhet gjë"
