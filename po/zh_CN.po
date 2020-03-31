@@ -6,14 +6,14 @@
 # SamHX <samzh@outlook.com>, 2018
 # SamHX <samzh@outlook.com>, 2017
 # Cally Mal <zhouxiaobo.500@gmail.com>, 2017
-# 玉堂白鹤 <yjwork@qq.com>, 2015,2017-2018
+# 玉堂白鹤 <yjwork@qq.com>, 2015,2017-2018,2020
 # Mingcong Bai <jeffbai@aosc.xyz>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-25 18:32+0100\n"
-"PO-Revision-Date: 2018-03-13 04:17+0000\n"
+"POT-Creation-Date: 2020-03-29 18:32+0200\n"
+"PO-Revision-Date: 2020-03-31 01:14+0000\n"
 "Last-Translator: 玉堂白鹤 <yjwork@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/xfce/xfce-panel-plugins/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -27,7 +27,7 @@ msgid "PulseAudio Plugin"
 msgstr "PulseAudio 插件"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:241
+#: ../panel-plugin/pulseaudio-plugin.c:242
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "调节 PulseAudio 声音系统的音量"
 
@@ -116,11 +116,11 @@ msgstr "已知媒体播放器"
 msgid "Media Players"
 msgstr "媒体播放器"
 
-#: ../panel-plugin/pulseaudio-plugin.c:243
-msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
-msgstr "版权所有  © 2014-2017 Andrzej Radecki et al.\n"
+#: ../panel-plugin/pulseaudio-plugin.c:244
+msgid "Copyright © 2014-2020 Andrzej Radecki et al.\n"
+msgstr "版权所有 © 2014-2020 Andrzej Radecki et al.\n"
 
-#: ../panel-plugin/pulseaudio-dialog.c:139
+#: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:264
 #, c-format
 msgid ""
@@ -129,7 +129,7 @@ msgid ""
 "%s"
 msgstr "<big><b>运行命令 \"%s\" 失败。</b></big>\n\n%s"
 
-#: ../panel-plugin/pulseaudio-dialog.c:142
+#: ../panel-plugin/pulseaudio-dialog.c:145
 #: ../panel-plugin/pulseaudio-menu.c:267
 msgid "Error"
 msgstr "错误"
@@ -150,20 +150,20 @@ msgstr "%d%% 音量（静音）"
 msgid "Volume %d%%"
 msgstr "%d%% 音量"
 
-#: ../panel-plugin/pulseaudio-menu.c:501
+#: ../panel-plugin/pulseaudio-menu.c:507
 msgid "Output"
 msgstr "输出"
 
-#: ../panel-plugin/pulseaudio-menu.c:540
+#: ../panel-plugin/pulseaudio-menu.c:546
 msgid "Input"
 msgstr "输入"
 
-#: ../panel-plugin/pulseaudio-menu.c:628
+#: ../panel-plugin/pulseaudio-menu.c:634
 msgid "Choose Playlist"
 msgstr "选择播放列表"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:665
+#: ../panel-plugin/pulseaudio-menu.c:671
 msgid "_Audio mixer..."
 msgstr "混音器 (_A) ..."
 
@@ -177,7 +177,7 @@ msgstr "%d%c 音量（静音）"
 msgid "Volume %d%c"
 msgstr "%d%c 音量"
 
-#: ../panel-plugin/mprismenuitem.c:373 ../panel-plugin/mprismenuitem.c:446
-#: ../panel-plugin/mprismenuitem.c:822
+#: ../panel-plugin/mprismenuitem.c:363 ../panel-plugin/mprismenuitem.c:436
+#: ../panel-plugin/mprismenuitem.c:810
 msgid "Not currently playing"
 msgstr "当前没有播放"
