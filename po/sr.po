@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-25 18:32+0100\n"
-"PO-Revision-Date: 2018-03-01 08:53+0000\n"
+"POT-Creation-Date: 2020-03-29 18:32+0200\n"
+"PO-Revision-Date: 2020-04-05 15:34+0000\n"
 "Last-Translator: Саша Петровић <salepetronije@gmail.com>\n"
 "Language-Team: Serbian (http://www.transifex.com/xfce/xfce-panel-plugins/language/sr/)\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgid "PulseAudio Plugin"
 msgstr "Прикључак звука Пулсаудија"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:241
+#: ../panel-plugin/pulseaudio-plugin.c:242
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "Подесите гласноћу звучног система Пулсаудија"
 
@@ -112,11 +112,11 @@ msgstr "Познати извођачи звука"
 msgid "Media Players"
 msgstr "Извођачи садржаја"
 
-#: ../panel-plugin/pulseaudio-plugin.c:243
-msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
-msgstr "Права умножавања © 2014-2017 Андреј Радецки (Andrzej Radecki et al).\n"
+#: ../panel-plugin/pulseaudio-plugin.c:244
+msgid "Copyright © 2014-2020 Andrzej Radecki et al.\n"
+msgstr "Copyright © 2014-2020 Andrzej Radecki et al.\n"
 
-#: ../panel-plugin/pulseaudio-dialog.c:139
+#: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:264
 #, c-format
 msgid ""
@@ -125,7 +125,7 @@ msgid ""
 "%s"
 msgstr "<big><b>Нисам успео да извршим наредбу „%s“.</b></big>\n\n%s"
 
-#: ../panel-plugin/pulseaudio-dialog.c:142
+#: ../panel-plugin/pulseaudio-dialog.c:145
 #: ../panel-plugin/pulseaudio-menu.c:267
 msgid "Error"
 msgstr "Грeшкa"
@@ -146,20 +146,20 @@ msgstr "Гласноћа је %d%% (умукнуто)"
 msgid "Volume %d%%"
 msgstr "Гласноћа је %d%%"
 
-#: ../panel-plugin/pulseaudio-menu.c:501
+#: ../panel-plugin/pulseaudio-menu.c:507
 msgid "Output"
 msgstr "Излаз"
 
-#: ../panel-plugin/pulseaudio-menu.c:540
+#: ../panel-plugin/pulseaudio-menu.c:546
 msgid "Input"
 msgstr "Улаз"
 
-#: ../panel-plugin/pulseaudio-menu.c:628
+#: ../panel-plugin/pulseaudio-menu.c:634
 msgid "Choose Playlist"
 msgstr "Изаберите списак за извођење"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:665
+#: ../panel-plugin/pulseaudio-menu.c:671
 msgid "_Audio mixer..."
 msgstr "Мешач _звука..."
 
@@ -173,7 +173,7 @@ msgstr "Гласноћа је %d%c (умукнуто)"
 msgid "Volume %d%c"
 msgstr "Гласноћа је %d%c"
 
-#: ../panel-plugin/mprismenuitem.c:373 ../panel-plugin/mprismenuitem.c:446
-#: ../panel-plugin/mprismenuitem.c:822
+#: ../panel-plugin/mprismenuitem.c:363 ../panel-plugin/mprismenuitem.c:436
+#: ../panel-plugin/mprismenuitem.c:810
 msgid "Not currently playing"
 msgstr "Тренутно се не изводи"
