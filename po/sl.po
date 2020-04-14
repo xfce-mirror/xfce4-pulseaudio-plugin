@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-25 18:32+0100\n"
-"PO-Revision-Date: 2019-11-03 19:40+0000\n"
-"Last-Translator: Arnold Marko <arnold.marko@gmail.com>\n"
+"POT-Creation-Date: 2020-03-29 18:32+0200\n"
+"PO-Revision-Date: 2020-03-29 16:32+0000\n"
+"Last-Translator: Xfce Bot <transifex@xfce.org>\n"
 "Language-Team: Slovenian (http://www.transifex.com/xfce/xfce-panel-plugins/language/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,7 +24,7 @@ msgid "PulseAudio Plugin"
 msgstr "PulseAudio vtičnik"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:241
+#: ../panel-plugin/pulseaudio-plugin.c:242
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "Prilagodi glasnost PulseAudio zvočnega sistema"
 
@@ -113,11 +113,11 @@ msgstr "Znani medijski predvajalniki"
 msgid "Media Players"
 msgstr "Predvajalniki"
 
-#: ../panel-plugin/pulseaudio-plugin.c:243
-msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
-msgstr "Copyright © 2014-2017 Andrzej Radecki et al.\n"
+#: ../panel-plugin/pulseaudio-plugin.c:244
+msgid "Copyright © 2014-2020 Andrzej Radecki et al.\n"
+msgstr ""
 
-#: ../panel-plugin/pulseaudio-dialog.c:139
+#: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:264
 #, c-format
 msgid ""
@@ -126,7 +126,7 @@ msgid ""
 "%s"
 msgstr "<big><b>Ni mogoče zagnati ukaza \"%s\".</b></big>\n\n%s"
 
-#: ../panel-plugin/pulseaudio-dialog.c:142
+#: ../panel-plugin/pulseaudio-dialog.c:145
 #: ../panel-plugin/pulseaudio-menu.c:267
 msgid "Error"
 msgstr "Napaka"
@@ -147,20 +147,20 @@ msgstr "Glasnost %d%% (utišano)"
 msgid "Volume %d%%"
 msgstr "Glasnost %d%%"
 
-#: ../panel-plugin/pulseaudio-menu.c:501
+#: ../panel-plugin/pulseaudio-menu.c:507
 msgid "Output"
 msgstr "Izhod"
 
-#: ../panel-plugin/pulseaudio-menu.c:540
+#: ../panel-plugin/pulseaudio-menu.c:546
 msgid "Input"
 msgstr "Vhod"
 
-#: ../panel-plugin/pulseaudio-menu.c:628
+#: ../panel-plugin/pulseaudio-menu.c:634
 msgid "Choose Playlist"
 msgstr "Izberi seznam predvajanja"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:665
+#: ../panel-plugin/pulseaudio-menu.c:671
 msgid "_Audio mixer..."
 msgstr "Meš_alnik zvoka"
 
@@ -174,7 +174,7 @@ msgstr "Glasnost %d%c (utišano)"
 msgid "Volume %d%c"
 msgstr "Glasnost %d%c"
 
-#: ../panel-plugin/mprismenuitem.c:373 ../panel-plugin/mprismenuitem.c:446
-#: ../panel-plugin/mprismenuitem.c:822
+#: ../panel-plugin/mprismenuitem.c:363 ../panel-plugin/mprismenuitem.c:436
+#: ../panel-plugin/mprismenuitem.c:810
 msgid "Not currently playing"
 msgstr "Trenutno ne predvaja"
