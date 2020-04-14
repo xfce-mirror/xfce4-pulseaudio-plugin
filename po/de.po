@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Andreas Eitel <github-aneitel@online.de>, 2020
 # Tobias Bannert <tobannert@gmail.com>, 2016-2017
 # Vinzenz Vietzke <vinz@vinzv.de>, 2017-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-25 18:32+0100\n"
-"PO-Revision-Date: 2018-04-30 22:13+0000\n"
-"Last-Translator: Vinzenz Vietzke <vinz@vinzv.de>\n"
+"POT-Creation-Date: 2020-03-29 18:32+0200\n"
+"PO-Revision-Date: 2020-03-29 17:56+0000\n"
+"Last-Translator: Andreas Eitel <github-aneitel@online.de>\n"
 "Language-Team: German (http://www.transifex.com/xfce/xfce-panel-plugins/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,7 +25,7 @@ msgid "PulseAudio Plugin"
 msgstr "PulseAudio-Modul"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:241
+#: ../panel-plugin/pulseaudio-plugin.c:242
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "Die Lautstärke des PulseAudio-Klangsystems anpassen"
 
@@ -113,11 +114,11 @@ msgstr "Bekannte Medienspieler"
 msgid "Media Players"
 msgstr "Medienspieler"
 
-#: ../panel-plugin/pulseaudio-plugin.c:243
-msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
-msgstr "Urheberrecht © 2014-2017 Andrzej Radecki et al.\n"
+#: ../panel-plugin/pulseaudio-plugin.c:244
+msgid "Copyright © 2014-2020 Andrzej Radecki et al.\n"
+msgstr "Urheberrecht © 2014-2020 Andrzej Radecki et al.\n"
 
-#: ../panel-plugin/pulseaudio-dialog.c:139
+#: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:264
 #, c-format
 msgid ""
@@ -126,7 +127,7 @@ msgid ""
 "%s"
 msgstr "<big><b>Ausführen von Befehl »%s« ist fehlgeschlagen.</b></big>\n\n%s"
 
-#: ../panel-plugin/pulseaudio-dialog.c:142
+#: ../panel-plugin/pulseaudio-dialog.c:145
 #: ../panel-plugin/pulseaudio-menu.c:267
 msgid "Error"
 msgstr "Fehler"
@@ -147,20 +148,20 @@ msgstr "Lautstärke %d%% (Stumm)"
 msgid "Volume %d%%"
 msgstr "Lautstärke %d%%"
 
-#: ../panel-plugin/pulseaudio-menu.c:501
+#: ../panel-plugin/pulseaudio-menu.c:507
 msgid "Output"
 msgstr "Ausgabe"
 
-#: ../panel-plugin/pulseaudio-menu.c:540
+#: ../panel-plugin/pulseaudio-menu.c:546
 msgid "Input"
 msgstr "Eingabe"
 
-#: ../panel-plugin/pulseaudio-menu.c:628
+#: ../panel-plugin/pulseaudio-menu.c:634
 msgid "Choose Playlist"
 msgstr "Wiedergabeliste wählen"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:665
+#: ../panel-plugin/pulseaudio-menu.c:671
 msgid "_Audio mixer..."
 msgstr "To_nmischer …"
 
@@ -174,7 +175,7 @@ msgstr "Lautstärke %d%c (Stumm)"
 msgid "Volume %d%c"
 msgstr "Lautstärke %d%c"
 
-#: ../panel-plugin/mprismenuitem.c:373 ../panel-plugin/mprismenuitem.c:446
-#: ../panel-plugin/mprismenuitem.c:822
+#: ../panel-plugin/mprismenuitem.c:363 ../panel-plugin/mprismenuitem.c:436
+#: ../panel-plugin/mprismenuitem.c:810
 msgid "Not currently playing"
 msgstr "Aktuell keine Wiedergabe"
