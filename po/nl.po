@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Pjotr <pjotrvertaalt@gmail.com>, 2015,2017-2018
+# Pjotr <pjotrvertaalt@gmail.com>, 2015,2017-2018,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-25 18:32+0100\n"
-"PO-Revision-Date: 2018-02-26 21:22+0000\n"
+"POT-Creation-Date: 2020-03-29 18:32+0200\n"
+"PO-Revision-Date: 2020-03-29 19:33+0000\n"
 "Last-Translator: Pjotr <pjotrvertaalt@gmail.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/xfce/xfce-panel-plugins/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgid "PulseAudio Plugin"
 msgstr "Invoegsel voor PulseAudio"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:241
+#: ../panel-plugin/pulseaudio-plugin.c:242
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "Stel het geluidsvolume bij van het geluidssysteem van PulseAudio"
 
@@ -112,11 +112,11 @@ msgstr "Bekende mediaspelers"
 msgid "Media Players"
 msgstr "Mediaspelers"
 
-#: ../panel-plugin/pulseaudio-plugin.c:243
-msgid "Copyright © 2014-2017 Andrzej Radecki et al.\n"
-msgstr "Auteursrecht © 2014-2017 Andrzej Radecki et al.\n"
+#: ../panel-plugin/pulseaudio-plugin.c:244
+msgid "Copyright © 2014-2020 Andrzej Radecki et al.\n"
+msgstr "Auteursrecht © 2014-2020 Andrzej Radecki en anderen.\n"
 
-#: ../panel-plugin/pulseaudio-dialog.c:139
+#: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:264
 #, c-format
 msgid ""
@@ -125,7 +125,7 @@ msgid ""
 "%s"
 msgstr "<big><b>Kon opdracht '%s' niet uitvoeren.</b></big>\n\n%s"
 
-#: ../panel-plugin/pulseaudio-dialog.c:142
+#: ../panel-plugin/pulseaudio-dialog.c:145
 #: ../panel-plugin/pulseaudio-menu.c:267
 msgid "Error"
 msgstr "Fout"
@@ -146,20 +146,20 @@ msgstr "Volume %d%% (gedempt)"
 msgid "Volume %d%%"
 msgstr "Volume %d%%"
 
-#: ../panel-plugin/pulseaudio-menu.c:501
+#: ../panel-plugin/pulseaudio-menu.c:507
 msgid "Output"
 msgstr "Uitvoer"
 
-#: ../panel-plugin/pulseaudio-menu.c:540
+#: ../panel-plugin/pulseaudio-menu.c:546
 msgid "Input"
 msgstr "Invoer"
 
-#: ../panel-plugin/pulseaudio-menu.c:628
+#: ../panel-plugin/pulseaudio-menu.c:634
 msgid "Choose Playlist"
 msgstr "Kies speellijst"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:665
+#: ../panel-plugin/pulseaudio-menu.c:671
 msgid "_Audio mixer..."
 msgstr "_Geluidmengpaneel...."
 
@@ -173,7 +173,7 @@ msgstr "Volume %d%c (gedempt)"
 msgid "Volume %d%c"
 msgstr "Volume %d%c"
 
-#: ../panel-plugin/mprismenuitem.c:373 ../panel-plugin/mprismenuitem.c:446
-#: ../panel-plugin/mprismenuitem.c:822
+#: ../panel-plugin/mprismenuitem.c:363 ../panel-plugin/mprismenuitem.c:436
+#: ../panel-plugin/mprismenuitem.c:810
 msgid "Not currently playing"
 msgstr "Thans niet spelend"
