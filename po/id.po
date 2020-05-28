@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Triyan W. Nugroho <triyan.wn@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-29 18:32+0200\n"
-"PO-Revision-Date: 2020-03-29 16:32+0000\n"
-"Last-Translator: Xfce Bot <transifex@xfce.org>\n"
+"PO-Revision-Date: 2020-05-28 13:08+0000\n"
+"Last-Translator: Triyan W. Nugroho <triyan.wn@gmail.com>\n"
 "Language-Team: Indonesian (http://www.transifex.com/xfce/xfce-panel-plugins/language/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -69,7 +70,7 @@ msgstr "_Jalankan Mixer Audio..."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:10
 msgid "Sound Settings"
-msgstr ""
+msgstr "Pengaturan Suara"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:11
 msgid "General"
@@ -77,19 +78,19 @@ msgstr "Umum"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
 msgid "Control Playback of Media Players"
-msgstr ""
+msgstr "Kontrol Pemutaran Pemutar Media"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "Enable multimedia keys for playback control"
-msgstr ""
+msgstr "Aktifkan tombol multimedia untuk kontrol pemutaran"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "Enable experimental window focus support"
-msgstr ""
+msgstr "Aktifkan dukungan eksperimental fokus jendela"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:15
 msgid "Title"
-msgstr ""
+msgstr "Judul"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:16
 msgid "Hidden"
@@ -97,15 +98,15 @@ msgstr "Tersembunyi"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:17
 msgid "Clear Known Items"
-msgstr ""
+msgstr "Bersihkan Item yang Diketahui"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:18
 msgid "Please restart your panel for additional players to be displayed."
-msgstr ""
+msgstr "Nyalakan ulang panel anda untuk menampilkan pemutar tambahan."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:19
 msgid "Known Media Players"
-msgstr ""
+msgstr "Pemutar Media yang Diketahui"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:20
 msgid "Media Players"
@@ -155,7 +156,7 @@ msgstr "Masukan"
 
 #: ../panel-plugin/pulseaudio-menu.c:634
 msgid "Choose Playlist"
-msgstr ""
+msgstr "Pilih Senarai Putar"
 
 #. Audio mixers
 #: ../panel-plugin/pulseaudio-menu.c:671
