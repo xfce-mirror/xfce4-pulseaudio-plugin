@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Arman Harutyunyan <arman.harut468@gmail.com>, 2020
 # Real School <localization@ehayq.am>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-29 18:32+0200\n"
-"PO-Revision-Date: 2020-05-25 08:03+0000\n"
+"PO-Revision-Date: 2020-06-08 19:34+0000\n"
 "Last-Translator: Arman Harutyunyan <arman.harut468@gmail.com>\n"
 "Language-Team: Eastern Armenian (http://www.transifex.com/xfce/xfce-panel-plugins/language/hye/)\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +26,7 @@ msgstr "PulseAudio Ներդրաւն"
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
 #: ../panel-plugin/pulseaudio-plugin.c:242
 msgid "Adjust the audio volume of the PulseAudio sound system"
-msgstr "Յարմարեցնել ձայնային ծաւալը PulseAudio ձայնային համակարգից"
+msgstr "Յարմարեցնել ձայնային ծաւալը PulseAudio֊ի ձայնային համակարգից"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:1
 msgid "PulseAudio Panel Plugin"
@@ -40,7 +41,7 @@ msgid ""
 "Enables volume control using multimedia keys. Make sure no other application"
 " that listens to these keys (e.g. xfce4-volumed) is running in the "
 "background."
-msgstr "Թոյլատրում է ծաւալի կառավարումը բազմամեդիայ բանալիներ կիրառելով։ Համոզուեք, որ այլ յաւելուածներ, որոնք լսում են այդ բանալիները (աւրինակ xfce4-volumed) չեն բեռնուում յետնաշերտում։"
+msgstr "Թոյլատրում է ծաւալի կառավարումը մուլտիմեդիայ բանալիներ կիրառելով։ Համոզուէք, որ այլ յաւելուածներ, որոնք լսում են այդ բանալիները (աւրինակ xfce4-volumed) չեն բեռնուում յետնաշերտում։"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:4
 msgid "Show _notifications when volume changes"
@@ -48,7 +49,7 @@ msgstr "Ցուցադրել _ծանուցումներ երբ ծաւալը փոխ�
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:5
 msgid "Enables on-screen volume notifications."
-msgstr "Թոյլատրում է ցուցադրիչում ծաւալի ծանուցումներ։"
+msgstr "Թոյլատրում է ցուցադրիչում բազմակի ծանուցումներ։"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:6
 msgid "Behaviour"
@@ -82,7 +83,7 @@ msgstr "Կառավարել Մեդիայ նուագարկիչների նուագ�
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "Enable multimedia keys for playback control"
-msgstr "Թոյլատրել բազմամեդիայ բանալիներ նուագարկման կառավարման համար"
+msgstr "Թոյլատրել մուլտիմեդիայ բանալիներ, նուագարկման կառավարման համար"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "Enable experimental window focus support"
@@ -102,7 +103,7 @@ msgstr "Մաքրել ճանաչուած տարրերը"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:18
 msgid "Please restart your panel for additional players to be displayed."
-msgstr "Խնդրում ենք վերագործարկլե Ձեր վահանակը լրացուցիչ նուագարկիչների ցուցադրութեան համար։"
+msgstr "Խնդրում ենք վերագործարկել Ձեր վահանակը լրացուցիչ նուագարկիչների ցուցադրութեան համար։"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:19
 msgid "Known Media Players"
