@@ -7,13 +7,14 @@
 # Emanuele Petriglia <transifex@emanuelepetriglia.com>, 2018
 # Emanuele Petriglia <transifex@emanuelepetriglia.com>, 2020
 # Enrico B. <enricobe@hotmail.com>, 2017
+# Italang, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-29 18:32+0200\n"
-"PO-Revision-Date: 2020-04-01 12:06+0000\n"
-"Last-Translator: Emanuele Petriglia <transifex@emanuelepetriglia.com>\n"
+"PO-Revision-Date: 2020-06-12 14:53+0000\n"
+"Last-Translator: Italang\n"
 "Language-Team: Italian (http://www.transifex.com/xfce/xfce-panel-plugins/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,7 +33,7 @@ msgstr "Controlla il volume del suono per il sistema sonoro PulseAudio"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:1
 msgid "PulseAudio Panel Plugin"
-msgstr "Componente aggiuntivo PulseAudio del pannello"
+msgstr "Componente aggiuntivo del pannello PulseAudio"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:2
 msgid "Enable keyboard _shortcuts for volume control"
@@ -89,7 +90,7 @@ msgstr "Abilita il controllo della riproduzione con i pulsanti multimediali"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "Enable experimental window focus support"
-msgstr "Abilita il supporto alla messa a fuoco delle finestre"
+msgstr "Abilita il supporto sperimentale alla messa a fuoco delle finestre"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:15
 msgid "Title"
@@ -179,4 +180,4 @@ msgstr "Volume %d%c"
 #: ../panel-plugin/mprismenuitem.c:363 ../panel-plugin/mprismenuitem.c:436
 #: ../panel-plugin/mprismenuitem.c:810
 msgid "Not currently playing"
-msgstr "Attualmente non in riproduzione"
+msgstr "Ora non in riproduzione"
