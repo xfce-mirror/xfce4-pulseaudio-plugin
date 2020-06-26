@@ -1,0 +1,179 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Steve Harris <steve@cultureofweb.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Xfce Panel Plugins\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-03-29 18:32+0200\n"
+"PO-Revision-Date: 2020-06-26 01:37+0000\n"
+"Last-Translator: Steve Harris <steve@cultureofweb.com>\n"
+"Language-Team: English (Canada) (http://www.transifex.com/xfce/xfce-panel-plugins/language/en_CA/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en_CA\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../panel-plugin/pulseaudio.desktop.in.in.h:1
+msgid "PulseAudio Plugin"
+msgstr "PulseAudio Plugin"
+
+#: ../panel-plugin/pulseaudio.desktop.in.in.h:2
+#: ../panel-plugin/pulseaudio-plugin.c:242
+msgid "Adjust the audio volume of the PulseAudio sound system"
+msgstr "Adjust the audio volume of the PulseAudio sound system"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:1
+msgid "PulseAudio Panel Plugin"
+msgstr "PulseAudio Panel Plugin"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:2
+msgid "Enable keyboard _shortcuts for volume control"
+msgstr "Enable keyboard _shortcuts for volume control"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:3
+msgid ""
+"Enables volume control using multimedia keys. Make sure no other application"
+" that listens to these keys (e.g. xfce4-volumed) is running in the "
+"background."
+msgstr "Enables volume control using multimedia keys. Make sure no other application that listens to these keys (e.g. xfce4-volumed) is running in the background."
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:4
+msgid "Show _notifications when volume changes"
+msgstr "Show _notifications when volume changes"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:5
+msgid "Enables on-screen volume notifications."
+msgstr "Enables on-screen volume notifications."
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:6
+msgid "Behaviour"
+msgstr "Behaviour"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:7
+msgid "Audio _Mixer"
+msgstr "Audio _Mixer"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:8
+msgid ""
+"Audio mixer command that can be executed from the context menu, e.g. "
+"\"pavucontrol\", \"unity-control-center sound\"."
+msgstr "Audio mixer command that can be executed from the context menu, e.g. \"pavucontrol\", \"unity-control-center sound\"."
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:9
+msgid "_Run Audio Mixer..."
+msgstr "_Run Audio Mixer..."
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:10
+msgid "Sound Settings"
+msgstr "Sound Settings"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:11
+msgid "General"
+msgstr "General"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:12
+msgid "Control Playback of Media Players"
+msgstr "Control Playback of Media Players"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:13
+msgid "Enable multimedia keys for playback control"
+msgstr "Enable multimedia keys for playback control"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:14
+msgid "Enable experimental window focus support"
+msgstr "Enable experimental window focus support"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:15
+msgid "Title"
+msgstr "Title"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:16
+msgid "Hidden"
+msgstr "Hidden"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:17
+msgid "Clear Known Items"
+msgstr "Clear Known Items"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:18
+msgid "Please restart your panel for additional players to be displayed."
+msgstr "Please restart your panel for additional players to be displayed."
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:19
+msgid "Known Media Players"
+msgstr "Known Media Players"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:20
+msgid "Media Players"
+msgstr "Media Players"
+
+#: ../panel-plugin/pulseaudio-plugin.c:244
+msgid "Copyright © 2014-2020 Andrzej Radecki et al.\n"
+msgstr "Copyright © 2014-2020 Andrzej Radecki et al.\n"
+
+#: ../panel-plugin/pulseaudio-dialog.c:142
+#: ../panel-plugin/pulseaudio-menu.c:264
+#, c-format
+msgid ""
+"<big><b>Failed to execute command \"%s\".</b></big>\n"
+"\n"
+"%s"
+msgstr "<big><b>Failed to execute command \"%s\".</b></big>\n\n%s"
+
+#: ../panel-plugin/pulseaudio-dialog.c:145
+#: ../panel-plugin/pulseaudio-menu.c:267
+msgid "Error"
+msgstr "Error"
+
+#: ../panel-plugin/pulseaudio-button.c:333
+#: ../panel-plugin/pulseaudio-notify.c:199
+#, c-format
+msgid "Not connected to the PulseAudio server"
+msgstr "Not connected to the PulseAudio server"
+
+#: ../panel-plugin/pulseaudio-button.c:335
+#, c-format
+msgid "Volume %d%% (muted)"
+msgstr "Volume %d%% (muted)"
+
+#: ../panel-plugin/pulseaudio-button.c:337
+#, c-format
+msgid "Volume %d%%"
+msgstr "Volume %d%%"
+
+#: ../panel-plugin/pulseaudio-menu.c:507
+msgid "Output"
+msgstr "Output"
+
+#: ../panel-plugin/pulseaudio-menu.c:546
+msgid "Input"
+msgstr "Input"
+
+#: ../panel-plugin/pulseaudio-menu.c:634
+msgid "Choose Playlist"
+msgstr "Choose Playlist"
+
+#. Audio mixers
+#: ../panel-plugin/pulseaudio-menu.c:671
+msgid "_Audio mixer..."
+msgstr "_Audio mixer..."
+
+#: ../panel-plugin/pulseaudio-notify.c:201
+#, c-format
+msgid "Volume %d%c (muted)"
+msgstr "Volume %d%c (muted)"
+
+#: ../panel-plugin/pulseaudio-notify.c:203
+#, c-format
+msgid "Volume %d%c"
+msgstr "Volume %d%c"
+
+#: ../panel-plugin/mprismenuitem.c:363 ../panel-plugin/mprismenuitem.c:436
+#: ../panel-plugin/mprismenuitem.c:810
+msgid "Not currently playing"
+msgstr "Not currently playing"
