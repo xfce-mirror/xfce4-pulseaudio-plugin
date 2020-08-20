@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-29 18:32+0200\n"
-"PO-Revision-Date: 2020-03-31 18:08+0000\n"
+"PO-Revision-Date: 2020-08-20 09:37+0000\n"
 "Last-Translator: Moo\n"
 "Language-Team: Lithuanian (http://www.transifex.com/xfce/xfce-panel-plugins/language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -62,7 +62,7 @@ msgstr "Garsų _maišiklis"
 msgid ""
 "Audio mixer command that can be executed from the context menu, e.g. "
 "\"pavucontrol\", \"unity-control-center sound\"."
-msgstr "Garsų maišiklio komanda, kuri gali būti vykdoma iš kontekstinio meniu, pvz., \"pavucontrol\", \"unity-control-center sound\"."
+msgstr "Garsų maišiklio komanda, kuri gali būti vykdoma iš kontekstinio meniu, pvz., „pavucontrol“, „unity-control-center sound“."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:9
 msgid "_Run Audio Mixer..."
@@ -123,7 +123,7 @@ msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
 "\n"
 "%s"
-msgstr "<big><b>Nepavyko įvykdyti komandos \"%s\".</b></big>\n\n%s"
+msgstr "<big><b>Nepavyko įvykdyti komandos „%s“.</b></big>\n\n%s"
 
 #: ../panel-plugin/pulseaudio-dialog.c:145
 #: ../panel-plugin/pulseaudio-menu.c:267
