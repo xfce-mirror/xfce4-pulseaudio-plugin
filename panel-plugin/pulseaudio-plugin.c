@@ -60,7 +60,9 @@
 #define PULSEAUDIO_PLUGIN_NEXT_KEY          "XF86AudioNext"
 #endif
 
-
+#ifdef HAVE_LIBCANBERRA
+#include <canberra.h>
+#endif
 
 /* prototypes */
 static void             pulseaudio_plugin_init_debug                       (void);
@@ -97,8 +99,6 @@ static void             pulseaudio_plugin_next_key_pressed                 (cons
                                                                             void                  *user_data);
 #endif
 
-
-
 struct _PulseaudioPluginClass
 {
   XfcePanelPluginClass __parent__;
@@ -123,6 +123,10 @@ struct _PulseaudioPlugin
 
   /* mpris */
   PulseaudioMpris     *mpris;
+
+#ifdef HAVE_LIBCANBERRA
+  ca_context          *canberra;
+#endif
 };
 
 
@@ -163,6 +167,10 @@ pulseaudio_plugin_init (PulseaudioPlugin *pulseaudio_plugin)
 #endif
 
   pulseaudio_plugin->mpris             = NULL;
+
+#ifdef HAVE_LIBCANBERRA
+  pulseaudio_plugin->canberra          = NULL;
+#endif
 }
 
 
@@ -176,6 +184,10 @@ pulseaudio_plugin_free_data (XfcePanelPlugin *plugin)
   /* release keybindings */
   pulseaudio_plugin_unbind_keys (pulseaudio_plugin);
   pulseaudio_plugin_unbind_multimedia_keys (pulseaudio_plugin);
+#endif
+#ifdef HAVE_LIBCANBERRA
+  if (pulseaudio_plugin->canberra)
+    ca_context_destroy(pulseaudio_plugin->canberra);
 #endif
 }
 
@@ -493,6 +505,26 @@ pulseaudio_plugin_next_key_pressed (const char            *keystring,
 
 
 
+void
+pulseaudio_plugin_play_sound (PulseaudioPlugin      *pulseaudio_plugin,
+                              const char            *event_id,
+                              const char            *event_desc)
+{
+  pulseaudio_debug("play %s", event_id);
+
+  if (pulseaudio_config_get_play_sound (pulseaudio_plugin->config))
+    {
+#ifdef HAVE_LIBCANBERRA
+      ca_context_play(pulseaudio_plugin->canberra, 0,
+                      CA_PROP_EVENT_ID, event_id,
+                      CA_PROP_EVENT_DESCRIPTION, event_desc,
+                      NULL);
+#endif
+    }
+}
+
+
+
 static void
 pulseaudio_plugin_construct (XfcePanelPlugin *plugin)
 {
@@ -532,7 +564,8 @@ pulseaudio_plugin_construct (XfcePanelPlugin *plugin)
 #endif
 
   /* volume controller */
-  pulseaudio_plugin->volume = pulseaudio_volume_new (pulseaudio_plugin->config);
+  pulseaudio_plugin->volume = pulseaudio_volume_new (pulseaudio_plugin,
+                                                     pulseaudio_plugin->config);
 
   /* initialize mpris support */
 #ifdef HAVE_MPRIS2
@@ -550,6 +583,11 @@ pulseaudio_plugin_construct (XfcePanelPlugin *plugin)
   pulseaudio_plugin->notify = pulseaudio_notify_new (pulseaudio_plugin->config,
                                                      pulseaudio_plugin->volume,
                                                      pulseaudio_plugin->button);
+#endif
+
+  /* initialize canberra support */
+#ifdef HAVE_LIBCANBERRA
+  ca_context_create(&pulseaudio_plugin->canberra);
 #endif
 
   gtk_container_add (GTK_CONTAINER (plugin), GTK_WIDGET (pulseaudio_plugin->button));

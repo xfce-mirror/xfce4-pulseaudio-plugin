@@ -68,6 +68,7 @@ struct _PulseaudioVolume
 {
   GObject               __parent__;
 
+  PulseaudioPlugin     *plugin;
   PulseaudioConfig     *config;
 
   pa_glib_mainloop     *pa_mainloop;
@@ -182,6 +183,7 @@ pulseaudio_volume_finalize (GObject *object)
 {
   PulseaudioVolume *volume = PULSEAUDIO_VOLUME (object);
 
+  volume->plugin = NULL;
   volume->config = NULL;
 
   if (volume->default_sink_name)
@@ -682,7 +684,10 @@ pulseaudio_volume_sink_volume_changed (pa_context *context,
   PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
 
   if (success)
-    g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_CHANGED], 0, TRUE);
+    {
+      g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_CHANGED], 0, TRUE);
+      pulseaudio_plugin_play_sound(volume->plugin, "audio-volume-change", "volume changed");
+    }
 }
 
 
@@ -1090,13 +1095,14 @@ pulseaudio_volume_set_default_input (PulseaudioVolume *volume,
 
 
 PulseaudioVolume *
-pulseaudio_volume_new (PulseaudioConfig *config)
+pulseaudio_volume_new (PulseaudioPlugin *plugin, PulseaudioConfig *config)
 {
   PulseaudioVolume *volume;
 
   g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), NULL);
 
   volume = g_object_new (TYPE_PULSEAUDIO_VOLUME, NULL);
+  volume->plugin = plugin;
   volume->config = config;
 
   return volume;
