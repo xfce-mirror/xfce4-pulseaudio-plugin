@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Charles Monzat <c.monzat@laposte.net>, 2017-2018
-# Louis Moureaux <inactive+louis94@transifex.com>, 2015
-# Louis Moureaux <inactive+louis94@transifex.com>, 2015
+# 9bd356497422d3b951d73481908ce38a_9594f42 <5107b79d5223bd4fa6f541efbd7ae736_103107>, 2015
+# 9bd356497422d3b951d73481908ce38a_9594f42 <5107b79d5223bd4fa6f541efbd7ae736_103107>, 2015
 # Yannick Le Guen <leguen.yannick@gmail.com>, 2015,2017-2018,2020
 msgid ""
 msgstr ""
