@@ -340,6 +340,10 @@ pulseaudio_plugin_unbind_keys (PulseaudioPlugin      *pulseaudio_plugin)
 }
 
 
+void
+pulseaudio_notify_volume_changed (PulseaudioNotify  *notify,
+                                  gboolean           should_notify,
+                                  PulseaudioVolume  *volume);
 
 static void
 pulseaudio_plugin_volume_key_pressed (const char            *keystring,
@@ -351,10 +355,13 @@ pulseaudio_plugin_volume_key_pressed (const char            *keystring,
 
   pulseaudio_debug ("%s pressed", keystring);
 
-  if (strcmp (keystring, PULSEAUDIO_PLUGIN_RAISE_VOLUME_KEY) == 0)
+  if (strcmp (keystring, PULSEAUDIO_PLUGIN_RAISE_VOLUME_KEY) == 0) {
     pulseaudio_volume_set_volume (pulseaudio_plugin->volume, MIN (volume + volume_step, MAX (volume, 1.0)));
-  else if (strcmp (keystring, PULSEAUDIO_PLUGIN_LOWER_VOLUME_KEY) == 0)
+    pulseaudio_notify_volume_changed (pulseaudio_plugin->notify, 1, pulseaudio_plugin->volume);
+  } else if (strcmp (keystring, PULSEAUDIO_PLUGIN_LOWER_VOLUME_KEY) == 0) {
     pulseaudio_volume_set_volume (pulseaudio_plugin->volume, volume - volume_step);
+    pulseaudio_notify_volume_changed (pulseaudio_plugin->notify, 1, pulseaudio_plugin->volume);
+  }
 }
 
 
