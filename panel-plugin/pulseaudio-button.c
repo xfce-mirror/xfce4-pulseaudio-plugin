@@ -61,6 +61,14 @@ static const char *icons[] = {
   NULL
 };
 
+/* Icons for different mic volume levels */
+static const char *icons_mic[] = {
+  "microphone-sensitivity-muted-symbolic",
+  "microphone-sensitivity-low-symbolic",
+  "microphone-sensitivity-medium-symbolic",
+  "microphone-sensitivity-high-symbolic",
+  NULL
+};
 
 
 static void                 pulseaudio_button_finalize        (GObject            *object);
@@ -95,6 +103,8 @@ struct _PulseaudioButton
 
   gulong                volume_changed_id;
   gulong                deactivate_id;
+
+  gboolean              mic;
 };
 
 struct _PulseaudioButtonClass
@@ -132,7 +142,7 @@ pulseaudio_button_init (PulseaudioButton *button)
   gtk_button_set_relief (GTK_BUTTON (button), GTK_RELIEF_NONE);
   gtk_button_set_use_underline (GTK_BUTTON (button), TRUE);
   gtk_widget_set_focus_on_click (GTK_WIDGET (button), FALSE);
-  gtk_widget_set_name (GTK_WIDGET (button), "pulseaudio-button");
+  gtk_widget_set_name (GTK_WIDGET (button), (button->mic ? "pulseaudio-button-mic" : "pulseaudio-button"));
 
   /* Preload icons */
   g_signal_connect (G_OBJECT (button), "style-updated", G_CALLBACK (pulseaudio_button_update_icons), button);
@@ -215,7 +225,10 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 
   if (event->button == 2) /* middle button */
     {
-      pulseaudio_volume_toggle_muted (button->volume);
+      if (button->mic)
+        pulseaudio_volume_toggle_muted_mic (button->volume);
+      else
+        pulseaudio_volume_toggle_muted (button->volume);
       return TRUE;
     }
 
@@ -228,7 +241,9 @@ static gboolean
 pulseaudio_button_scroll_event (GtkWidget *widget, GdkEventScroll *event)
 {
   PulseaudioButton *button      = PULSEAUDIO_BUTTON (widget);
-  gdouble           volume      = pulseaudio_volume_get_volume (button->volume);
+  gdouble           volume      = button->mic
+                                  ? pulseaudio_volume_get_volume_mic (button->volume)
+                                  : pulseaudio_volume_get_volume (button->volume);
   gdouble           volume_step = pulseaudio_config_get_volume_step (button->config) / 100.0;
   gdouble           new_volume;
 
@@ -239,7 +254,10 @@ pulseaudio_button_scroll_event (GtkWidget *widget, GdkEventScroll *event)
   else
     new_volume = volume;
 
-  pulseaudio_volume_set_volume (button->volume, new_volume);
+  if (button->mic)
+    pulseaudio_volume_set_volume_mic (button->volume, new_volume);
+  else
+    pulseaudio_volume_set_volume (button->volume, new_volume);
 
   return TRUE;
 }
@@ -281,12 +299,14 @@ pulseaudio_button_update_icons (PulseaudioButton *button)
 
 
 static gboolean
-pulseaudio_button_sink_connection_timeout  (gpointer userdata)
+pulseaudio_button_item_connection_timeout  (gpointer userdata)
 {
   PulseaudioButton *button = PULSEAUDIO_BUTTON (userdata);
-  gboolean sink_connected = pulseaudio_volume_get_sink_connected (button->volume);
+  gboolean item_connected = button->mic
+                            ? pulseaudio_volume_get_source_connected (button->volume)
+                            : pulseaudio_volume_get_sink_connected (button->volume);
 
-  if (sink_connected)
+  if (item_connected)
   {
     pulseaudio_button_update (button, TRUE);
     return FALSE;
@@ -303,31 +323,43 @@ pulseaudio_button_update (PulseaudioButton *button,
 {
   gdouble      volume;
   gboolean     connected;
-  gboolean     sink_connected;
+  gboolean     item_connected;
   gboolean     muted;
   gchar       *tip_text;
+  const char **icons_array;
   const gchar *icon_name;
 
   g_return_if_fail (IS_PULSEAUDIO_BUTTON (button));
   g_return_if_fail (IS_PULSEAUDIO_VOLUME (button->volume));
 
-  volume = pulseaudio_volume_get_volume (button->volume);
-  muted = pulseaudio_volume_get_muted (button->volume);
   connected = pulseaudio_volume_get_connected (button->volume);
-  sink_connected = pulseaudio_volume_get_sink_connected (button->volume);
+  if (button->mic)
+    {
+      volume = pulseaudio_volume_get_volume_mic (button->volume);
+      muted = pulseaudio_volume_get_muted_mic (button->volume);
+      item_connected = pulseaudio_volume_get_source_connected (button->volume);
+      icons_array = icons_mic;
+    }
+  else
+    {
+      volume = pulseaudio_volume_get_volume (button->volume);
+      muted = pulseaudio_volume_get_muted (button->volume);
+      item_connected = pulseaudio_volume_get_sink_connected (button->volume);
+      icons_array = icons;
+    }
 
   if (!connected)
-    icon_name = icons[V_MUTED];
+    icon_name = icons_array[V_MUTED];
   else if (muted)
-    icon_name = icons[V_MUTED];
+    icon_name = icons_array[V_MUTED];
   else if (volume <= 0.0)
-    icon_name = icons[V_MUTED];
+    icon_name = icons_array[V_MUTED];
   else if (volume <= 0.3)
-    icon_name = icons[V_LOW];
+    icon_name = icons_array[V_LOW];
   else if (volume <= 0.7)
-    icon_name = icons[V_MEDIUM];
+    icon_name = icons_array[V_MEDIUM];
   else
-    icon_name = icons[V_HIGH];
+    icon_name = icons_array[V_HIGH];
 
   if (!connected)
     tip_text = g_strdup_printf (_("Not connected to the PulseAudio server"));
@@ -345,8 +377,8 @@ pulseaudio_button_update (PulseaudioButton *button,
       gtk_image_set_pixel_size (GTK_IMAGE (button->image), button->icon_size);
     }
 
-  if (!sink_connected)
-    g_timeout_add (250, pulseaudio_button_sink_connection_timeout, button);
+  if (!item_connected)
+    g_timeout_add (250, pulseaudio_button_item_connection_timeout, button);
 }
 
 
@@ -392,7 +424,8 @@ PulseaudioButton *
 pulseaudio_button_new (PulseaudioPlugin *plugin,
                        PulseaudioConfig *config,
                        PulseaudioMpris  *mpris,
-                       PulseaudioVolume *volume)
+                       PulseaudioVolume *volume,
+                       gboolean mic)
 {
   PulseaudioButton *button;
 
@@ -409,8 +442,10 @@ pulseaudio_button_new (PulseaudioPlugin *plugin,
   button->volume = volume;
   button->config = config;
   button->mpris = mpris;
+  button->mic = mic;
   button->volume_changed_id =
-    g_signal_connect_swapped (G_OBJECT (button->volume), "volume-changed",
+    g_signal_connect_swapped (G_OBJECT (button->volume),
+                              (mic ? "volume-mic-changed" : "volume-changed"),
                               G_CALLBACK (pulseaudio_button_volume_changed), button);
 
   pulseaudio_button_update (button, TRUE);
