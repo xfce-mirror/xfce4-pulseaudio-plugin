@@ -273,7 +273,7 @@ pulseaudio_volume_source_info_cb (pa_context           *context,
       volume->muted_mic = muted_mic;
 
       if (volume->source_connected)
-        g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_MIC_CHANGED], 0, FALSE);
+        g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_MIC_CHANGED], 0, TRUE);
     }
 
   if (ABS (volume->volume_mic - vol_mic) > 2e-3)
@@ -282,7 +282,7 @@ pulseaudio_volume_source_info_cb (pa_context           *context,
       volume->volume_mic = vol_mic;
 
       if (volume->source_connected)
-        g_signal_emit(G_OBJECT(volume), pulseaudio_volume_signals[VOLUME_MIC_CHANGED], 0, FALSE);
+        g_signal_emit(G_OBJECT(volume), pulseaudio_volume_signals[VOLUME_MIC_CHANGED], 0, TRUE);
     }
 
   pulseaudio_debug ("volume mic: %f, muted mic: %d", vol_mic, muted_mic);
