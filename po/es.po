@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-29 18:32+0200\n"
-"PO-Revision-Date: 2021-05-09 09:17+0000\n"
+"PO-Revision-Date: 2021-05-15 07:15+0000\n"
 "Last-Translator: Toni Estévez <toni.estevez@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/xfce/xfce-panel-plugins/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -25,12 +25,12 @@ msgstr ""
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:1
 msgid "PulseAudio Plugin"
-msgstr "Complemento para PulseAudio"
+msgstr "PulseAudio"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
 #: ../panel-plugin/pulseaudio-plugin.c:242
 msgid "Adjust the audio volume of the PulseAudio sound system"
-msgstr "Ajustar el volumen del sistema de sonido PulseAudio"
+msgstr "Ajusta el volumen del sistema de sonido PulseAudio"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:1
 msgid "PulseAudio Panel Plugin"
