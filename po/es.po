@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-29 18:32+0200\n"
-"PO-Revision-Date: 2021-05-15 07:15+0000\n"
+"PO-Revision-Date: 2021-05-22 10:04+0000\n"
 "Last-Translator: Toni Estévez <toni.estevez@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/xfce/xfce-panel-plugins/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -34,18 +34,18 @@ msgstr "Ajusta el volumen del sistema de sonido PulseAudio"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:1
 msgid "PulseAudio Panel Plugin"
-msgstr "Complemento del panel para PulseAudio"
+msgstr "Complemento para PulseAudio"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:2
 msgid "Enable keyboard _shortcuts for volume control"
-msgstr "Activar los atajos de teclado para el control del volumen"
+msgstr "Activar los _atajos de teclado para el control del volumen"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:3
 msgid ""
 "Enables volume control using multimedia keys. Make sure no other application"
 " that listens to these keys (e.g. xfce4-volumed) is running in the "
 "background."
-msgstr "Activa el control del volumen mediante las teclas multimedias. Asegúrese de que ninguna otra aplicación que responda a esas teclas (por ejemplo, xfce4-volumed) se está ejecutando en segundo plano."
+msgstr "Activa el control del volumen mediante las teclas multimedia. Asegúrese de que ninguna otra aplicación que responda a esas teclas (por ejemplo, xfce4-volumed) se está ejecutando en segundo plano."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:4
 msgid "Show _notifications when volume changes"
@@ -107,7 +107,7 @@ msgstr "Borrar los elementos conocidos"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:18
 msgid "Please restart your panel for additional players to be displayed."
-msgstr "Reinicie el panel para que se muestren los reproductores adicionales."
+msgstr "Reinicie el panel para que se muestren reproductores adicionales."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:19
 msgid "Known Media Players"
@@ -119,7 +119,7 @@ msgstr "Reproductores multimedia"
 
 #: ../panel-plugin/pulseaudio-plugin.c:244
 msgid "Copyright © 2014-2020 Andrzej Radecki et al.\n"
-msgstr "Copyright © 2014-2020 Andrzej Radecki y otros\n"
+msgstr "Copyright © Andrzej Radecki y otros, 2014-2020 \n"
 
 #: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:264
@@ -144,12 +144,12 @@ msgstr "Sin conexión con el servidor PulseAudio"
 #: ../panel-plugin/pulseaudio-button.c:335
 #, c-format
 msgid "Volume %d%% (muted)"
-msgstr "Volumen %d%% (silenciado)"
+msgstr "Volumen: %d%% (silenciado)"
 
 #: ../panel-plugin/pulseaudio-button.c:337
 #, c-format
 msgid "Volume %d%%"
-msgstr "Volumen %d%%"
+msgstr "Volumen: %d%%"
 
 #: ../panel-plugin/pulseaudio-menu.c:507
 msgid "Output"
@@ -166,17 +166,17 @@ msgstr "Elija la lista de reproducción"
 #. Audio mixers
 #: ../panel-plugin/pulseaudio-menu.c:671
 msgid "_Audio mixer..."
-msgstr "Mezclador de _audio…"
+msgstr "Mezclador de _audio..."
 
 #: ../panel-plugin/pulseaudio-notify.c:201
 #, c-format
 msgid "Volume %d%c (muted)"
-msgstr "Volumen %d%c (silenciado)"
+msgstr "Volumen: %d%c (silenciado)"
 
 #: ../panel-plugin/pulseaudio-notify.c:203
 #, c-format
 msgid "Volume %d%c"
-msgstr "Volumen %d%c"
+msgstr "Volumen: %d%c"
 
 #: ../panel-plugin/mprismenuitem.c:363 ../panel-plugin/mprismenuitem.c:436
 #: ../panel-plugin/mprismenuitem.c:810
