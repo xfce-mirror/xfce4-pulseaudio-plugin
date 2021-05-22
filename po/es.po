@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-29 18:32+0200\n"
-"PO-Revision-Date: 2021-05-22 10:04+0000\n"
+"PO-Revision-Date: 2021-05-22 18:53+0000\n"
 "Last-Translator: Toni Estévez <toni.estevez@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/xfce/xfce-panel-plugins/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -45,7 +45,7 @@ msgid ""
 "Enables volume control using multimedia keys. Make sure no other application"
 " that listens to these keys (e.g. xfce4-volumed) is running in the "
 "background."
-msgstr "Activa el control del volumen mediante las teclas multimedia. Asegúrese de que ninguna otra aplicación que responda a esas teclas (por ejemplo, xfce4-volumed) se está ejecutando en segundo plano."
+msgstr "Activa el control del volumen mediante las teclas multimedia. Asegúrese de que no se está ejecutando en segundo plano ninguna otra aplicación que responda a esas teclas (por ejemplo, xfce4-volumed)."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:4
 msgid "Show _notifications when volume changes"
@@ -119,7 +119,7 @@ msgstr "Reproductores multimedia"
 
 #: ../panel-plugin/pulseaudio-plugin.c:244
 msgid "Copyright © 2014-2020 Andrzej Radecki et al.\n"
-msgstr "Copyright © Andrzej Radecki y otros, 2014-2020 \n"
+msgstr "Copyright © 2014-2020 Andrzej Radecki y otros\n"
 
 #: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:264
