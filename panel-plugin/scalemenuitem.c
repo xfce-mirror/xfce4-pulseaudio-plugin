@@ -391,6 +391,9 @@ scale_menu_item_button_press_event (GtkWidget      *item,
 
   g_return_val_if_fail (IS_SCALE_MENU_ITEM (item), FALSE);
 
+  if ((event->type == GDK_2BUTTON_PRESS) || (event->type == GDK_3BUTTON_PRESS))
+    return TRUE;
+
   priv = scale_menu_item_get_instance_private (SCALE_MENU_ITEM (item));
 
   gtk_widget_get_allocation (priv->mute_toggle, &alloc);
