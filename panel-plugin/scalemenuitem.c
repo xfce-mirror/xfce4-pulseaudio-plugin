@@ -82,6 +82,11 @@ static gboolean     scale_menu_item_button_release_event    (GtkWidget          
                                                              GdkEventButton     *event);
 static gboolean     scale_menu_item_motion_notify_event     (GtkWidget          *item,
                                                              GdkEventMotion     *event);
+static gboolean     scale_menu_item_leave_notify_event      (GtkWidget          *item,
+                                                             GdkEventCrossing   *event);
+static gboolean     scale_menu_item_mute_toggle_state_set   (GtkWidget          *mute_toggle,
+                                                             gboolean            state,
+                                                             gpointer            user_data);
 static void         menu_hidden                             (GtkWidget          *menu,
                                                              ScaleMenuItem      *scale);
 static void         scale_menu_item_parent_set              (GtkWidget          *item,
@@ -134,6 +139,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 
   /* Connect events */
   g_signal_connect (priv->scale, "value-changed", G_CALLBACK (scale_menu_item_scale_value_changed), scale_item);
+  g_signal_connect (priv->mute_toggle, "state-set", G_CALLBACK (scale_menu_item_mute_toggle_state_set), NULL);
   gtk_widget_add_events (GTK_WIDGET(scale_item), GDK_SCROLL_MASK|GDK_POINTER_MOTION_MASK|GDK_BUTTON_MOTION_MASK);
 
   /* Keep references to the widgets */
@@ -186,7 +192,7 @@ scale_menu_item_get_muted (ScaleMenuItem *item)
 
   priv = scale_menu_item_get_instance_private (item);
 
-  return !gtk_switch_get_active (GTK_SWITCH (priv->mute_toggle));
+  return !gtk_switch_get_state (GTK_SWITCH (priv->mute_toggle));
 }
 
 
@@ -202,6 +208,7 @@ scale_menu_item_set_muted (ScaleMenuItem *item,
   priv = scale_menu_item_get_instance_private (item);
 
   gtk_switch_set_active (GTK_SWITCH (priv->mute_toggle), !muted);
+  gtk_switch_set_state (GTK_SWITCH (priv->mute_toggle), !muted);
 
   scale_menu_item_update_icon (item);
 }
@@ -236,6 +243,7 @@ scale_menu_item_class_init (ScaleMenuItemClass *item_class)
   widget_class->button_press_event   = scale_menu_item_button_press_event;
   widget_class->button_release_event = scale_menu_item_button_release_event;
   widget_class->motion_notify_event  = scale_menu_item_motion_notify_event;
+  widget_class->leave_notify_event   = scale_menu_item_leave_notify_event;
   widget_class->parent_set           = scale_menu_item_parent_set;
 
   gobject_class->finalize = scale_menu_item_finalize;
@@ -385,6 +393,7 @@ scale_menu_item_button_press_event (GtkWidget      *item,
 {
   ScaleMenuItemPrivate *priv;
   GtkAllocation         alloc;
+  GtkSwitch            *mute_toggle;
   gint                  x, y;
 
   TRACE("entering");
@@ -397,6 +406,9 @@ scale_menu_item_button_press_event (GtkWidget      *item,
   gtk_widget_translate_coordinates (GTK_WIDGET (item), priv->mute_toggle, event->x, event->y, &x, &y);
   if (x > 0 && x < alloc.width && y > 0 && y < alloc.height)
     {
+      /* toggle the desired state, but keep the underlying state as is */
+      mute_toggle = GTK_SWITCH (priv->mute_toggle);
+      gtk_switch_set_active (mute_toggle, !gtk_switch_get_active (mute_toggle));
       return TRUE;
     }
 
@@ -424,7 +436,9 @@ scale_menu_item_button_release_event (GtkWidget      *item,
 {
   ScaleMenuItemPrivate *priv;
   GtkAllocation         alloc;
+  GtkSwitch            *mute_toggle;
   gint                  x, y;
+  gboolean              cur_mute_state, new_mute_state;
 
   TRACE("entering");
 
@@ -434,11 +448,21 @@ scale_menu_item_button_release_event (GtkWidget      *item,
 
   gtk_widget_get_allocation (priv->mute_toggle, &alloc);
   gtk_widget_translate_coordinates (GTK_WIDGET (item), priv->mute_toggle, event->x, event->y, &x, &y);
-  if (x > 0 && x < alloc.width && y > 0 && y < alloc.height)
+
+  /* toggle the switch's underlying state if the pointer is still within the
+   * widget area, otherwise reset its desired state */
+  mute_toggle = GTK_SWITCH (priv->mute_toggle);
+  cur_mute_state = gtk_switch_get_state (mute_toggle);
+  new_mute_state = (x > 0 && x < alloc.width && y > 0 && y < alloc.height)
+                   ? gtk_switch_get_active (mute_toggle) : cur_mute_state;
+  if (new_mute_state != cur_mute_state)
     {
-      gtk_switch_set_active (GTK_SWITCH (priv->mute_toggle), !gtk_switch_get_active (GTK_SWITCH (priv->mute_toggle)));
+      gtk_switch_set_state (mute_toggle, new_mute_state);
       g_signal_emit (item, signals[TOGGLED], 0);
-      return TRUE;
+    }
+  else
+    {
+      gtk_switch_set_active (mute_toggle, cur_mute_state);
     }
 
   gtk_widget_get_allocation (priv->scale, &alloc);
@@ -484,6 +508,31 @@ scale_menu_item_motion_notify_event (GtkWidget      *item,
   return TRUE;
 }
 
+static gboolean
+scale_menu_item_leave_notify_event (GtkWidget        *item,
+                                    GdkEventCrossing *event)
+{
+  ScaleMenuItemPrivate *priv;
+  GtkSwitch            *mute_toggle;
+
+  g_return_val_if_fail (IS_SCALE_MENU_ITEM (item), FALSE);
+
+  priv = scale_menu_item_get_instance_private (SCALE_MENU_ITEM (item));
+  mute_toggle = GTK_SWITCH (priv->mute_toggle);
+
+  /* reset the switch to its current underlying state */
+  gtk_switch_set_active (mute_toggle, gtk_switch_get_state (mute_toggle));
+
+  return TRUE;
+}
+
+gboolean scale_menu_item_mute_toggle_state_set (GtkWidget *mute_toggle,
+                                                gboolean   state,
+                                                gpointer   user_data)
+{
+  /* do nothing, the underlying state is updated on leave-notify or buttun-release events */
+  return TRUE;
+}
 
 
 static void
