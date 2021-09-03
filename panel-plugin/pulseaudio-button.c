@@ -189,6 +189,9 @@ pulseaudio_button_button_press (GtkWidget      *widget,
 {
   PulseaudioButton *button = PULSEAUDIO_BUTTON (widget);
 
+  if ((event->type == GDK_2BUTTON_PRESS) || (event->type == GDK_3BUTTON_PRESS))
+    return TRUE;
+
   if (event->button == 1 && button->menu == NULL) /* left button */
     {
       gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), TRUE);
