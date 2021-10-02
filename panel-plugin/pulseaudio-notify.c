@@ -184,11 +184,18 @@ pulseaudio_notify_notify (PulseaudioNotify *notify, gboolean mic)
       pulseaudio_button_get_menu (notify->button) != NULL)
     return;
 
-  notification = mic ? notify->notification_mic : notify->notification;
-  icons_array = mic ? icons_mic : icons;
+  if (mic) {
+    notification = notify->notification_mic;
+    icons_array = icons_mic;
+    volume = pulseaudio_volume_get_volume_mic (notify->volume);
+    muted = pulseaudio_volume_get_muted_mic (notify->volume);
+  } else {
+    notification = notify->notification;
+    icons_array = icons;
+    volume = pulseaudio_volume_get_volume (notify->volume);
+    muted = pulseaudio_volume_get_muted (notify->volume);
+  }
 
-  volume = (mic ? pulseaudio_volume_get_volume_mic : pulseaudio_volume_get_volume) (notify->volume);
-  muted = (mic ? pulseaudio_volume_get_muted_mic : pulseaudio_volume_get_muted) (notify->volume);
   connected = pulseaudio_volume_get_connected (notify->volume);
   volume_i = (gint) round (volume * 100);
 
