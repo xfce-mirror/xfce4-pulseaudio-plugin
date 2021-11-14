@@ -20,6 +20,7 @@
 #define __PULSEAUDIO_VOLUME_H__
 
 #include <glib-object.h>
+#include "pulseaudio-plugin.h"
 #include "pulseaudio-config.h"
 
 G_BEGIN_DECLS
@@ -36,7 +37,8 @@ typedef struct          _PulseaudioVolumeClass                    PulseaudioVolu
 
 GType                   pulseaudio_volume_get_type                (void) G_GNUC_CONST;
 
-PulseaudioVolume       *pulseaudio_volume_new                     (PulseaudioConfig *config);
+PulseaudioVolume       *pulseaudio_volume_new                     (PulseaudioPlugin *plugin,
+                                                                   PulseaudioConfig *config);
 
 gboolean                pulseaudio_volume_get_connected           (PulseaudioVolume *volume);
 gboolean                pulseaudio_volume_get_sink_connected      (PulseaudioVolume *volume);
