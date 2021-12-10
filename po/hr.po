@@ -5,14 +5,14 @@
 # Translators:
 # Edin Veskovic <edin.lockedin@gmail.com>, 2017-2018
 # Edin Veskovic <edin.lockedin@gmail.com>, 2015,2017
-# Ivica  Kolić <ikoli@yahoo.com>, 2017
+# Ivica  Kolić <ikoli@yahoo.com>, 2017,2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-29 18:32+0200\n"
-"PO-Revision-Date: 2020-03-29 16:32+0000\n"
-"Last-Translator: Xfce Bot <transifex@xfce.org>\n"
+"PO-Revision-Date: 2021-12-10 09:48+0000\n"
+"Last-Translator: Ivica  Kolić <ikoli@yahoo.com>\n"
 "Language-Team: Croatian (http://www.transifex.com/xfce/xfce-panel-plugins/language/hr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -116,7 +116,7 @@ msgstr "Reproduktori medije"
 
 #: ../panel-plugin/pulseaudio-plugin.c:244
 msgid "Copyright © 2014-2020 Andrzej Radecki et al.\n"
-msgstr ""
+msgstr "Autorska prava © 2014-2020 Andrzej Radecki et al.\n"
 
 #: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:264
