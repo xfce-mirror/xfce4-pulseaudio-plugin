@@ -4,13 +4,14 @@
 # 
 # Translators:
 # Cédric Valmary <cvalmary@yahoo.fr>, 2016
+# Quentin PAGÈS, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-29 18:32+0200\n"
-"PO-Revision-Date: 2020-03-29 16:32+0000\n"
-"Last-Translator: Xfce Bot <transifex@xfce.org>\n"
+"PO-Revision-Date: 2015-10-05 20:18+0000\n"
+"Last-Translator: Quentin PAGÈS, 2022\n"
 "Language-Team: Occitan (post 1500) (http://www.transifex.com/xfce/xfce-panel-plugins/language/oc/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -90,7 +91,7 @@ msgstr ""
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:15
 msgid "Title"
-msgstr ""
+msgstr "Títol"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:16
 msgid "Hidden"
@@ -148,11 +149,11 @@ msgstr "Volum %d%%"
 
 #: ../panel-plugin/pulseaudio-menu.c:507
 msgid "Output"
-msgstr ""
+msgstr "Sortida"
 
 #: ../panel-plugin/pulseaudio-menu.c:546
 msgid "Input"
-msgstr ""
+msgstr "Entrada"
 
 #: ../panel-plugin/pulseaudio-menu.c:634
 msgid "Choose Playlist"
