@@ -44,7 +44,8 @@ typedef struct          _PulseaudioButtonClass         PulseaudioButtonClass;
 PulseaudioButton       *pulseaudio_button_new         (PulseaudioPlugin *plugin,
                                                        PulseaudioConfig *config,
                                                        PulseaudioMpris  *mpris,
-                                                       PulseaudioVolume *volume);
+                                                       PulseaudioVolume *volume,
+                                                       gboolean          mic);
 
 void                    pulseaudio_button_set_size    (PulseaudioButton *button,
                                                        gint              size,

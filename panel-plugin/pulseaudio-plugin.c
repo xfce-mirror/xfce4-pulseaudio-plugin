@@ -70,6 +70,13 @@ static void             pulseaudio_plugin_show_about                       (Xfce
 static void             pulseaudio_plugin_configure_plugin                 (XfcePanelPlugin       *plugin);
 static gboolean         pulseaudio_plugin_size_changed                     (XfcePanelPlugin       *plugin,
                                                                             gint                   size);
+static void             pulseaudio_plugin_mode_changed                     (XfcePanelPlugin       *plugin,
+                                                                            XfcePanelPluginMode    mode);
+static void             pulseaudio_plugin_nrows_changed                    (XfcePanelPlugin       *plugin,
+                                                                            guint                  nrows);
+static void             pulseaudio_plugin_show_microphone_cb               (PulseaudioPlugin      *pulseaudio_plugin,
+                                                                            PulseaudioConfig      *pulseaudio_config);
+static void             pulseaudio_plugin_recalc_layout                    (XfcePanelPlugin       *plugin);
 
 #ifdef HAVE_KEYBINDER
 static void             pulseaudio_plugin_bind_keys_cb                     (PulseaudioPlugin      *pulseaudio_plugin,
@@ -116,7 +123,9 @@ struct _PulseaudioPlugin
 #endif
 
   /* panel widgets */
+  GtkContainer        *box;
   PulseaudioButton    *button;
+  PulseaudioButton    *button_mic;
 
   /* config dialog builder */
   PulseaudioDialog    *dialog;
@@ -143,6 +152,8 @@ pulseaudio_plugin_class_init (PulseaudioPluginClass *klass)
   plugin_class->about = pulseaudio_plugin_show_about;
   plugin_class->configure_plugin = pulseaudio_plugin_configure_plugin;
   plugin_class->size_changed = pulseaudio_plugin_size_changed;
+  plugin_class->mode_changed = pulseaudio_plugin_mode_changed;
+  plugin_class->nrows_changed = pulseaudio_plugin_nrows_changed;
 }
 
 
@@ -157,7 +168,9 @@ pulseaudio_plugin_init (PulseaudioPlugin *pulseaudio_plugin)
   pulseaudio_debug("Pulseaudio Panel Plugin initialized");
 
   pulseaudio_plugin->volume            = NULL;
+  pulseaudio_plugin->box               = NULL;
   pulseaudio_plugin->button            = NULL;
+  pulseaudio_plugin->button_mic        = NULL;
 #ifdef HAVE_LIBNOTIFY
   pulseaudio_plugin->notify            = NULL;
 #endif
@@ -286,10 +299,72 @@ pulseaudio_plugin_size_changed (XfcePanelPlugin *plugin,
 #endif
 
   pulseaudio_button_set_size (pulseaudio_plugin->button, size, icon_size);
+  pulseaudio_button_set_size (pulseaudio_plugin->button_mic, size, icon_size);
 
   return TRUE;
 }
 
+
+static void
+pulseaudio_plugin_recalc_layout (XfcePanelPlugin *plugin)
+{
+  PulseaudioPlugin *pulseaudio_plugin = PULSEAUDIO_PLUGIN (plugin);
+  gboolean small;
+  GtkOrientation orientation;
+
+  if (pulseaudio_config_get_show_microphone (pulseaudio_plugin->config))
+    {
+      gtk_widget_show (GTK_WIDGET (pulseaudio_plugin->button_mic));
+      small = xfce_panel_plugin_get_nrows (plugin) == 1;
+      if (xfce_panel_plugin_get_mode (plugin) == XFCE_PANEL_PLUGIN_MODE_HORIZONTAL)
+        orientation = small ? GTK_ORIENTATION_HORIZONTAL : GTK_ORIENTATION_VERTICAL;
+      else
+        orientation = small ? GTK_ORIENTATION_VERTICAL : GTK_ORIENTATION_HORIZONTAL;
+    }
+  else
+    {
+      gtk_widget_hide (GTK_WIDGET (pulseaudio_plugin->button_mic));
+      small = TRUE;
+      orientation = GTK_ORIENTATION_HORIZONTAL;
+    }
+
+  if (pulseaudio_plugin->box != NULL)
+    {
+      g_object_ref (G_OBJECT (pulseaudio_plugin->button));
+      g_object_ref (G_OBJECT (pulseaudio_plugin->button_mic));
+      gtk_container_remove (pulseaudio_plugin->box, GTK_WIDGET (pulseaudio_plugin->button));
+      gtk_container_remove (pulseaudio_plugin->box, GTK_WIDGET (pulseaudio_plugin->button_mic));
+      gtk_widget_destroy (GTK_WIDGET (pulseaudio_plugin->box));
+    }
+  pulseaudio_plugin->box = GTK_CONTAINER (gtk_box_new (orientation, 0));
+  gtk_container_add (pulseaudio_plugin->box, GTK_WIDGET (pulseaudio_plugin->button));
+  gtk_container_add (pulseaudio_plugin->box, GTK_WIDGET (pulseaudio_plugin->button_mic));
+  gtk_widget_show (GTK_WIDGET (pulseaudio_plugin->box));
+
+  gtk_container_add (GTK_CONTAINER (plugin), GTK_WIDGET (pulseaudio_plugin->box));
+  xfce_panel_plugin_set_small (plugin, small);
+}
+
+static void
+pulseaudio_plugin_mode_changed (XfcePanelPlugin *plugin,
+                                XfcePanelPluginMode mode)
+{
+  pulseaudio_plugin_recalc_layout (plugin);
+}
+
+static void
+pulseaudio_plugin_nrows_changed (XfcePanelPlugin *plugin,
+                                 guint nrows)
+{
+  pulseaudio_plugin_recalc_layout (plugin);
+}
+
+static void pulseaudio_plugin_show_microphone_cb (PulseaudioPlugin *pulseaudio_plugin,
+                                                  PulseaudioConfig      *pulseaudio_config)
+{
+  pulseaudio_plugin_recalc_layout (XFCE_PANEL_PLUGIN (pulseaudio_plugin));
+
+}
 
 
 #ifdef HAVE_KEYBINDER
@@ -494,8 +569,6 @@ pulseaudio_plugin_construct (XfcePanelPlugin *plugin)
   xfce_panel_plugin_menu_show_configure (plugin);
   xfce_panel_plugin_menu_show_about (plugin);
 
-  xfce_panel_plugin_set_small (plugin, TRUE);
-
   /* setup transation domain */
   xfce_textdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR, "UTF-8");
 
@@ -512,6 +585,8 @@ pulseaudio_plugin_construct (XfcePanelPlugin *plugin)
                             G_CALLBACK (pulseaudio_plugin_bind_keys_cb), pulseaudio_plugin);
   g_signal_connect_swapped (G_OBJECT (pulseaudio_plugin->config), "notify::enable-multimedia-keys",
                             G_CALLBACK (pulseaudio_plugin_bind_multimedia_keys_cb), pulseaudio_plugin);
+  g_signal_connect_swapped (G_OBJECT (pulseaudio_plugin->config), "notify::show-microphone",
+                            G_CALLBACK (pulseaudio_plugin_show_microphone_cb), pulseaudio_plugin);
 
   if (pulseaudio_config_get_enable_keyboard_shortcuts (pulseaudio_plugin->config))
     pulseaudio_plugin_bind_keys(pulseaudio_plugin);
@@ -532,11 +607,18 @@ pulseaudio_plugin_construct (XfcePanelPlugin *plugin)
   pulseaudio_plugin->mpris = pulseaudio_mpris_new (pulseaudio_plugin->config);
 #endif
 
-  /* instantiate a button box */
+  /* instantiate button boxes */
   pulseaudio_plugin->button = pulseaudio_button_new (pulseaudio_plugin,
                                                      pulseaudio_plugin->config,
                                                      pulseaudio_plugin->mpris,
-                                                     pulseaudio_plugin->volume);
+                                                     pulseaudio_plugin->volume,
+                                                     FALSE);
+
+  pulseaudio_plugin->button_mic = pulseaudio_button_new (pulseaudio_plugin,
+                                                         pulseaudio_plugin->config,
+                                                         pulseaudio_plugin->mpris,
+                                                         pulseaudio_plugin->volume,
+                                                         TRUE);
 
   /* initialize notify wrapper */
 #ifdef HAVE_LIBNOTIFY
@@ -545,6 +627,6 @@ pulseaudio_plugin_construct (XfcePanelPlugin *plugin)
                                                      pulseaudio_plugin->button);
 #endif
 
-  gtk_container_add (GTK_CONTAINER (plugin), GTK_WIDGET (pulseaudio_plugin->button));
   gtk_widget_show (GTK_WIDGET (pulseaudio_plugin->button));
+  pulseaudio_plugin_recalc_layout (plugin);
 }
