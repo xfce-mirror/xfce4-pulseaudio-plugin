@@ -1046,7 +1046,14 @@ pulseaudio_volume_set_default_output (PulseaudioVolume *volume,
   g_free (volume->default_sink_name);
   volume->default_sink_name = g_strdup (name);
 
-  pa_context_set_default_sink (volume->pa_context, name, pulseaudio_volume_default_sink_changed, volume);
+  if (pulseaudio_config_get_enable_move_to_default(volume->config))
+  {
+      pa_context_set_default_sink (volume->pa_context, name, pulseaudio_volume_default_sink_changed, volume);
+  }
+  else
+  {
+      pa_context_set_default_sink (volume->pa_context, name, NULL, NULL);
+  }
 }
 
 
@@ -1091,7 +1098,14 @@ pulseaudio_volume_set_default_input (PulseaudioVolume *volume,
   g_free (volume->default_source_name);
   volume->default_source_name = g_strdup (name);
 
-  pa_context_set_default_source (volume->pa_context, name, pulseaudio_volume_default_source_changed, volume);
+  if (pulseaudio_config_get_enable_move_to_default(volume->config))
+  {
+      pa_context_set_default_source (volume->pa_context, name, pulseaudio_volume_default_source_changed, volume);
+  }
+  else
+  {
+      pa_context_set_default_source (volume->pa_context, name, NULL, NULL);
+  }
 }
 
 
