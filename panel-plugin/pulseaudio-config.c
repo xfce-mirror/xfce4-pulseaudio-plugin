@@ -60,6 +60,7 @@
 
 #define DEFAULT_MPRIS_PLAYERS                     ""
 #define DEFAULT_ENABLE_WNCK                       FALSE
+#define DEFAULT_ENABLE_MOVE_TO_DEFAULT            TRUE
 
 
 
@@ -97,6 +98,7 @@ struct _PulseaudioConfig
   gchar           *mpris_players;
   gchar           *blacklisted_players;
   gboolean         enable_wnck;
+  gboolean         enable_move_to_default;
 };
 
 
@@ -117,6 +119,7 @@ enum
     PROP_MPRIS_PLAYERS,
     PROP_BLACKLISTED_PLAYERS,
     PROP_ENABLE_WNCK,
+    PROP_ENABLE_MOVE_TO_DEFAULT,
     N_PROPERTIES,
   };
 
@@ -246,6 +249,16 @@ pulseaudio_config_class_init (PulseaudioConfigClass *klass)
 
 
 
+  g_object_class_install_property (gobject_class,
+                                   PROP_ENABLE_MOVE_TO_DEFAULT,
+                                   g_param_spec_boolean ("enable-move-to-default", NULL, NULL,
+                                                         DEFAULT_ENABLE_MOVE_TO_DEFAULT,
+                                                         G_PARAM_READWRITE |
+                                                         G_PARAM_STATIC_STRINGS));
+
+
+
+
   pulseaudio_config_signals[CONFIGURATION_CHANGED] =
     g_signal_new (g_intern_static_string ("configuration-changed"),
                   G_TYPE_FROM_CLASS (gobject_class),
@@ -273,6 +286,7 @@ pulseaudio_config_init (PulseaudioConfig *config)
   config->mpris_players             = g_strdup (DEFAULT_MPRIS_PLAYERS);
   config->blacklisted_players       = g_strdup (DEFAULT_BLACKLISTED_PLAYERS);
   config->enable_wnck               = DEFAULT_ENABLE_WNCK;
+  config->enable_move_to_default    = DEFAULT_ENABLE_MOVE_TO_DEFAULT;
 }
 
 
@@ -344,6 +358,10 @@ pulseaudio_config_get_property (GObject    *object,
 
     case PROP_ENABLE_WNCK:
       g_value_set_boolean (value, config->enable_wnck);
+      break;
+
+    case PROP_ENABLE_MOVE_TO_DEFAULT:
+      g_value_set_boolean (value, config->enable_move_to_default);
       break;
 
     default:
@@ -473,6 +491,16 @@ pulseaudio_config_set_property (GObject      *object,
       {
         config->enable_wnck = val_bool;
         g_object_notify (G_OBJECT (config), "enable-wnck");
+        g_signal_emit (G_OBJECT (config), pulseaudio_config_signals [CONFIGURATION_CHANGED], 0);
+      }
+      break;
+
+    case PROP_ENABLE_MOVE_TO_DEFAULT:
+      val_bool = g_value_get_boolean (value);
+      if (config->enable_move_to_default != val_bool)
+      {
+        config->enable_move_to_default = val_bool;
+        g_object_notify (G_OBJECT (config), "enable-move-to-default");
         g_signal_emit (G_OBJECT (config), pulseaudio_config_signals [CONFIGURATION_CHANGED], 0);
       }
       break;
@@ -849,6 +877,16 @@ pulseaudio_config_get_can_raise_wnck (PulseaudioConfig *config)
 
 
 
+gboolean
+pulseaudio_config_get_enable_move_to_default (PulseaudioConfig *config)
+{
+  g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), DEFAULT_ENABLE_MOVE_TO_DEFAULT);
+
+  return config->enable_move_to_default;
+}
+
+
+
 PulseaudioConfig *
 pulseaudio_config_new (const gchar     *property_base)
 {
@@ -906,6 +944,10 @@ pulseaudio_config_new (const gchar     *property_base)
 
       property = g_strconcat (property_base, "/enable-wnck", NULL);
       xfconf_g_property_bind (channel, property, G_TYPE_BOOLEAN, config, "enable-wnck");
+      g_free (property);
+
+      property = g_strconcat (property_base, "/enable-move-to-default", NULL);
+      xfconf_g_property_bind (channel, property, G_TYPE_BOOLEAN, config, "enable-move-to-default");
       g_free (property);
 
       g_object_notify (G_OBJECT (config), "enable-keyboard-shortcuts");

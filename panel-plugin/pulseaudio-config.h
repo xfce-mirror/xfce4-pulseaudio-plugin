@@ -67,6 +67,7 @@ void               pulseaudio_config_clear_known_players            (PulseaudioC
 void               pulseaudio_config_set_can_raise_wnck             (PulseaudioConfig     *config,
                                                                      gboolean              can_raise);
 gboolean           pulseaudio_config_get_can_raise_wnck             (PulseaudioConfig     *config);
+gboolean           pulseaudio_config_get_enable_move_to_default     (PulseaudioConfig     *config);
 
 G_END_DECLS
 

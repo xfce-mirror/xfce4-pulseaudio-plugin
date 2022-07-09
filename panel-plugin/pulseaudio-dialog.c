@@ -305,6 +305,12 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
                              G_OBJECT(object), "sensitive",
                              G_BINDING_SYNC_CREATE | G_BINDING_BIDIRECTIONAL);
 
+      object = gtk_builder_get_object (builder, "checkbutton-move-to-default");
+      g_return_if_fail (GTK_IS_CHECK_BUTTON (object));
+      g_object_bind_property (G_OBJECT (dialog->config), "enable-move-to-default",
+                              G_OBJECT (object), "active",
+                              G_BINDING_SYNC_CREATE | G_BINDING_BIDIRECTIONAL);
+
       /* Populate the liststore */
       dialog->treeview = GTK_WIDGET(gtk_builder_get_object(builder, "player_tree_view"));
       liststore = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(dialog->treeview)));
