@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Michael O'Connor, 2022
 # Seán Ó Séaghdha <sean.anseo@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-29 18:32+0200\n"
-"PO-Revision-Date: 2020-03-29 16:32+0000\n"
-"Last-Translator: Xfce Bot <transifex@xfce.org>\n"
+"PO-Revision-Date: 2015-10-05 20:18+0000\n"
+"Last-Translator: Michael O'Connor, 2022\n"
 "Language-Team: Irish (http://www.transifex.com/xfce/xfce-panel-plugins/language/ga/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -70,15 +71,15 @@ msgstr "_Rith Meascthóir Fuaime..."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:10
 msgid "Sound Settings"
-msgstr ""
+msgstr "Socruithe Fuaime"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:11
 msgid "General"
-msgstr ""
+msgstr "Ginearálta"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
 msgid "Control Playback of Media Players"
-msgstr ""
+msgstr "Smachtaigh Athsheinm de Sheinnteoirí Meán"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "Enable multimedia keys for playback control"
@@ -90,23 +91,23 @@ msgstr "Cumasaigh tacaíocht thrialach d’fhócas fuinneog"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:15
 msgid "Title"
-msgstr ""
+msgstr "Teidil"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:16
 msgid "Hidden"
-msgstr ""
+msgstr "Ceilte"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:17
 msgid "Clear Known Items"
-msgstr ""
+msgstr "Glan Earraí a bhfuil ar Eolas"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:18
 msgid "Please restart your panel for additional players to be displayed."
-msgstr ""
+msgstr "Atosaigh do phanéil chun seinnteoirí breise a thaspeáint, le do thoil."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:19
 msgid "Known Media Players"
-msgstr ""
+msgstr "Seinnteoirí Meán a bhfuil ar Eolas"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:20
 msgid "Media Players"
@@ -114,7 +115,7 @@ msgstr "Seinnteoirí Meán"
 
 #: ../panel-plugin/pulseaudio-plugin.c:244
 msgid "Copyright © 2014-2020 Andrzej Radecki et al.\n"
-msgstr ""
+msgstr "Cóipcheart © 2014-2020 Andrzej Radecki et al.\n"
 
 #: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:264
