@@ -37,7 +37,7 @@ dnl ********************************
 dnl *** Check for basic programs ***
 dnl ********************************
 AC_PROG_CC()
-AC_PROG_LD()
+LT_PATH_LD([])
 AC_PROG_INSTALL()
 IT_PROG_INTLTOOL([0.35.0])
 
@@ -97,7 +97,7 @@ dnl **********************************
 XDT_CHECK_OPTIONAL_PACKAGE([LIBNOTIFY], [libnotify], [0.7.0], [libnotify],
                            [libnotify library])
 
-AC_CHECK_LIBM
+LT_LIB_M
 AC_SUBST(LIBM)
 
 dnl *******************************
