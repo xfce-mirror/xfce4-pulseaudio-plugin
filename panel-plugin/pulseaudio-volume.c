@@ -74,6 +74,7 @@ struct _PulseaudioVolume
 
   gdouble               volume;
   gboolean              muted;
+  gboolean              recording;
 
   gdouble               volume_mic;
   gboolean              muted_mic;
@@ -102,6 +103,7 @@ enum
 {
   VOLUME_CHANGED,
   VOLUME_MIC_CHANGED,
+  RECORDING_CHANGED,
   LAST_SIGNAL
 };
 
@@ -136,6 +138,13 @@ pulseaudio_volume_class_init (PulseaudioVolumeClass *klass)
                   0, NULL, NULL,
                   g_cclosure_marshal_VOID__BOOLEAN,
                   G_TYPE_NONE, 1, G_TYPE_BOOLEAN);
+  pulseaudio_volume_signals[RECORDING_CHANGED] =
+    g_signal_new (g_intern_static_string ("recording-changed"),
+                  G_TYPE_FROM_CLASS (gobject_class),
+                  G_SIGNAL_RUN_LAST,
+                  0, NULL, NULL,
+                  g_cclosure_marshal_VOID__BOOLEAN,
+                  G_TYPE_NONE, 1, G_TYPE_BOOLEAN);
 }
 
 
@@ -146,6 +155,7 @@ pulseaudio_volume_init (PulseaudioVolume *volume)
   volume->connected = FALSE;
   volume->volume = 0.0;
   volume->muted = FALSE;
+  volume->recording = FALSE;
   volume->volume_mic = 0.0;
   volume->muted_mic = FALSE;
   volume->reconnect_timer_id = 0;
@@ -301,15 +311,23 @@ static void
 pulseaudio_volume_sink_source_check (PulseaudioVolume *volume,
                                      pa_context       *context)
 {
+  gboolean recording;
   g_return_if_fail (IS_PULSEAUDIO_VOLUME (volume));
 
   pa_context_get_server_info (context, pulseaudio_volume_server_info_cb, volume);
+
+  recording = volume->recording;
+  volume->recording = FALSE;
 
   g_hash_table_remove_all (volume->sinks);
   g_hash_table_remove_all (volume->sources);
 
   pa_context_get_sink_info_list (volume->pa_context, pulseaudio_volume_get_sink_list_cb, volume);
   pa_context_get_source_info_list (volume->pa_context, pulseaudio_volume_get_source_list_cb, volume);
+
+  /* Send a signal because the recording state has changed */
+  if (volume->recording != recording)
+    g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [RECORDING_CHANGED], 0, volume->recording);
 }
 
 
@@ -394,6 +412,13 @@ pulseaudio_volume_get_source_list_cb (pa_context           *context,
   if (i->monitor_of_sink != PA_INVALID_INDEX)
     return;
 
+  if (i->state == PA_SOURCE_RUNNING)
+  {
+    pulseaudio_debug ("Source %s is recording", i->name);
+    volume->recording = TRUE;
+    g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [RECORDING_CHANGED], 0, TRUE);
+  }
+
   g_hash_table_insert (volume->sources, g_strdup (i->name), g_strdup (i->description));
 }
 
@@ -437,6 +462,7 @@ pulseaudio_volume_context_state_cb (pa_context *context,
 
       g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_CHANGED], 0, FALSE);
       g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_MIC_CHANGED], 0, FALSE);
+      g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [RECORDING_CHANGED], 0, FALSE);
 
       volume->sink_connected = FALSE;
       volume->source_connected = FALSE;
@@ -452,11 +478,13 @@ pulseaudio_volume_context_state_cb (pa_context *context,
       volume->connected = FALSE;
       volume->volume = 0.0;
       volume->muted = FALSE;
+      volume->recording = FALSE;
       volume->volume_mic = 0.0;
       volume->muted_mic = FALSE;
 
       g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_CHANGED], 0, FALSE);
       g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_MIC_CHANGED], 0, FALSE);
+      g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [RECORDING_CHANGED], 0, FALSE);
 
       g_hash_table_remove_all (volume->sinks);
       g_hash_table_remove_all (volume->sources);
