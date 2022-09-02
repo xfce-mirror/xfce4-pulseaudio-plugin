@@ -86,6 +86,7 @@ struct _PulseaudioButton
   PulseaudioVolume     *volume;
 
   GtkWidget            *image;
+  GtkWidget            *recording_indicator;
 
   /* Icon size currently used */
   gint                  icon_size;
@@ -94,6 +95,7 @@ struct _PulseaudioButton
   PulseaudioMenu       *menu;
 
   gulong                volume_changed_id;
+  gulong                recording_changed_id;
   gulong                deactivate_id;
 };
 
@@ -125,7 +127,9 @@ pulseaudio_button_class_init (PulseaudioButtonClass *klass)
 static void
 pulseaudio_button_init (PulseaudioButton *button)
 {
+  GtkStyleContext *context;
   GtkCssProvider *css_provider;
+  GtkWidget *box;
 
   gtk_widget_set_can_focus(GTK_WIDGET(button), FALSE);
   gtk_widget_set_can_default (GTK_WIDGET (button), FALSE);
@@ -138,9 +142,10 @@ pulseaudio_button_init (PulseaudioButton *button)
   g_signal_connect (G_OBJECT (button), "style-updated", G_CALLBACK (pulseaudio_button_update_icons), button);
 
   /* Setup Gtk style */
+  context = gtk_widget_get_style_context (GTK_WIDGET (button));
   css_provider = gtk_css_provider_new ();
   gtk_css_provider_load_from_data (css_provider, ".xfce4-panel button { padding: 1px; }", -1, NULL);
-  gtk_style_context_add_provider (GTK_STYLE_CONTEXT (gtk_widget_get_style_context (GTK_WIDGET (button))),
+  gtk_style_context_add_provider (context,
                                   GTK_STYLE_PROVIDER (css_provider),
                                   GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 
@@ -158,8 +163,24 @@ pulseaudio_button_init (PulseaudioButton *button)
   button->deactivate_id = 0;
 
   button->image = gtk_image_new ();
-  gtk_container_add (GTK_CONTAINER (button), button->image);
-  gtk_widget_show (button->image);
+  button->recording_indicator = gtk_image_new_from_icon_name ("audio-input-microphone-symbolic", GTK_ICON_SIZE_MENU);
+  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+  gtk_container_add (GTK_CONTAINER (button), box);
+  gtk_box_pack_start (GTK_BOX (box), GTK_WIDGET (button->recording_indicator), TRUE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (box), GTK_WIDGET (button->image), TRUE, FALSE, 0);
+  gtk_widget_show_all (box);
+  gtk_widget_hide (button->recording_indicator);
+
+  context = gtk_widget_get_style_context (button->recording_indicator);
+  css_provider = gtk_css_provider_new ();
+  gtk_css_provider_load_from_data (css_provider,
+                                   ".recording-indicator { color: @error_color; }",
+                                   -1, NULL);
+  gtk_style_context_add_provider (context,
+                                  GTK_STYLE_PROVIDER (css_provider),
+                                  GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+  g_object_unref (css_provider);
+  gtk_style_context_add_class (context, "recording-indicator");
 
   g_object_set (G_OBJECT (button), "has-tooltip", TRUE, NULL);
 }
@@ -380,6 +401,16 @@ pulseaudio_button_get_menu (PulseaudioButton *button)
 
 
 static void
+pulseaudio_button_recording_changed (PulseaudioButton *button,
+                                     gboolean          recording,
+                                     PulseaudioVolume *volume)
+{
+  /* Show or hide the recording indicator */
+  gtk_widget_set_visible (button->recording_indicator, recording);
+}
+
+
+static void
 pulseaudio_button_volume_changed (PulseaudioButton  *button,
                                   gboolean           should_notify,
                                   PulseaudioVolume  *volume)
@@ -415,6 +446,9 @@ pulseaudio_button_new (PulseaudioPlugin *plugin,
   button->volume_changed_id =
     g_signal_connect_swapped (G_OBJECT (button->volume), "volume-changed",
                               G_CALLBACK (pulseaudio_button_volume_changed), button);
+  button->recording_changed_id =
+    g_signal_connect_swapped (G_OBJECT (button->volume), "recording-changed",
+                              G_CALLBACK (pulseaudio_button_recording_changed), button);
 
   pulseaudio_button_update (button, TRUE);
 
