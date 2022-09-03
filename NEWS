@@ -1,3 +1,23 @@
+0.4.4
+======
+- Add a recording indicator
+- Filter out multiple button press events
+- Bump urls
+- Fix make distcheck
+- autoconf: AC_OUTPUT -> AC_CONFIG_FILES + AC_OUTPUT
+- Update `.gitignore`
+- Create new README.md. Update configure.ac.in
+- Add basic GitLab pipeline
+- Translation Updates:
+  Albanian, Arabic, Armenian (Armenia), Basque, Belarusian, Bulgarian,
+  Catalan, Chinese (China), Chinese (Taiwan), Croatian, Czech, Danish,
+  Dutch, Eastern Armenian, English (Australia), English (Canada),
+  Finnish, French, Galician, German, Greek, Hebrew, Hungarian,
+  Icelandic, Indonesian, Interlingue, Irish, Italian, Japanese, Kazakh,
+  Korean, Lithuanian, Malay, Norwegian Bokmål, Occitan (post 1500),
+  Polish, Portuguese, Portuguese (Brazil), Russian, Serbian, Slovak,
+  Slovenian, Spanish, Swedish, Thai, Turkish, Ukrainian
+
 0.4.3
 =====
 - Build now requires exo-2 0.11 or newer
