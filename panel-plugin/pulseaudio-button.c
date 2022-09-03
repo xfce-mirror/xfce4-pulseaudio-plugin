@@ -329,6 +329,7 @@ pulseaudio_button_update (PulseaudioButton *button,
   gboolean     connected;
   gboolean     sink_connected;
   gboolean     muted;
+  gboolean     recording;
   gchar       *tip_text;
   const gchar *icon_name;
 
@@ -339,6 +340,7 @@ pulseaudio_button_update (PulseaudioButton *button,
   muted = pulseaudio_volume_get_muted (button->volume);
   connected = pulseaudio_volume_get_connected (button->volume);
   sink_connected = pulseaudio_volume_get_sink_connected (button->volume);
+  recording = pulseaudio_volume_get_recording (button->volume);
 
   if (!connected)
     icon_name = icons[V_MUTED];
@@ -368,6 +370,9 @@ pulseaudio_button_update (PulseaudioButton *button,
       gtk_image_set_from_icon_name (GTK_IMAGE (button->image), icon_name, GTK_ICON_SIZE_BUTTON);
       gtk_image_set_pixel_size (GTK_IMAGE (button->image), button->icon_size);
     }
+
+  if (gtk_widget_get_visible (button->recording_indicator) != recording)
+    gtk_widget_set_visible (button->recording_indicator, recording);
 
   if (!sink_connected)
     g_timeout_add (250, pulseaudio_button_sink_connection_timeout, button);
@@ -405,6 +410,8 @@ pulseaudio_button_recording_changed (PulseaudioButton *button,
                                      gboolean          recording,
                                      PulseaudioVolume *volume)
 {
+  g_return_if_fail (IS_PULSEAUDIO_BUTTON (button));
+
   /* Show or hide the recording indicator */
   gtk_widget_set_visible (button->recording_indicator, recording);
 }

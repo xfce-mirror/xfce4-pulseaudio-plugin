@@ -46,6 +46,8 @@ gdouble                 pulseaudio_volume_get_volume              (PulseaudioVol
 void                    pulseaudio_volume_set_volume              (PulseaudioVolume *volume,
                                                                    gdouble           vol);
 
+gboolean                pulseaudio_volume_get_recording           (PulseaudioVolume *volume);
+
 gboolean                pulseaudio_volume_get_muted               (PulseaudioVolume *volume);
 void                    pulseaudio_volume_set_muted               (PulseaudioVolume *volume,
                                                                    gboolean          muted);
