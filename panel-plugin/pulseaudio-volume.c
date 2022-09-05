@@ -38,25 +38,29 @@
 #include "pulseaudio-volume.h"
 
 
-static void                 pulseaudio_volume_finalize           (GObject              *object);
-static void                 pulseaudio_volume_connect            (PulseaudioVolume     *volume);
-static gdouble              pulseaudio_volume_v2d                (PulseaudioVolume     *volume,
-                                                                  pa_volume_t           vol);
-static pa_volume_t          pulseaudio_volume_d2v                (PulseaudioVolume     *volume,
-                                                                  gdouble               vol);
-static gboolean             pulseaudio_volume_reconnect_timeout  (gpointer              userdata);
-static void                 pulseaudio_volume_get_sink_list_cb   (pa_context           *context,
-                                                                  const pa_sink_info   *i,
-                                                                  int                   eol,
-                                                                  void                 *userdata);
-static void                 pulseaudio_volume_get_source_list_cb (pa_context           *context,
-                                                                  const pa_source_info *i,
-                                                                  int                   eol,
-                                                                  void                 *userdata);
-static void                 pulseaudio_volume_move_sink_input    (pa_context           *context,
-                                                                  const                 pa_sink_input_info *i,
-                                                                  int                   eol,
-                                                                  void                 *userdata);
+static void                 pulseaudio_volume_finalize                  (GObject              *object);
+static void                 pulseaudio_volume_connect                   (PulseaudioVolume     *volume);
+static gdouble              pulseaudio_volume_v2d                       (PulseaudioVolume     *volume,
+                                                                         pa_volume_t           vol);
+static pa_volume_t          pulseaudio_volume_d2v                       (PulseaudioVolume     *volume,
+                                                                         gdouble               vol);
+static gboolean             pulseaudio_volume_reconnect_timeout         (gpointer              userdata);
+static void                 pulseaudio_volume_get_sink_list_cb          (pa_context           *context,
+                                                                         const pa_sink_info   *i,
+                                                                         int                   eol,
+                                                                         void                 *userdata);
+static void                 pulseaudio_volume_get_source_list_cb        (pa_context           *context,
+                                                                         const pa_source_info *i,
+                                                                         int                   eol,
+                                                                         void                 *userdata);
+static void                 pulseaudio_volume_get_source_output_info_cb (pa_context           *context,
+                                                                         const pa_source_output_info *i,
+                                                                         int                   eol,
+                                                                         void                 *userdata);
+static void                 pulseaudio_volume_move_sink_input           (pa_context           *context,
+                                                                         const                 pa_sink_input_info *i,
+                                                                         int                   eol,
+                                                                         void                 *userdata);
 
 
 
@@ -311,23 +315,15 @@ static void
 pulseaudio_volume_sink_source_check (PulseaudioVolume *volume,
                                      pa_context       *context)
 {
-  gboolean recording;
   g_return_if_fail (IS_PULSEAUDIO_VOLUME (volume));
 
   pa_context_get_server_info (context, pulseaudio_volume_server_info_cb, volume);
-
-  recording = volume->recording;
-  volume->recording = FALSE;
 
   g_hash_table_remove_all (volume->sinks);
   g_hash_table_remove_all (volume->sources);
 
   pa_context_get_sink_info_list (volume->pa_context, pulseaudio_volume_get_sink_list_cb, volume);
   pa_context_get_source_info_list (volume->pa_context, pulseaudio_volume_get_source_list_cb, volume);
-
-  /* Send a signal because the recording state has changed */
-  if (volume->recording != recording)
-    g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [RECORDING_CHANGED], 0, volume->recording);
 }
 
 
@@ -358,6 +354,14 @@ pulseaudio_volume_subscribe_cb (pa_context                   *context,
       break;
 
     case PA_SUBSCRIPTION_EVENT_SOURCE_OUTPUT :
+      gboolean recording = volume->recording;
+
+      volume->recording = FALSE;
+      pa_context_get_source_output_info_list (context, pulseaudio_volume_get_source_output_info_cb, volume);
+
+      if (volume->recording != recording)
+        g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [RECORDING_CHANGED], 0, volume->recording);
+
       pulseaudio_volume_sink_source_check (volume, context);
       pulseaudio_debug ("received source output event");
       break;
@@ -395,6 +399,36 @@ pulseaudio_volume_get_sink_list_cb (pa_context         *context,
 
 
 static void
+pulseaudio_volume_get_source_output_info_cb (pa_context                  *context,
+                                             const pa_source_output_info *i,
+                                             int                          eol,
+                                             void                        *userdata)
+{
+  PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
+
+  if (eol > 0)
+    return;
+
+  if (i)
+    {
+      if (g_strcmp0("PulseAudio Volume Control",
+                    pa_proplist_gets (i->proplist, PA_PROP_APPLICATION_NAME)) == 0)
+        {
+          pulseaudio_debug ("Don't show recording indicator for pavucontrol");
+          return;
+        }
+
+      volume->recording = TRUE;
+      g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [RECORDING_CHANGED], 0, TRUE);
+    }
+  else
+    {
+      volume->recording = FALSE;
+    }
+}
+
+
+static void
 pulseaudio_volume_get_source_list_cb (pa_context           *context,
                                       const pa_source_info *i,
                                       int                   eol,
@@ -411,13 +445,6 @@ pulseaudio_volume_get_source_list_cb (pa_context           *context,
   /* Ignore sink monitors, not relevant for users */
   if (i->monitor_of_sink != PA_INVALID_INDEX)
     return;
-
-  if (i->state == PA_SOURCE_RUNNING)
-  {
-    pulseaudio_debug ("Source %s is recording", i->name);
-    volume->recording = TRUE;
-    g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [RECORDING_CHANGED], 0, TRUE);
-  }
 
   g_hash_table_insert (volume->sources, g_strdup (i->name), g_strdup (i->description));
 }
@@ -473,7 +500,7 @@ pulseaudio_volume_context_state_cb (pa_context *context,
 
     case PA_CONTEXT_FAILED       :
     case PA_CONTEXT_TERMINATED   :
-      g_warning ("Disconected from the PulseAudio server. Attempting to reconnect in 5 seconds.");
+      g_warning ("Disconnected from the PulseAudio server. Attempting to reconnect in 5 seconds...");
       volume->pa_context = NULL;
       volume->connected = FALSE;
       volume->volume = 0.0;
@@ -511,7 +538,7 @@ pulseaudio_volume_context_state_cb (pa_context *context,
       break;
 
     default                      :
-      g_warning ("Unknown pulseaudio context state");
+      g_warning ("Unknown PulseAudio context state");
       break;
     }
 }
@@ -631,6 +658,16 @@ pulseaudio_volume_get_muted (PulseaudioVolume *volume)
   g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), FALSE);
 
   return volume->muted;
+}
+
+
+
+gboolean
+pulseaudio_volume_get_recording (PulseaudioVolume *volume)
+{
+  g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), FALSE);
+
+  return volume->recording;
 }
 
 
