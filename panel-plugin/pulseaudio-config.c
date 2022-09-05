@@ -60,6 +60,8 @@
 #define DEFAULT_MPRIS_PLAYERS                     ""
 #define DEFAULT_ENABLE_WNCK                       FALSE
 
+#define DEFAULT_MIDDLE_CLICK_ACTION               0
+
 
 
 static void                 pulseaudio_config_finalize       (GObject          *object);
@@ -93,6 +95,7 @@ struct _PulseaudioConfig
   gchar           *mpris_players;
   gchar           *blacklisted_players;
   gboolean         enable_wnck;
+  gint             middle_click_action;
 };
 
 
@@ -110,6 +113,7 @@ enum
     PROP_MPRIS_PLAYERS,
     PROP_BLACKLISTED_PLAYERS,
     PROP_ENABLE_WNCK,
+    PROP_MIDDLE_CLICK_ACTION,
     N_PROPERTIES,
   };
 
@@ -230,6 +234,14 @@ pulseaudio_config_class_init (PulseaudioConfigClass *klass)
 
 
 
+  g_object_class_install_property (gobject_class,
+                                   PROP_MIDDLE_CLICK_ACTION,
+                                   g_param_spec_enum ("middle-click-action", NULL, NULL,
+                                                      middle_click_action_get_type(),
+                                                      DEFAULT_MIDDLE_CLICK_ACTION,
+                                                      G_PARAM_READWRITE |
+                                                      G_PARAM_STATIC_STRINGS));
+
   pulseaudio_config_signals[CONFIGURATION_CHANGED] =
     g_signal_new (g_intern_static_string ("configuration-changed"),
                   G_TYPE_FROM_CLASS (gobject_class),
@@ -254,6 +266,7 @@ pulseaudio_config_init (PulseaudioConfig *config)
   config->mpris_players             = g_strdup (DEFAULT_MPRIS_PLAYERS);
   config->blacklisted_players       = g_strdup (DEFAULT_BLACKLISTED_PLAYERS);
   config->enable_wnck               = DEFAULT_ENABLE_WNCK;
+  config->middle_click_action       = DEFAULT_MIDDLE_CLICK_ACTION;
 }
 
 
@@ -321,6 +334,10 @@ pulseaudio_config_get_property (GObject    *object,
       g_value_set_boolean (value, config->enable_wnck);
       break;
 
+    case PROP_MIDDLE_CLICK_ACTION:
+      g_value_set_enum (value, config->middle_click_action);
+      break;
+
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
       break;
@@ -336,6 +353,7 @@ pulseaudio_config_set_property (GObject      *object,
                                 GParamSpec   *pspec)
 {
   PulseaudioConfig     *config = PULSEAUDIO_CONFIG (object);
+  gint                  val_int;
   guint                 val_uint;
   gboolean              val_bool;
 
@@ -438,6 +456,17 @@ pulseaudio_config_set_property (GObject      *object,
         g_object_notify (G_OBJECT (config), "enable-wnck");
         g_signal_emit (G_OBJECT (config), pulseaudio_config_signals [CONFIGURATION_CHANGED], 0);
       }
+      break;
+
+    case PROP_MIDDLE_CLICK_ACTION:
+      val_int = g_value_get_enum (value);
+
+      if (config->middle_click_action != val_int)
+        {
+          config->middle_click_action = val_int;
+          g_object_notify (G_OBJECT (config), "middle-click-action");
+          g_signal_emit (G_OBJECT (config), pulseaudio_config_signals [CONFIGURATION_CHANGED], 0);
+        }
       break;
 
     default:
@@ -800,6 +829,13 @@ pulseaudio_config_get_can_raise_wnck (PulseaudioConfig *config)
 
 
 
+MiddleClickAction
+pulseaudio_config_get_middle_click_action (PulseaudioConfig *config)
+{
+  return config->middle_click_action;
+}
+
+
 PulseaudioConfig *
 pulseaudio_config_new (const gchar     *property_base)
 {
@@ -853,9 +889,35 @@ pulseaudio_config_new (const gchar     *property_base)
       xfconf_g_property_bind (channel, property, G_TYPE_BOOLEAN, config, "enable-wnck");
       g_free (property);
 
+      property = g_strconcat (property_base, "/middle-click-action", NULL);
+      xfconf_g_property_bind (channel, property, G_TYPE_ENUM, config, "middle-click-action");
+      g_free (property);
+
       g_object_notify (G_OBJECT (config), "enable-keyboard-shortcuts");
       g_signal_emit (G_OBJECT (config), pulseaudio_config_signals [CONFIGURATION_CHANGED], 0);
     }
 
   return config;
+}
+
+/* enumerations from "pulseaudio-config.h" */
+GType
+middle_click_action_get_type (void)
+{
+  static gsize static_g_enum_type_id;
+
+  if (g_once_init_enter (&static_g_enum_type_id))
+    {
+      static const GEnumValue values[] = {
+            { TOGGLEMUTED, "TOGGLEMUTED", "togglemuted" },
+            { CYCLEOUTPUTS, "CYCLEOUTPUTS", "cycleoutputs" },
+            { 0, NULL, NULL }
+      };
+
+      GType g_enum_type_id =
+        g_enum_register_static (g_intern_static_string ("MiddleClickAction"), values);
+
+      g_once_init_leave (&static_g_enum_type_id, g_enum_type_id);
+    }
+  return static_g_enum_type_id;
 }
