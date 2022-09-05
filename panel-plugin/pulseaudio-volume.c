@@ -501,7 +501,7 @@ pulseaudio_volume_context_state_cb (pa_context *context,
 
     case PA_CONTEXT_FAILED       :
     case PA_CONTEXT_TERMINATED   :
-      g_warning ("Disconected from the PulseAudio server. Attempting to reconnect in 5 seconds.");
+      g_warning ("Disconnected from the PulseAudio server. Attempting to reconnect in 5 seconds...");
       volume->pa_context = NULL;
       volume->connected = FALSE;
       volume->volume = 0.0;
@@ -539,7 +539,7 @@ pulseaudio_volume_context_state_cb (pa_context *context,
       break;
 
     default                      :
-      g_warning ("Unknown pulseaudio context state");
+      g_warning ("Unknown PulseAudio context state");
       break;
     }
 }
