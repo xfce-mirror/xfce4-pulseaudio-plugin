@@ -239,7 +239,29 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 
   if (event->button == 2) /* middle button */
     {
-      pulseaudio_volume_toggle_muted (button->volume);
+      // pulseaudio_volume_toggle_muted (button->volume);
+
+      GList          *sources = NULL;
+      GList          *list = NULL;
+      const gchar    *default_output_name = NULL;
+      sources = pulseaudio_volume_get_output_list (button->volume);
+      if (g_list_length (sources) > 1)
+        {
+          default_output_name = pulseaudio_volume_get_default_output(button->volume);
+          for (list = sources; list != NULL; list = g_list_next(list))
+            {
+              if (g_strcmp0((gchar *)list->data, default_output_name) == 0) {
+                list = g_list_next(list);
+                if (list == NULL) { list = sources; }
+                break;
+              }
+            }
+          if (list != NULL) {
+            pulseaudio_volume_set_default_output (button->volume, (gchar *)list->data);
+          }
+        }
+      g_list_free (sources);
+
       return TRUE;
     }
 

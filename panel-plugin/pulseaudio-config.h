@@ -34,6 +34,18 @@ typedef struct _PulseaudioConfig      PulseaudioConfig;
 #define IS_PULSEAUDIO_CONFIG_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass),  TYPE_PULSEAUDIO_CONFIG))
 #define PULSEAUDIO_CONFIG_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj),  TYPE_PULSEAUDIO_CONFIG, PulseaudioConfigClass))
 
+/**
+ * MiddleClickAction:
+ * @TOGGLEMUTED: Toggle the volume mute on/off
+ * @CYCLEOUTPUTS: Change to the output after the currently selected one
+ */
+typedef enum {
+  TOGGLEMUTED,
+  CYCLEOUTPUTS,
+} MiddleClickAction;
+GType middle_click_action_get_type (void) G_GNUC_CONST;
+#define MIDDLE_CLICK_ACTION_TYPE (middle_click_action_get_type ())
+
 GType              pulseaudio_config_get_type                       (void)                                       G_GNUC_CONST;
 
 PulseaudioConfig  *pulseaudio_config_new                            (const gchar          *property_base);
@@ -64,6 +76,8 @@ void               pulseaudio_config_clear_known_players            (PulseaudioC
 void               pulseaudio_config_set_can_raise_wnck             (PulseaudioConfig     *config,
                                                                      gboolean              can_raise);
 gboolean           pulseaudio_config_get_can_raise_wnck             (PulseaudioConfig     *config);
+
+MiddleClickAction  pulseaudio_config_get_middle_click_action        (PulseaudioConfig     *config);
 
 G_END_DECLS
 
