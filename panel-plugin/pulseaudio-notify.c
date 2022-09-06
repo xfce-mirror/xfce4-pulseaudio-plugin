@@ -240,7 +240,7 @@ pulseaudio_notify_notify (PulseaudioNotify *notify, gboolean mic)
 
 
 
-static void
+void
 pulseaudio_notify_volume_changed (PulseaudioNotify  *notify,
                                   gboolean           should_notify,
                                   PulseaudioVolume  *volume)
