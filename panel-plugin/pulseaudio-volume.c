@@ -686,7 +686,9 @@ pulseaudio_volume_sink_volume_changed (pa_context *context,
   if (success)
     {
       g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_CHANGED], 0, TRUE);
-      pulseaudio_plugin_play_sound(volume->plugin, "audio-volume-change", "volume changed");
+#ifdef HAVE_LIBCANBERRA
+      pulseaudio_plugin_play_sound (volume->plugin, "audio-volume-change", "volume changed");
+#endif
     }
 }
 
@@ -1095,7 +1097,8 @@ pulseaudio_volume_set_default_input (PulseaudioVolume *volume,
 
 
 PulseaudioVolume *
-pulseaudio_volume_new (PulseaudioPlugin *plugin, PulseaudioConfig *config)
+pulseaudio_volume_new (PulseaudioPlugin *plugin,
+                       PulseaudioConfig *config)
 {
   PulseaudioVolume *volume;
 
