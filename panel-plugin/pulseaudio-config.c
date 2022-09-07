@@ -45,7 +45,7 @@
 
 #define DEFAULT_ENABLE_KEYBOARD_SHORTCUTS         TRUE
 #define DEFAULT_SHOW_NOTIFICATIONS                TRUE
-#define DEFAULT_PLAY_SOUND                        TRUE
+#define DEFAULT_PLAY_SOUND                        FALSE
 #define DEFAULT_VOLUME_STEP                       5
 #define DEFAULT_VOLUME_MAX                        150
 
@@ -87,7 +87,9 @@ struct _PulseaudioConfig
   gboolean         enable_keyboard_shortcuts;
   gboolean         enable_multimedia_keys;
   gboolean         show_notifications;
+#ifdef HAVE_LIBCANBERRA
   gboolean         play_sound;
+#endif
   guint            volume_step;
   guint            volume_max;
   gchar           *mixer_command;
@@ -105,7 +107,9 @@ enum
     PROP_ENABLE_KEYBOARD_SHORTCUTS,
     PROP_ENABLE_MULTIMEDIA_KEYS,
     PROP_SHOW_NOTIFICATIONS,
+#ifdef HAVE_LIBCANBERRA
     PROP_PLAY_SOUND,
+#endif
     PROP_VOLUME_STEP,
     PROP_VOLUME_MAX,
     PROP_MIXER_COMMAND,
@@ -166,14 +170,14 @@ pulseaudio_config_class_init (PulseaudioConfigClass *klass)
                                                          G_PARAM_STATIC_STRINGS));
 
 
-
+#ifdef HAVE_LIBCANBERRA
   g_object_class_install_property (gobject_class,
                                    PROP_PLAY_SOUND,
                                    g_param_spec_boolean ("play-sound", NULL, NULL,
                                                          DEFAULT_PLAY_SOUND,
                                                          G_PARAM_READWRITE |
                                                          G_PARAM_STATIC_STRINGS));
-
+#endif
 
 
   g_object_class_install_property (gobject_class,
@@ -259,7 +263,9 @@ pulseaudio_config_init (PulseaudioConfig *config)
   config->enable_keyboard_shortcuts = DEFAULT_ENABLE_KEYBOARD_SHORTCUTS;
   config->enable_multimedia_keys    = DEFAULT_ENABLE_MULTIMEDIA_KEYS;
   config->show_notifications        = DEFAULT_SHOW_NOTIFICATIONS;
+#ifdef HAVE_LIBCANBERRA
   config->play_sound                = DEFAULT_PLAY_SOUND;
+#endif
   config->volume_step               = DEFAULT_VOLUME_STEP;
   config->volume_max                = DEFAULT_VOLUME_MAX;
   config->mixer_command             = g_strdup (DEFAULT_MIXER_COMMAND);
@@ -306,9 +312,11 @@ pulseaudio_config_get_property (GObject    *object,
       g_value_set_boolean (value, config->show_notifications);
       break;
 
+#ifdef HAVE_LIBCANBERRA
     case PROP_PLAY_SOUND:
       g_value_set_boolean (value, config->play_sound);
       break;
+#endif
 
     case PROP_VOLUME_STEP:
       g_value_set_uint (value, config->volume_step);
@@ -388,6 +396,7 @@ pulseaudio_config_set_property (GObject      *object,
         }
       break;
 
+#ifdef HAVE_LIBCANBERRA
     case PROP_PLAY_SOUND:
       val_bool = g_value_get_boolean (value);
       if (config->play_sound != val_bool)
@@ -397,6 +406,7 @@ pulseaudio_config_set_property (GObject      *object,
           g_signal_emit (G_OBJECT (config), pulseaudio_config_signals [CONFIGURATION_CHANGED], 0);
         }
       break;
+#endif
 
     case PROP_VOLUME_STEP:
       val_uint = g_value_get_uint (value);
@@ -505,6 +515,7 @@ pulseaudio_config_get_show_notifications (PulseaudioConfig *config)
 
 
 
+#ifdef HAVE_LIBCANBERRA
 gboolean
 pulseaudio_config_get_play_sound (PulseaudioConfig *config)
 {
@@ -512,6 +523,7 @@ pulseaudio_config_get_play_sound (PulseaudioConfig *config)
 
   return config->play_sound;
 }
+#endif
 
 
 
@@ -862,9 +874,11 @@ pulseaudio_config_new (const gchar     *property_base)
       xfconf_g_property_bind (channel, property, G_TYPE_BOOLEAN, config, "show-notifications");
       g_free (property);
 
+#ifdef HAVE_LIBCANBERRA
       property = g_strconcat (property_base, "/play-sound", NULL);
       xfconf_g_property_bind (channel, property, G_TYPE_BOOLEAN, config, "play-sound");
       g_free (property);
+#endif
 
       property = g_strconcat (property_base, "/volume-step", NULL);
       xfconf_g_property_bind (channel, property, G_TYPE_UINT, config, "volume-step");
