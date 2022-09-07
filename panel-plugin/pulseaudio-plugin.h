@@ -37,6 +37,12 @@ GType pulseaudio_plugin_get_type      (void) G_GNUC_CONST;
 
 void  pulseaudio_plugin_register_type (XfcePanelTypeModule *type_module);
 
+#ifdef HAVE_LIBCANBERRA
+void  pulseaudio_plugin_play_sound    (PulseaudioPlugin    *pulseaudio_plugin,
+                                       const char          *event_id,
+                                       const char          *event_desc);
+#endif
+
 G_END_DECLS
 
 #endif /* !__PULSEAUDIO_PLUGIN_H__ */
