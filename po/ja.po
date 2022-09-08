@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-29 18:32+0200\n"
-"PO-Revision-Date: 2020-03-29 17:50+0000\n"
-"Last-Translator: UTUMI Hirosi <utuhiro78@yahoo.co.jp>\n"
+"POT-Creation-Date: 2022-09-08 00:53+0200\n"
+"PO-Revision-Date: 2015-10-05 20:18+0000\n"
+"Last-Translator: UTUMI Hirosi <utuhiro78@yahoo.co.jp>, 2020\n"
 "Language-Team: Japanese (http://www.transifex.com/xfce/xfce-panel-plugins/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -115,8 +115,8 @@ msgid "Media Players"
 msgstr "メディアプレーヤー"
 
 #: ../panel-plugin/pulseaudio-plugin.c:244
-msgid "Copyright © 2014-2020 Andrzej Radecki et al.\n"
-msgstr "Copyright © 2014-2020 Andrzej Radecki et al.\n"
+msgid "Copyright © 2014-2022 Andrzej Radecki et al.\n"
+msgstr ""
 
 #: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:264
@@ -132,18 +132,18 @@ msgstr "<big><b>コマンド \"%s\" の実行に失敗しました。</b></big>\
 msgid "Error"
 msgstr "エラー"
 
-#: ../panel-plugin/pulseaudio-button.c:333
+#: ../panel-plugin/pulseaudio-button.c:359
 #: ../panel-plugin/pulseaudio-notify.c:199
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "PulseAudio サーバーに接続されていません"
 
-#: ../panel-plugin/pulseaudio-button.c:335
+#: ../panel-plugin/pulseaudio-button.c:361
 #, c-format
 msgid "Volume %d%% (muted)"
 msgstr "音量 %d%% (ミュート)"
 
-#: ../panel-plugin/pulseaudio-button.c:337
+#: ../panel-plugin/pulseaudio-button.c:363
 #, c-format
 msgid "Volume %d%%"
 msgstr "音量 %d%%"
