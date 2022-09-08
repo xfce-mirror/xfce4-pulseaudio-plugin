@@ -3,17 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Marcin Mikołajczak <me@mkljczk.pl>, 2017
-# No Ne, 2020
-# No Ne, 2017-2018
+# marcin mikołajczak <me@mkljczk.pl>, 2017
+# Marek Adamski, 2022
+# Marek Adamski, 2020
+# Marek Adamski, 2017-2018
 # Piotr Strębski <strebski@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-29 18:32+0200\n"
-"PO-Revision-Date: 2020-03-29 17:41+0000\n"
-"Last-Translator: No Ne\n"
+"POT-Creation-Date: 2022-09-08 00:53+0200\n"
+"PO-Revision-Date: 2015-10-05 20:18+0000\n"
+"Last-Translator: Marek Adamski, 2022\n"
 "Language-Team: Polish (http://www.transifex.com/xfce/xfce-panel-plugins/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -116,8 +117,8 @@ msgid "Media Players"
 msgstr "Odtwarzacze mediów"
 
 #: ../panel-plugin/pulseaudio-plugin.c:244
-msgid "Copyright © 2014-2020 Andrzej Radecki et al.\n"
-msgstr "Prawa autorskie © 2014-2020 Andrzej Radecki i inni\n"
+msgid "Copyright © 2014-2022 Andrzej Radecki et al.\n"
+msgstr "Prawa autorskie © 2014-2022 Andrzej Radecki i inni\n"
 
 #: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:264
@@ -133,18 +134,18 @@ msgstr "<big><b>Błąd wykonania polecenia \"%s\".</b></big>\n\n%s"
 msgid "Error"
 msgstr "Błąd"
 
-#: ../panel-plugin/pulseaudio-button.c:333
+#: ../panel-plugin/pulseaudio-button.c:359
 #: ../panel-plugin/pulseaudio-notify.c:199
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "Nie połączono z serwerem PulseAudio"
 
-#: ../panel-plugin/pulseaudio-button.c:335
+#: ../panel-plugin/pulseaudio-button.c:361
 #, c-format
 msgid "Volume %d%% (muted)"
 msgstr "Głośność %d%% (wyciszono)"
 
-#: ../panel-plugin/pulseaudio-button.c:337
+#: ../panel-plugin/pulseaudio-button.c:363
 #, c-format
 msgid "Volume %d%%"
 msgstr "Głośność %d%%"
