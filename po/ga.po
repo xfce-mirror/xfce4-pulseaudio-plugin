@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-29 18:32+0200\n"
+"POT-Creation-Date: 2022-09-08 00:53+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
 "Last-Translator: Michael O'Connor, 2022\n"
 "Language-Team: Irish (http://www.transifex.com/xfce/xfce-panel-plugins/language/ga/)\n"
@@ -114,8 +114,8 @@ msgid "Media Players"
 msgstr "Seinnteoirí Meán"
 
 #: ../panel-plugin/pulseaudio-plugin.c:244
-msgid "Copyright © 2014-2020 Andrzej Radecki et al.\n"
-msgstr "Cóipcheart © 2014-2020 Andrzej Radecki et al.\n"
+msgid "Copyright © 2014-2022 Andrzej Radecki et al.\n"
+msgstr ""
 
 #: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:264
@@ -131,18 +131,18 @@ msgstr "<big><b>Theip ar rith an ordaithe \"%s\".</b></big>\n\n%s"
 msgid "Error"
 msgstr "Earráid"
 
-#: ../panel-plugin/pulseaudio-button.c:333
+#: ../panel-plugin/pulseaudio-button.c:359
 #: ../panel-plugin/pulseaudio-notify.c:199
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "Níl nasc ann don fhreastalaí PulseAudio"
 
-#: ../panel-plugin/pulseaudio-button.c:335
+#: ../panel-plugin/pulseaudio-button.c:361
 #, c-format
 msgid "Volume %d%% (muted)"
 msgstr "Airde %d%% (gan fuaim)"
 
-#: ../panel-plugin/pulseaudio-button.c:337
+#: ../panel-plugin/pulseaudio-button.c:363
 #, c-format
 msgid "Volume %d%%"
 msgstr "Airde %d%%"
