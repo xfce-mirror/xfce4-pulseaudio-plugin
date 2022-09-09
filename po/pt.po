@@ -117,7 +117,7 @@ msgstr "Reprodutores multimédia"
 
 #: ../panel-plugin/pulseaudio-plugin.c:244
 msgid "Copyright © 2014-2022 Andrzej Radecki et al.\n"
-msgstr ""
+msgstr "Direitos de autor © 2014-2022 Andrzej Radecki e outros\n"
 
 #: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:264
