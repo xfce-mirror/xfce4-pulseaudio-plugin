@@ -197,6 +197,47 @@ pulseaudio_dialog_clear_players_cb (GtkButton *button,
 }
 
 
+//FIXME hard coding the false condition will break as soon as there are three options
+static gboolean
+middle_click_radio_bool_to_enum0 (GBinding     *binding,
+                                  const GValue *from,
+                                  GValue       *to,
+                                  gpointer      user_data)
+{
+  *(gint*)to->data = (*(gboolean*)from->data) ? TOGGLEMUTED : CYCLEOUTPUTS;
+  return TRUE;
+}
+
+static gboolean
+middle_click_radio_bool_to_enum1 (GBinding     *binding,
+                                  const GValue *from,
+                                  GValue       *to,
+                                  gpointer      user_data)
+{
+  *(gint*)to->data = (*(gboolean*)from->data) ? CYCLEOUTPUTS : TOGGLEMUTED;
+  return TRUE;
+}
+
+static gboolean
+middle_click_radio_enum0_to_bool (GBinding     *binding,
+                                  const GValue *from,
+                                  GValue       *to,
+                                  gpointer      user_data)
+{
+  *(gboolean*)to->data = (*(gint*)from->data == TOGGLEMUTED);
+  return TRUE;
+}
+
+static gboolean
+middle_click_radio_enum1_to_bool (GBinding     *binding,
+                                  const GValue *from,
+                                  GValue       *to,
+                                  gpointer      user_data)
+{
+  *(gboolean*)to->data = (*(gint*)from->data == CYCLEOUTPUTS);
+  return TRUE;
+}
+
 
 static void
 pulseaudio_dialog_build (PulseaudioDialog *dialog)
@@ -246,6 +287,28 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
 #else
       gtk_widget_set_visible (GTK_WIDGET (object), FALSE);
 #endif
+
+      // FIXME figure out how to properly bind multiple radio buttons to the same enum property
+      object = gtk_builder_get_object (builder, "radiobutton-middle-click-action-toggle-mute");
+      g_return_if_fail (GTK_IS_RADIO_BUTTON (object));
+      // FIXME this binding doesn't work, clicking the radio buttons produces the following error:
+      // (wrapper-2.0:492812): xfconf-CRITICAL **: 01:11:14.622: IA__xfconf_channel_set_property: assertion 'XFCONF_IS_CHANNEL(channel) && property && G_IS_VALUE(value)' failed
+      // and no xfconf property for middle-click-action is ever created
+      g_object_bind_property_full (G_OBJECT (dialog->config), "middle-click-action",
+                                   G_OBJECT (object), "active",
+                                   G_BINDING_SYNC_CREATE | G_BINDING_BIDIRECTIONAL,
+                                   middle_click_radio_enum0_to_bool,
+                                   middle_click_radio_bool_to_enum0,
+                                   NULL, NULL);
+
+      object = gtk_builder_get_object (builder, "radiobutton-middle-click-action-cycle-outputs");
+      g_return_if_fail (GTK_IS_RADIO_BUTTON (object));
+      g_object_bind_property_full (G_OBJECT (dialog->config), "middle-click-action",
+                                   G_OBJECT (object), "active",
+                                   G_BINDING_SYNC_CREATE | G_BINDING_BIDIRECTIONAL,
+                                   middle_click_radio_enum1_to_bool,
+                                   middle_click_radio_bool_to_enum1,
+                                   NULL, NULL);
 
       object = gtk_builder_get_object (builder, "entry-mixer-command");
       g_return_if_fail (GTK_IS_ENTRY (object));
