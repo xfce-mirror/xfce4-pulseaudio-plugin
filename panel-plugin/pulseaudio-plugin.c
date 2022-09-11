@@ -352,6 +352,7 @@ pulseaudio_plugin_volume_key_pressed (const char            *keystring,
   if (strcmp (keystring, PULSEAUDIO_PLUGIN_RAISE_VOLUME_KEY) == 0) {
     pulseaudio_volume_set_volume (pulseaudio_plugin->volume, MIN (volume + volume_step, MAX (volume, 1.0)));
 #ifdef HAVE_LIBNOTIFY
+    /* Also send notification when volume is already at 100% */
     pulseaudio_notify_volume_changed (pulseaudio_plugin->notify, 1, pulseaudio_plugin->volume);
 #endif
   } else if (strcmp (keystring, PULSEAUDIO_PLUGIN_LOWER_VOLUME_KEY) == 0) {
