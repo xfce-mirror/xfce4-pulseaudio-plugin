@@ -43,6 +43,9 @@ GType                   pulseaudio_notify_get_type        (void) G_GNUC_CONST;
 PulseaudioNotify       *pulseaudio_notify_new             (PulseaudioConfig *config,
                                                            PulseaudioVolume *volume,
                                                            PulseaudioButton *button);
+void                    pulseaudio_notify_volume_changed  (PulseaudioNotify  *notify,
+                                                           gboolean           should_notify,
+                                                           PulseaudioVolume  *volume);
 
 G_END_DECLS
 
