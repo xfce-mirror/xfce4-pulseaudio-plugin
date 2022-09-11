@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-08 00:53+0200\n"
+"POT-Creation-Date: 2022-09-11 12:56+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
 "Last-Translator: Nobuhiro Iwamatsu <iwamatsu@nigauri.org>, 2016,2018,2022\n"
 "Language-Team: Japanese (http://www.transifex.com/xfce/xfce-panel-plugins/language/ja/)\n"
@@ -25,7 +25,7 @@ msgid "PulseAudio Plugin"
 msgstr "PulseAudio プラグイン"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:242
+#: ../panel-plugin/pulseaudio-plugin.c:256
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "PulseAudio サウンドシステムの音量を調整します"
 
@@ -53,68 +53,77 @@ msgid "Enables on-screen volume notifications."
 msgstr "オンスクリーン音量通知を有効にします。"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:6
+msgid "Play system _sound when volume changes"
+msgstr "音量を変更したとき、システム音を再生する (_S)"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:7
+msgid ""
+"Enables audio feedback when using multimedia keys to change the volume."
+msgstr "マルチメディアキーを使用してボリュームを変更するとき、オーディオフィードバックを有効にします。"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:8
 msgid "Behaviour"
 msgstr "履歴"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:7
+#: ../panel-plugin/pulseaudio-dialog.glade.h:9
 msgid "Audio _Mixer"
 msgstr "オーディオミキサー (_M)"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:8
+#: ../panel-plugin/pulseaudio-dialog.glade.h:10
 msgid ""
 "Audio mixer command that can be executed from the context menu, e.g. "
 "\"pavucontrol\", \"unity-control-center sound\"."
 msgstr "コンテキストメニューから起動するオーディオミキサーを指定します。(例: \"pavucontrol\", \"unity-control-center sound\")"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:9
+#: ../panel-plugin/pulseaudio-dialog.glade.h:11
 msgid "_Run Audio Mixer..."
 msgstr "オーディオミキサーを起動(_R)..."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:10
+#: ../panel-plugin/pulseaudio-dialog.glade.h:12
 msgid "Sound Settings"
 msgstr "サウンド設定"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:11
+#: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "General"
 msgstr "一般"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:12
+#: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "Control Playback of Media Players"
 msgstr "メディアプレーヤーの再生を制御する"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:13
+#: ../panel-plugin/pulseaudio-dialog.glade.h:15
 msgid "Enable multimedia keys for playback control"
 msgstr "再生制御のマルチメディアキーを有効にします"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:14
+#: ../panel-plugin/pulseaudio-dialog.glade.h:16
 msgid "Enable experimental window focus support"
 msgstr "試験機能のウィンドウフォーカスサポートを有効にする"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:15
+#: ../panel-plugin/pulseaudio-dialog.glade.h:17
 msgid "Title"
 msgstr "題名"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:16
+#: ../panel-plugin/pulseaudio-dialog.glade.h:18
 msgid "Hidden"
 msgstr "非表示"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:17
+#: ../panel-plugin/pulseaudio-dialog.glade.h:19
 msgid "Clear Known Items"
 msgstr "既知のアイテムをクリアする"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:18
+#: ../panel-plugin/pulseaudio-dialog.glade.h:20
 msgid "Please restart your panel for additional players to be displayed."
 msgstr "追加プレーヤーを表示するために、パネルを再起動してください。"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:19
+#: ../panel-plugin/pulseaudio-dialog.glade.h:21
 msgid "Known Media Players"
 msgstr "既知のメディアプレーヤー"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:20
+#: ../panel-plugin/pulseaudio-dialog.glade.h:22
 msgid "Media Players"
 msgstr "メディアプレーヤー"
 
-#: ../panel-plugin/pulseaudio-plugin.c:244
+#: ../panel-plugin/pulseaudio-plugin.c:258
 msgid "Copyright © 2014-2022 Andrzej Radecki et al.\n"
 msgstr "Copyright © 2014-2022 Andrzej Radecki et al.\n"
 
@@ -132,18 +141,18 @@ msgstr "<big><b>コマンド \"%s\" の実行に失敗しました。</b></big>\
 msgid "Error"
 msgstr "エラー"
 
-#: ../panel-plugin/pulseaudio-button.c:359
+#: ../panel-plugin/pulseaudio-button.c:364
 #: ../panel-plugin/pulseaudio-notify.c:199
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "PulseAudio サーバーに接続されていません"
 
-#: ../panel-plugin/pulseaudio-button.c:361
+#: ../panel-plugin/pulseaudio-button.c:366
 #, c-format
 msgid "Volume %d%% (muted)"
 msgstr "音量 %d%% (ミュート)"
 
-#: ../panel-plugin/pulseaudio-button.c:363
+#: ../panel-plugin/pulseaudio-button.c:368
 #, c-format
 msgid "Volume %d%%"
 msgstr "音量 %d%%"
