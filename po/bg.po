@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-08 00:53+0200\n"
+"POT-Creation-Date: 2022-09-11 12:56+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
 "Last-Translator: Kiril Kirilov <cybercop_montana@abv.bg>, 2015,2017-2018,2020,2022\n"
 "Language-Team: Bulgarian (http://www.transifex.com/xfce/xfce-panel-plugins/language/bg/)\n"
@@ -23,7 +23,7 @@ msgid "PulseAudio Plugin"
 msgstr "Добавка за PulseAudio"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:242
+#: ../panel-plugin/pulseaudio-plugin.c:256
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "Регулиране нивата на звука в PulseAudio"
 
@@ -51,68 +51,77 @@ msgid "Enables on-screen volume notifications."
 msgstr "Включване на екранните уведомления за нивото на звука"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:6
+msgid "Play system _sound when volume changes"
+msgstr "Изпълняване на системен звук при промяна на устройството"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:7
+msgid ""
+"Enables audio feedback when using multimedia keys to change the volume."
+msgstr "Включване на звуково уведомяване при използване на мултимедийни клавиши за смяна на устройството"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:8
 msgid "Behaviour"
 msgstr "Поведение"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:7
+#: ../panel-plugin/pulseaudio-dialog.glade.h:9
 msgid "Audio _Mixer"
 msgstr "Аудио миксер"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:8
+#: ../panel-plugin/pulseaudio-dialog.glade.h:10
 msgid ""
 "Audio mixer command that can be executed from the context menu, e.g. "
 "\"pavucontrol\", \"unity-control-center sound\"."
 msgstr "Команда за аудио миксера, която може да бъде изпълнена от контекстното меню, напр. \"pavucontrol\", \"unity-control-center sound\"."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:9
+#: ../panel-plugin/pulseaudio-dialog.glade.h:11
 msgid "_Run Audio Mixer..."
 msgstr "Стартирай на аудио миксера..."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:10
+#: ../panel-plugin/pulseaudio-dialog.glade.h:12
 msgid "Sound Settings"
 msgstr "Настройки на звука"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:11
+#: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "General"
 msgstr "Общи"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:12
+#: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "Control Playback of Media Players"
 msgstr "Контрол на възпроизвеждането на медийните плеъри"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:13
+#: ../panel-plugin/pulseaudio-dialog.glade.h:15
 msgid "Enable multimedia keys for playback control"
 msgstr "Включване на мултимедийните клавиши за управление на възпроизвеждането"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:14
+#: ../panel-plugin/pulseaudio-dialog.glade.h:16
 msgid "Enable experimental window focus support"
 msgstr "Включване поддръжката на експерименталното фокусиране на прозорец"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:15
+#: ../panel-plugin/pulseaudio-dialog.glade.h:17
 msgid "Title"
 msgstr "Заглавие"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:16
+#: ../panel-plugin/pulseaudio-dialog.glade.h:18
 msgid "Hidden"
 msgstr "Скриване"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:17
+#: ../panel-plugin/pulseaudio-dialog.glade.h:19
 msgid "Clear Known Items"
 msgstr "Изчистване на познатите елементи"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:18
+#: ../panel-plugin/pulseaudio-dialog.glade.h:20
 msgid "Please restart your panel for additional players to be displayed."
 msgstr "Моля, рестартирайте вашият панел за да се покажат допълнителните плеъри."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:19
+#: ../panel-plugin/pulseaudio-dialog.glade.h:21
 msgid "Known Media Players"
 msgstr "Познати медийни плеъри"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:20
+#: ../panel-plugin/pulseaudio-dialog.glade.h:22
 msgid "Media Players"
 msgstr "Мултимедийни плеъри"
 
-#: ../panel-plugin/pulseaudio-plugin.c:244
+#: ../panel-plugin/pulseaudio-plugin.c:258
 msgid "Copyright © 2014-2022 Andrzej Radecki et al.\n"
 msgstr "Авторски права © 2014-2022 Andrzej Radecki.\n"
 
@@ -130,18 +139,18 @@ msgstr "<big><b>Неуспешно изпълнение на команда \"%s
 msgid "Error"
 msgstr "Грешка"
 
-#: ../panel-plugin/pulseaudio-button.c:359
+#: ../panel-plugin/pulseaudio-button.c:364
 #: ../panel-plugin/pulseaudio-notify.c:199
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "Няма връзка с  PulseAudio сървър"
 
-#: ../panel-plugin/pulseaudio-button.c:361
+#: ../panel-plugin/pulseaudio-button.c:366
 #, c-format
 msgid "Volume %d%% (muted)"
 msgstr "Ниво на звука %d%% (заглушен)"
 
-#: ../panel-plugin/pulseaudio-button.c:363
+#: ../panel-plugin/pulseaudio-button.c:368
 #, c-format
 msgid "Volume %d%%"
 msgstr "Ниво на звука %d%%"
