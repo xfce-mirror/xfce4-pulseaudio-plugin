@@ -337,6 +337,7 @@ pulseaudio_volume_subscribe_cb (pa_context                   *context,
                                 void                         *userdata)
 {
   PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
+  gboolean recording;
 
   switch (t & PA_SUBSCRIPTION_EVENT_FACILITY_MASK)
     {
@@ -356,8 +357,7 @@ pulseaudio_volume_subscribe_cb (pa_context                   *context,
       break;
 
     case PA_SUBSCRIPTION_EVENT_SOURCE_OUTPUT :
-      gboolean recording = volume->recording;
-
+      recording = volume->recording;
       volume->recording = FALSE;
       pa_context_get_source_output_info_list (context, pulseaudio_volume_get_source_output_info_cb, volume);
 
