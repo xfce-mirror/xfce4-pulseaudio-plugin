@@ -1,3 +1,27 @@
+0.4.5
+======
+- Use Source Output Info for recording indicator
+  to reduce flickering (#81) and
+  to hide it with pavucontrol (#80)
+- Display notification on mic volume changes (Fixes #42)
+- Fix accidental toggling of the mute switch (Fixes #64)
+- Show notification even when volume is already at max/min (Fixes #52)
+- Optionally play system sound on volume changes (Fixes #4)
+  (requires libcanberra)
+- Fix menu position when panel autohide is enabled
+  (requires libxfce4panel >= 4.17.2)
+- Fix compilation with gcc 10
+- about: Bump copyright year
+- Fix typos
+- Translation Updates:
+  Albanian, Armenian (Armenia), Basque, Belarusian, Bulgarian, Catalan,
+  Chinese (China), Chinese (Taiwan), Croatian, Czech, Danish, Dutch,
+  Eastern Armenian, English (Canada), French, Galician, German, Greek,
+  Hebrew, Hungarian, Indonesian, Irish, Italian, Japanese, Kazakh,
+  Korean, Lithuanian, Malay, Norwegian Bokmål, Polish, Portuguese,
+  Portuguese (Brazil), Russian, Serbian, Slovak, Slovenian, Spanish,
+  Swedish, Thai, Ukrainian
+
 0.4.4
 ======
 - Add a recording indicator
