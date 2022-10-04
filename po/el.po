@@ -68,17 +68,17 @@ msgstr "Συμπεριφορά"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:9
 msgid "Audio _Mixer"
-msgstr "_Διαχειριστής ήχου"
+msgstr "_Επιλογές ήχου"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:10
 msgid ""
 "Audio mixer command that can be executed from the context menu, e.g. "
 "\"pavucontrol\", \"unity-control-center sound\"."
-msgstr "Η εντολή για τον διαχειριστή ήχου που εκτελείται από το γενικό μενού, πχ. \"pavucontrol\", \"unity-control-center sound\"."
+msgstr "Η εντολή για τις επιλογές ήχου που εκτελείται από το γενικό μενού, πχ. \"pavucontrol\", \"unity-control-center sound\"."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:11
 msgid "_Run Audio Mixer..."
-msgstr "_Άνοιγμα διαχειριστή ήχου"
+msgstr "_Άνοιγμα επιλογών ήχου"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
 msgid "Sound Settings"
@@ -173,7 +173,7 @@ msgstr "Επιλογή λίστας αναπαραγωγής"
 #. Audio mixers
 #: ../panel-plugin/pulseaudio-menu.c:671
 msgid "_Audio mixer..."
-msgstr "Διαχειριστής ή_χου..."
+msgstr "Επιλογές ή_χου..."
 
 #: ../panel-plugin/pulseaudio-notify.c:201
 #, c-format
