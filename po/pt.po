@@ -51,7 +51,7 @@ msgstr "Mostrar _notificações quando o volume é alterado"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:5
 msgid "Enables on-screen volume notifications."
-msgstr "Ativa notificações de volume no ecrã"
+msgstr "Ativa notificações de volume no ecrã."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:6
 msgid "Play system _sound when volume changes"
@@ -78,7 +78,7 @@ msgstr "Comando de misturador áudio que pode ser executado do menu de contexto,
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:11
 msgid "_Run Audio Mixer..."
-msgstr "Executar misturador áudio"
+msgstr "Executar misturador áudio..."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
 msgid "Sound Settings"
