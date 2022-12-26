@@ -156,8 +156,6 @@ pulseaudio_plugin_class_init (PulseaudioPluginClass *klass)
 static void
 pulseaudio_plugin_init (PulseaudioPlugin *pulseaudio_plugin)
 {
-  g_log_set_always_fatal (G_LOG_LEVEL_ERROR);
-
   /* initialize debug logging */
   pulseaudio_plugin_init_debug ();
   pulseaudio_debug("Pulseaudio Panel Plugin initialized");
