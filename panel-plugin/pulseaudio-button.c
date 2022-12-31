@@ -140,6 +140,7 @@ pulseaudio_button_init (PulseaudioButton *button)
 
   /* Preload icons */
   g_signal_connect (G_OBJECT (button), "style-updated", G_CALLBACK (pulseaudio_button_update_icons), button);
+  g_signal_connect (G_OBJECT (button), "notify::scale-factor", G_CALLBACK (pulseaudio_button_update_icons), button);
 
   /* Setup Gtk style */
   context = gtk_widget_get_style_context (GTK_WIDGET (button));
@@ -371,9 +372,32 @@ pulseaudio_button_update (PulseaudioButton *button,
 
   if (force_update || icon_name != button->icon_name)
     {
-      button->icon_name = icon_name;
-      gtk_image_set_from_icon_name (GTK_IMAGE (button->image), icon_name, GTK_ICON_SIZE_BUTTON);
-      gtk_image_set_pixel_size (GTK_IMAGE (button->image), button->icon_size);
+      gint scale_factor;
+      GtkIconTheme *icon_theme;
+      GdkPixbuf *pixbuf;
+
+      scale_factor = gtk_widget_get_scale_factor (GTK_WIDGET (button));
+
+      icon_theme = gtk_icon_theme_get_for_screen (gtk_widget_get_screen (GTK_WIDGET (button)));
+      pixbuf = gtk_icon_theme_load_icon_for_scale (icon_theme,
+                                                   icon_name,
+                                                   button->icon_size,
+                                                   scale_factor,
+                                                   GTK_ICON_LOOKUP_FORCE_SIZE,
+                                                   NULL);
+
+      if (pixbuf != NULL)
+        {
+          cairo_surface_t *surface;
+
+          button->icon_name = icon_name;
+
+          surface = gdk_cairo_surface_create_from_pixbuf (pixbuf, scale_factor, gtk_widget_get_window (GTK_WIDGET (button)));
+          g_object_unref (pixbuf);
+
+          gtk_image_set_from_surface (GTK_IMAGE (button->image), surface);
+          cairo_surface_destroy (surface);
+        }
     }
 
   if (gtk_widget_get_visible (button->recording_indicator) != recording)
@@ -395,7 +419,7 @@ pulseaudio_button_set_size (PulseaudioButton *button,
 
   gtk_widget_set_size_request (GTK_WIDGET (button), size, size);
   button->icon_size = icon_size;
-  gtk_image_set_pixel_size (GTK_IMAGE (button->image), button->icon_size);
+  pulseaudio_button_update (button, TRUE);
 }
 
 
