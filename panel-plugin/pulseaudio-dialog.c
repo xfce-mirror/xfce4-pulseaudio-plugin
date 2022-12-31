@@ -198,16 +198,89 @@ pulseaudio_dialog_clear_players_cb (GtkButton *button,
 
 
 
+#ifdef HAVE_MPRIS2
+static void
+pulseaudio_dialog_update_mpris_icons(PulseaudioDialog *dialog)
+{
+  GtkListStore  *liststore;
+  gchar        **players;
+  guint          i;
+  gint           scale_factor;
+
+  scale_factor = gtk_widget_get_scale_factor (dialog->treeview);
+  liststore = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(dialog->treeview)));
+
+  players = pulseaudio_config_get_mpris_players (dialog->config);
+  if (players != NULL)
+    {
+      gint w, h, icon_size;
+
+      gtk_icon_size_lookup (GTK_ICON_SIZE_MENU, &w, &h);
+      icon_size = MIN(w, h);
+
+      for (i = 0; i < g_strv_length (players); i++)
+        {
+          gchar *name = NULL;
+          gchar *icon_name = NULL;
+          gchar *full_path = NULL;
+          GdkPixbuf *buf = NULL;
+          cairo_surface_t *surface = NULL;
+          GtkTreeIter iter;
+
+          if (pulseaudio_mpris_get_player_summary (players[i], &name, &icon_name, &full_path)) {
+            if (g_file_test (icon_name, G_FILE_TEST_EXISTS) && !g_file_test (icon_name, G_FILE_TEST_IS_DIR)) {
+              buf = exo_gdk_pixbuf_new_from_file_at_max_size (icon_name, 16, 16, TRUE, NULL);
+            }
+
+            if (!buf) {
+              GtkIconTheme *icon_theme = gtk_icon_theme_get_default ();
+              buf = gtk_icon_theme_load_icon_for_scale (icon_theme,
+                                                        icon_name,
+                                                        icon_size,
+                                                        scale_factor,
+                                                        GTK_ICON_LOOKUP_FORCE_SIZE,
+                                                        NULL);
+              if (!buf) {
+                  buf = gtk_icon_theme_load_icon_for_scale (icon_theme,
+                                                            "audio-player",
+                                                            icon_size,
+                                                            scale_factor,
+                                                            GTK_ICON_LOOKUP_FORCE_SIZE,
+                                                            NULL);
+              }
+            }
+
+            if (buf) {
+                surface = gdk_cairo_surface_create_from_pixbuf (buf, scale_factor, NULL);
+                g_object_unref (buf);
+            }
+
+            gtk_list_store_append(liststore, &iter);
+            gtk_list_store_set(liststore, &iter,
+                             0, surface,
+                             1, players[i],
+                             2, name,
+                             3, pulseaudio_config_player_blacklist_lookup(dialog->config, players[i]),
+                             -1);
+
+            if (surface) {
+                cairo_surface_destroy (surface);
+            }
+          }
+        }
+    }
+  g_strfreev (players);
+}
+#endif
+
+
+
 static void
 pulseaudio_dialog_build (PulseaudioDialog *dialog)
 {
-  GtkBuilder   *builder = GTK_BUILDER (dialog);
-  GObject      *object;
-  GtkListStore *liststore;
-  GtkTreeIter   iter;
-  GError       *error = NULL;
-  gchar       **players;
-  guint         i;
+  GtkBuilder *builder = GTK_BUILDER (dialog);
+  GObject    *object;
+  GError     *error = NULL;
 
   if (xfce_titled_dialog_get_type () == 0)
     return;
@@ -301,49 +374,9 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
 
       /* Populate the liststore */
       dialog->treeview = GTK_WIDGET(gtk_builder_get_object(builder, "player_tree_view"));
-      liststore = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(dialog->treeview)));
-      players = pulseaudio_config_get_mpris_players (dialog->config);
-      if (players != NULL)
-        {
-          for (i = 0; i < g_strv_length (players); i++)
-            {
-              gchar *name = NULL;
-              gchar *icon_name = NULL;
-              gchar *full_path = NULL;
-              GdkPixbuf *buf = NULL;
-
-              if (pulseaudio_mpris_get_player_summary (players[i], &name, &icon_name, &full_path)) {
-                if (g_file_test (icon_name, G_FILE_TEST_EXISTS) && !g_file_test (icon_name, G_FILE_TEST_IS_DIR)) {
-                  buf = exo_gdk_pixbuf_new_from_file_at_max_size (icon_name, 16, 16, TRUE, NULL);
-                }
-
-                if (!buf) {
-                  GtkIconTheme *icon_theme = gtk_icon_theme_get_default ();
-                  buf = gtk_icon_theme_load_icon (icon_theme,
-                                                  icon_name,
-                                                  16,
-                                                  GTK_ICON_LOOKUP_FORCE_SIZE,
-                                                  NULL);
-                  if (!buf) {
-                    buf = gtk_icon_theme_load_icon (icon_theme,
-                                                  "audio-player",
-                                                  16,
-                                                  GTK_ICON_LOOKUP_FORCE_SIZE,
-                                                  NULL);
-                  }
-                }
-
-                gtk_list_store_append(liststore, &iter);
-                gtk_list_store_set(liststore, &iter,
-                                 0, buf,
-                                 1, players[i],
-                                 2, name,
-                                 3, pulseaudio_config_player_blacklist_lookup(dialog->config, players[i]),
-                                 -1);
-              }
-            }
-        }
-      g_strfreev (players);
+      pulseaudio_dialog_update_mpris_icons(dialog);
+      g_signal_connect(G_OBJECT(dialog), "notify::scale-factor",
+                       G_CALLBACK(pulseaudio_dialog_update_mpris_icons), NULL);
 
       object = gtk_builder_get_object(builder, "col_hidden_renderer");
       g_signal_connect (object, "toggled", (GCallback) pulseaudio_dialog_player_toggled_cb, dialog);
