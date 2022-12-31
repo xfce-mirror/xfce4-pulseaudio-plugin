@@ -229,8 +229,6 @@ pulseaudio_plugin_init_debug (void)
 static void
 pulseaudio_plugin_show_about (XfcePanelPlugin *plugin)
 {
-  GdkPixbuf *icon;
-
   const gchar *auth[] =
     {
       "Andrzej Radecki <andrzejr@xfce.org>",
@@ -245,20 +243,16 @@ pulseaudio_plugin_show_about (XfcePanelPlugin *plugin)
 
   g_return_if_fail (IS_PULSEAUDIO_PLUGIN (plugin));
 
-  icon = xfce_panel_pixbuf_from_source ("xfce4-pulseaudio-plugin", NULL, 32);
   gtk_show_about_dialog (NULL,
-                         "logo",         icon,
-                         "license",      xfce_get_license_text (XFCE_LICENSE_TEXT_GPL),
-                         "version",      PACKAGE_VERSION,
-                         "program-name", PACKAGE_NAME,
-                         "comments",     _("Adjust the audio volume of the PulseAudio sound system"),
-                         "website",      "https://docs.xfce.org/panel-plugins/xfce4-pulseaudio-plugin",
-                         "copyright",    _("Copyright \xc2\xa9 2014-2022 Andrzej Radecki et al.\n"),
-                         "authors",      auth,
+                         "logo-icon-name", "xfce4-pulseaudio-plugin",
+                         "license",        xfce_get_license_text (XFCE_LICENSE_TEXT_GPL),
+                         "version",        PACKAGE_VERSION,
+                         "program-name",   PACKAGE_NAME,
+                         "comments",       _("Adjust the audio volume of the PulseAudio sound system"),
+                         "website",        "https://docs.xfce.org/panel-plugins/xfce4-pulseaudio-plugin",
+                         "copyright",      _("Copyright \xc2\xa9 2014-2022 Andrzej Radecki et al.\n"),
+                         "authors",        auth,
                          NULL);
-
-  if (icon)
-    g_object_unref (G_OBJECT (icon));
 }
 
 
