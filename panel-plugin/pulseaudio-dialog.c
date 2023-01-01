@@ -310,36 +310,35 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
               gchar *name = NULL;
               gchar *icon_name = NULL;
               gchar *full_path = NULL;
-              GdkPixbuf *buf = NULL;
+              GIcon *icon = NULL;
 
-              if (pulseaudio_mpris_get_player_summary (players[i], &name, &icon_name, &full_path)) {
-                if (g_file_test (icon_name, G_FILE_TEST_EXISTS) && !g_file_test (icon_name, G_FILE_TEST_IS_DIR)) {
-                  buf = exo_gdk_pixbuf_new_from_file_at_max_size (icon_name, 16, 16, TRUE, NULL);
-                }
+              if (pulseaudio_mpris_get_player_summary (players[i], &name, &icon_name, &full_path))
+                {
+                  if (g_file_test (icon_name, G_FILE_TEST_EXISTS) && !g_file_test (icon_name, G_FILE_TEST_IS_DIR))
+                    {
+                      GdkPixbuf *buf = gdk_pixbuf_new_from_file (icon_name, NULL);
+                      if (G_LIKELY (buf != NULL))
+                        icon = G_ICON (buf);
+                    }
 
-                if (!buf) {
-                  GtkIconTheme *icon_theme = gtk_icon_theme_get_default ();
-                  buf = gtk_icon_theme_load_icon (icon_theme,
-                                                  icon_name,
-                                                  16,
-                                                  GTK_ICON_LOOKUP_FORCE_SIZE,
-                                                  NULL);
-                  if (!buf) {
-                    buf = gtk_icon_theme_load_icon (icon_theme,
-                                                  "audio-player",
-                                                  16,
-                                                  GTK_ICON_LOOKUP_FORCE_SIZE,
-                                                  NULL);
-                  }
-                }
+                  if (G_LIKELY (icon == NULL))
+                    {
+                      if (gtk_icon_theme_has_icon (gtk_icon_theme_get_default (), icon_name))
+                        icon = g_themed_icon_new (icon_name);
+                      else
+                        icon = g_themed_icon_new_with_default_fallbacks ("audio-player");
+                    }
 
                 gtk_list_store_append(liststore, &iter);
                 gtk_list_store_set(liststore, &iter,
-                                 0, buf,
+                                 0, icon,
                                  1, players[i],
                                  2, name,
                                  3, pulseaudio_config_player_blacklist_lookup(dialog->config, players[i]),
                                  -1);
+
+                if (icon != NULL)
+                  g_object_unref (icon);
               }
             }
         }
