@@ -15,8 +15,8 @@
   </object>
   <object class="GtkListStore" id="liststore1">
     <columns>
-      <!-- column-name pixbuf -->
-      <column type="GdkPixbuf"/>
+      <!-- column-name gicon -->
+      <column type="GIcon"/>
       <!-- column-name player -->
       <column type="gchararray"/>
       <!-- column-name label -->
@@ -431,7 +431,7 @@
                                         <child>
                                           <object class="GtkCellRendererPixbuf" id="col_icon_renderer"/>
                                           <attributes>
-                                            <attribute name="pixbuf">0</attribute>
+                                            <attribute name="gicon">0</attribute>
                                           </attributes>
                                         </child>
                                       </object>
