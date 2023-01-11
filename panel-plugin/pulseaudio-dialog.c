@@ -329,17 +329,17 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
                         icon = g_themed_icon_new_with_default_fallbacks ("audio-player");
                     }
 
-                gtk_list_store_append(liststore, &iter);
-                gtk_list_store_set(liststore, &iter,
-                                 0, icon,
-                                 1, players[i],
-                                 2, name,
-                                 3, pulseaudio_config_player_blacklist_lookup(dialog->config, players[i]),
-                                 -1);
+                  gtk_list_store_append (liststore, &iter);
+                  gtk_list_store_set (liststore, &iter,
+                                      0, icon,
+                                      1, players[i],
+                                      2, name,
+                                      3, pulseaudio_config_player_blacklist_lookup (dialog->config, players[i]),
+                                      -1);
 
-                if (icon != NULL)
-                  g_object_unref (icon);
-              }
+                  if (icon != NULL)
+                    g_object_unref (icon);
+                }
             }
         }
       g_strfreev (players);
