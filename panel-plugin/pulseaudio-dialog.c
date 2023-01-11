@@ -337,6 +337,9 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
                                       3, pulseaudio_config_player_blacklist_lookup (dialog->config, players[i]),
                                       -1);
 
+                  g_free (name);
+                  g_free (icon_name);
+                  g_free (full_path);
                   if (icon != NULL)
                     g_object_unref (icon);
                 }
