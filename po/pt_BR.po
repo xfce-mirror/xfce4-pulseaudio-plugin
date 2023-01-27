@@ -6,7 +6,7 @@
 # Andre Miranda <andre42m@gmail.com>, 2017-2018,2022
 # Andre Miranda <andre42m@gmail.com>, 2017
 # Andre Miranda <andre42m@gmail.com>, 2015
-# C. E., 2020
+# Giálisson Rocha, 2020
 # Michael Martins <michaelfm21@gmail.com>, 2017
 # Miguel V. S. Frasson <mvsfrasson@gmail.com>, 2017
 msgid ""
