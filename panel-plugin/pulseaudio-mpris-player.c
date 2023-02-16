@@ -68,7 +68,9 @@ struct _PulseaudioMprisPlayer
 
   GHashTable       *playlists;
 
+#ifdef HAVE_WNCK
   gulong            xid;
+#endif
 };
 
 struct _PulseaudioMprisPlayerClass
@@ -316,7 +318,8 @@ pulseaudio_mpris_player_raise_wnck (PulseaudioMprisPlayer *player)
     return;
 
   window = wnck_window_get (player->xid);
-  wnck_window_activate (window, 0);
+  if (window != NULL)
+    wnck_window_activate (window, g_get_monotonic_time () / 1000);
 }
 #endif
 
@@ -721,7 +724,9 @@ pulseaudio_mpris_player_on_dbus_lost (GDBusConnection *connection,
 
   player->title           = NULL;
   player->artist          = NULL;
+#ifdef HAVE_WNCK
   player->xid             = 0L;
+#endif
 
   g_signal_emit (player, signals[CONNECTION], 0, player->connected);
 }
@@ -801,7 +806,7 @@ pulseaudio_mpris_player_set_details_from_desktop (PulseaudioMprisPlayer *player,
   key_file = g_key_file_new();
   if (g_key_file_load_from_data_dirs (key_file, file, &full_path, G_KEY_FILE_NONE, NULL))
     {
-      gchar *name = g_key_file_get_string (key_file, "Desktop Entry", "Name", NULL);
+      gchar *name = g_key_file_get_locale_string (key_file, "Desktop Entry", "Name", NULL, NULL);
       gchar *icon_name = g_key_file_get_string (key_file, "Desktop Entry", "Icon", NULL);
 
       player->player_label = g_strdup (name);
