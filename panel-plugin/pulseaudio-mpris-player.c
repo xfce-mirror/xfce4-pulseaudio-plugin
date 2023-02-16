@@ -26,9 +26,12 @@
 #include <glib.h>
 #include <gtk/gtk.h>
 
-#ifdef HAVE_WNCK
+#ifdef HAVE_LIBXFCE4WINDOWING
+#include <libxfce4windowing/libxfce4windowing.h>
+#elif defined (HAVE_WNCK)
 #define WNCK_I_KNOW_THIS_IS_UNSTABLE = 1
 #include <libwnck/libwnck.h>
+#include <gdk/gdkx.h>
 #endif
 
 #include "pulseaudio-mpris-player.h"
@@ -68,7 +71,11 @@ struct _PulseaudioMprisPlayer
 
   GHashTable       *playlists;
 
+#ifdef HAVE_LIBXFCE4WINDOWING
+  XfwScreen        *screen;
+#elif defined (HAVE_WNCK)
   gulong            xid;
+#endif
 };
 
 struct _PulseaudioMprisPlayerClass
@@ -269,14 +276,34 @@ pulseaudio_mpris_player_parse_metadata (PulseaudioMprisPlayer *player,
 
 
 
-#ifdef HAVE_WNCK
+#ifdef HAVE_LIBXFCE4WINDOWING
+/**
+ * Alternative "Raise" method.
+ * Some media players (e.g. Spotify) do not support the "Raise" method.
+ * This workaround utilizes libxfce4windowing to find the correct window and raise it.
+ */
+static void
+pulseaudio_mpris_player_raise_wnck (PulseaudioMprisPlayer *player)
+{
+  for (GList *lp = xfw_screen_get_windows (player->screen); lp != NULL; lp = lp->next)
+    {
+      if (g_strcmp0 (player->player_label, xfw_window_get_name (lp->data)) == 0)
+        {
+          xfw_window_activate (lp->data, g_get_monotonic_time () / 1000, NULL);
+          break;
+        }
+    }
+}
+
+#elif defined (HAVE_WNCK)
+
 static void
 pulseaudio_mpris_player_get_xid (PulseaudioMprisPlayer *player)
 {
   WnckScreen           *screen = NULL;
   GList                *window = NULL;
 
-  if (player->xid > 0L)
+  if (player->xid > 0L || ! GDK_IS_X11_DISPLAY (gdk_display_get_default ()))
     return;
 
   screen = wnck_screen_get_default ();
@@ -316,7 +343,8 @@ pulseaudio_mpris_player_raise_wnck (PulseaudioMprisPlayer *player)
     return;
 
   window = wnck_window_get (player->xid);
-  wnck_window_activate (window, 0);
+  if (window != NULL)
+    wnck_window_activate (window, g_get_monotonic_time () / 1000);
 }
 #endif
 
@@ -332,7 +360,7 @@ pulseaudio_mpris_player_call_player_method (PulseaudioMprisPlayer *player,
 
   if (g_strcmp0 (method, "Raise") == 0)
     iface = "org.mpris.MediaPlayer2";
-#ifdef HAVE_WNCK
+#if defined (HAVE_WNCK) || defined (HAVE_LIBXFCE4WINDOWING)
   else if (g_strcmp0 (method, "RaiseWnck") == 0)
     return pulseaudio_mpris_player_raise_wnck (player);
 #endif
@@ -721,7 +749,9 @@ pulseaudio_mpris_player_on_dbus_lost (GDBusConnection *connection,
 
   player->title           = NULL;
   player->artist          = NULL;
+#ifdef HAVE_WNCK
   player->xid             = 0L;
+#endif
 
   g_signal_emit (player, signals[CONNECTION], 0, player->connected);
 }
@@ -801,7 +831,7 @@ pulseaudio_mpris_player_set_details_from_desktop (PulseaudioMprisPlayer *player,
   key_file = g_key_file_new();
   if (g_key_file_load_from_data_dirs (key_file, file, &full_path, G_KEY_FILE_NONE, NULL))
     {
-      gchar *name = g_key_file_get_string (key_file, "Desktop Entry", "Name", NULL);
+      gchar *name = g_key_file_get_locale_string (key_file, "Desktop Entry", "Name", NULL, NULL);
       gchar *icon_name = g_key_file_get_string (key_file, "Desktop Entry", "Icon", NULL);
 
       player->player_label = g_strdup (name);
@@ -1113,6 +1143,10 @@ pulseaudio_mpris_player_init (PulseaudioMprisPlayer *player)
   player->playback_status   = STOPPED;
 
   player->watch_id          = 0;
+
+#ifdef HAVE_LIBXFCE4WINDOWING
+  player->screen = xfw_screen_get_default ();
+#endif
 }
 
 
@@ -1147,6 +1181,10 @@ pulseaudio_mpris_player_finalize (GObject *object)
 
   if (player->playlists != NULL)
     g_hash_table_destroy (player->playlists);
+
+#ifdef HAVE_LIBXFCE4WINDOWING
+  g_object_unref (player->screen);
+#endif
 
   (*G_OBJECT_CLASS(pulseaudio_mpris_player_parent_class)->finalize)(object);
 }
