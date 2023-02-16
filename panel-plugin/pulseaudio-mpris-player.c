@@ -29,6 +29,7 @@
 #ifdef HAVE_WNCK
 #define WNCK_I_KNOW_THIS_IS_UNSTABLE = 1
 #include <libwnck/libwnck.h>
+#include <gdk/gdkx.h>
 #endif
 
 #include "pulseaudio-mpris-player.h"
@@ -278,7 +279,7 @@ pulseaudio_mpris_player_get_xid (PulseaudioMprisPlayer *player)
   WnckScreen           *screen = NULL;
   GList                *window = NULL;
 
-  if (player->xid > 0L)
+  if (player->xid > 0L || ! GDK_IS_X11_DISPLAY (gdk_display_get_default ()))
     return;
 
   screen = wnck_screen_get_default ();
