@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# 박정규(Jung-Kyu Park) <bagjunggyu@gmail.com>, 2017
-# Seong-ho Cho <darkcircle.0426@gmail.com>, 2015,2017-2018,2020
+# 1763f4a4329a2376c933c5e919a36cbc_341ca53 <1f851310383599d03339229d772e1290_119292>, 2017
+# Seong-ho Cho <darkcircle.0426@gmail.com>, 2015,2017-2018,2020,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-08 00:53+0200\n"
+"POT-Creation-Date: 2022-11-28 15:07+0100\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
-"Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>, 2015,2017-2018,2020\n"
+"Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>, 2015,2017-2018,2020,2022\n"
 "Language-Team: Korean (http://www.transifex.com/xfce/xfce-panel-plugins/language/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,7 +24,7 @@ msgid "PulseAudio Plugin"
 msgstr "PulseAudio 플러그인"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:242
+#: ../panel-plugin/pulseaudio-plugin.c:256
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "PulseAudio 사운드 시스템의 오디오 음량을 조절합니다"
 
@@ -52,70 +52,79 @@ msgid "Enables on-screen volume notifications."
 msgstr "화면 볼륨 알림 표시 활성화"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:6
+msgid "Play system _sound when volume changes"
+msgstr "음량 수치가 바뀌면 시스템 소리 재생(_S)"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:7
+msgid ""
+"Enables audio feedback when using multimedia keys to change the volume."
+msgstr "멀티미디어 키로 음량을 조절했을 때 소리 반응을 켭니다"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:8
 msgid "Behaviour"
 msgstr "동작"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:7
+#: ../panel-plugin/pulseaudio-dialog.glade.h:9
 msgid "Audio _Mixer"
 msgstr "오디오 음량 조절기(_M)"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:8
+#: ../panel-plugin/pulseaudio-dialog.glade.h:10
 msgid ""
 "Audio mixer command that can be executed from the context menu, e.g. "
 "\"pavucontrol\", \"unity-control-center sound\"."
 msgstr "단축 메뉴에서 실행할 수 있는 \"pavucontrol\", \"unity-control-center sound\" 와 같은 오디오 음량 조절기 명령입니다."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:9
+#: ../panel-plugin/pulseaudio-dialog.glade.h:11
 msgid "_Run Audio Mixer..."
 msgstr "오디오 음량 조절기 실행(_R)..."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:10
+#: ../panel-plugin/pulseaudio-dialog.glade.h:12
 msgid "Sound Settings"
 msgstr "사운드 설정"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:11
+#: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "General"
 msgstr "일반"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:12
+#: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "Control Playback of Media Players"
 msgstr "미디어 재생기 재생 조정"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:13
+#: ../panel-plugin/pulseaudio-dialog.glade.h:15
 msgid "Enable multimedia keys for playback control"
 msgstr "재생 제어를 위해 멀티미디어 키 사용"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:14
+#: ../panel-plugin/pulseaudio-dialog.glade.h:16
 msgid "Enable experimental window focus support"
 msgstr "실험 창 포커스 지원 사용"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:15
+#: ../panel-plugin/pulseaudio-dialog.glade.h:17
 msgid "Title"
 msgstr "제목"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:16
+#: ../panel-plugin/pulseaudio-dialog.glade.h:18
 msgid "Hidden"
 msgstr "숨김"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:17
+#: ../panel-plugin/pulseaudio-dialog.glade.h:19
 msgid "Clear Known Items"
 msgstr "알려진 항목 지우기"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:18
+#: ../panel-plugin/pulseaudio-dialog.glade.h:20
 msgid "Please restart your panel for additional players to be displayed."
 msgstr "추가 재생기 항목을 나타내려면 다시 시작하십시오."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:19
+#: ../panel-plugin/pulseaudio-dialog.glade.h:21
 msgid "Known Media Players"
 msgstr "알려진 미디어 재생기"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:20
+#: ../panel-plugin/pulseaudio-dialog.glade.h:22
 msgid "Media Players"
 msgstr "미디어 재생 프로그램"
 
-#: ../panel-plugin/pulseaudio-plugin.c:244
+#: ../panel-plugin/pulseaudio-plugin.c:258
 msgid "Copyright © 2014-2022 Andrzej Radecki et al.\n"
-msgstr ""
+msgstr "Copyright © 2014-2022 Andrzej Radecki et al.\n"
 
 #: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:264
@@ -131,18 +140,18 @@ msgstr "<big><b>\"%s\" 명령 실행에 실패했습니다.</b></big>\n\n%s"
 msgid "Error"
 msgstr "오류"
 
-#: ../panel-plugin/pulseaudio-button.c:359
+#: ../panel-plugin/pulseaudio-button.c:364
 #: ../panel-plugin/pulseaudio-notify.c:199
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "PulseAudio 서버에 연결하지 않았습니다"
 
-#: ../panel-plugin/pulseaudio-button.c:361
+#: ../panel-plugin/pulseaudio-button.c:366
 #, c-format
 msgid "Volume %d%% (muted)"
 msgstr "음량 %d%%(음소거)"
 
-#: ../panel-plugin/pulseaudio-button.c:363
+#: ../panel-plugin/pulseaudio-button.c:368
 #, c-format
 msgid "Volume %d%%"
 msgstr "음량 %d%%"

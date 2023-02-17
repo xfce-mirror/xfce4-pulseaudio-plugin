@@ -77,7 +77,7 @@ AC_DEFINE([LIBXFCE4PANEL_VERSION_API], "libxfce4panel_version_api()", [libxfce4p
 AC_SUBST([LIBXFCE4PANEL_VERSION_API])
 
 XDT_CHECK_PACKAGE([PULSEAUDIO], [libpulse-mainloop-glib], [0.9.19])
-XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [2.42.0])
+XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [2.44.0])
 XDT_CHECK_PACKAGE([GTK], [gtk+-3.0], [3.20.0])
 XDT_CHECK_PACKAGE([EXO], [exo-2], [0.11.0])
 XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.9.0])
@@ -112,11 +112,17 @@ dnl *******************************
 XDT_CHECK_OPTIONAL_PACKAGE([MPRIS2], [gio-2.0], [2.42], [mpris2],
                            [mpris2 support])
 
-dnl ********************************************
-dnl *** Optional (experimental) WNCK Support ***
-dnl ********************************************
-XDT_CHECK_OPTIONAL_PACKAGE([WNCK], [libwnck-3.0], [3.20], [wnck],
-                           [wnck support])
+dnl *********************************************************
+dnl *** Optional (experimental) Libxfce4windowing Support ***
+dnl *********************************************************
+XDT_CHECK_OPTIONAL_PACKAGE([LIBXFCE4WINDOWING], [libxfce4windowing-0], [4.19.1], [libxfce4windowing],
+                           [Libxfce4windowing support])
+
+dnl To be removed when Libxfce4windowing reaches at least stable version 4.20
+if test "$LIBXFCE4WINDOWING_FOUND" = "yes"; then
+  enable_wnck=no
+fi
+XDT_CHECK_OPTIONAL_PACKAGE([WNCK], [libwnck-3.0], [3.20], [wnck], [Libwnck support])
 
 dnl ***********************************
 dnl *** Check for debugging support ***
@@ -169,6 +175,10 @@ echo "* Use keybinder:                ${KEYBINDER_FOUND:-no}"
 echo "* Use libnotify:                ${LIBNOTIFY_FOUND:-no}"
 echo "* Use libcanberra:              ${LIBCANBERRA_FOUND:-no}"
 echo "* Use MPRIS2:                   ${MPRIS2_FOUND:-no}"
+if test "$LIBXFCE4WINDOWING_FOUND" = "yes"; then
+echo "* Libxfce4windowing support:    ${LIBXFCE4WINDOWING_FOUND:-no}"
+else
 echo "* Experimenal libwnck support:  ${WNCK_FOUND:-no}"
+fi
 echo "* Default Mixer command:        $DEFAULT_MIXER_COMMAND"
 echo

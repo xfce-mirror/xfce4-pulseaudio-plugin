@@ -145,9 +145,20 @@ mpris_menu_item_new_with_player (const gchar *player,
   gtk_widget_add_events (GTK_WIDGET(menu_item), GDK_SCROLL_MASK|GDK_POINTER_MOTION_MASK|GDK_BUTTON_MOTION_MASK);
 
   if (g_file_test (icon_name, G_FILE_TEST_EXISTS) && !g_file_test (icon_name, G_FILE_TEST_IS_DIR)) {
-    GdkPixbuf *buf = exo_gdk_pixbuf_new_from_file_at_max_size (icon_name, 24, 24, TRUE, NULL);
+    GdkPixbuf *buf;
+    gint scale_factor = gtk_widget_get_scale_factor (GTK_WIDGET (menu_item));
+    gint size;
+
+    if (! gtk_icon_size_lookup (GTK_ICON_SIZE_LARGE_TOOLBAR, &size, NULL))
+      size = 24;
+    size *= scale_factor;
+
+    buf = exo_gdk_pixbuf_new_from_file_at_max_size (icon_name, size, size, TRUE, NULL);
     if (buf != NULL) {
-      gtk_image_set_from_pixbuf (GTK_IMAGE (priv->image), buf);
+      cairo_surface_t *surface = gdk_cairo_surface_create_from_pixbuf (buf, scale_factor, NULL);
+      gtk_image_set_from_surface (GTK_IMAGE (priv->image), surface);
+      cairo_surface_destroy(surface);
+      g_object_unref (buf);
     } else {
       gtk_image_set_from_icon_name (GTK_IMAGE (priv->image), "audio-player", GTK_ICON_SIZE_LARGE_TOOLBAR);
     }
@@ -537,7 +548,7 @@ mpris_menu_item_raise (MprisMenuItem *item)
         {
           media_notify (item, "Raise");
         }
-#ifdef HAVE_WNCK
+#if defined (HAVE_WNCK) || defined (HAVE_LIBXFCE4WINDOWING)
       else if (priv->can_raise_wnck)
         {
           media_notify (item, "RaiseWnck");
