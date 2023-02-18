@@ -63,6 +63,7 @@ libpulseaudio_plugin_la_CFLAGS = \
 	$(MPRIS2_CFLAGS) \
 	$(EXO_CFLAGS) \
 	$(WNCK_CFLAGS) \
+	$(LIBXFCE4WINDOWING_CFLAGS) \
 	$(PLATFORM_CFLAGS)
 
 libpulseaudio_plugin_la_LDFLAGS = \
@@ -86,6 +87,7 @@ libpulseaudio_plugin_la_LIBADD = \
 	$(MPRIS2_LIBS) \
 	$(EXO_LIBS) \
 	$(WNCK_LIBS) \
+	$(LIBXFCE4WINDOWING_LIBS) \
 	$(LIBM)
 
 #
