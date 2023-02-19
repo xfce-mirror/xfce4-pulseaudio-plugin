@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Moo, 2015-2018,2020,2022
+# Moo, 2015-2018,2020,2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-11 12:56+0200\n"
+"POT-Creation-Date: 2023-02-19 00:49+0100\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
-"Last-Translator: Moo, 2015-2018,2020,2022\n"
+"Last-Translator: Moo, 2015-2018,2020,2022-2023\n"
 "Language-Team: Lithuanian (http://www.transifex.com/xfce/xfce-panel-plugins/language/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,7 +23,7 @@ msgid "PulseAudio Plugin"
 msgstr "PulseAudio įskiepis"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:256
+#: ../panel-plugin/pulseaudio-plugin.c:251
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "Reguliuoti PulseAudio garso sistemos garsų garsį"
 
@@ -60,68 +60,76 @@ msgid ""
 msgstr "Įjungia garso atsaką, kai garsio keitimui naudojami multimedijos klavišai."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:8
+msgid "Step size used when adjusting volume with mouse wheel."
+msgstr "Žingsnio dydis, kai garsis yra reguliuojamas pelės ratuku."
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:9
+msgid "Mouse wheel volume step:"
+msgstr "Garsio žingsnis reguliuojant pelės ratuku:"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:10
 msgid "Behaviour"
 msgstr "Elgsena"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:9
+#: ../panel-plugin/pulseaudio-dialog.glade.h:11
 msgid "Audio _Mixer"
 msgstr "Garsų _maišiklis"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:10
+#: ../panel-plugin/pulseaudio-dialog.glade.h:12
 msgid ""
 "Audio mixer command that can be executed from the context menu, e.g. "
 "\"pavucontrol\", \"unity-control-center sound\"."
 msgstr "Garsų maišiklio komanda, kuri gali būti vykdoma iš kontekstinio meniu, pvz., „pavucontrol“, „unity-control-center sound“."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:11
+#: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "_Run Audio Mixer..."
 msgstr "_Paleisti garsų maišiklį..."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:12
+#: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "Sound Settings"
 msgstr "Garso nustatymai"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:13
+#: ../panel-plugin/pulseaudio-dialog.glade.h:15
 msgid "General"
 msgstr "Bendra"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:14
+#: ../panel-plugin/pulseaudio-dialog.glade.h:16
 msgid "Control Playback of Media Players"
 msgstr "Valdyti medijos leistuvių atkūrimą"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:15
+#: ../panel-plugin/pulseaudio-dialog.glade.h:17
 msgid "Enable multimedia keys for playback control"
 msgstr "Įjungti multimedijos klavišus, skirtus atkūrimo valdymui"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:16
+#: ../panel-plugin/pulseaudio-dialog.glade.h:18
 msgid "Enable experimental window focus support"
 msgstr "Įjungti eksperimentinį langų fokusavimo palaikymą"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:17
+#: ../panel-plugin/pulseaudio-dialog.glade.h:19
 msgid "Title"
 msgstr "Pavadinimas"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:18
+#: ../panel-plugin/pulseaudio-dialog.glade.h:20
 msgid "Hidden"
 msgstr "Paslėptas"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:19
+#: ../panel-plugin/pulseaudio-dialog.glade.h:21
 msgid "Clear Known Items"
 msgstr "Išvalyti žinomus elementus"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:20
+#: ../panel-plugin/pulseaudio-dialog.glade.h:22
 msgid "Please restart your panel for additional players to be displayed."
 msgstr "Norėdami rodyti papildomas leistuves, paleiskite savo skydelį iš naujo."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:21
+#: ../panel-plugin/pulseaudio-dialog.glade.h:23
 msgid "Known Media Players"
 msgstr "Žinomos medijos leistuvės"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:22
+#: ../panel-plugin/pulseaudio-dialog.glade.h:24
 msgid "Media Players"
 msgstr "Medijos leistuvės"
 
-#: ../panel-plugin/pulseaudio-plugin.c:258
+#: ../panel-plugin/pulseaudio-plugin.c:253
 msgid "Copyright © 2014-2022 Andrzej Radecki et al.\n"
 msgstr "Autorių teisės © 2014-2022 Andrzej Radecki ir kiti.\n"
 
@@ -182,7 +190,7 @@ msgstr "Garsis %d%c (nutildyta)"
 msgid "Volume %d%c"
 msgstr "Garsis %d%c"
 
-#: ../panel-plugin/mprismenuitem.c:363 ../panel-plugin/mprismenuitem.c:436
-#: ../panel-plugin/mprismenuitem.c:810
+#: ../panel-plugin/mprismenuitem.c:374 ../panel-plugin/mprismenuitem.c:447
+#: ../panel-plugin/mprismenuitem.c:821
 msgid "Not currently playing"
 msgstr "Šiuo metu negroja"
