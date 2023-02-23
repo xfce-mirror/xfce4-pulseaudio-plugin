@@ -6,15 +6,15 @@
 # SamHX <samzh@outlook.com>, 2018
 # SamHX <samzh@outlook.com>, 2017
 # Cally Mal <zhouxiaobo.500@gmail.com>, 2017
-# 玉堂白鹤 <yjwork@qq.com>, 2015,2017-2018,2020,2022
+# 玉堂白鹤 <yjwork@qq.com>, 2015,2017-2018,2020,2022-2023
 # Mingcong Bai <jeffbai@aosc.xyz>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-28 15:07+0100\n"
+"POT-Creation-Date: 2023-02-19 00:49+0100\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
-"Last-Translator: 玉堂白鹤 <yjwork@qq.com>, 2015,2017-2018,2020,2022\n"
+"Last-Translator: 玉堂白鹤 <yjwork@qq.com>, 2015,2017-2018,2020,2022-2023\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/xfce/xfce-panel-plugins/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,7 +27,7 @@ msgid "PulseAudio Plugin"
 msgstr "PulseAudio 插件"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:256
+#: ../panel-plugin/pulseaudio-plugin.c:251
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "调节 PulseAudio 声音系统的音量"
 
@@ -64,68 +64,76 @@ msgid ""
 msgstr "使用多媒体键更改音量时启用音频反馈。"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:8
+msgid "Step size used when adjusting volume with mouse wheel."
+msgstr "使用鼠标滚轮调整音量时使用的步长。"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:9
+msgid "Mouse wheel volume step:"
+msgstr "鼠标滚轮音量步长:"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:10
 msgid "Behaviour"
 msgstr "行为"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:9
+#: ../panel-plugin/pulseaudio-dialog.glade.h:11
 msgid "Audio _Mixer"
 msgstr "混音器 (_M)"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:10
+#: ../panel-plugin/pulseaudio-dialog.glade.h:12
 msgid ""
 "Audio mixer command that can be executed from the context menu, e.g. "
 "\"pavucontrol\", \"unity-control-center sound\"."
 msgstr "可从菜单中执行的混音器命令，如 \"pavucontrol\" 和 \"unity-control-center sound\"。"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:11
+#: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "_Run Audio Mixer..."
 msgstr "运行混音器 (_R) ..."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:12
+#: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "Sound Settings"
 msgstr "声音设置"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:13
+#: ../panel-plugin/pulseaudio-dialog.glade.h:15
 msgid "General"
 msgstr "通用"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:14
+#: ../panel-plugin/pulseaudio-dialog.glade.h:16
 msgid "Control Playback of Media Players"
 msgstr "控制媒体播放器回放"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:15
+#: ../panel-plugin/pulseaudio-dialog.glade.h:17
 msgid "Enable multimedia keys for playback control"
 msgstr "为回放控制启用多媒体按键"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:16
+#: ../panel-plugin/pulseaudio-dialog.glade.h:18
 msgid "Enable experimental window focus support"
 msgstr "启用实验性的窗口焦点支持"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:17
+#: ../panel-plugin/pulseaudio-dialog.glade.h:19
 msgid "Title"
 msgstr "标题"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:18
+#: ../panel-plugin/pulseaudio-dialog.glade.h:20
 msgid "Hidden"
 msgstr "隐藏"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:19
+#: ../panel-plugin/pulseaudio-dialog.glade.h:21
 msgid "Clear Known Items"
 msgstr "清除已知项目"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:20
+#: ../panel-plugin/pulseaudio-dialog.glade.h:22
 msgid "Please restart your panel for additional players to be displayed."
 msgstr "请重启面板以便显示外加播放器。"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:21
+#: ../panel-plugin/pulseaudio-dialog.glade.h:23
 msgid "Known Media Players"
 msgstr "已知媒体播放器"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:22
+#: ../panel-plugin/pulseaudio-dialog.glade.h:24
 msgid "Media Players"
 msgstr "媒体播放器"
 
-#: ../panel-plugin/pulseaudio-plugin.c:258
+#: ../panel-plugin/pulseaudio-plugin.c:253
 msgid "Copyright © 2014-2022 Andrzej Radecki et al.\n"
 msgstr "版权所有 © 2014-2022 Andrzej Radecki et al.\n"
 
@@ -186,7 +194,7 @@ msgstr "%d%c 音量（静音）"
 msgid "Volume %d%c"
 msgstr "%d%c 音量"
 
-#: ../panel-plugin/mprismenuitem.c:363 ../panel-plugin/mprismenuitem.c:436
-#: ../panel-plugin/mprismenuitem.c:810
+#: ../panel-plugin/mprismenuitem.c:374 ../panel-plugin/mprismenuitem.c:447
+#: ../panel-plugin/mprismenuitem.c:821
 msgid "Not currently playing"
 msgstr "当前没有播放"
