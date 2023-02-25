@@ -5,7 +5,7 @@
 # Translators:
 # Allan Nordhøy <epost@anotheragency.no>, 2015,2017
 # Åsmund Berg Holm <berg.holm@outlook.com>, 2017
-# heskjestad <cato@heskjestad.xyz>, 2022
+# heskjestad <cato@heskjestad.xyz>, 2022-2023
 # Erlend Østlie <erlendandreas12368@gmail.com>, 2018
 # Harald H. <haarektrans@gmail.com>, 2015
 # Harald H. <haarektrans@gmail.com>, 2016
@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-11 12:56+0200\n"
+"POT-Creation-Date: 2023-02-19 00:49+0100\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
-"Last-Translator: heskjestad <cato@heskjestad.xyz>, 2022\n"
+"Last-Translator: heskjestad <cato@heskjestad.xyz>, 2022-2023\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/xfce/xfce-panel-plugins/language/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,7 +29,7 @@ msgid "PulseAudio Plugin"
 msgstr "PulseAudio-tillegg"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:256
+#: ../panel-plugin/pulseaudio-plugin.c:251
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "Juster lydstyrken på PulseAudio-lydsystemet"
 
@@ -66,68 +66,76 @@ msgid ""
 msgstr "Slår på lydsignal når multimedia-taster endrer volumet."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:8
+msgid "Step size used when adjusting volume with mouse wheel."
+msgstr "Trinnstørrelse når volumet justeres med musehjulet."
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:9
+msgid "Mouse wheel volume step:"
+msgstr "Volumhopp ved bruk av musehjulet:"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:10
 msgid "Behaviour"
 msgstr "Oppførsel"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:9
+#: ../panel-plugin/pulseaudio-dialog.glade.h:11
 msgid "Audio _Mixer"
 msgstr "Lyd_mikser"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:10
+#: ../panel-plugin/pulseaudio-dialog.glade.h:12
 msgid ""
 "Audio mixer command that can be executed from the context menu, e.g. "
 "\"pavucontrol\", \"unity-control-center sound\"."
 msgstr "Lydmikser-kommando som kan utføres fra innholdsmenyen, eksempelvis «pavucontrol» eller «unity-control-center sound»."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:11
+#: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "_Run Audio Mixer..."
 msgstr "Kjør lydmikser …"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:12
+#: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "Sound Settings"
 msgstr "Lydinnstillinger"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:13
+#: ../panel-plugin/pulseaudio-dialog.glade.h:15
 msgid "General"
 msgstr "Generelt"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:14
+#: ../panel-plugin/pulseaudio-dialog.glade.h:16
 msgid "Control Playback of Media Players"
 msgstr "Styr avspilling av mediespillere"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:15
+#: ../panel-plugin/pulseaudio-dialog.glade.h:17
 msgid "Enable multimedia keys for playback control"
 msgstr "Aktiver multimedia-knapper for styring av avspilling"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:16
+#: ../panel-plugin/pulseaudio-dialog.glade.h:18
 msgid "Enable experimental window focus support"
 msgstr "Aktiver eksperimentell støtte for vindusfokus "
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:17
+#: ../panel-plugin/pulseaudio-dialog.glade.h:19
 msgid "Title"
 msgstr "Tittel"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:18
+#: ../panel-plugin/pulseaudio-dialog.glade.h:20
 msgid "Hidden"
 msgstr "Skjult"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:19
+#: ../panel-plugin/pulseaudio-dialog.glade.h:21
 msgid "Clear Known Items"
 msgstr "Tøm kjente elementer"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:20
+#: ../panel-plugin/pulseaudio-dialog.glade.h:22
 msgid "Please restart your panel for additional players to be displayed."
 msgstr "Start panelet på nytt for å vise flere mediaspillere."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:21
+#: ../panel-plugin/pulseaudio-dialog.glade.h:23
 msgid "Known Media Players"
 msgstr "Kjente mediespillere"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:22
+#: ../panel-plugin/pulseaudio-dialog.glade.h:24
 msgid "Media Players"
 msgstr "Mediespillere"
 
-#: ../panel-plugin/pulseaudio-plugin.c:258
+#: ../panel-plugin/pulseaudio-plugin.c:253
 msgid "Copyright © 2014-2022 Andrzej Radecki et al.\n"
 msgstr "Opphavsrett © 2014-2022 Andrzej Radecki et al.\n"
 
@@ -188,7 +196,7 @@ msgstr "Volum %d%c (dempet)"
 msgid "Volume %d%c"
 msgstr "Volum %d%c"
 
-#: ../panel-plugin/mprismenuitem.c:363 ../panel-plugin/mprismenuitem.c:436
-#: ../panel-plugin/mprismenuitem.c:810
+#: ../panel-plugin/mprismenuitem.c:374 ../panel-plugin/mprismenuitem.c:447
+#: ../panel-plugin/mprismenuitem.c:821
 msgid "Not currently playing"
 msgstr "Ingen avspilling for øyeblikket"
