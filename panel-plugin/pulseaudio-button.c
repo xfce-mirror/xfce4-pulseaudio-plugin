@@ -61,6 +61,15 @@ static const char *icons[] = {
   NULL
 };
 
+/* Icons for different recording levels */
+static const char *recording_icons[] = {
+  "microphone-sensitivity-muted-symbolic",
+  "microphone-sensitivity-low-symbolic",
+  "microphone-sensitivity-medium-symbolic",
+  "microphone-sensitivity-high-symbolic",
+  NULL
+};
+
 
 
 static void                 pulseaudio_button_finalize        (GObject            *object);
@@ -91,10 +100,12 @@ struct _PulseaudioButton
   /* Icon size currently used */
   gint                  icon_size;
   const gchar          *icon_name;
+  const gchar          *recording_icon_name;
 
   PulseaudioMenu       *menu;
 
   gulong                volume_changed_id;
+  gulong                recording_volume_changed_id;
   gulong                recording_changed_id;
   gulong                deactivate_id;
 };
@@ -160,10 +171,12 @@ pulseaudio_button_init (PulseaudioButton *button)
 
   button->menu = NULL;
   button->volume_changed_id = 0;
+  button->recording_volume_changed_id = 0;
+  button->recording_changed_id = 0;
   button->deactivate_id = 0;
 
   button->image = gtk_image_new ();
-  button->recording_indicator = gtk_image_new_from_icon_name ("audio-input-microphone-symbolic", GTK_ICON_SIZE_MENU);
+  button->recording_indicator = gtk_image_new ();
   box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
   gtk_container_add (GTK_CONTAINER (button), box);
   gtk_box_pack_start (GTK_BOX (box), GTK_WIDGET (button->recording_indicator), TRUE, FALSE, 0);
@@ -331,12 +344,15 @@ pulseaudio_button_update (PulseaudioButton *button,
                           gboolean          force_update)
 {
   gdouble      volume;
+  gdouble      recording_volume;
   gboolean     connected;
   gboolean     sink_connected;
   gboolean     muted;
+  gboolean     recording_muted;
   gboolean     recording;
   gchar       *tip_text;
   const gchar *icon_name;
+  const gchar *recording_icon_name;
 
   g_return_if_fail (IS_PULSEAUDIO_BUTTON (button));
   g_return_if_fail (IS_PULSEAUDIO_VOLUME (button->volume));
@@ -346,6 +362,8 @@ pulseaudio_button_update (PulseaudioButton *button,
   connected = pulseaudio_volume_get_connected (button->volume);
   sink_connected = pulseaudio_volume_get_sink_connected (button->volume);
   recording = pulseaudio_volume_get_recording (button->volume);
+  recording_volume = pulseaudio_volume_get_volume_mic (button->volume);
+  recording_muted = pulseaudio_volume_get_muted_mic (button->volume);
 
   if (!connected)
     icon_name = icons[V_MUTED];
@@ -361,6 +379,19 @@ pulseaudio_button_update (PulseaudioButton *button,
     icon_name = icons[V_HIGH];
 
   if (!connected)
+    recording_icon_name = recording_icons[V_MUTED];
+  else if (recording_muted)
+    recording_icon_name = recording_icons[V_MUTED];
+  else if (recording_volume <= 0.0)
+    recording_icon_name = recording_icons[V_MUTED];
+  else if (recording_volume <= 0.3)
+    recording_icon_name = recording_icons[V_LOW];
+  else if (recording_volume <= 0.7)
+    recording_icon_name = recording_icons[V_MEDIUM];
+  else
+    recording_icon_name = recording_icons[V_HIGH];
+
+  if (!connected)
     tip_text = g_strdup_printf (_("Not connected to the PulseAudio server"));
   else if (muted)
     tip_text = g_strdup_printf (_("Volume %d%% (muted)"), (gint) round (volume * 100));
@@ -374,6 +405,13 @@ pulseaudio_button_update (PulseaudioButton *button,
       button->icon_name = icon_name;
       gtk_image_set_from_icon_name (GTK_IMAGE (button->image), icon_name, GTK_ICON_SIZE_BUTTON);
       gtk_image_set_pixel_size (GTK_IMAGE (button->image), button->icon_size);
+    }
+
+  if (force_update || recording_icon_name != button->recording_icon_name)
+    {
+      button->recording_icon_name = recording_icon_name;
+      gtk_image_set_from_icon_name (GTK_IMAGE (button->recording_indicator), recording_icon_name, GTK_ICON_SIZE_BUTTON);
+      gtk_image_set_pixel_size (GTK_IMAGE (button->recording_indicator), button->icon_size);
     }
 
   if (gtk_widget_get_visible (button->recording_indicator) != recording)
@@ -396,6 +434,8 @@ pulseaudio_button_set_size (PulseaudioButton *button,
   gtk_widget_set_size_request (GTK_WIDGET (button), size, size);
   button->icon_size = icon_size;
   gtk_image_set_pixel_size (GTK_IMAGE (button->image), button->icon_size);
+  if (gtk_widget_get_visible (button->recording_indicator))
+    gtk_image_set_pixel_size (GTK_IMAGE (button->recording_indicator), button->icon_size);
 }
 
 
@@ -457,6 +497,9 @@ pulseaudio_button_new (PulseaudioPlugin *plugin,
   button->mpris = mpris;
   button->volume_changed_id =
     g_signal_connect_swapped (G_OBJECT (button->volume), "volume-changed",
+                              G_CALLBACK (pulseaudio_button_volume_changed), button);
+  button->recording_volume_changed_id =
+    g_signal_connect_swapped (G_OBJECT (button->volume), "volume-mic-changed",
                               G_CALLBACK (pulseaudio_button_volume_changed), button);
   button->recording_changed_id =
     g_signal_connect_swapped (G_OBJECT (button->volume), "recording-changed",
