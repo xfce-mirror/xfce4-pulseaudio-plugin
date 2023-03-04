@@ -491,12 +491,15 @@ pulseaudio_volume_context_state_cb (pa_context *context,
 
       g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_CHANGED], 0, FALSE);
       g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_MIC_CHANGED], 0, FALSE);
-      g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [RECORDING_CHANGED], 0, FALSE);
 
       volume->sink_connected = FALSE;
       volume->source_connected = FALSE;
 
       pa_context_get_server_info (volume->pa_context, pulseaudio_volume_get_server_info_cb, volume);
+
+      // Check here if recording is active
+      pa_context_get_source_output_info_list (context, pulseaudio_volume_get_source_output_info_cb, volume);
+      g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [RECORDING_CHANGED], 0, volume->recording);
 
       break;
 
