@@ -444,8 +444,8 @@ pulseaudio_volume_get_source_list_cb (pa_context           *context,
   if (eol > 0)
     return;
 
-  /* Ignore sink monitors, not relevant for users */
-  if (i->monitor_of_sink != PA_INVALID_INDEX)
+  /* Ignore sink monitors if it is not a default sink, not relevant for users */
+  if (i->monitor_of_sink != PA_INVALID_INDEX && g_strcmp0 (i->name, volume->default_source_name) != 0)
     return;
 
   g_hash_table_insert (volume->sources, g_strdup (i->name), g_strdup (i->description));
