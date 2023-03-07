@@ -180,7 +180,7 @@ pulseaudio_menu_default_output_changed (PulseaudioMenu *menu,
 {
   g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
 
-  pulseaudio_volume_set_default_output (menu->volume, name);
+  pulseaudio_volume_set_default_output (menu->volume, name, TRUE);
 }
 
 
@@ -192,7 +192,7 @@ pulseaudio_menu_default_input_changed (PulseaudioMenu *menu,
 {
   g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
 
-  pulseaudio_volume_set_default_input (menu->volume, name);
+  pulseaudio_volume_set_default_input (menu->volume, name, TRUE);
 }
 
 
