@@ -60,6 +60,7 @@
 
 #define DEFAULT_MPRIS_PLAYERS                     ""
 #define DEFAULT_ENABLE_WNCK                       FALSE
+#define DEFAULT_DISABLE_MIC_VOL_NOTIFIES          FALSE
 
 
 
@@ -97,6 +98,7 @@ struct _PulseaudioConfig
   gchar           *mpris_players;
   gchar           *blacklisted_players;
   gboolean         enable_wnck;
+  gboolean         disable_mic_vol_notifies;
 };
 
 
@@ -117,6 +119,7 @@ enum
     PROP_MPRIS_PLAYERS,
     PROP_BLACKLISTED_PLAYERS,
     PROP_ENABLE_WNCK,
+    PROP_DISABLE_MIC_VOL_NOTIFIES,
     N_PROPERTIES,
   };
 
@@ -246,6 +249,15 @@ pulseaudio_config_class_init (PulseaudioConfigClass *klass)
 
 
 
+  g_object_class_install_property (gobject_class,
+                                   PROP_DISABLE_MIC_VOL_NOTIFIES,
+                                   g_param_spec_boolean ("disable-mic-vol-notifies", NULL, NULL,
+                                                         DEFAULT_DISABLE_MIC_VOL_NOTIFIES,
+                                                         G_PARAM_READWRITE |
+                                                         G_PARAM_STATIC_STRINGS));
+
+
+
   pulseaudio_config_signals[CONFIGURATION_CHANGED] =
     g_signal_new (g_intern_static_string ("configuration-changed"),
                   G_TYPE_FROM_CLASS (gobject_class),
@@ -273,6 +285,7 @@ pulseaudio_config_init (PulseaudioConfig *config)
   config->mpris_players             = g_strdup (DEFAULT_MPRIS_PLAYERS);
   config->blacklisted_players       = g_strdup (DEFAULT_BLACKLISTED_PLAYERS);
   config->enable_wnck               = DEFAULT_ENABLE_WNCK;
+  config->disable_mic_vol_notifies  = DEFAULT_DISABLE_MIC_VOL_NOTIFIES;
 }
 
 
@@ -344,6 +357,10 @@ pulseaudio_config_get_property (GObject    *object,
 
     case PROP_ENABLE_WNCK:
       g_value_set_boolean (value, config->enable_wnck);
+      break;
+
+    case PROP_DISABLE_MIC_VOL_NOTIFIES:
+      g_value_set_boolean (value, config->disable_mic_vol_notifies);
       break;
 
     default:
@@ -473,6 +490,16 @@ pulseaudio_config_set_property (GObject      *object,
       {
         config->enable_wnck = val_bool;
         g_object_notify (G_OBJECT (config), "enable-wnck");
+        g_signal_emit (G_OBJECT (config), pulseaudio_config_signals [CONFIGURATION_CHANGED], 0);
+      }
+      break;
+
+    case PROP_DISABLE_MIC_VOL_NOTIFIES:
+      val_bool = g_value_get_boolean(value);
+      if (config->disable_mic_vol_notifies != val_bool)
+      {
+        config->disable_mic_vol_notifies = val_bool;
+        g_object_notify (G_OBJECT (config), "disable-mic-vol-notifies");
         g_signal_emit (G_OBJECT (config), pulseaudio_config_signals [CONFIGURATION_CHANGED], 0);
       }
       break;
@@ -849,6 +876,14 @@ pulseaudio_config_get_can_raise_wnck (PulseaudioConfig *config)
 
 
 
+gboolean
+pulseaudio_config_get_disable_mic_vol_notifies (PulseaudioConfig *config)
+{
+  return config->disable_mic_vol_notifies;
+}
+
+
+
 PulseaudioConfig *
 pulseaudio_config_new (const gchar     *property_base)
 {
@@ -906,6 +941,10 @@ pulseaudio_config_new (const gchar     *property_base)
 
       property = g_strconcat (property_base, "/enable-wnck", NULL);
       xfconf_g_property_bind (channel, property, G_TYPE_BOOLEAN, config, "enable-wnck");
+      g_free (property);
+
+      property = g_strconcat (property_base, "/disable-mic-vol-notifies", NULL);
+      xfconf_g_property_bind (channel, property, G_TYPE_BOOLEAN, config, "disable-mic-vol-notifies");
       g_free (property);
 
       g_object_notify (G_OBJECT (config), "enable-keyboard-shortcuts");
