@@ -284,7 +284,7 @@ pulseaudio_volume_source_info_cb (pa_context           *context,
       volume->volume_mic = vol_mic;
 
       if (volume->source_connected)
-        g_signal_emit(G_OBJECT(volume), pulseaudio_volume_signals[VOLUME_MIC_CHANGED], 0, TRUE);
+        g_signal_emit(G_OBJECT(volume), pulseaudio_volume_signals[VOLUME_MIC_CHANGED], 0, FALSE);
     }
 
   pulseaudio_debug ("volume mic: %f, muted mic: %d", vol_mic, muted_mic);
