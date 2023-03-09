@@ -303,8 +303,8 @@ pulseaudio_volume_server_info_cb (pa_context           *context,
   if (i == NULL)
     return;
 
-  pulseaudio_volume_set_default_input (volume, i->default_source_name);
-  pulseaudio_volume_set_default_output (volume, i->default_sink_name);
+  pulseaudio_volume_set_default_input (volume, i->default_source_name, FALSE);
+  pulseaudio_volume_set_default_output (volume, i->default_sink_name, FALSE);
 
   pulseaudio_debug ("server: %s@%s, v.%s", i->user_name, i->server_name, i->server_version);
   pa_context_get_sink_info_by_name (context, i->default_sink_name, pulseaudio_volume_sink_info_cb, volume);
@@ -1041,7 +1041,8 @@ pulseaudio_volume_move_sink_input (pa_context               *context,
 
 void
 pulseaudio_volume_set_default_output (PulseaudioVolume *volume,
-                                      const gchar      *name)
+                                      const gchar      *name,
+                                      gboolean          make_default)
 {
   if (g_strcmp0(name, volume->default_sink_name) == 0)
     return;
@@ -1049,7 +1050,8 @@ pulseaudio_volume_set_default_output (PulseaudioVolume *volume,
   g_free (volume->default_sink_name);
   volume->default_sink_name = g_strdup (name);
 
-  pa_context_set_default_sink (volume->pa_context, name, pulseaudio_volume_default_sink_changed, volume);
+  if (make_default)
+    pa_context_set_default_sink (volume->pa_context, name, pulseaudio_volume_default_sink_changed, volume);
 }
 
 
@@ -1086,7 +1088,8 @@ pulseaudio_volume_default_source_changed (pa_context *context,
 
 void
 pulseaudio_volume_set_default_input (PulseaudioVolume *volume,
-                                     const gchar      *name)
+                                     const gchar      *name,
+                                     gboolean          make_default)
 {
   if (g_strcmp0 (name, volume->default_source_name) == 0)
     return;
@@ -1094,7 +1097,8 @@ pulseaudio_volume_set_default_input (PulseaudioVolume *volume,
   g_free (volume->default_source_name);
   volume->default_source_name = g_strdup (name);
 
-  pa_context_set_default_source (volume->pa_context, name, pulseaudio_volume_default_source_changed, volume);
+  if (make_default)
+    pa_context_set_default_source (volume->pa_context, name, pulseaudio_volume_default_source_changed, volume);
 }
 
 
