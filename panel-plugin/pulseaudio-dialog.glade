@@ -32,6 +32,26 @@
       <column type="gboolean"/>
     </columns>
   </object>
+  <object class="GtkListStore" id="notifications-store">
+    <columns>
+      <!-- column-name label -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">None</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">All</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Output volume level, all mute</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Input volume level, all mute</col>
+      </row>
+    </data>
+  </object>
   <object class="XfceTitledDialog" id="dialog">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">PulseAudio Panel Plugin</property>
@@ -135,12 +155,12 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkCheckButton" id="checkbutton-show-notifications">
-                                <property name="label" translatable="yes">Show _notifications when volume changes</property>
+                              <object class="GtkCheckButton" id="checkbutton-play-sound">
+                                <property name="label" translatable="yes">Play system _sound when volume changes</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="tooltip_text" translatable="yes">Enables on-screen volume notifications.</property>
+                                <property name="tooltip_text" translatable="yes">Enables audio feedback when using multimedia keys to change the volume.</property>
                                 <property name="halign">start</property>
                                 <property name="use_underline">True</property>
                                 <property name="draw_indicator">True</property>
@@ -152,15 +172,42 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkCheckButton" id="checkbutton-play-sound">
-                                <property name="label" translatable="yes">Play system _sound when volume changes</property>
+                              <object class="GtkBox" id="vbox2-hbox2">
                                 <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">False</property>
-                                <property name="tooltip_text" translatable="yes">Enables audio feedback when using multimedia keys to change the volume.</property>
-                                <property name="halign">start</property>
-                                <property name="use_underline">True</property>
-                                <property name="draw_indicator">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="spacing">6</property>
+                                <child>
+                                  <object class="GtkLabel" id="label5">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="label" translatable="yes">Show volume _notifications:</property>
+                                    <property name="use_underline">True</property>
+                                    <property name="mnemonic_widget">combobox-notifications</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkComboBox" id="combobox-notifications">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="model">notifications-store</property>
+                                    <child>
+                                      <object class="GtkCellRendererText" id="cb_text_render"/>
+                                      <attributes>
+                                        <attribute name="text">0</attribute>
+                                      </attributes>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
                               </object>
                               <packing>
                                 <property name="expand">True</property>

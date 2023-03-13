@@ -237,8 +237,8 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
                               G_OBJECT (object), "active",
                               G_BINDING_SYNC_CREATE | G_BINDING_BIDIRECTIONAL);
 
-      object = gtk_builder_get_object (builder, "checkbutton-show-notifications");
-      g_return_if_fail (GTK_IS_CHECK_BUTTON (object));
+      object = gtk_builder_get_object (builder, "combobox-notifications");
+      g_return_if_fail (GTK_IS_COMBO_BOX (object));
 #ifdef HAVE_LIBNOTIFY
       g_object_bind_property (G_OBJECT (dialog->config), "show-notifications",
                               G_OBJECT (object), "active",
