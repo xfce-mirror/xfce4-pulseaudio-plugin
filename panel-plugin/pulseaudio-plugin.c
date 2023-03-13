@@ -362,7 +362,7 @@ pulseaudio_plugin_volume_key_pressed (const char            *keystring,
     pulseaudio_notify_volume_changed (pulseaudio_plugin->notify, 1, pulseaudio_plugin->volume);
 #endif
   } else if (strcmp (keystring, PULSEAUDIO_PLUGIN_LOWER_VOLUME_KEY) == 0) {
-    pulseaudio_volume_set_volume (pulseaudio_plugin->volume, volume - volume_step);
+    pulseaudio_volume_set_volume (pulseaudio_plugin->volume, MAX (0.0, volume - volume_step));
 #ifdef HAVE_LIBNOTIFY
     /* Also send notification when volume is already at 0% */
     pulseaudio_notify_volume_changed (pulseaudio_plugin->notify, 1, pulseaudio_plugin->volume);
