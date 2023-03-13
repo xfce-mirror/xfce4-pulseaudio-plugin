@@ -44,7 +44,7 @@
 
 
 #define DEFAULT_ENABLE_KEYBOARD_SHORTCUTS         TRUE
-#define DEFAULT_SHOW_NOTIFICATIONS                TRUE
+#define DEFAULT_SHOW_NOTIFICATIONS                1
 #define DEFAULT_PLAY_SOUND                        FALSE
 #define DEFAULT_VOLUME_STEP                       5
 #define DEFAULT_VOLUME_MAX                        150
@@ -86,7 +86,7 @@ struct _PulseaudioConfig
 
   gboolean         enable_keyboard_shortcuts;
   gboolean         enable_multimedia_keys;
-  gboolean         show_notifications;
+  guint            show_notifications;
 #ifdef HAVE_LIBCANBERRA
   gboolean         play_sound;
 #endif
@@ -164,10 +164,10 @@ pulseaudio_config_class_init (PulseaudioConfigClass *klass)
 
   g_object_class_install_property (gobject_class,
                                    PROP_SHOW_NOTIFICATIONS,
-                                   g_param_spec_boolean ("show-notifications", NULL, NULL,
-                                                         DEFAULT_SHOW_NOTIFICATIONS,
-                                                         G_PARAM_READWRITE |
-                                                         G_PARAM_STATIC_STRINGS));
+                                   g_param_spec_uint ("show-notifications", NULL, NULL,
+                                                      0, 3, DEFAULT_SHOW_NOTIFICATIONS,
+                                                      G_PARAM_READWRITE |
+                                                      G_PARAM_STATIC_STRINGS));
 
 
 #ifdef HAVE_LIBCANBERRA
@@ -309,7 +309,7 @@ pulseaudio_config_get_property (GObject    *object,
       break;
 
     case PROP_SHOW_NOTIFICATIONS:
-      g_value_set_boolean (value, config->show_notifications);
+      g_value_set_uint (value, config->show_notifications);
       break;
 
 #ifdef HAVE_LIBCANBERRA
@@ -387,10 +387,10 @@ pulseaudio_config_set_property (GObject      *object,
       break;
 
     case PROP_SHOW_NOTIFICATIONS:
-      val_bool = g_value_get_boolean (value);
-      if (config->show_notifications != val_bool)
+      val_uint = g_value_get_uint (value);
+      if (config->show_notifications != val_uint)
         {
-          config->show_notifications = val_bool;
+          config->show_notifications = val_uint;
           g_object_notify (G_OBJECT (config), "show-notifications");
           g_signal_emit (G_OBJECT (config), pulseaudio_config_signals [CONFIGURATION_CHANGED], 0);
         }
@@ -505,7 +505,7 @@ pulseaudio_config_get_enable_multimedia_keys (PulseaudioConfig *config)
 
 
 
-gboolean
+guint
 pulseaudio_config_get_show_notifications (PulseaudioConfig *config)
 {
   g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), DEFAULT_SHOW_NOTIFICATIONS);
@@ -871,7 +871,7 @@ pulseaudio_config_new (const gchar     *property_base)
       g_free (property);
 
       property = g_strconcat (property_base, "/show-notifications", NULL);
-      xfconf_g_property_bind (channel, property, G_TYPE_BOOLEAN, config, "show-notifications");
+      xfconf_g_property_bind (channel, property, G_TYPE_UINT, config, "show-notifications");
       g_free (property);
 
 #ifdef HAVE_LIBCANBERRA
