@@ -239,7 +239,8 @@ pulseaudio_volume_sink_info_cb (pa_context         *context,
       volume->volume = vol;
 
       if (volume->sink_connected)
-        g_signal_emit(G_OBJECT(volume), pulseaudio_volume_signals[VOLUME_CHANGED], 0, TRUE);
+        g_signal_emit(G_OBJECT(volume), pulseaudio_volume_signals[VOLUME_CHANGED], 0,
+                      pulseaudio_volume_get_show_notifications (volume, VOLUME_NOTIFICATIONS_OUTPUT));
     }
 
   pulseaudio_debug ("volume: %f, muted: %d", vol, muted);
@@ -284,7 +285,8 @@ pulseaudio_volume_source_info_cb (pa_context           *context,
       volume->volume_mic = vol_mic;
 
       if (volume->source_connected)
-        g_signal_emit(G_OBJECT(volume), pulseaudio_volume_signals[VOLUME_MIC_CHANGED], 0, TRUE);
+          g_signal_emit(G_OBJECT(volume), pulseaudio_volume_signals[VOLUME_MIC_CHANGED], 0,
+                        pulseaudio_volume_get_show_notifications (volume, VOLUME_NOTIFICATIONS_INPUT));
     }
 
   pulseaudio_debug ("volume mic: %f, muted mic: %d", vol_mic, muted_mic);
@@ -688,7 +690,8 @@ pulseaudio_volume_sink_volume_changed (pa_context *context,
 
   if (success)
     {
-      g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_CHANGED], 0, TRUE);
+      g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_CHANGED], 0,
+                     pulseaudio_volume_get_show_notifications (volume, VOLUME_NOTIFICATIONS_OUTPUT));
 #ifdef HAVE_LIBCANBERRA
       pulseaudio_plugin_play_sound (volume->plugin, "audio-volume-change", "volume changed");
 #endif
@@ -744,7 +747,8 @@ pulseaudio_volume_source_volume_changed (pa_context *context,
   PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
 
   if (success)
-    g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_MIC_CHANGED], 0, TRUE);
+    g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_MIC_CHANGED], 0,
+                   pulseaudio_volume_get_show_notifications (volume, VOLUME_NOTIFICATIONS_INPUT));
 }
 
 
@@ -1099,6 +1103,17 @@ pulseaudio_volume_set_default_input (PulseaudioVolume *volume,
 
   if (make_default)
     pa_context_set_default_source (volume->pa_context, name, pulseaudio_volume_default_source_changed, volume);
+}
+
+
+
+gboolean
+pulseaudio_volume_get_show_notifications (PulseaudioVolume *volume,
+                                          guint             direction)
+{
+  guint show_notifications = pulseaudio_config_get_show_notifications (volume->config);
+  return show_notifications != VOLUME_NOTIFICATIONS_NONE
+    && (show_notifications == VOLUME_NOTIFICATIONS_ALL || show_notifications == direction);
 }
 
 
