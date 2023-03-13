@@ -79,6 +79,8 @@ const gchar            *pulseaudio_volume_get_default_input       (PulseaudioVol
 void                    pulseaudio_volume_set_default_input       (PulseaudioVolume *volume,
                                                                    const gchar      *name,
                                                                    gboolean          make_default);
+gboolean                pulseaudio_volume_get_show_notifications  (PulseaudioVolume *volume,
+                                                                   guint direction);
 
 G_END_DECLS
 
