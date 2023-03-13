@@ -285,7 +285,7 @@ pulseaudio_notify_new (PulseaudioConfig *config,
   notify->volume_changed_id =
     g_signal_connect_swapped (G_OBJECT (notify->volume), "volume-changed",
                               G_CALLBACK (pulseaudio_notify_volume_changed), notify);
-  notify->volume_changed_id =
+  notify->volume_mic_changed_id =
     g_signal_connect_swapped (G_OBJECT (notify->volume), "volume-mic-changed",
                               G_CALLBACK (pulseaudio_notify_volume_mic_changed), notify);
 
