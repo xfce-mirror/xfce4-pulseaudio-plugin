@@ -34,13 +34,24 @@ typedef struct _PulseaudioConfig      PulseaudioConfig;
 #define IS_PULSEAUDIO_CONFIG_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass),  TYPE_PULSEAUDIO_CONFIG))
 #define PULSEAUDIO_CONFIG_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj),  TYPE_PULSEAUDIO_CONFIG, PulseaudioConfigClass))
 
+enum
+{
+  /* First two values keeps the backward compatibility */
+  VOLUME_NOTIFICATIONS_NONE,
+  VOLUME_NOTIFICATIONS_ALL,
+  VOLUME_NOTIFICATIONS_OUTPUT,
+  VOLUME_NOTIFICATIONS_INPUT,
+
+  VOLUME_NOTIFICATIONS_COUNT,
+};
+
 GType              pulseaudio_config_get_type                       (void)                                       G_GNUC_CONST;
 
 PulseaudioConfig  *pulseaudio_config_new                            (const gchar          *property_base);
 
 gboolean           pulseaudio_config_get_enable_keyboard_shortcuts  (PulseaudioConfig     *config);
 gboolean           pulseaudio_config_get_enable_multimedia_keys     (PulseaudioConfig     *config);
-gboolean           pulseaudio_config_get_show_notifications         (PulseaudioConfig     *config);
+guint              pulseaudio_config_get_show_notifications         (PulseaudioConfig     *config);
 #ifdef HAVE_LIBCANBERRA
 gboolean           pulseaudio_config_get_play_sound                 (PulseaudioConfig     *config);
 #endif
