@@ -39,11 +39,11 @@ msgstr "Alle"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:3
 msgid "Output only"
-msgstr ""
+msgstr "Nur Ausgabe"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:4
 msgid "Input only"
-msgstr ""
+msgstr "Nur Eingabe"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:5
 msgid "PulseAudio Panel Plugin"
@@ -71,11 +71,11 @@ msgstr "Aktiviert die akustische Rückmeldung bei der Verwendung von Multimediat
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:10
 msgid "Show volume _notifications:"
-msgstr ""
+msgstr "Lautstärke Be_nachrichtigungen anzeigen:"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:11
 msgid "Mute/unmute is notified in all modes except \"None\""
-msgstr ""
+msgstr "Stummschaltung/Aufhebung der Stummschaltung wird in allen Modi außer \"Keine\" gemeldet"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
 msgid "Step size used when adjusting volume with mouse wheel."
