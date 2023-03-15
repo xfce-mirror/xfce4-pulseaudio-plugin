@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-19 00:49+0100\n"
+"POT-Creation-Date: 2023-03-15 00:49+0100\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
 "Last-Translator: Igor Vornovskii, 2023\n"
 "Language-Team: Russian (http://www.transifex.com/xfce/xfce-panel-plugins/language/ru/)\n"
@@ -31,104 +31,120 @@ msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "Управление громкостью звука системы PulseAudio"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:1
+msgid "None"
+msgstr "ничто"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:2
+msgid "All"
+msgstr "Все"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:3
+msgid "Output only"
+msgstr ""
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:4
+msgid "Input only"
+msgstr ""
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:5
 msgid "PulseAudio Panel Plugin"
 msgstr "Модуль PulseAudio для панели"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:2
+#: ../panel-plugin/pulseaudio-dialog.glade.h:6
 msgid "Enable keyboard _shortcuts for volume control"
 msgstr "Управлять громкостью _клавиатурными комбинациями"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:3
+#: ../panel-plugin/pulseaudio-dialog.glade.h:7
 msgid ""
 "Enables volume control using multimedia keys. Make sure no other application"
 " that listens to these keys (e.g. xfce4-volumed) is running in the "
 "background."
 msgstr "Разрешить управление громкостью мультимедийными клавишами. Проверьте, что никакие другие приложения, работающие с этими клавишами (например, xfce4-volumed), не запущены в фоновом режиме."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:4
-msgid "Show _notifications when volume changes"
-msgstr "Отображать _уведомления при изменении громкости"
-
-#: ../panel-plugin/pulseaudio-dialog.glade.h:5
-msgid "Enables on-screen volume notifications."
-msgstr "Включает экранные уведомления о громкости."
-
-#: ../panel-plugin/pulseaudio-dialog.glade.h:6
+#: ../panel-plugin/pulseaudio-dialog.glade.h:8
 msgid "Play system _sound when volume changes"
 msgstr "Проигр_ывать системный звук при изменении громкости"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:7
+#: ../panel-plugin/pulseaudio-dialog.glade.h:9
 msgid ""
 "Enables audio feedback when using multimedia keys to change the volume."
 msgstr "Включает звуковое уведомление при использовании мультимедийных клавиш для изменения громкости."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:8
+#: ../panel-plugin/pulseaudio-dialog.glade.h:10
+msgid "Show volume _notifications:"
+msgstr ""
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:11
+msgid "Mute/unmute is notified in all modes except \"None\""
+msgstr ""
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:12
 msgid "Step size used when adjusting volume with mouse wheel."
 msgstr "Размер шага, используемый при регулировке громкости колесом мыши."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:9
+#: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "Mouse wheel volume step:"
 msgstr "Шаг громкости колеса мыши:"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:10
+#: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "Behaviour"
 msgstr "Поведение"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:11
+#: ../panel-plugin/pulseaudio-dialog.glade.h:15
 msgid "Audio _Mixer"
 msgstr "Звуковой _микшер"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:12
+#: ../panel-plugin/pulseaudio-dialog.glade.h:16
 msgid ""
 "Audio mixer command that can be executed from the context menu, e.g. "
 "\"pavucontrol\", \"unity-control-center sound\"."
 msgstr "Команда звукового микшера для запуска из контекстного меню, например, «pavucontrol» или «unity-control-center sound»."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:13
+#: ../panel-plugin/pulseaudio-dialog.glade.h:17
 msgid "_Run Audio Mixer..."
 msgstr "_Запустить звуковой микшер..."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:14
+#: ../panel-plugin/pulseaudio-dialog.glade.h:18
 msgid "Sound Settings"
 msgstr "Настройки звука"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:15
+#: ../panel-plugin/pulseaudio-dialog.glade.h:19
 msgid "General"
 msgstr "Общие"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:16
+#: ../panel-plugin/pulseaudio-dialog.glade.h:20
 msgid "Control Playback of Media Players"
 msgstr "Управление воспроизведением в медиаплеерах"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:17
+#: ../panel-plugin/pulseaudio-dialog.glade.h:21
 msgid "Enable multimedia keys for playback control"
 msgstr "Управлять воспроизведением с помощью мультимедиа клавиш"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:18
+#: ../panel-plugin/pulseaudio-dialog.glade.h:22
 msgid "Enable experimental window focus support"
 msgstr "Включить экспериментальную поддержку фокуса окна"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:19
+#: ../panel-plugin/pulseaudio-dialog.glade.h:23
 msgid "Title"
 msgstr "Заголовок"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:20
+#: ../panel-plugin/pulseaudio-dialog.glade.h:24
 msgid "Hidden"
 msgstr "Скрытый"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:21
+#: ../panel-plugin/pulseaudio-dialog.glade.h:25
 msgid "Clear Known Items"
 msgstr "Очистить известные элементы"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:22
+#: ../panel-plugin/pulseaudio-dialog.glade.h:26
 msgid "Please restart your panel for additional players to be displayed."
 msgstr "Перезапустите панель для показа дополнительных плееров."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:23
+#: ../panel-plugin/pulseaudio-dialog.glade.h:27
 msgid "Known Media Players"
 msgstr "Известные медиаплееры"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:24
+#: ../panel-plugin/pulseaudio-dialog.glade.h:28
 msgid "Media Players"
 msgstr "Медиаплееры"
 
@@ -150,18 +166,18 @@ msgstr "<big><b>Ошибка при выполнении команды \"%s\".<
 msgid "Error"
 msgstr "Ошибка"
 
-#: ../panel-plugin/pulseaudio-button.c:364
+#: ../panel-plugin/pulseaudio-button.c:395
 #: ../panel-plugin/pulseaudio-notify.c:199
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "Нет соединения с сервером PulseAudio"
 
-#: ../panel-plugin/pulseaudio-button.c:366
+#: ../panel-plugin/pulseaudio-button.c:397
 #, c-format
 msgid "Volume %d%% (muted)"
 msgstr "Громкость %d%% (откл.)"
 
-#: ../panel-plugin/pulseaudio-button.c:368
+#: ../panel-plugin/pulseaudio-button.c:399
 #, c-format
 msgid "Volume %d%%"
 msgstr "Громкость %d%%"
