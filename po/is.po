@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-29 18:32+0200\n"
-"PO-Revision-Date: 2020-03-29 16:32+0000\n"
-"Last-Translator: Xfce Bot <transifex@xfce.org>\n"
+"POT-Creation-Date: 2023-03-15 00:49+0100\n"
+"PO-Revision-Date: 2015-10-05 20:18+0000\n"
+"Last-Translator: Sveinn í Felli <sv1@fellsnet.is>, 2015,2018-2019\n"
 "Language-Team: Icelandic (http://www.transifex.com/xfce/xfce-panel-plugins/language/is/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,97 +23,130 @@ msgid "PulseAudio Plugin"
 msgstr "PulseAudio-viðbót"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:242
+#: ../panel-plugin/pulseaudio-plugin.c:251
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "Stilla hljóðstyrk PulseAudio hljóðkerfisins"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:1
+msgid "None"
+msgstr "Ekkert"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:2
+msgid "All"
+msgstr "Allt"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:3
+msgid "Output only"
+msgstr ""
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:4
+msgid "Input only"
+msgstr ""
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:5
 msgid "PulseAudio Panel Plugin"
 msgstr "PulseAudio-viðbót fyrir skjástiku"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:2
+#: ../panel-plugin/pulseaudio-dialog.glade.h:6
 msgid "Enable keyboard _shortcuts for volume control"
 msgstr "Virkja flýtileiðir á lyklaborði til að _stýra hljóðstyrk"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:3
+#: ../panel-plugin/pulseaudio-dialog.glade.h:7
 msgid ""
 "Enables volume control using multimedia keys. Make sure no other application"
 " that listens to these keys (e.g. xfce4-volumed) is running in the "
 "background."
 msgstr "Virkjar stýringu hljóðstyrks með margmiðlunarlyklum. Gakktu úr skugga um að ekkert annað forrit sem skynjar þessa lykla (t.d. xfce4-volumed) sé að keyra í bakgrunni."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:4
-msgid "Show _notifications when volume changes"
-msgstr "Birta tilky_nningar þegar hljóðstyrkur breytist"
+#: ../panel-plugin/pulseaudio-dialog.glade.h:8
+msgid "Play system _sound when volume changes"
+msgstr ""
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:5
-msgid "Enables on-screen volume notifications."
-msgstr "Virkjar skjátilkynningar vegna hljóðstyrks."
+#: ../panel-plugin/pulseaudio-dialog.glade.h:9
+msgid ""
+"Enables audio feedback when using multimedia keys to change the volume."
+msgstr ""
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:6
+#: ../panel-plugin/pulseaudio-dialog.glade.h:10
+msgid "Show volume _notifications:"
+msgstr ""
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:11
+msgid "Mute/unmute is notified in all modes except \"None\""
+msgstr ""
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:12
+msgid "Step size used when adjusting volume with mouse wheel."
+msgstr ""
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:13
+msgid "Mouse wheel volume step:"
+msgstr ""
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "Behaviour"
 msgstr "Hegðun"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:7
+#: ../panel-plugin/pulseaudio-dialog.glade.h:15
 msgid "Audio _Mixer"
 msgstr "Hljóð_blandari"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:8
+#: ../panel-plugin/pulseaudio-dialog.glade.h:16
 msgid ""
 "Audio mixer command that can be executed from the context menu, e.g. "
 "\"pavucontrol\", \"unity-control-center sound\"."
 msgstr "Skipun hljóðblandara sem hægt er að keyra úr samhengisvalmyndinni, t.d. \"pavucontrol\", \"unity-control-center sound\"."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:9
+#: ../panel-plugin/pulseaudio-dialog.glade.h:17
 msgid "_Run Audio Mixer..."
 msgstr "Key_ra hljóðblandara..."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:10
+#: ../panel-plugin/pulseaudio-dialog.glade.h:18
 msgid "Sound Settings"
 msgstr "Hljóðstillingar"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:11
+#: ../panel-plugin/pulseaudio-dialog.glade.h:19
 msgid "General"
 msgstr "Almennt"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:12
+#: ../panel-plugin/pulseaudio-dialog.glade.h:20
 msgid "Control Playback of Media Players"
 msgstr "Stjórnaðu afspilun í margmiðlunarspilurum"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:13
+#: ../panel-plugin/pulseaudio-dialog.glade.h:21
 msgid "Enable multimedia keys for playback control"
 msgstr "Virkja margmiðlunarhnappa á lyklaborði til stýringar á afspilun"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:14
+#: ../panel-plugin/pulseaudio-dialog.glade.h:22
 msgid "Enable experimental window focus support"
 msgstr "Virkja stuðning á tilraunastigi við virkni glugga"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:15
+#: ../panel-plugin/pulseaudio-dialog.glade.h:23
 msgid "Title"
 msgstr "Titill"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:16
+#: ../panel-plugin/pulseaudio-dialog.glade.h:24
 msgid "Hidden"
 msgstr "Falið"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:17
+#: ../panel-plugin/pulseaudio-dialog.glade.h:25
 msgid "Clear Known Items"
 msgstr "Hreinsa þekkt atriði"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:18
+#: ../panel-plugin/pulseaudio-dialog.glade.h:26
 msgid "Please restart your panel for additional players to be displayed."
 msgstr "Endurræstu skjástikuna svo hægt sé að birta fleiri spilara."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:19
+#: ../panel-plugin/pulseaudio-dialog.glade.h:27
 msgid "Known Media Players"
 msgstr "Þekktir margmiðlunarspilarar"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:20
+#: ../panel-plugin/pulseaudio-dialog.glade.h:28
 msgid "Media Players"
 msgstr "Margmiðlunarspilarar"
 
-#: ../panel-plugin/pulseaudio-plugin.c:244
-msgid "Copyright © 2014-2020 Andrzej Radecki et al.\n"
+#: ../panel-plugin/pulseaudio-plugin.c:253
+msgid "Copyright © 2014-2022 Andrzej Radecki et al.\n"
 msgstr ""
 
 #: ../panel-plugin/pulseaudio-dialog.c:142
@@ -130,18 +163,18 @@ msgstr "<big><b>Mistókst að framkvæma skipunina \"%s\".</b></big>\n\n%s"
 msgid "Error"
 msgstr "Villa"
 
-#: ../panel-plugin/pulseaudio-button.c:333
+#: ../panel-plugin/pulseaudio-button.c:395
 #: ../panel-plugin/pulseaudio-notify.c:199
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "Ekki tengt við PulseAudio-þjóninn"
 
-#: ../panel-plugin/pulseaudio-button.c:335
+#: ../panel-plugin/pulseaudio-button.c:397
 #, c-format
 msgid "Volume %d%% (muted)"
 msgstr "Hljóðstyrkur %d%% (þaggað)"
 
-#: ../panel-plugin/pulseaudio-button.c:337
+#: ../panel-plugin/pulseaudio-button.c:399
 #, c-format
 msgid "Volume %d%%"
 msgstr "Hljóðstyrkur %d%%"
@@ -173,7 +206,7 @@ msgstr "Hljóðstyrkur %d%c (þaggað)"
 msgid "Volume %d%c"
 msgstr "Hljóðstyrkur %d%c"
 
-#: ../panel-plugin/mprismenuitem.c:363 ../panel-plugin/mprismenuitem.c:436
-#: ../panel-plugin/mprismenuitem.c:810
+#: ../panel-plugin/mprismenuitem.c:374 ../panel-plugin/mprismenuitem.c:447
+#: ../panel-plugin/mprismenuitem.c:821
 msgid "Not currently playing"
 msgstr "Ekki í afspilun núna"
