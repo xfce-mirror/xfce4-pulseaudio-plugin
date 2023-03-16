@@ -37,11 +37,11 @@ msgstr "Сви"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:3
 msgid "Output only"
-msgstr ""
+msgstr "Само излаз"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:4
 msgid "Input only"
-msgstr ""
+msgstr "Само улаз"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:5
 msgid "PulseAudio Panel Plugin"
@@ -69,11 +69,11 @@ msgstr "Омогућава звучни одзив при коришћењу д�
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:10
 msgid "Show volume _notifications:"
-msgstr ""
+msgstr "Пошаљи _обавештења о гласноћи:"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:11
 msgid "Mute/unmute is notified in all modes except \"None\""
-msgstr ""
+msgstr "Умукни/укључи обавештава у свим начинима рада осим „ништа“"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
 msgid "Step size used when adjusting volume with mouse wheel."
