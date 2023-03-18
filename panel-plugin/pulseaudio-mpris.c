@@ -192,8 +192,8 @@ pulseaudio_mpris_get_available_players (PulseaudioMpris *mpris)
                                    &error);
   if (error)
     {
-      g_critical ("Could not get a list of names registered on the session bus, %s",
-                  error ? error->message : "no error given");
+      g_warning ("Could not get a list of names registered on the session bus, %s",
+                 error ? error->message : "no error given");
       g_clear_error (&error);
       return NULL;
     }
