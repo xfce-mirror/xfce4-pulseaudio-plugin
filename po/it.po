@@ -42,11 +42,11 @@ msgstr "Tutti"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:3
 msgid "Output only"
-msgstr ""
+msgstr "Solo uscita"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:4
 msgid "Input only"
-msgstr ""
+msgstr "Solo ingresso"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:5
 msgid "PulseAudio Panel Plugin"
@@ -74,11 +74,11 @@ msgstr "Abilita il feedback audio quando si utilizzano i tasti multimediali per 
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:10
 msgid "Show volume _notifications:"
-msgstr ""
+msgstr "Mostra _notifiche del volume:"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:11
 msgid "Mute/unmute is notified in all modes except \"None\""
-msgstr ""
+msgstr "Muto/non muto viene segnalato in tutti i modi tranne \"Nessuno\""
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
 msgid "Step size used when adjusting volume with mouse wheel."
