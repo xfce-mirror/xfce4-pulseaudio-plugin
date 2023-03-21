@@ -218,6 +218,19 @@ pulseaudio_button_finalize (GObject *object)
 
 
 static gboolean
+pulseaudio_button_mouse_under_mic_icon (PulseaudioButton *button,
+                                        gdouble           mouse_pos_x)
+{
+  if (!pulseaudio_volume_get_recording (button->volume))
+    return FALSE;
+
+  /* Microphone icon is on the left */
+  return (mouse_pos_x / (gdouble) gtk_widget_get_allocated_width (GTK_WIDGET (button))) < 0.5;
+}
+
+
+
+static gboolean
 pulseaudio_button_button_press (GtkWidget      *widget,
                                 GdkEventButton *event)
 {
@@ -257,7 +270,10 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 
   if (event->button == 2) /* middle button */
     {
-      pulseaudio_volume_toggle_muted (button->volume);
+      if (pulseaudio_button_mouse_under_mic_icon (button, event->x))
+        pulseaudio_volume_toggle_muted_mic (button->volume);
+      else
+        pulseaudio_volume_toggle_muted (button->volume);
       return TRUE;
     }
 
@@ -270,7 +286,8 @@ static gboolean
 pulseaudio_button_scroll_event (GtkWidget *widget, GdkEventScroll *event)
 {
   PulseaudioButton *button      = PULSEAUDIO_BUTTON (widget);
-  gdouble           volume      = pulseaudio_volume_get_volume (button->volume);
+  gboolean          is_mic      = pulseaudio_button_mouse_under_mic_icon (button, event->x);
+  gdouble           volume      = is_mic ? pulseaudio_volume_get_volume_mic (button->volume) : pulseaudio_volume_get_volume (button->volume);
   gdouble           volume_step = pulseaudio_config_get_volume_step (button->config) / 100.0;
   gdouble           new_volume;
 
@@ -281,7 +298,10 @@ pulseaudio_button_scroll_event (GtkWidget *widget, GdkEventScroll *event)
   else
     new_volume = volume;
 
-  pulseaudio_volume_set_volume (button->volume, new_volume);
+  if (is_mic)
+    pulseaudio_volume_set_volume_mic (button->volume, new_volume);
+  else
+    pulseaudio_volume_set_volume (button->volume, new_volume);
 
   return TRUE;
 }
