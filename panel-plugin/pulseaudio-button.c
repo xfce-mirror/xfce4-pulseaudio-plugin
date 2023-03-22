@@ -77,6 +77,8 @@ static gboolean             pulseaudio_button_button_press    (GtkWidget        
                                                                GdkEventButton     *event);
 static gboolean             pulseaudio_button_scroll_event    (GtkWidget          *widget,
                                                                GdkEventScroll     *event);
+static gboolean             pulseaudio_motion_notify_event    (GtkWidget          *widget,
+                                                               GdkEventMotion     *event);
 static void                 pulseaudio_button_menu_deactivate (PulseaudioButton   *button,
                                                                GtkMenuShell       *menu);
 static void                 pulseaudio_button_update_icons    (PulseaudioButton   *button);
@@ -108,6 +110,9 @@ struct _PulseaudioButton
   gulong                recording_volume_changed_id;
   gulong                recording_changed_id;
   gulong                deactivate_id;
+
+  gdouble               pointer_pos_x;
+  gchar                *tip_text;
 };
 
 struct _PulseaudioButtonClass
@@ -131,6 +136,7 @@ pulseaudio_button_class_init (PulseaudioButtonClass *klass)
   gtkwidget_class = GTK_WIDGET_CLASS (klass);
   gtkwidget_class->button_press_event   = pulseaudio_button_button_press;
   gtkwidget_class->scroll_event         = pulseaudio_button_scroll_event;
+  gtkwidget_class->motion_notify_event  = pulseaudio_motion_notify_event;
 }
 
 
@@ -161,7 +167,7 @@ pulseaudio_button_init (PulseaudioButton *button)
                                   GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 
   /* Intercept scroll events */
-  gtk_widget_add_events (GTK_WIDGET (button), GDK_SCROLL_MASK);
+  gtk_widget_add_events (GTK_WIDGET (button), GDK_SCROLL_MASK | GDK_POINTER_MOTION_MASK);
 
   button->plugin = NULL;
   button->config = NULL;
@@ -174,6 +180,9 @@ pulseaudio_button_init (PulseaudioButton *button)
   button->recording_volume_changed_id = 0;
   button->recording_changed_id = 0;
   button->deactivate_id = 0;
+
+  button->pointer_pos_x = 0;
+  button->tip_text = NULL;
 
   button->image = gtk_image_new ();
   button->recording_indicator = gtk_image_new ();
@@ -212,7 +221,65 @@ pulseaudio_button_finalize (GObject *object)
       button->menu = NULL;
     }
 
+  g_free (button->tip_text);
+
   (*G_OBJECT_CLASS (pulseaudio_button_parent_class)->finalize) (object);
+}
+
+
+
+static gboolean
+pulseaudio_button_mic_icon_under_pointer (PulseaudioButton *button)
+{
+  if (!pulseaudio_volume_get_recording (button->volume))
+    return FALSE;
+
+  /* Microphone icon is on the left */
+  return (button->pointer_pos_x / (gdouble) gtk_widget_get_allocated_width (GTK_WIDGET (button))) < 0.5;
+}
+
+
+
+static void
+pulseaudio_set_tooltip (PulseaudioButton *button)
+{
+  gchar            *tip_text;
+  gboolean          muted;
+  gdouble           volume;
+
+  if (!pulseaudio_volume_get_connected (button->volume))
+    {
+      tip_text = g_strdup_printf (_("Not connected to the PulseAudio server"));
+    }
+  else
+    {
+      if (pulseaudio_button_mic_icon_under_pointer (button))
+        {
+          muted = pulseaudio_volume_get_muted_mic (button->volume);
+          volume = pulseaudio_volume_get_volume_mic (button->volume);
+        }
+      else
+        {
+          muted = pulseaudio_volume_get_muted (button->volume);
+          volume = pulseaudio_volume_get_volume (button->volume);
+        }
+
+      if (muted)
+        tip_text = g_strdup_printf (_("Volume %d%% (muted)"), (gint) round (volume * 100));
+      else
+        tip_text = g_strdup_printf (_("Volume %d%%"), (gint) round (volume * 100));
+    }
+
+  if (!button->tip_text || g_strcmp0 (button->tip_text, tip_text) != 0)
+    {
+      gtk_widget_set_tooltip_text (GTK_WIDGET (button), tip_text);
+      g_free (button->tip_text);
+      button->tip_text = tip_text;
+    }
+  else
+    {
+      g_free (tip_text);
+    }
 }
 
 
@@ -222,6 +289,8 @@ pulseaudio_button_button_press (GtkWidget      *widget,
                                 GdkEventButton *event)
 {
   PulseaudioButton *button = PULSEAUDIO_BUTTON (widget);
+
+  button->pointer_pos_x = event->x; // needed to check whether mic icon is under mouse pointer
 
   if ((event->type == GDK_2BUTTON_PRESS) || (event->type == GDK_3BUTTON_PRESS))
     return TRUE;
@@ -257,7 +326,10 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 
   if (event->button == 2) /* middle button */
     {
-      pulseaudio_volume_toggle_muted (button->volume);
+      if (pulseaudio_button_mic_icon_under_pointer (button))
+        pulseaudio_volume_toggle_muted_mic (button->volume);
+      else
+        pulseaudio_volume_toggle_muted (button->volume);
       return TRUE;
     }
 
@@ -270,9 +342,19 @@ static gboolean
 pulseaudio_button_scroll_event (GtkWidget *widget, GdkEventScroll *event)
 {
   PulseaudioButton *button      = PULSEAUDIO_BUTTON (widget);
-  gdouble           volume      = pulseaudio_volume_get_volume (button->volume);
+  gdouble           volume;
   gdouble           volume_step = pulseaudio_config_get_volume_step (button->config) / 100.0;
   gdouble           new_volume;
+  gboolean          is_mic;
+
+  button->pointer_pos_x = event->x; // needed to check whether mic icon is under mouse pointer
+
+  is_mic = pulseaudio_button_mic_icon_under_pointer (button);
+
+  if (is_mic)
+    volume = pulseaudio_volume_get_volume_mic (button->volume);
+  else
+    volume = pulseaudio_volume_get_volume (button->volume);
 
   if (event->direction == 1)  // decrease volume
     new_volume = volume - volume_step;
@@ -281,9 +363,27 @@ pulseaudio_button_scroll_event (GtkWidget *widget, GdkEventScroll *event)
   else
     new_volume = volume;
 
-  pulseaudio_volume_set_volume (button->volume, new_volume);
+  if (is_mic)
+    pulseaudio_volume_set_volume_mic (button->volume, new_volume);
+  else
+    pulseaudio_volume_set_volume (button->volume, new_volume);
 
   return TRUE;
+}
+
+
+
+static gboolean
+pulseaudio_motion_notify_event (GtkWidget      *widget,
+                                GdkEventMotion *event)
+{
+  PulseaudioButton *button = PULSEAUDIO_BUTTON (widget);
+
+  button->pointer_pos_x = event->x; // needed to check whether mic icon is under mouse pointer
+
+  pulseaudio_set_tooltip (button);
+
+  return FALSE;
 }
 
 
@@ -350,7 +450,6 @@ pulseaudio_button_update (PulseaudioButton *button,
   gboolean     muted;
   gboolean     recording_muted;
   gboolean     recording;
-  gchar       *tip_text;
   const gchar *icon_name;
   const gchar *recording_icon_name;
 
@@ -391,14 +490,7 @@ pulseaudio_button_update (PulseaudioButton *button,
   else
     recording_icon_name = recording_icons[V_HIGH];
 
-  if (!connected)
-    tip_text = g_strdup_printf (_("Not connected to the PulseAudio server"));
-  else if (muted)
-    tip_text = g_strdup_printf (_("Volume %d%% (muted)"), (gint) round (volume * 100));
-  else
-    tip_text = g_strdup_printf (_("Volume %d%%"), (gint) round (volume * 100));
-  gtk_widget_set_tooltip_text (GTK_WIDGET (button), tip_text);
-  g_free (tip_text);
+  pulseaudio_set_tooltip (button);
 
   if (force_update || icon_name != button->icon_name)
     {
