@@ -263,6 +263,12 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
                               G_OBJECT (object), "value",
                               G_BINDING_SYNC_CREATE | G_BINDING_BIDIRECTIONAL);
 
+      object = gtk_builder_get_object (builder, "spinbutton-max-volume");
+      g_return_if_fail (GTK_IS_ENTRY (object));
+      g_object_bind_property (G_OBJECT (dialog->config), "volume-max",
+                              G_OBJECT (object), "value",
+                              G_BINDING_SYNC_CREATE | G_BINDING_BIDIRECTIONAL);
+
       object = gtk_builder_get_object (builder, "entry-mixer-command");
       g_return_if_fail (GTK_IS_ENTRY (object));
       g_object_bind_property (G_OBJECT (dialog->config), "mixer-command",
