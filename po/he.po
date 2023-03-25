@@ -6,7 +6,7 @@
 # Elishai Eliyahu <elishai@mailfence.com>, 2017-2018,2020
 # Elishai Eliyahu <elishai@mailfence.com>, 2022-2023
 # gk <genghiskhan@gmx.ca>, 2015
-# עומר א״ש <omeritzicschwartz@gmail.com>, 2020
+# 63f334ffc0709ba0fc2361b80bf3c0f0_00ffd1e <ab96c93ca0ac55ba7fa06385427e60dd_878890>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
@@ -40,11 +40,11 @@ msgstr "הכל"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:3
 msgid "Output only"
-msgstr ""
+msgstr "רק פלט"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:4
 msgid "Input only"
-msgstr ""
+msgstr "רק קלט"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:5
 msgid "PulseAudio Panel Plugin"
@@ -72,11 +72,11 @@ msgstr "מאפשר משוב אודיו כאשר משתמשים במקשי מוט
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:10
 msgid "Show volume _notifications:"
-msgstr ""
+msgstr "הצג הודעות עוצמת קול:"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:11
 msgid "Mute/unmute is notified in all modes except \"None\""
-msgstr ""
+msgstr "השתק/בטל השתקה קיים עם הודעה בכל המצבים למעט \"אף אחד\""
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
 msgid "Step size used when adjusting volume with mouse wheel."
