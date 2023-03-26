@@ -80,6 +80,7 @@ struct _PulseaudioVolume
   gdouble               volume;
   gboolean              muted;
   gboolean              recording;
+  gboolean              recording_last_state;
 
   gdouble               volume_mic;
   gdouble               base_volume_mic;
@@ -162,6 +163,7 @@ pulseaudio_volume_init (PulseaudioVolume *volume)
   volume->volume = 0.0;
   volume->muted = FALSE;
   volume->recording = FALSE;
+  volume->recording_last_state = FALSE;
   volume->volume_mic = 0.0;
   volume->base_volume_mic = 0.0;
   volume->muted_mic = FALSE;
@@ -344,7 +346,6 @@ pulseaudio_volume_subscribe_cb (pa_context                   *context,
                                 void                         *userdata)
 {
   PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
-  gboolean recording;
 
   switch (t & PA_SUBSCRIPTION_EVENT_FACILITY_MASK)
     {
@@ -364,12 +365,8 @@ pulseaudio_volume_subscribe_cb (pa_context                   *context,
       break;
 
     case PA_SUBSCRIPTION_EVENT_SOURCE_OUTPUT :
-      recording = volume->recording;
       volume->recording = FALSE;
       pa_context_get_source_output_info_list (context, pulseaudio_volume_get_source_output_info_cb, volume);
-
-      if (volume->recording != recording)
-        g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [RECORDING_CHANGED], 0, volume->recording);
 
       pulseaudio_volume_sink_source_check (volume, context);
       pulseaudio_debug ("received source output event");
@@ -416,7 +413,14 @@ pulseaudio_volume_get_source_output_info_cb (pa_context                  *contex
   PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
 
   if (eol > 0)
-    return;
+    {
+      if (volume->recording != volume->recording_last_state)
+        {
+          g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [RECORDING_CHANGED], 0, volume->recording);
+          volume->recording_last_state = volume->recording;
+        }
+      return;
+    }
 
   if (i)
     {
@@ -428,7 +432,6 @@ pulseaudio_volume_get_source_output_info_cb (pa_context                  *contex
         }
 
       volume->recording = TRUE;
-      g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [RECORDING_CHANGED], 0, TRUE);
     }
   else
     {
@@ -498,6 +501,7 @@ pulseaudio_volume_context_state_cb (pa_context *context,
 
       g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_CHANGED], 0, FALSE);
       g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_MIC_CHANGED], 0, FALSE);
+      g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [RECORDING_CHANGED], 0, FALSE);
 
       volume->sink_connected = FALSE;
       volume->source_connected = FALSE;
@@ -506,7 +510,6 @@ pulseaudio_volume_context_state_cb (pa_context *context,
 
       // Check here if recording is active
       pa_context_get_source_output_info_list (context, pulseaudio_volume_get_source_output_info_cb, volume);
-      g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [RECORDING_CHANGED], 0, volume->recording);
 
       break;
 
@@ -518,6 +521,7 @@ pulseaudio_volume_context_state_cb (pa_context *context,
       volume->volume = 0.0;
       volume->muted = FALSE;
       volume->recording = FALSE;
+      volume->recording_last_state = FALSE;
       volume->volume_mic = 0.0;
       volume->base_volume_mic = 0.0;
       volume->muted_mic = FALSE;
