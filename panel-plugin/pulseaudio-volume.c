@@ -212,7 +212,8 @@ pulseaudio_volume_sink_info_cb (pa_context         *context,
                                 void               *userdata)
 {
   gboolean  muted;
-  gdouble   vol;
+  gdouble   vol = 0.0;
+  guint     j;
 
   PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
 
@@ -224,7 +225,8 @@ pulseaudio_volume_sink_info_cb (pa_context         *context,
   volume->sink_index = (guint)i->index;
 
   muted = !!(i->mute);
-  vol = pulseaudio_volume_v2d (volume, i->volume.values[0]);
+  for (j = 0; j < i->volume.channels; j++)
+    vol = MAX(vol, pulseaudio_volume_v2d (volume, i->volume.values[j]));
 
   if (volume->muted != muted)
     {
@@ -258,7 +260,8 @@ pulseaudio_volume_source_info_cb (pa_context           *context,
                                   void                 *userdata)
 {
   gboolean  muted_mic;
-  gdouble   vol_mic;
+  gdouble   vol_mic = 0.0;
+  guint     j;
 
   PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
 
@@ -270,7 +273,8 @@ pulseaudio_volume_source_info_cb (pa_context           *context,
   volume->source_index = (guint)i->index;
 
   muted_mic = !!(i->mute);
-  vol_mic = pulseaudio_volume_v2d (volume, i->volume.values[0]);
+  for (j = 0; j < i->volume.channels; j++)
+    vol_mic = MAX(vol_mic, pulseaudio_volume_v2d (volume, i->volume.values[j]));
   volume->base_volume_mic = pulseaudio_volume_v2d (volume, i->base_volume);
 
   if (volume->muted_mic != muted_mic)
