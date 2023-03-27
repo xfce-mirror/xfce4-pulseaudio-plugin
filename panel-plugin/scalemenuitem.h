@@ -61,7 +61,8 @@ GType        scale_menu_item_get_type              (void) G_GNUC_CONST;
 
 GtkWidget   *scale_menu_item_new_with_range        (gdouble        min,
                                                     gdouble        max,
-                                                    gdouble        step);
+                                                    gdouble        step,
+                                                    gdouble        base);
 
 gdouble      scale_menu_item_get_value             (ScaleMenuItem *item);
 void         scale_menu_item_set_value             (ScaleMenuItem *item,

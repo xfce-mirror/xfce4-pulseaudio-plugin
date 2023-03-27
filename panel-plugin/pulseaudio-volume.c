@@ -82,6 +82,7 @@ struct _PulseaudioVolume
   gboolean              recording;
 
   gdouble               volume_mic;
+  gdouble               base_volume_mic;
   gboolean              muted_mic;
 
   guint                 reconnect_timer_id;
@@ -162,6 +163,7 @@ pulseaudio_volume_init (PulseaudioVolume *volume)
   volume->muted = FALSE;
   volume->recording = FALSE;
   volume->volume_mic = 0.0;
+  volume->base_volume_mic = 0.0;
   volume->muted_mic = FALSE;
   volume->reconnect_timer_id = 0;
 
@@ -210,7 +212,7 @@ pulseaudio_volume_sink_info_cb (pa_context         *context,
                                 void               *userdata)
 {
   gboolean  muted;
-  gdouble   vol;
+  gdouble   vol = 0.0;
 
   PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
 
@@ -222,7 +224,8 @@ pulseaudio_volume_sink_info_cb (pa_context         *context,
   volume->sink_index = (guint)i->index;
 
   muted = !!(i->mute);
-  vol = pulseaudio_volume_v2d (volume, i->volume.values[0]);
+  for (gint j = 0; j < i->volume.channels; j++)
+    vol = MAX (vol, pulseaudio_volume_v2d (volume, i->volume.values[j]));
 
   if (volume->muted != muted)
     {
@@ -256,7 +259,7 @@ pulseaudio_volume_source_info_cb (pa_context           *context,
                                   void                 *userdata)
 {
   gboolean  muted_mic;
-  gdouble   vol_mic;
+  gdouble   vol_mic = 0.0;
 
   PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
 
@@ -268,7 +271,9 @@ pulseaudio_volume_source_info_cb (pa_context           *context,
   volume->source_index = (guint)i->index;
 
   muted_mic = !!(i->mute);
-  vol_mic = pulseaudio_volume_v2d (volume, i->volume.values[0]);
+  for (gint j = 0; j < i->volume.channels; j++)
+    vol_mic = MAX (vol_mic, pulseaudio_volume_v2d (volume, i->volume.values[j]));
+  volume->base_volume_mic = pulseaudio_volume_v2d (volume, i->base_volume);
 
   if (volume->muted_mic != muted_mic)
     {
@@ -514,6 +519,7 @@ pulseaudio_volume_context_state_cb (pa_context *context,
       volume->muted = FALSE;
       volume->recording = FALSE;
       volume->volume_mic = 0.0;
+      volume->base_volume_mic = 0.0;
       volume->muted_mic = FALSE;
 
       g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_CHANGED], 0, FALSE);
@@ -854,6 +860,16 @@ pulseaudio_volume_get_volume_mic (PulseaudioVolume *volume)
   g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), 0.0);
 
   return volume->volume_mic;
+}
+
+
+
+gdouble
+pulseaudio_volume_get_base_volume_mic (PulseaudioVolume *volume)
+{
+  g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), 0.0);
+
+  return volume->base_volume_mic;
 }
 
 

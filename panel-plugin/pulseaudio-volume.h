@@ -56,6 +56,7 @@ void                    pulseaudio_volume_set_muted               (PulseaudioVol
 void                    pulseaudio_volume_toggle_muted            (PulseaudioVolume *volume);
 
 gdouble                 pulseaudio_volume_get_volume_mic          (PulseaudioVolume *volume);
+gdouble                 pulseaudio_volume_get_base_volume_mic     (PulseaudioVolume *volume);
 void                    pulseaudio_volume_set_volume_mic          (PulseaudioVolume *volume,
                                                                    gdouble           vol);
 
