@@ -491,7 +491,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
   if (g_list_length (sources) > 0)
     {
       /* output volume slider */
-      menu->output_scale = scale_menu_item_new_with_range (0.0, volume_max, 1.0);
+      menu->output_scale = scale_menu_item_new_with_range (0.0, volume_max, 1.0, -1.0);
       scale_menu_item_set_base_icon_name (SCALE_MENU_ITEM (menu->output_scale), "audio-volume");
 
       g_signal_connect_swapped (menu->output_scale, "value-changed", G_CALLBACK (pulseaudio_menu_output_range_value_changed), menu);
@@ -530,7 +530,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
   if (g_list_length (sources) > 0)
     {
       /* input volume slider */
-      menu->input_scale = scale_menu_item_new_with_range (0.0, volume_max, 1.0);
+      menu->input_scale = scale_menu_item_new_with_range (0.0, volume_max, 1.0, pulseaudio_volume_get_base_volume_mic (menu->volume) * 100.0);
       scale_menu_item_set_base_icon_name (SCALE_MENU_ITEM (menu->input_scale), "microphone-sensitivity");
 
       g_signal_connect_swapped (menu->input_scale, "value-changed", G_CALLBACK (pulseaudio_menu_input_range_value_changed), menu);
