@@ -17,7 +17,7 @@ m4_define([pulseaudio_version], [pulseaudio_version_major().pulseaudio_version_m
 dnl ***************************
 dnl *** Initialize autoconf ***
 dnl ***************************
-AC_COPYRIGHT([Copyright (c) 2014-2022
+AC_COPYRIGHT([Copyright (c) 2014-2023
         The Xfce development team. All rights reserved.])
 AC_INIT([xfce4-pulseaudio-plugin], [pulseaudio_version], [https://gitlab.xfce.org/panel-plugins/xfce4-pulseaudio-plugin], [xfce4-pulseaudio-plugin])
 AC_PREREQ([2.50])
