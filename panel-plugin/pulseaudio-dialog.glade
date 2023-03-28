@@ -220,14 +220,15 @@
                               <object class="GtkBox" id="vbox2-hbox1">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="tooltip_text" translatable="yes">Step size used when adjusting volume with mouse wheel.</property>
+                                <property name="tooltip_text" translatable="yes">Step size used when adjusting volume with mouse wheel or hotkeys.</property>
                                 <property name="spacing">6</property>
                                 <child>
                                   <object class="GtkLabel" id="label4">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">Mouse wheel volume step:</property>
+                                    <property name="label" translatable="yes">_Volume step:</property>
                                     <property name="use_underline">True</property>
+                                    <property name="mnemonic_widget">spinbutton-volume-step</property>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
