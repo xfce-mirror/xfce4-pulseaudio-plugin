@@ -1,3 +1,44 @@
+0.4.6 (2023-03-28)
+=====
+- Update copyright year
+- Fix changing default sink and source devices
+- Fix flickering mic icon when recording application is connected
+- Avoid critical from xfce4-notifyd if gauge_value > 100
+- Display maximum volume of all channels instead of volume of left 
+channel
+- Add recording base volume indicator
+- Control mic volume/mute when mouse cursor is over the mic icon
+- Lower warning level
+- Improve volume notifications settings
+- Show volume notifications from hotkeys according to comment
+- Don't set negative volume from hotkeys
+- Use correct variable for "volume-mic-changed" signal ID
+- Don't force set the default device
+- Set recording icon according to recording volume level
+- Show source monitor if it is a default source
+- Check for recording state on context ready
+- Allow volume step configuration in dialog (Fixes #28)
+- wnck: Add missing LIBS/CFLAGS in Makefile
+- wnck: Use Libxfce4windowing when available
+- wnck: Guard X11 code path to prevent crash on Wayland
+- wnck: Improve RaiseWnck a bit
+- Fix memory leak
+- cleanup: Fix formatting
+- Fix blurry media player icon from file when UI scale > 1
+- Fix blurry icons in prefs dialog when UI scale factor > 1
+- Use "logo-icon-name" instead of "logo" in about dialog
+- Do not override fatal log level
+- build: Bump GLib minimum required to 2.44
+- Translation Updates:
+  Albanian, Arabic, Armenian (Armenia), Basque, Belarusian, Bulgarian,
+  Catalan, Chinese (China), Chinese (Taiwan), Croatian, Czech, Danish,
+  Dutch, Eastern Armenian, English (Australia), English (Canada),
+  Finnish, French, Galician, German, Greek, Hebrew, Hungarian,
+  Icelandic, Indonesian, Interlingue, Irish, Italian, Japanese, Kazakh,
+  Korean, Lithuanian, Malay, Norwegian Bokmål, Occitan (post 1500),
+  Polish, Portuguese, Portuguese (Brazil), Russian, Serbian, Slovak,
+  Slovenian, Spanish, Swedish, Thai, Ukrainian
+
 0.4.5
 ======
 - Use Source Output Info for recording indicator
