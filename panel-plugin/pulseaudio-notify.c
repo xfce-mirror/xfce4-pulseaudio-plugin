@@ -225,7 +225,7 @@ pulseaudio_notify_notify (PulseaudioNotify *notify, gboolean mic)
     {
       notify_notification_set_hint (notification,
                                     "value",
-                                    g_variant_new_int32(volume_i));
+                                    g_variant_new_int32 (MIN (100, volume_i)));
       notify_notification_set_hint (notification,
                                     "x-canonical-private-synchronous",
                                     g_variant_new_string(""));
