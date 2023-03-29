@@ -79,15 +79,15 @@ msgstr "Stummschaltung/Aufhebung der Stummschaltung wird in allen Modi außer \"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
 msgid "Step size used when adjusting volume with mouse wheel or hotkeys."
-msgstr ""
+msgstr "Schrittweite, die beim Einstellen der Lautstärke mit dem Mausrad oder Hotkeys verwendet wird."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "_Volume step:"
-msgstr ""
+msgstr "_Lautstärkeschritt:"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "M_aximum volume:"
-msgstr ""
+msgstr "M_aximale Lautstärke:"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:15
 msgid "Behaviour"
@@ -153,7 +153,7 @@ msgstr "Medienspieler"
 
 #: ../panel-plugin/pulseaudio-plugin.c:253
 msgid "Copyright © 2014-2023 Andrzej Radecki et al.\n"
-msgstr ""
+msgstr "Urheberrecht © 2014-2023 Andrzej Radecki et al.\n"
 
 #: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:264
