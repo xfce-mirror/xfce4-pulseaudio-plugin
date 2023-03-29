@@ -60,7 +60,7 @@ msgstr "Омогућава управљање гласноћом помоћу д
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:8
 msgid "Play system _sound when volume changes"
-msgstr "Одсвирај системски _звук при измени гласноће"
+msgstr "Одсвирај саставски _звук при измени гласноће"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:9
 msgid ""
@@ -77,15 +77,15 @@ msgstr "Умукни/укључи обавештава у свим начини�
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
 msgid "Step size used when adjusting volume with mouse wheel or hotkeys."
-msgstr ""
+msgstr "Величина корака при подешавању гласноће точкићем миша или пречицама."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "_Volume step:"
-msgstr ""
+msgstr "Корак _гласноће:"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "M_aximum volume:"
-msgstr ""
+msgstr "Нај_гласније:"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:15
 msgid "Behaviour"
@@ -151,7 +151,7 @@ msgstr "Извођачи садржаја"
 
 #: ../panel-plugin/pulseaudio-plugin.c:253
 msgid "Copyright © 2014-2023 Andrzej Radecki et al.\n"
-msgstr ""
+msgstr "Права умножавања © 2014-2023 Андреј Радецки (Andrzej Radecki) и остали.\n"
 
 #: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:264
