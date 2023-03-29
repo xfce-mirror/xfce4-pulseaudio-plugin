@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-15 00:49+0100\n"
+"POT-Creation-Date: 2023-03-29 00:49+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
 "Last-Translator: 玉堂白鹤 <yjwork@qq.com>, 2015,2017-2018,2020,2022-2023\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/xfce/xfce-panel-plugins/language/zh_CN/)\n"
@@ -80,78 +80,82 @@ msgid "Mute/unmute is notified in all modes except \"None\""
 msgstr "在除“无”以外的所有模式下都会通知静音/取消静音"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
-msgid "Step size used when adjusting volume with mouse wheel."
-msgstr "使用鼠标滚轮调整音量时使用的步长。"
+msgid "Step size used when adjusting volume with mouse wheel or hotkeys."
+msgstr ""
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:13
-msgid "Mouse wheel volume step:"
-msgstr "鼠标滚轮音量步长:"
+msgid "_Volume step:"
+msgstr ""
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:14
+msgid "M_aximum volume:"
+msgstr ""
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:15
 msgid "Behaviour"
 msgstr "行为"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:15
+#: ../panel-plugin/pulseaudio-dialog.glade.h:16
 msgid "Audio _Mixer"
 msgstr "混音器 (_M)"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:16
+#: ../panel-plugin/pulseaudio-dialog.glade.h:17
 msgid ""
 "Audio mixer command that can be executed from the context menu, e.g. "
 "\"pavucontrol\", \"unity-control-center sound\"."
 msgstr "可从菜单中执行的混音器命令，如 \"pavucontrol\" 和 \"unity-control-center sound\"。"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:17
+#: ../panel-plugin/pulseaudio-dialog.glade.h:18
 msgid "_Run Audio Mixer..."
 msgstr "运行混音器 (_R) ..."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:18
+#: ../panel-plugin/pulseaudio-dialog.glade.h:19
 msgid "Sound Settings"
 msgstr "声音设置"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:19
+#: ../panel-plugin/pulseaudio-dialog.glade.h:20
 msgid "General"
 msgstr "通用"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:20
+#: ../panel-plugin/pulseaudio-dialog.glade.h:21
 msgid "Control Playback of Media Players"
 msgstr "控制媒体播放器回放"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:21
+#: ../panel-plugin/pulseaudio-dialog.glade.h:22
 msgid "Enable multimedia keys for playback control"
 msgstr "为回放控制启用多媒体按键"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:22
+#: ../panel-plugin/pulseaudio-dialog.glade.h:23
 msgid "Enable experimental window focus support"
 msgstr "启用实验性的窗口焦点支持"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:23
+#: ../panel-plugin/pulseaudio-dialog.glade.h:24
 msgid "Title"
 msgstr "标题"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:24
+#: ../panel-plugin/pulseaudio-dialog.glade.h:25
 msgid "Hidden"
 msgstr "隐藏"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:25
+#: ../panel-plugin/pulseaudio-dialog.glade.h:26
 msgid "Clear Known Items"
 msgstr "清除已知项目"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:26
+#: ../panel-plugin/pulseaudio-dialog.glade.h:27
 msgid "Please restart your panel for additional players to be displayed."
 msgstr "请重启面板以便显示外加播放器。"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:27
+#: ../panel-plugin/pulseaudio-dialog.glade.h:28
 msgid "Known Media Players"
 msgstr "已知媒体播放器"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:28
+#: ../panel-plugin/pulseaudio-dialog.glade.h:29
 msgid "Media Players"
 msgstr "媒体播放器"
 
 #: ../panel-plugin/pulseaudio-plugin.c:253
-msgid "Copyright © 2014-2022 Andrzej Radecki et al.\n"
-msgstr "版权所有 © 2014-2022 Andrzej Radecki et al.\n"
+msgid "Copyright © 2014-2023 Andrzej Radecki et al.\n"
+msgstr ""
 
 #: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:264
@@ -167,18 +171,18 @@ msgstr "<big><b>运行命令 \"%s\" 失败。</b></big>\n\n%s"
 msgid "Error"
 msgstr "错误"
 
-#: ../panel-plugin/pulseaudio-button.c:395
+#: ../panel-plugin/pulseaudio-button.c:335
 #: ../panel-plugin/pulseaudio-notify.c:199
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "未连接到 PulseAudio 服务"
 
-#: ../panel-plugin/pulseaudio-button.c:397
+#: ../panel-plugin/pulseaudio-button.c:351
 #, c-format
 msgid "Volume %d%% (muted)"
 msgstr "%d%% 音量（静音）"
 
-#: ../panel-plugin/pulseaudio-button.c:399
+#: ../panel-plugin/pulseaudio-button.c:353
 #, c-format
 msgid "Volume %d%%"
 msgstr "%d%% 音量"
