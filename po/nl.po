@@ -77,15 +77,15 @@ msgstr "Dempen/ontdempen wordt gemeld in alle modi behalve 'Geen'"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
 msgid "Step size used when adjusting volume with mouse wheel or hotkeys."
-msgstr ""
+msgstr "Stapgrootte gebruikt bij het bijstellen van het volume met muiswiel of sneltoetsen."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "_Volume step:"
-msgstr ""
+msgstr "_Volumestap:"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "M_aximum volume:"
-msgstr ""
+msgstr "Maximaal volume:"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:15
 msgid "Behaviour"
@@ -151,7 +151,7 @@ msgstr "Mediaspelers"
 
 #: ../panel-plugin/pulseaudio-plugin.c:253
 msgid "Copyright © 2014-2023 Andrzej Radecki et al.\n"
-msgstr ""
+msgstr "Auteursrecht © 2014-2023 Andrzej Radecki et al.\n"
 
 #: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:264
