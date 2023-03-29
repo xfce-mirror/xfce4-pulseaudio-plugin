@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-15 00:49+0100\n"
+"POT-Creation-Date: 2023-03-29 00:49+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
 "Last-Translator: Marek Adamski, 2022-2023\n"
 "Language-Team: Polish (http://www.transifex.com/xfce/xfce-panel-plugins/language/pl/)\n"
@@ -80,78 +80,82 @@ msgid "Mute/unmute is notified in all modes except \"None\""
 msgstr "Wyciszenie lub wyłączenie wyciszenia jest powiadamiane we wszystkich trybach oprócz „Brak”"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
-msgid "Step size used when adjusting volume with mouse wheel."
-msgstr "Wielkość kroku do używania podczas regulacji głośności kółkiem myszy."
+msgid "Step size used when adjusting volume with mouse wheel or hotkeys."
+msgstr "Wielkość kroku do używania podczas regulacji głośności kółkiem myszy lub skrótami klawiszowymi."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:13
-msgid "Mouse wheel volume step:"
-msgstr "Krok głośności kółka myszy:"
+msgid "_Volume step:"
+msgstr "Krok _głośności:"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:14
+msgid "M_aximum volume:"
+msgstr "M_aksymalna głośność:"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:15
 msgid "Behaviour"
 msgstr "Zachowanie"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:15
+#: ../panel-plugin/pulseaudio-dialog.glade.h:16
 msgid "Audio _Mixer"
 msgstr "_Mikser dźwięku"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:16
+#: ../panel-plugin/pulseaudio-dialog.glade.h:17
 msgid ""
 "Audio mixer command that can be executed from the context menu, e.g. "
 "\"pavucontrol\", \"unity-control-center sound\"."
 msgstr "Polecenie miksera dźwięku, które może zostać wykonane z menu kontekstowego, np. „pavucontrol”, „unity-control-center sound”."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:17
+#: ../panel-plugin/pulseaudio-dialog.glade.h:18
 msgid "_Run Audio Mixer..."
 msgstr "_Uruchom mikser dźwięku..."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:18
+#: ../panel-plugin/pulseaudio-dialog.glade.h:19
 msgid "Sound Settings"
 msgstr "Ustawienia dźwięku"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:19
+#: ../panel-plugin/pulseaudio-dialog.glade.h:20
 msgid "General"
 msgstr "Ogólne"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:20
+#: ../panel-plugin/pulseaudio-dialog.glade.h:21
 msgid "Control Playback of Media Players"
 msgstr "Kontrola odtwarzania odtwarzaczy mediów"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:21
+#: ../panel-plugin/pulseaudio-dialog.glade.h:22
 msgid "Enable multimedia keys for playback control"
 msgstr "Włącz klawisze multimedialne do sterowania odtwarzaniem"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:22
+#: ../panel-plugin/pulseaudio-dialog.glade.h:23
 msgid "Enable experimental window focus support"
 msgstr "Włącz eksperymentalną obsługę skupienia okna"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:23
+#: ../panel-plugin/pulseaudio-dialog.glade.h:24
 msgid "Title"
 msgstr "Tytuł"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:24
+#: ../panel-plugin/pulseaudio-dialog.glade.h:25
 msgid "Hidden"
 msgstr "Ukryty"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:25
+#: ../panel-plugin/pulseaudio-dialog.glade.h:26
 msgid "Clear Known Items"
 msgstr "Wyczyść znane elementy"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:26
+#: ../panel-plugin/pulseaudio-dialog.glade.h:27
 msgid "Please restart your panel for additional players to be displayed."
 msgstr "Proszę uruchomić panel ponownie, aby wyświetlić dodatkowe odtwarzacze."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:27
+#: ../panel-plugin/pulseaudio-dialog.glade.h:28
 msgid "Known Media Players"
 msgstr "Znane odtwarzacze mediów"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:28
+#: ../panel-plugin/pulseaudio-dialog.glade.h:29
 msgid "Media Players"
 msgstr "Odtwarzacze mediów"
 
 #: ../panel-plugin/pulseaudio-plugin.c:253
-msgid "Copyright © 2014-2022 Andrzej Radecki et al.\n"
-msgstr "Prawa autorskie © 2014-2022 Andrzej Radecki i inni\n"
+msgid "Copyright © 2014-2023 Andrzej Radecki et al.\n"
+msgstr "Prawa autorskie © 2014-2023 Andrzej Radecki i inni\n"
 
 #: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:264
@@ -167,18 +171,18 @@ msgstr "<big><b>Błąd wykonania polecenia \"%s\".</b></big>\n\n%s"
 msgid "Error"
 msgstr "Błąd"
 
-#: ../panel-plugin/pulseaudio-button.c:395
+#: ../panel-plugin/pulseaudio-button.c:335
 #: ../panel-plugin/pulseaudio-notify.c:199
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "Nie połączono z serwerem PulseAudio"
 
-#: ../panel-plugin/pulseaudio-button.c:397
+#: ../panel-plugin/pulseaudio-button.c:351
 #, c-format
 msgid "Volume %d%% (muted)"
 msgstr "Głośność %d%% (wyciszono)"
 
-#: ../panel-plugin/pulseaudio-button.c:399
+#: ../panel-plugin/pulseaudio-button.c:353
 #, c-format
 msgid "Volume %d%%"
 msgstr "Głośność %d%%"
