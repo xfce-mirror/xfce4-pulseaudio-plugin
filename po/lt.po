@@ -78,15 +78,15 @@ msgstr "Apie nutildymą/garso įjungimą yra pranešama visose veiksenose, išsk
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
 msgid "Step size used when adjusting volume with mouse wheel or hotkeys."
-msgstr ""
+msgstr "Žingsnio dydis reguliuojant garsį pelės ratuku ar sparčiaisiais klavišais."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "_Volume step:"
-msgstr ""
+msgstr "_Garsio žingsnis:"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "M_aximum volume:"
-msgstr ""
+msgstr "_Didžiausias garsis:"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:15
 msgid "Behaviour"
@@ -152,7 +152,7 @@ msgstr "Medijos leistuvės"
 
 #: ../panel-plugin/pulseaudio-plugin.c:253
 msgid "Copyright © 2014-2023 Andrzej Radecki et al.\n"
-msgstr ""
+msgstr "Autorių teisės © 2014-2023 Andrzej Radecki ir kiti\n"
 
 #: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:264
