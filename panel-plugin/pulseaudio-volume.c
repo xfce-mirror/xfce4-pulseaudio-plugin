@@ -429,10 +429,6 @@ pulseaudio_volume_get_source_output_info_cb (pa_context                  *contex
 
       volume->recording = TRUE;
     }
-  else
-    {
-      volume->recording = FALSE;
-    }
 }
 
 
