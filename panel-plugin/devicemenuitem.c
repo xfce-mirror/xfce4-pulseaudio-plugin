@@ -99,7 +99,8 @@ device_menu_item_new_with_label (const gchar *label)
 void
 device_menu_item_add_device (DeviceMenuItem *item,
                              const gchar    *name,
-                             const gchar    *description)
+                             const gchar    *description,
+                             gboolean        sensitive)
 {
   DeviceMenuItemPrivate *priv;
   GtkWidget             *mi;
@@ -111,6 +112,7 @@ device_menu_item_add_device (DeviceMenuItem *item,
 
   priv->group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (mi));
 
+  gtk_widget_set_sensitive (mi, sensitive);
   gtk_widget_show (mi);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->submenu), mi);
 
