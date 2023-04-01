@@ -201,8 +201,6 @@ pulseaudio_button_init (PulseaudioButton *button)
                                   GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
   g_object_unref (css_provider);
   gtk_style_context_add_class (context, "recording-indicator");
-
-  g_object_set (G_OBJECT (button), "has-tooltip", TRUE, NULL);
 }
 
 
