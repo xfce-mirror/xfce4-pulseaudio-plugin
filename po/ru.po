@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Andrei Stepanov, 2022
+# Andrei Stepanov, 2022-2023
 # Igor <f2404@yandex.ru>, 2017-2018,2020
 # Igor Vornovskii, 2023
 # Sergey Alyoshin <alyoshin.s@gmail.com>, 2015
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-29 00:49+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
-"Last-Translator: Igor Vornovskii, 2023\n"
+"Last-Translator: Andrei Stepanov, 2022-2023\n"
 "Language-Team: Russian (http://www.transifex.com/xfce/xfce-panel-plugins/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -40,11 +40,11 @@ msgstr "Все"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:3
 msgid "Output only"
-msgstr ""
+msgstr "Только вывод"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:4
 msgid "Input only"
-msgstr ""
+msgstr "Только ввод"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:5
 msgid "PulseAudio Panel Plugin"
@@ -72,23 +72,23 @@ msgstr "Включает звуковое уведомление при испо
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:10
 msgid "Show volume _notifications:"
-msgstr ""
+msgstr "Показыва_ть уведомления о громкости:"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:11
 msgid "Mute/unmute is notified in all modes except \"None\""
-msgstr ""
+msgstr "Уведомление об отключении/включении звука во всех режимах, кроме «Нет»"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
 msgid "Step size used when adjusting volume with mouse wheel or hotkeys."
-msgstr ""
+msgstr "Размер шага, используемый при регулировке громкости колесом мыши или горячими клавишами."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "_Volume step:"
-msgstr ""
+msgstr "Шаг гро_мкости:"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "M_aximum volume:"
-msgstr ""
+msgstr "Максимум громко_сти:"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:15
 msgid "Behaviour"
@@ -154,7 +154,7 @@ msgstr "Медиаплееры"
 
 #: ../panel-plugin/pulseaudio-plugin.c:253
 msgid "Copyright © 2014-2023 Andrzej Radecki et al.\n"
-msgstr ""
+msgstr "Авторское право © 2014-2023 Анджей Радецкий и др.\n"
 
 #: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:264
