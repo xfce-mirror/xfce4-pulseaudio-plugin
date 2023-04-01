@@ -322,8 +322,10 @@ pulseaudio_query_tooltip (GtkWidget  *widget,
 {
   PulseaudioButton *button = PULSEAUDIO_BUTTON (widget);
   gchar            *tip_text;
+  const gchar      *dev_name;
   gboolean          muted;
   gdouble           volume;
+  gint              volume_int;
 
   if (keyboard_mode)
     return FALSE;
@@ -336,22 +338,26 @@ pulseaudio_query_tooltip (GtkWidget  *widget,
     {
       if (pulseaudio_button_mic_icon_under_pointer (button, x))
         {
+          dev_name = pulseaudio_volume_get_input_by_name (button->volume, pulseaudio_volume_get_default_input (button->volume));
           muted = pulseaudio_volume_get_muted_mic (button->volume);
           volume = pulseaudio_volume_get_volume_mic (button->volume);
         }
       else
         {
+          dev_name = pulseaudio_volume_get_output_by_name (button->volume, pulseaudio_volume_get_default_output (button->volume));
           muted = pulseaudio_volume_get_muted (button->volume);
           volume = pulseaudio_volume_get_volume (button->volume);
         }
 
+      volume_int = (gint) round (volume * 100);
+
       if (muted)
-        tip_text = g_strdup_printf (_("Volume %d%% (muted)"), (gint) round (volume * 100));
+        tip_text = g_strdup_printf (_("<b>Volume %d%% (muted)</b>\n<small>%s</small>"), volume_int, dev_name);
       else
-        tip_text = g_strdup_printf (_("Volume %d%%"), (gint) round (volume * 100));
+        tip_text = g_strdup_printf (_("<b>Volume %d%%</b>\n<small>%s</small>"), volume_int, dev_name);
     }
 
-  gtk_tooltip_set_text (tooltip, tip_text);
+  gtk_tooltip_set_markup (tooltip, tip_text);
   g_free (tip_text);
 
   return TRUE;
