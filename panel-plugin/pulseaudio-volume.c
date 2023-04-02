@@ -965,7 +965,7 @@ pulseaudio_volume_get_output_list (PulseaudioVolume *volume)
 
 gchar *
 pulseaudio_volume_get_output_by_name (PulseaudioVolume *volume,
-                                      gchar            *name)
+                                      const gchar      *name)
 {
   g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), NULL);
   return (gchar *) g_hash_table_lookup (volume->sinks, name);
@@ -991,7 +991,7 @@ pulseaudio_volume_get_input_list (PulseaudioVolume *volume)
 
 gchar *
 pulseaudio_volume_get_input_by_name (PulseaudioVolume *volume,
-                                     gchar            *name)
+                                     const gchar      *name)
 {
   g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), NULL);
   return (gchar *) g_hash_table_lookup (volume->sources, name);
