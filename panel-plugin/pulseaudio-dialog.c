@@ -114,9 +114,8 @@ pulseaudio_dialog_mixer_command_changed (PulseaudioDialog *dialog)
 
   object = gtk_builder_get_object (GTK_BUILDER (dialog), "button-run-mixer");
   g_return_if_fail (GTK_IS_BUTTON (object));
-  path = g_find_program_in_path (pulseaudio_config_get_mixer_command (dialog->config));
-  gtk_widget_set_sensitive (GTK_WIDGET (object), path != NULL);
-  g_free (path);
+  path = g_strchomp (pulseaudio_config_get_mixer_command (dialog->config));
+  gtk_widget_set_sensitive (GTK_WIDGET (object), *path != '\0');
 }
 
 
