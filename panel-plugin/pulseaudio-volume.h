@@ -67,7 +67,7 @@ void                    pulseaudio_volume_toggle_muted_mic        (PulseaudioVol
 
 GList                  *pulseaudio_volume_get_output_list         (PulseaudioVolume *volume);
 gchar                  *pulseaudio_volume_get_output_by_name      (PulseaudioVolume *volume,
-                                                                   gchar            *name,
+                                                                   const gchar      *name,
                                                                    gboolean         *available);
 const gchar            *pulseaudio_volume_get_default_output      (PulseaudioVolume *volume);
 void                    pulseaudio_volume_set_default_output      (PulseaudioVolume *volume,
@@ -76,7 +76,7 @@ void                    pulseaudio_volume_set_default_output      (PulseaudioVol
 
 GList                  *pulseaudio_volume_get_input_list          (PulseaudioVolume *volume);
 gchar                  *pulseaudio_volume_get_input_by_name       (PulseaudioVolume *volume,
-                                                                   gchar            *name,
+                                                                   const gchar      *name,
                                                                    gboolean         *available);
 const gchar            *pulseaudio_volume_get_default_input       (PulseaudioVolume *volume);
 void                    pulseaudio_volume_set_default_input       (PulseaudioVolume *volume,
