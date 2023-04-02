@@ -102,6 +102,14 @@ struct _PulseaudioVolumeClass
 
 
 
+typedef struct
+{
+  gchar                *description;
+  gboolean              available;
+} PulseAudioDeviceInfo;
+
+
+
 enum
 {
   VOLUME_CHANGED,
@@ -115,6 +123,19 @@ static guint pulseaudio_volume_signals[LAST_SIGNAL] = { 0, };
 
 
 G_DEFINE_TYPE (PulseaudioVolume, pulseaudio_volume, G_TYPE_OBJECT)
+
+
+
+static void
+pulseaudio_volume_free_device_info (gpointer data)
+{
+  PulseAudioDeviceInfo *device_info = (PulseAudioDeviceInfo *) data;
+  if (device_info)
+    {
+      g_free (device_info->description);
+      g_free (device_info);
+    }
+}
 
 
 
@@ -170,8 +191,8 @@ pulseaudio_volume_init (PulseaudioVolume *volume)
 
   volume->pa_mainloop = pa_glib_mainloop_new (NULL);
 
-  volume->sinks = g_hash_table_new_full (g_str_hash, g_str_equal, (GDestroyNotify)g_free, (GDestroyNotify)g_free);
-  volume->sources = g_hash_table_new_full (g_str_hash, g_str_equal, (GDestroyNotify)g_free, (GDestroyNotify)g_free);
+  volume->sinks = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, pulseaudio_volume_free_device_info);
+  volume->sources = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, pulseaudio_volume_free_device_info);
 
   pulseaudio_volume_connect (volume);
 }
@@ -388,6 +409,7 @@ pulseaudio_volume_get_sink_list_cb (pa_context         *context,
                                     void               *userdata)
 {
   PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
+  PulseAudioDeviceInfo *device_info;
 
   if (i == NULL)
     return;
@@ -395,7 +417,10 @@ pulseaudio_volume_get_sink_list_cb (pa_context         *context,
   if (eol > 0)
     return;
 
-  g_hash_table_insert (volume->sinks, g_strdup (i->name), g_strdup (i->description));
+  device_info = g_new (PulseAudioDeviceInfo, 1);
+  device_info->description = g_strdup (i->description);
+  device_info->available = (!i->active_port || i->active_port->available != PA_PORT_AVAILABLE_NO);
+  g_hash_table_insert (volume->sinks, g_strdup (i->name), device_info);
 }
 
 
@@ -447,6 +472,7 @@ pulseaudio_volume_get_source_list_cb (pa_context           *context,
                                       void                 *userdata)
 {
   PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
+  PulseAudioDeviceInfo *device_info;
 
   if (i == NULL)
     return;
@@ -458,7 +484,10 @@ pulseaudio_volume_get_source_list_cb (pa_context           *context,
   if (i->monitor_of_sink != PA_INVALID_INDEX && g_strcmp0 (i->name, volume->default_source_name) != 0)
     return;
 
-  g_hash_table_insert (volume->sources, g_strdup (i->name), g_strdup (i->description));
+  device_info = g_new (PulseAudioDeviceInfo, 1);
+  device_info->description = g_strdup (i->description);
+  device_info->available = (!i->active_port || i->active_port->available != PA_PORT_AVAILABLE_NO);
+  g_hash_table_insert (volume->sources, g_strdup (i->name), device_info);
 }
 
 
@@ -934,14 +963,37 @@ pulseaudio_volume_set_volume_mic (PulseaudioVolume *volume,
 
 
 
+static gchar *
+pulseaudio_volume_get_description (GHashTable  *hash_table,
+                                   const gchar *key,
+                                   gboolean    *available)
+{
+  PulseAudioDeviceInfo *device_info = g_hash_table_lookup (hash_table, key);
+
+  if (device_info)
+    {
+      if (available)
+        *available = device_info->available;
+      return device_info->description;
+    }
+  else if (available)
+    {
+      *available = FALSE;
+    }
+
+  return NULL;
+}
+
+
+
 static gint
 sort_device_list (gchar *a,
                   gchar *b,
                   void  *hash_table)
 {
   GHashTable *table = (GHashTable *)hash_table;
-  gchar      *a_val = (gchar *) g_hash_table_lookup (table, a);
-  gchar      *b_val = (gchar *) g_hash_table_lookup (table, b);
+  gchar      *a_val = pulseaudio_volume_get_description (table, a, NULL);
+  gchar      *b_val = pulseaudio_volume_get_description (table, b, NULL);
   return g_strcmp0 (a_val, b_val);
 }
 
@@ -965,10 +1017,11 @@ pulseaudio_volume_get_output_list (PulseaudioVolume *volume)
 
 gchar *
 pulseaudio_volume_get_output_by_name (PulseaudioVolume *volume,
-                                      gchar            *name)
+                                      gchar            *name,
+                                      gboolean         *available)
 {
   g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), NULL);
-  return (gchar *) g_hash_table_lookup (volume->sinks, name);
+  return pulseaudio_volume_get_description (volume->sinks, name, available);
 }
 
 
@@ -991,10 +1044,11 @@ pulseaudio_volume_get_input_list (PulseaudioVolume *volume)
 
 gchar *
 pulseaudio_volume_get_input_by_name (PulseaudioVolume *volume,
-                                     gchar            *name)
+                                     gchar            *name,
+                                     gboolean         *available)
 {
   g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), NULL);
-  return (gchar *) g_hash_table_lookup (volume->sources, name);
+  return pulseaudio_volume_get_description (volume->sources, name, available);
 }
 
 

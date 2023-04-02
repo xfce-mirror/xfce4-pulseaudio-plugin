@@ -444,6 +444,8 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
   GList          *sources = NULL;
   GList          *list = NULL;
   guint           i = 0;
+  gchar          *name;
+  gboolean        available;
 
 #ifdef HAVE_MPRIS2
   gchar         **players;
@@ -507,7 +509,8 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
           device_mi = device_menu_item_new_with_label(_("Output"));
           for (list = sources; list != NULL; list = g_list_next(list))
             {
-              device_menu_item_add_device(DEVICE_MENU_ITEM(device_mi), (gchar *)list->data, pulseaudio_volume_get_output_by_name(menu->volume, list->data));
+              name = pulseaudio_volume_get_output_by_name(menu->volume, list->data, &available);
+              device_menu_item_add_device(DEVICE_MENU_ITEM(device_mi), (gchar *)list->data, name, available);
             }
 
           device_menu_item_set_device_by_name(DEVICE_MENU_ITEM(device_mi), pulseaudio_volume_get_default_output(menu->volume));
@@ -546,7 +549,8 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
           device_mi = device_menu_item_new_with_label(_("Input"));
           for (list = sources; list != NULL; list = g_list_next(list))
             {
-              device_menu_item_add_device(DEVICE_MENU_ITEM(device_mi), (gchar *)list->data, pulseaudio_volume_get_input_by_name(menu->volume, list->data));
+              name = pulseaudio_volume_get_input_by_name(menu->volume, list->data, &available);
+              device_menu_item_add_device(DEVICE_MENU_ITEM(device_mi), (gchar *)list->data, name, available);
             }
 
           device_menu_item_set_device_by_name(DEVICE_MENU_ITEM(device_mi), pulseaudio_volume_get_default_input(menu->volume));
