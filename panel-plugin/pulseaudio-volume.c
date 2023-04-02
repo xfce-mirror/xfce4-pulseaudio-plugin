@@ -1017,7 +1017,7 @@ pulseaudio_volume_get_output_list (PulseaudioVolume *volume)
 
 gchar *
 pulseaudio_volume_get_output_by_name (PulseaudioVolume *volume,
-                                      gchar            *name,
+                                      const gchar      *name,
                                       gboolean         *available)
 {
   g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), NULL);
@@ -1044,7 +1044,7 @@ pulseaudio_volume_get_input_list (PulseaudioVolume *volume)
 
 gchar *
 pulseaudio_volume_get_input_by_name (PulseaudioVolume *volume,
-                                     gchar            *name,
+                                     const gchar      *name,
                                      gboolean         *available)
 {
   g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), NULL);
