@@ -57,7 +57,8 @@ GtkWidget   *device_menu_item_new_with_label           (const gchar    *label);
 
 void         device_menu_item_add_device               (DeviceMenuItem *item,
                                                         const gchar    *name,
-                                                        const gchar    *description);
+                                                        const gchar    *description,
+                                                        gboolean        sensitive);
 
 void         device_menu_item_set_device_by_name       (DeviceMenuItem *item,
                                                         const gchar    *name);
