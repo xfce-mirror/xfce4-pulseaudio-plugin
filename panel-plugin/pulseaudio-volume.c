@@ -87,6 +87,7 @@ struct _PulseaudioVolume
   /* Device management */
   GHashTable           *sinks;
   GHashTable           *sources;
+  GHashTable           *source_idx_to_name;
 
   guint                 sink_index;
   guint                 source_index;
@@ -193,6 +194,7 @@ pulseaudio_volume_init (PulseaudioVolume *volume)
 
   volume->sinks = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, pulseaudio_volume_free_device_info);
   volume->sources = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, pulseaudio_volume_free_device_info);
+  volume->source_idx_to_name = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_free);
 
   pulseaudio_volume_connect (volume);
 }
@@ -215,6 +217,7 @@ pulseaudio_volume_finalize (GObject *object)
 
   g_hash_table_destroy (volume->sinks);
   g_hash_table_destroy (volume->sources);
+  g_hash_table_destroy (volume->source_idx_to_name);
 
   pa_glib_mainloop_free (volume->pa_mainloop);
 
@@ -349,9 +352,20 @@ pulseaudio_volume_sink_source_check (PulseaudioVolume *volume,
 
   g_hash_table_remove_all (volume->sinks);
   g_hash_table_remove_all (volume->sources);
+  g_hash_table_remove_all (volume->source_idx_to_name);
 
   pa_context_get_sink_info_list (volume->pa_context, pulseaudio_volume_get_sink_list_cb, volume);
   pa_context_get_source_info_list (volume->pa_context, pulseaudio_volume_get_source_list_cb, volume);
+}
+
+
+
+static void
+pulseaudio_volume_update_recording_state (PulseaudioVolume             *volume,
+                                          pa_context                   *context)
+{
+  volume->recording = FALSE;
+  pa_context_get_source_output_info_list (context, pulseaudio_volume_get_source_output_info_cb, volume);
 }
 
 
@@ -382,10 +396,8 @@ pulseaudio_volume_subscribe_cb (pa_context                   *context,
       break;
 
     case PA_SUBSCRIPTION_EVENT_SOURCE_OUTPUT :
-      volume->recording = FALSE;
-      pa_context_get_source_output_info_list (context, pulseaudio_volume_get_source_output_info_cb, volume);
-
       pulseaudio_volume_sink_source_check (volume, context);
+      pulseaudio_volume_update_recording_state (volume, context);
       pulseaudio_debug ("received source output event");
       break;
 
@@ -432,6 +444,7 @@ pulseaudio_volume_get_source_output_info_cb (pa_context                  *contex
                                              void                        *userdata)
 {
   PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
+  const gchar      *str;
 
   if (eol > 0)
     {
@@ -453,12 +466,15 @@ pulseaudio_volume_get_source_output_info_cb (pa_context                  *contex
       if (i->client == PA_INVALID_INDEX)
         return;
 
-      if (g_strcmp0("org.PulseAudio.pavucontrol",
-                    pa_proplist_gets (i->proplist, PA_PROP_APPLICATION_ID)) == 0)
-        {
-          pulseaudio_debug ("Don't show recording indicator for pavucontrol");
-          return;
-        }
+      /* Don't show recording indicator for pavucontrol */
+      str = pa_proplist_gets (i->proplist, PA_PROP_APPLICATION_ID);
+      if (str && g_strcmp0("org.PulseAudio.pavucontrol", str) == 0)
+        return;
+
+      /* Don't show recording indicator for non-default monitors */
+      str = g_hash_table_lookup (volume->source_idx_to_name, GINT_TO_POINTER (i->source));
+      if (str && g_str_has_suffix (str, ".monitor") && g_strcmp0 (str, volume->default_source_name) != 0)
+        return;
 
       volume->recording = TRUE;
     }
@@ -479,6 +495,8 @@ pulseaudio_volume_get_source_list_cb (pa_context           *context,
 
   if (eol > 0)
     return;
+
+  g_hash_table_insert (volume->source_idx_to_name, GINT_TO_POINTER (i->index), g_strdup (i->name));
 
   /* Ignore sink monitors if it is not a default source, not relevant for users */
   if (i->monitor_of_sink != PA_INVALID_INDEX && g_strcmp0 (i->name, volume->default_source_name) != 0)
@@ -536,10 +554,6 @@ pulseaudio_volume_context_state_cb (pa_context *context,
       volume->source_connected = FALSE;
 
       pa_context_get_server_info (volume->pa_context, pulseaudio_volume_get_server_info_cb, volume);
-
-      // Check here if recording is active
-      pa_context_get_source_output_info_list (context, pulseaudio_volume_get_source_output_info_cb, volume);
-
       break;
 
     case PA_CONTEXT_FAILED       :
@@ -561,6 +575,7 @@ pulseaudio_volume_context_state_cb (pa_context *context,
 
       g_hash_table_remove_all (volume->sinks);
       g_hash_table_remove_all (volume->sources);
+      g_hash_table_remove_all (volume->source_idx_to_name);
 
       if (volume->reconnect_timer_id == 0)
         volume->reconnect_timer_id = g_timeout_add_seconds
@@ -1108,6 +1123,9 @@ pulseaudio_volume_set_default_input (PulseaudioVolume *volume,
     {
       g_free (volume->default_source_name);
       volume->default_source_name = g_strdup (name);
+
+      /* Update recording state here, because it uses the "default_source_name" and it's also called on context ready */
+      pulseaudio_volume_update_recording_state (volume, volume->pa_context);
     }
 }
 
