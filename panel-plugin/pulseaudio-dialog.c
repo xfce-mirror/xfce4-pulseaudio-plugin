@@ -108,14 +108,28 @@ pulseaudio_dialog_mixer_command_changed (PulseaudioDialog *dialog)
 {
   GObject *object;
   gchar   *path;
+  gchar  **argvp = NULL;
+  gboolean sensitive = FALSE;
 
   g_return_if_fail (GTK_IS_BUILDER (dialog));
   g_return_if_fail (IS_PULSEAUDIO_CONFIG (dialog->config));
 
   object = gtk_builder_get_object (GTK_BUILDER (dialog), "button-run-mixer");
   g_return_if_fail (GTK_IS_BUTTON (object));
-  path = g_strchomp (pulseaudio_config_get_mixer_command (dialog->config));
-  gtk_widget_set_sensitive (GTK_WIDGET (object), *path != '\0');
+
+  if (g_shell_parse_argv (pulseaudio_config_get_mixer_command (dialog->config), NULL, &argvp, NULL))
+    {
+      if (G_LIKELY (argvp && argvp[0]))
+        {
+          path = g_find_program_in_path (argvp[0]);
+          if (path)
+            sensitive = TRUE;
+          g_free (path);
+        }
+      g_strfreev (argvp);
+    }
+
+  gtk_widget_set_sensitive (GTK_WIDGET (object), sensitive);
 }
 
 
