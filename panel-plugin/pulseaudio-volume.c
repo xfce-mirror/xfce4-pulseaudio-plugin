@@ -424,6 +424,10 @@ pulseaudio_volume_get_source_output_info_cb (pa_context                  *contex
       if (i->source == PA_INVALID_INDEX)
           return;
 
+      /* Don't show recording indicator if the source output doesn't belong to any client */
+      if (i->client == PA_INVALID_INDEX)
+        return;
+
       if (g_strcmp0("org.PulseAudio.pavucontrol",
                     pa_proplist_gets (i->proplist, PA_PROP_APPLICATION_ID)) == 0)
         {
