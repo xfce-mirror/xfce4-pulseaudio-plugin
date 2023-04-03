@@ -178,14 +178,14 @@ msgstr "Няма връзка с  PulseAudio сървър"
 msgid ""
 "<b>Volume %d%% (muted)</b>\n"
 "<small>%s</small>"
-msgstr ""
+msgstr "<b>Сила на звука %d%% (заглушен)</b>\n<small>%s</small>"
 
 #: ../panel-plugin/pulseaudio-button.c:355
 #, c-format
 msgid ""
 "<b>Volume %d%%</b>\n"
 "<small>%s</small>"
-msgstr ""
+msgstr "<b>Сила на звука %d%%</b>\n<small>%s</small>"
 
 #: ../panel-plugin/pulseaudio-menu.c:509
 msgid "Output"
