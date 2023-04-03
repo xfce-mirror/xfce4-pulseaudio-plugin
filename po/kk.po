@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-29 00:49+0200\n"
+"POT-Creation-Date: 2023-04-03 00:49+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2016-2018,2020,2022\n"
-"Language-Team: Kazakh (http://www.transifex.com/xfce/xfce-panel-plugins/language/kk/)\n"
+"Language-Team: Kazakh (http://app.transifex.com/xfce/xfce-panel-plugins/language/kk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -153,7 +153,7 @@ msgstr "Медиа плеерлер"
 msgid "Copyright © 2014-2023 Andrzej Radecki et al.\n"
 msgstr ""
 
-#: ../panel-plugin/pulseaudio-dialog.c:142
+#: ../panel-plugin/pulseaudio-dialog.c:150
 #: ../panel-plugin/pulseaudio-menu.c:264
 #, c-format
 msgid ""
@@ -162,7 +162,7 @@ msgid ""
 "%s"
 msgstr "<big><b>\"%s\" командасын жөнелту қатесі.</b></big>\n\n%s"
 
-#: ../panel-plugin/pulseaudio-dialog.c:145
+#: ../panel-plugin/pulseaudio-dialog.c:153
 #: ../panel-plugin/pulseaudio-menu.c:267
 msgid "Error"
 msgstr "Қате"
@@ -173,30 +173,34 @@ msgstr "Қате"
 msgid "Not connected to the PulseAudio server"
 msgstr "PulseAudio серверіне байланыспаған"
 
-#: ../panel-plugin/pulseaudio-button.c:351
-#, c-format
-msgid "Volume %d%% (muted)"
-msgstr "Дыбыс деңгейі %d%% (басылған)"
-
 #: ../panel-plugin/pulseaudio-button.c:353
 #, c-format
-msgid "Volume %d%%"
-msgstr "Дыбыс деңгейі %d%%"
+msgid ""
+"<b>Volume %d%% (muted)</b>\n"
+"<small>%s</small>"
+msgstr ""
 
-#: ../panel-plugin/pulseaudio-menu.c:507
+#: ../panel-plugin/pulseaudio-button.c:355
+#, c-format
+msgid ""
+"<b>Volume %d%%</b>\n"
+"<small>%s</small>"
+msgstr ""
+
+#: ../panel-plugin/pulseaudio-menu.c:509
 msgid "Output"
 msgstr "Шығыс"
 
-#: ../panel-plugin/pulseaudio-menu.c:546
+#: ../panel-plugin/pulseaudio-menu.c:549
 msgid "Input"
 msgstr "Кіріс"
 
-#: ../panel-plugin/pulseaudio-menu.c:634
+#: ../panel-plugin/pulseaudio-menu.c:638
 msgid "Choose Playlist"
 msgstr "Ойнату тізімін таңдау"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:671
+#: ../panel-plugin/pulseaudio-menu.c:675
 msgid "_Audio mixer..."
 msgstr "_Аудио миксері..."
 
