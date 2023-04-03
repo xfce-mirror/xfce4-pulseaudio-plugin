@@ -9,10 +9,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-15 00:49+0100\n"
+"POT-Creation-Date: 2023-04-03 00:49+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
 "Last-Translator: Arman Harutyunyan <arman.harut468@gmail.com>, 2020\n"
-"Language-Team: Eastern Armenian (http://www.transifex.com/xfce/xfce-panel-plugins/language/hye/)\n"
+"Language-Team: Eastern Armenian (http://app.transifex.com/xfce/xfce-panel-plugins/language/hye/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -77,80 +77,84 @@ msgid "Mute/unmute is notified in all modes except \"None\""
 msgstr ""
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
-msgid "Step size used when adjusting volume with mouse wheel."
+msgid "Step size used when adjusting volume with mouse wheel or hotkeys."
 msgstr ""
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:13
-msgid "Mouse wheel volume step:"
+msgid "_Volume step:"
 msgstr ""
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:14
+msgid "M_aximum volume:"
+msgstr ""
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:15
 msgid "Behaviour"
 msgstr "Վարքագիծ"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:15
+#: ../panel-plugin/pulseaudio-dialog.glade.h:16
 msgid "Audio _Mixer"
 msgstr "Ձայնային  _Խառնիչ"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:16
+#: ../panel-plugin/pulseaudio-dialog.glade.h:17
 msgid ""
 "Audio mixer command that can be executed from the context menu, e.g. "
 "\"pavucontrol\", \"unity-control-center sound\"."
 msgstr "Ձայնային խառնիչի հրաման, որը կարող է գործարկուել ենթագրոյթային ընտրացանկից, աւր․ \"pavucontrol\", \"unity-control-center sound\"։"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:17
+#: ../panel-plugin/pulseaudio-dialog.glade.h:18
 msgid "_Run Audio Mixer..."
 msgstr "_Աշխատեցնել ձայնային խառնիչ․․․"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:18
+#: ../panel-plugin/pulseaudio-dialog.glade.h:19
 msgid "Sound Settings"
 msgstr "Ձայնի կարգաւորումներ"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:19
+#: ../panel-plugin/pulseaudio-dialog.glade.h:20
 msgid "General"
 msgstr "Հիմնական"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:20
+#: ../panel-plugin/pulseaudio-dialog.glade.h:21
 msgid "Control Playback of Media Players"
 msgstr "Կառավարել Մեդիայ նուագարկիչների նուագարկումը"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:21
+#: ../panel-plugin/pulseaudio-dialog.glade.h:22
 msgid "Enable multimedia keys for playback control"
 msgstr "Թոյլատրել մուլտիմեդիայ բանալիներ, նուագարկման կառավարման համար"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:22
+#: ../panel-plugin/pulseaudio-dialog.glade.h:23
 msgid "Enable experimental window focus support"
 msgstr "Թոյլատրել փորձնական պատուհանի կիզակէտային աջակցութիւն"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:23
+#: ../panel-plugin/pulseaudio-dialog.glade.h:24
 msgid "Title"
 msgstr "Վերնագիր"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:24
+#: ../panel-plugin/pulseaudio-dialog.glade.h:25
 msgid "Hidden"
 msgstr "Թաքնուած"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:25
+#: ../panel-plugin/pulseaudio-dialog.glade.h:26
 msgid "Clear Known Items"
 msgstr "Մաքրել ճանաչուած տարրերը"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:26
+#: ../panel-plugin/pulseaudio-dialog.glade.h:27
 msgid "Please restart your panel for additional players to be displayed."
 msgstr "Խնդրում ենք վերագործարկել Ձեր վահանակը լրացուցիչ նուագարկիչների ցուցադրութեան համար։"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:27
+#: ../panel-plugin/pulseaudio-dialog.glade.h:28
 msgid "Known Media Players"
 msgstr "Ճանաչուած մեդիայ նուագարկիչ"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:28
+#: ../panel-plugin/pulseaudio-dialog.glade.h:29
 msgid "Media Players"
 msgstr "Մեդիայ նուագարկիչներ"
 
 #: ../panel-plugin/pulseaudio-plugin.c:253
-msgid "Copyright © 2014-2022 Andrzej Radecki et al.\n"
+msgid "Copyright © 2014-2023 Andrzej Radecki et al.\n"
 msgstr ""
 
-#: ../panel-plugin/pulseaudio-dialog.c:142
+#: ../panel-plugin/pulseaudio-dialog.c:150
 #: ../panel-plugin/pulseaudio-menu.c:264
 #, c-format
 msgid ""
@@ -159,41 +163,45 @@ msgid ""
 "%s"
 msgstr "<big><b>Չյաջողուեց գործարկել հրաման\"%s\" ֊ը։</b></big>\n\n%s"
 
-#: ../panel-plugin/pulseaudio-dialog.c:145
+#: ../panel-plugin/pulseaudio-dialog.c:153
 #: ../panel-plugin/pulseaudio-menu.c:267
 msgid "Error"
 msgstr "Սխալ"
 
-#: ../panel-plugin/pulseaudio-button.c:395
+#: ../panel-plugin/pulseaudio-button.c:335
 #: ../panel-plugin/pulseaudio-notify.c:199
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "Միացուած չէ PulseAudio սպասարկչին"
 
-#: ../panel-plugin/pulseaudio-button.c:397
+#: ../panel-plugin/pulseaudio-button.c:353
 #, c-format
-msgid "Volume %d%% (muted)"
-msgstr "Ծաւալ %d%% (լռեցուած)"
+msgid ""
+"<b>Volume %d%% (muted)</b>\n"
+"<small>%s</small>"
+msgstr ""
 
-#: ../panel-plugin/pulseaudio-button.c:399
+#: ../panel-plugin/pulseaudio-button.c:355
 #, c-format
-msgid "Volume %d%%"
-msgstr "Ծաւալ %d%%"
+msgid ""
+"<b>Volume %d%%</b>\n"
+"<small>%s</small>"
+msgstr ""
 
-#: ../panel-plugin/pulseaudio-menu.c:507
+#: ../panel-plugin/pulseaudio-menu.c:509
 msgid "Output"
 msgstr "Արտածում"
 
-#: ../panel-plugin/pulseaudio-menu.c:546
+#: ../panel-plugin/pulseaudio-menu.c:549
 msgid "Input"
 msgstr "Ներածում"
 
-#: ../panel-plugin/pulseaudio-menu.c:634
+#: ../panel-plugin/pulseaudio-menu.c:638
 msgid "Choose Playlist"
 msgstr "Ընտրել նուագացանկ"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:671
+#: ../panel-plugin/pulseaudio-menu.c:675
 msgid "_Audio mixer..."
 msgstr "_Ձայնային խառնիչ․․․"
 
