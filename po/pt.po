@@ -76,11 +76,11 @@ msgstr "Mostrar as _notificações do volume:"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:11
 msgid "Mute/unmute is notified in all modes except \"None\""
-msgstr "O Silenciar/Com som é notificado em todos os modos exceto \"Nenhum\"."
+msgstr "Emudecer/desemudecer é notificado em todos os modos exceto \"Nenhum\"."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
 msgid "Step size used when adjusting volume with mouse wheel or hotkeys."
-msgstr "Tamanho da medida utilizada ao ajustar o volume com a roda do rato ou teclas de atalho."
+msgstr "Tamanho da medida utilizada ao ajustar o volume com a roda do rato ou as teclas de atalho."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "_Volume step:"
@@ -106,7 +106,7 @@ msgstr "Comando de misturador áudio que pode ser executado do menu de contexto,
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:18
 msgid "_Run Audio Mixer..."
-msgstr "Executar misturador áudio..."
+msgstr "_Executar misturador áudio..."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:19
 msgid "Sound Settings"
@@ -181,14 +181,14 @@ msgstr "Não ligado ao servidor PulseAudio"
 msgid ""
 "<b>Volume %d%% (muted)</b>\n"
 "<small>%s</small>"
-msgstr ""
+msgstr "<b>Volume %d%% (emudecido)</b>\n<small>%s</small>"
 
 #: ../panel-plugin/pulseaudio-button.c:355
 #, c-format
 msgid ""
 "<b>Volume %d%%</b>\n"
 "<small>%s</small>"
-msgstr ""
+msgstr "<b>Volume %d%%</b>\n<small>%s</small>"
 
 #: ../panel-plugin/pulseaudio-menu.c:509
 msgid "Output"
@@ -205,12 +205,12 @@ msgstr "Escolher lista de reprodução"
 #. Audio mixers
 #: ../panel-plugin/pulseaudio-menu.c:675
 msgid "_Audio mixer..."
-msgstr "_Misturador Áudio..."
+msgstr "_Misturador áudio..."
 
 #: ../panel-plugin/pulseaudio-notify.c:201
 #, c-format
 msgid "Volume %d%c (muted)"
-msgstr "Volume %d%c (sem som)"
+msgstr "Volume %d%c (emudecido)"
 
 #: ../panel-plugin/pulseaudio-notify.c:203
 #, c-format
