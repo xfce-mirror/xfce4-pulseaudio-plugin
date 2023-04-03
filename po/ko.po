@@ -9,10 +9,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-29 00:49+0200\n"
+"POT-Creation-Date: 2023-04-03 00:49+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
 "Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>, 2015,2017-2018,2020,2022-2023\n"
-"Language-Team: Korean (http://www.transifex.com/xfce/xfce-panel-plugins/language/ko/)\n"
+"Language-Team: Korean (http://app.transifex.com/xfce/xfce-panel-plugins/language/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -154,7 +154,7 @@ msgstr "미디어 재생 프로그램"
 msgid "Copyright © 2014-2023 Andrzej Radecki et al.\n"
 msgstr ""
 
-#: ../panel-plugin/pulseaudio-dialog.c:142
+#: ../panel-plugin/pulseaudio-dialog.c:150
 #: ../panel-plugin/pulseaudio-menu.c:264
 #, c-format
 msgid ""
@@ -163,7 +163,7 @@ msgid ""
 "%s"
 msgstr "<big><b>\"%s\" 명령 실행에 실패했습니다.</b></big>\n\n%s"
 
-#: ../panel-plugin/pulseaudio-dialog.c:145
+#: ../panel-plugin/pulseaudio-dialog.c:153
 #: ../panel-plugin/pulseaudio-menu.c:267
 msgid "Error"
 msgstr "오류"
@@ -174,30 +174,34 @@ msgstr "오류"
 msgid "Not connected to the PulseAudio server"
 msgstr "PulseAudio 서버에 연결하지 않았습니다"
 
-#: ../panel-plugin/pulseaudio-button.c:351
-#, c-format
-msgid "Volume %d%% (muted)"
-msgstr "음량 %d%%(음소거)"
-
 #: ../panel-plugin/pulseaudio-button.c:353
 #, c-format
-msgid "Volume %d%%"
-msgstr "음량 %d%%"
+msgid ""
+"<b>Volume %d%% (muted)</b>\n"
+"<small>%s</small>"
+msgstr ""
 
-#: ../panel-plugin/pulseaudio-menu.c:507
+#: ../panel-plugin/pulseaudio-button.c:355
+#, c-format
+msgid ""
+"<b>Volume %d%%</b>\n"
+"<small>%s</small>"
+msgstr ""
+
+#: ../panel-plugin/pulseaudio-menu.c:509
 msgid "Output"
 msgstr "출력"
 
-#: ../panel-plugin/pulseaudio-menu.c:546
+#: ../panel-plugin/pulseaudio-menu.c:549
 msgid "Input"
 msgstr "입력"
 
-#: ../panel-plugin/pulseaudio-menu.c:634
+#: ../panel-plugin/pulseaudio-menu.c:638
 msgid "Choose Playlist"
 msgstr "재생 목록 선택"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:671
+#: ../panel-plugin/pulseaudio-menu.c:675
 msgid "_Audio mixer..."
 msgstr "오디오 음량 조절기(_A)..."
 
