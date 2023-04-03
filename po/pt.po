@@ -11,10 +11,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-29 00:49+0200\n"
+"POT-Creation-Date: 2023-04-03 00:49+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>, 2022-2023\n"
-"Language-Team: Portuguese (http://www.transifex.com/xfce/xfce-panel-plugins/language/pt/)\n"
+"Language-Team: Portuguese (http://app.transifex.com/xfce/xfce-panel-plugins/language/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -156,7 +156,7 @@ msgstr "Reprodutores multimédia"
 msgid "Copyright © 2014-2023 Andrzej Radecki et al.\n"
 msgstr "Direitos de autor © 2014-2023 Andrzej Radecki e outros\n"
 
-#: ../panel-plugin/pulseaudio-dialog.c:142
+#: ../panel-plugin/pulseaudio-dialog.c:150
 #: ../panel-plugin/pulseaudio-menu.c:264
 #, c-format
 msgid ""
@@ -165,7 +165,7 @@ msgid ""
 "%s"
 msgstr "<big><b>Incapaz de executar o comando \"%s\".</b></big>\n\n%s"
 
-#: ../panel-plugin/pulseaudio-dialog.c:145
+#: ../panel-plugin/pulseaudio-dialog.c:153
 #: ../panel-plugin/pulseaudio-menu.c:267
 msgid "Error"
 msgstr "Erro"
@@ -176,30 +176,34 @@ msgstr "Erro"
 msgid "Not connected to the PulseAudio server"
 msgstr "Não ligado ao servidor PulseAudio"
 
-#: ../panel-plugin/pulseaudio-button.c:351
-#, c-format
-msgid "Volume %d%% (muted)"
-msgstr "Volume %d%% (sem som)"
-
 #: ../panel-plugin/pulseaudio-button.c:353
 #, c-format
-msgid "Volume %d%%"
-msgstr "Volume %d%%"
+msgid ""
+"<b>Volume %d%% (muted)</b>\n"
+"<small>%s</small>"
+msgstr ""
 
-#: ../panel-plugin/pulseaudio-menu.c:507
+#: ../panel-plugin/pulseaudio-button.c:355
+#, c-format
+msgid ""
+"<b>Volume %d%%</b>\n"
+"<small>%s</small>"
+msgstr ""
+
+#: ../panel-plugin/pulseaudio-menu.c:509
 msgid "Output"
 msgstr "Saída"
 
-#: ../panel-plugin/pulseaudio-menu.c:546
+#: ../panel-plugin/pulseaudio-menu.c:549
 msgid "Input"
 msgstr "Entrada"
 
-#: ../panel-plugin/pulseaudio-menu.c:634
+#: ../panel-plugin/pulseaudio-menu.c:638
 msgid "Choose Playlist"
 msgstr "Escolher lista de reprodução"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:671
+#: ../panel-plugin/pulseaudio-menu.c:675
 msgid "_Audio mixer..."
 msgstr "_Misturador Áudio..."
 
