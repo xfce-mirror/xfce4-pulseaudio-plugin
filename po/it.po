@@ -183,14 +183,14 @@ msgstr "Non connesso al server PulseAudio"
 msgid ""
 "<b>Volume %d%% (muted)</b>\n"
 "<small>%s</small>"
-msgstr ""
+msgstr "<b>Volume %d%% (muto)</b>\n<small>%s</small>"
 
 #: ../panel-plugin/pulseaudio-button.c:355
 #, c-format
 msgid ""
 "<b>Volume %d%%</b>\n"
 "<small>%s</small>"
-msgstr ""
+msgstr "<b>Volume %d%%</b>\n<small>%s</small>"
 
 #: ../panel-plugin/pulseaudio-menu.c:509
 msgid "Output"
