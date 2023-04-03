@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-29 00:49+0200\n"
+"POT-Creation-Date: 2023-04-03 00:49+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
 "Last-Translator: Саша Петровић <salepetronije@gmail.com>, 2015,2017-2018\n"
-"Language-Team: Serbian (http://www.transifex.com/xfce/xfce-panel-plugins/language/sr/)\n"
+"Language-Team: Serbian (http://app.transifex.com/xfce/xfce-panel-plugins/language/sr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -153,7 +153,7 @@ msgstr "Извођачи садржаја"
 msgid "Copyright © 2014-2023 Andrzej Radecki et al.\n"
 msgstr "Права умножавања © 2014-2023 Андреј Радецки (Andrzej Radecki) и остали.\n"
 
-#: ../panel-plugin/pulseaudio-dialog.c:142
+#: ../panel-plugin/pulseaudio-dialog.c:150
 #: ../panel-plugin/pulseaudio-menu.c:264
 #, c-format
 msgid ""
@@ -162,7 +162,7 @@ msgid ""
 "%s"
 msgstr "<big><b>Нисам успео да извршим наредбу „%s“.</b></big>\n\n%s"
 
-#: ../panel-plugin/pulseaudio-dialog.c:145
+#: ../panel-plugin/pulseaudio-dialog.c:153
 #: ../panel-plugin/pulseaudio-menu.c:267
 msgid "Error"
 msgstr "Грeшкa"
@@ -173,30 +173,34 @@ msgstr "Грeшкa"
 msgid "Not connected to the PulseAudio server"
 msgstr "Нема везе са служитељем Пулсаудија"
 
-#: ../panel-plugin/pulseaudio-button.c:351
-#, c-format
-msgid "Volume %d%% (muted)"
-msgstr "Гласноћа је %d%% (умукнуто)"
-
 #: ../panel-plugin/pulseaudio-button.c:353
 #, c-format
-msgid "Volume %d%%"
-msgstr "Гласноћа је %d%%"
+msgid ""
+"<b>Volume %d%% (muted)</b>\n"
+"<small>%s</small>"
+msgstr ""
 
-#: ../panel-plugin/pulseaudio-menu.c:507
+#: ../panel-plugin/pulseaudio-button.c:355
+#, c-format
+msgid ""
+"<b>Volume %d%%</b>\n"
+"<small>%s</small>"
+msgstr ""
+
+#: ../panel-plugin/pulseaudio-menu.c:509
 msgid "Output"
 msgstr "Излаз"
 
-#: ../panel-plugin/pulseaudio-menu.c:546
+#: ../panel-plugin/pulseaudio-menu.c:549
 msgid "Input"
 msgstr "Улаз"
 
-#: ../panel-plugin/pulseaudio-menu.c:634
+#: ../panel-plugin/pulseaudio-menu.c:638
 msgid "Choose Playlist"
 msgstr "Изаберите списак за извођење"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:671
+#: ../panel-plugin/pulseaudio-menu.c:675
 msgid "_Audio mixer..."
 msgstr "Мешач _звука..."
 
