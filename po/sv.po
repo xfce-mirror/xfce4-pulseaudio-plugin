@@ -80,15 +80,15 @@ msgstr "Tysta/avtysta är notiferat i alla lägen förutom \"Inga\""
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
 msgid "Step size used when adjusting volume with mouse wheel or hotkeys."
-msgstr ""
+msgstr "Stegstorlek som används vid justering av volym med mushjul eller snabbtangenter."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "_Volume step:"
-msgstr ""
+msgstr "_Volym steg:"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "M_aximum volume:"
-msgstr ""
+msgstr "M_aximal volym:"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:15
 msgid "Behaviour"
@@ -154,7 +154,7 @@ msgstr "Mediaspelare"
 
 #: ../panel-plugin/pulseaudio-plugin.c:253
 msgid "Copyright © 2014-2023 Andrzej Radecki et al.\n"
-msgstr ""
+msgstr "Copyright © 2014-2023 Andrzej Radecki et al.\n"
 
 #: ../panel-plugin/pulseaudio-dialog.c:150
 #: ../panel-plugin/pulseaudio-menu.c:264
@@ -181,14 +181,14 @@ msgstr "Inte ansluten till PulseAudio servern"
 msgid ""
 "<b>Volume %d%% (muted)</b>\n"
 "<small>%s</small>"
-msgstr ""
+msgstr "<b>Volume %d%% (tystad)</b>\n<small>%s</small>"
 
 #: ../panel-plugin/pulseaudio-button.c:355
 #, c-format
 msgid ""
 "<b>Volume %d%%</b>\n"
 "<small>%s</small>"
-msgstr ""
+msgstr "</b>Volym%d%%</b>\n<small>%s</small>"
 
 #: ../panel-plugin/pulseaudio-menu.c:509
 msgid "Output"
