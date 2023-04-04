@@ -143,7 +143,7 @@ msgstr "Молим, препокрените полицу ради приказ�
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:28
 msgid "Known Media Players"
-msgstr "Познати извођачи звука"
+msgstr "Познати извођачи садржаја"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:29
 msgid "Media Players"
@@ -178,14 +178,14 @@ msgstr "Нема везе са служитељем Пулсаудија"
 msgid ""
 "<b>Volume %d%% (muted)</b>\n"
 "<small>%s</small>"
-msgstr ""
+msgstr "<b>Гласноћа %d%% (умукнуто)</b>\\n\n<small>%s</small>"
 
 #: ../panel-plugin/pulseaudio-button.c:355
 #, c-format
 msgid ""
 "<b>Volume %d%%</b>\n"
 "<small>%s</small>"
-msgstr ""
+msgstr "<b>Гласноћа  %d%%</b>\\n\n<small>%s</small>"
 
 #: ../panel-plugin/pulseaudio-menu.c:509
 msgid "Output"
