@@ -756,34 +756,31 @@ void
 pulseaudio_config_player_blacklist_remove (PulseaudioConfig *config,
                                            const gchar      *player)
 {
-  GString  *string;
-  gchar   **players;
-  gchar   **player_list;
-  gchar    *player_string;
-  guint     i;
+  gchar   **players_old;
+  gchar   **players_new;
+  guint     j = 0;
+  guint     len;
 
-  string = g_string_new ("");
+  players_old = pulseaudio_config_get_blacklisted_players (config);
+  if (players_old == NULL)
+    return;
 
-  players = pulseaudio_config_get_blacklisted_players (config);
-  if (players != NULL)
+  len = g_strv_length (players_old);
+
+  players_new = g_new (gchar *, len);
+
+  for (guint i = 0; i < len; i++)
+    if (g_strcmp0 (player, players_old[i]) != 0)
+      players_new[j++] = players_old[i];
+
+  if (j < len)
     {
-      for (i = 0; i < g_strv_length (players); i++)
-        {
-          if (g_strcmp0(player, players[i]) != 0)
-          {
-            string = g_string_append (string, players[0]);
-          }
-        }
+      players_new[j] = NULL;
+      pulseaudio_config_set_blacklisted_players (config, players_new);
     }
 
-  player_string = g_string_free (string, FALSE);
-  player_list = g_strsplit(player_string, ";", 0);
-
-  pulseaudio_config_set_blacklisted_players (config, player_list);
-
-  g_strfreev (player_list);
-  g_free (player_string);
-  g_strfreev (players);
+  g_free (players_new);
+  g_strfreev (players_old);
 }
 
 
