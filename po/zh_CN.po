@@ -81,15 +81,15 @@ msgstr "在除“无”以外的所有模式下都会通知静音/取消静音"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
 msgid "Step size used when adjusting volume with mouse wheel or hotkeys."
-msgstr ""
+msgstr "用鼠标滚轮或快捷键调节音量时的步长。"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "_Volume step:"
-msgstr ""
+msgstr "音量步长(_V):"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "M_aximum volume:"
-msgstr ""
+msgstr "最大音量(_A):"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:15
 msgid "Behaviour"
@@ -155,7 +155,7 @@ msgstr "媒体播放器"
 
 #: ../panel-plugin/pulseaudio-plugin.c:253
 msgid "Copyright © 2014-2023 Andrzej Radecki et al.\n"
-msgstr ""
+msgstr "版权所有 © 2014-2022 Andrzej Radecki 等。\n"
 
 #: ../panel-plugin/pulseaudio-dialog.c:150
 #: ../panel-plugin/pulseaudio-menu.c:264
