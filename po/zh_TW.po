@@ -181,14 +181,14 @@ msgstr "未連線到 PulseAudio 伺服程式"
 msgid ""
 "<b>Volume %d%% (muted)</b>\n"
 "<small>%s</small>"
-msgstr ""
+msgstr "<b>音量 %d%%（已靜音）</b>\n<small>%s</small>"
 
 #: ../panel-plugin/pulseaudio-button.c:355
 #, c-format
 msgid ""
 "<b>Volume %d%%</b>\n"
 "<small>%s</small>"
-msgstr ""
+msgstr "<b>音量 %d%%</b>\n<small>%s</small>"
 
 #: ../panel-plugin/pulseaudio-menu.c:509
 msgid "Output"
