@@ -39,7 +39,7 @@ struct _PulseaudioMpris
   GDBusConnection  *dbus_connection;
   GHashTable       *players;
 
-  guint             player_timer_id;
+  guint             dbus_signal_id;
 };
 
 struct _PulseaudioMprisClass
@@ -253,19 +253,20 @@ pulseaudio_mpris_player_metadata_cb (PulseaudioMprisPlayer *player,
 
 
 
-static gboolean
-pulseaudio_mpris_tick_cb (gpointer user_data)
+static void
+pulseaudio_mpris_manage_players (PulseaudioMpris *mpris)
 {
-  PulseaudioMpris        *mpris = user_data;
   PulseaudioMprisPlayer  *player;
   gchar                 **players;
   guint                   i = 0;
+  guint                   num_players;
 
   players = pulseaudio_mpris_get_available_players (mpris);
   if (players == NULL)
-    return TRUE;
+    return;
 
-  for (i = 0; i < g_strv_length (players); i++)
+  num_players = g_strv_length (players);
+  for (i = 0; i < num_players; i++)
     {
       if (!g_hash_table_contains (mpris->players, players[i]))
         {
@@ -283,8 +284,21 @@ pulseaudio_mpris_tick_cb (gpointer user_data)
 
   if (players != NULL)
     g_strfreev (players);
+}
 
-  return TRUE;
+
+
+static void
+pulseaudio_mpris_changed_cb (GDBusConnection *connection,
+                             const gchar *sender_name,
+                             const gchar *object_path,
+                             const gchar *interface_name,
+                             const gchar *signal_name,
+                             GVariant *parameters,
+                             gpointer user_data)
+{
+  PulseaudioMpris        *mpris = user_data;
+  pulseaudio_mpris_manage_players (mpris);
 }
 
 
@@ -497,6 +511,8 @@ pulseaudio_mpris_init (PulseaudioMpris *mpris)
 {
   mpris->config            = NULL;
   mpris->dbus_connection   = NULL;
+  mpris->players           = NULL;
+  mpris->dbus_signal_id    = 0;
 }
 
 
@@ -508,8 +524,8 @@ pulseaudio_mpris_finalize (GObject *object)
 
   mpris = PULSEAUDIO_MPRIS (object);
 
-  mpris->config            = NULL;
-  mpris->dbus_connection   = NULL;
+  if (mpris->dbus_signal_id != 0 && mpris->dbus_connection != NULL)
+    g_dbus_connection_signal_unsubscribe (mpris->dbus_connection, mpris->dbus_signal_id);
 
   if (mpris->players != NULL)
     g_hash_table_destroy (mpris->players);
@@ -541,7 +557,18 @@ pulseaudio_mpris_new (PulseaudioConfig *config)
   mpris->config = config;
   mpris->dbus_connection = gconnection;
   mpris->players = g_hash_table_new_full (g_str_hash, g_str_equal, (GDestroyNotify)g_free, (GDestroyNotify)g_free);
-  mpris->player_timer_id = g_timeout_add_seconds (1, pulseaudio_mpris_tick_cb, mpris);
+  mpris->dbus_signal_id = g_dbus_connection_signal_subscribe (gconnection,
+                                                              "org.freedesktop.DBus",
+                                                              "org.freedesktop.DBus",
+                                                              "NameOwnerChanged",
+                                                              "/org/freedesktop/DBus",
+                                                              "org.mpris.MediaPlayer2",
+                                                              G_DBUS_SIGNAL_FLAGS_MATCH_ARG0_NAMESPACE,
+                                                              pulseaudio_mpris_changed_cb,
+                                                              mpris,
+                                                              NULL);
+  if (mpris->dbus_signal_id != 0)
+    pulseaudio_mpris_manage_players (mpris);
 
   mpris_instance = mpris;
 
