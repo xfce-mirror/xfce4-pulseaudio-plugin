@@ -78,7 +78,6 @@ struct _PulseaudioDialog
   PulseaudioConfig  *config;
 
   GtkWidget         *treeview;
-  GtkWidget         *revealer;
 };
 
 
@@ -200,8 +199,6 @@ pulseaudio_dialog_clear_players_cb (GtkButton *button,
 
   liststore = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(dialog->treeview)));
   gtk_list_store_clear (liststore);
-
-  gtk_revealer_set_reveal_child (GTK_REVEALER(dialog->revealer), TRUE);
 }
 
 
@@ -371,8 +368,6 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
 
       object = gtk_builder_get_object(builder, "clear_players");
       g_signal_connect (object, "clicked", (GCallback) pulseaudio_dialog_clear_players_cb, dialog);
-
-      dialog->revealer = GTK_WIDGET(gtk_builder_get_object(builder, "restart_revealer"));
 
       object = gtk_builder_get_object(builder, "checkbutton-wnck");
       g_return_if_fail(GTK_IS_CHECK_BUTTON(object));

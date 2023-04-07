@@ -87,14 +87,6 @@ pulseaudio_menu_class_init (PulseaudioMenuClass *klass)
 static void
 pulseaudio_menu_init (PulseaudioMenu *menu)
 {
-  menu->volume                         = NULL;
-  menu->config                         = NULL;
-  menu->mpris                          = NULL;
-  menu->button                         = NULL;
-  menu->output_scale                   = NULL;
-  menu->input_scale                    = NULL;
-  menu->volume_changed_id              = 0;
-  menu->volume_mic_changed_id          = 0;
 }
 
 
@@ -111,15 +103,6 @@ pulseaudio_menu_finalize (GObject *object)
 
   if (menu->volume_mic_changed_id != 0)
     g_signal_handler_disconnect (G_OBJECT (menu->volume), menu->volume_mic_changed_id);
-
-  menu->volume                         = NULL;
-  menu->config                         = NULL;
-  menu->mpris                          = NULL;
-  menu->button                         = NULL;
-  menu->output_scale                   = NULL;
-  menu->input_scale                    = NULL;
-  menu->volume_changed_id              = 0;
-  menu->volume_mic_changed_id          = 0;
 
   G_OBJECT_CLASS (pulseaudio_menu_parent_class)->finalize (object);
 }
@@ -365,7 +348,6 @@ mpris_update_cb (PulseaudioMpris *mpris,
   gboolean        can_go_previous;
   gboolean        can_go_next;
   gboolean        can_raise;
-  GList          *playlists;
 
   g_return_if_fail (IS_PULSEAUDIO_MPRIS (mpris));
   g_return_if_fail (IS_MPRIS_MENU_ITEM (menu_item));
@@ -388,7 +370,7 @@ mpris_update_cb (PulseaudioMpris *mpris,
                                             &can_go_previous,
                                             &can_go_next,
                                             &can_raise,
-                                            &playlists))
+                                            NULL))
     {
       mpris_menu_item_set_title (menu_item, title);
       mpris_menu_item_set_artist (menu_item, artist);
@@ -402,12 +384,8 @@ mpris_update_cb (PulseaudioMpris *mpris,
       mpris_menu_item_set_is_playing (menu_item, is_playing);
       mpris_menu_item_set_is_stopped (menu_item, is_stopped);
 
-      if (title != NULL)
-        g_free (title);
-      if (artist != NULL)
-        g_free (artist);
-      if (playlists != NULL)
-        g_list_free (playlists);
+      g_free (title);
+      g_free (artist);
     }
   else
     {
@@ -634,10 +612,8 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
           mpris_menu_item_set_is_playing (MPRIS_MENU_ITEM (mi), is_playing);
           mpris_menu_item_set_is_stopped (MPRIS_MENU_ITEM (mi), is_stopped);
 
-          if (title != NULL)
-            g_free (title);
-          if (artist != NULL)
-            g_free (artist);
+          g_free (title);
+          g_free (artist);
 
           g_signal_connect (mi, "media-notify", G_CALLBACK (media_notify_cb), menu);
           g_signal_connect (menu->mpris, "update", G_CALLBACK (mpris_update_cb), mi);
