@@ -284,7 +284,7 @@ pulseaudio_mpris_manage_players (PulseaudioMpris *mpris)
 {
   PulseaudioMprisPlayer  *player;
   gchar                 **players;
-  guint                   i = 0;
+  guint                   i;
   guint                   num_players;
 
   players = pulseaudio_mpris_get_available_players (mpris);
@@ -362,7 +362,7 @@ pulseaudio_mpris_get_player_snapshot (PulseaudioMpris  *mpris,
         *playlists          = pulseaudio_mpris_player_get_playlists (player);
 
       if (*title == NULL || g_strcmp0 (*title, "") == 0)
-        *title = g_strdup(pulseaudio_mpris_player_get_player_title (player));
+        *title = g_strdup (pulseaudio_mpris_player_get_player_title (player));
       return TRUE;
     }
 
@@ -441,14 +441,10 @@ pulseaudio_mpris_notify_player (PulseaudioMpris  *mpris,
   g_return_val_if_fail (IS_PULSEAUDIO_MPRIS (mpris), FALSE);
 
   player = g_hash_table_lookup (mpris->players, name);
-
-  if (player != NULL)
+  if (player != NULL && pulseaudio_mpris_player_is_connected (player))
     {
-      if (pulseaudio_mpris_player_is_connected (player))
-        {
-          pulseaudio_mpris_player_call_player_method (player, message);
-          return TRUE;
-        }
+      pulseaudio_mpris_player_call_player_method (player, message);
+      return TRUE;
     }
 
   return FALSE;
