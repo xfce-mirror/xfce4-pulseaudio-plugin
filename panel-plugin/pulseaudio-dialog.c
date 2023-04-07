@@ -78,7 +78,6 @@ struct _PulseaudioDialog
   PulseaudioConfig  *config;
 
   GtkWidget         *treeview;
-  GtkWidget         *revealer;
 };
 
 
@@ -200,8 +199,6 @@ pulseaudio_dialog_clear_players_cb (GtkButton *button,
 
   liststore = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(dialog->treeview)));
   gtk_list_store_clear (liststore);
-
-  gtk_revealer_set_reveal_child (GTK_REVEALER(dialog->revealer), TRUE);
 }
 
 
@@ -325,14 +322,14 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
       players = pulseaudio_config_get_mpris_players (dialog->config);
       if (players != NULL)
         {
-          for (i = 0; i < g_strv_length (players); i++)
+          const guint num_players = g_strv_length (players);
+          for (i = 0; i < num_players; i++)
             {
               gchar *name = NULL;
               gchar *icon_name = NULL;
-              gchar *full_path = NULL;
               GIcon *icon = NULL;
 
-              if (pulseaudio_mpris_get_player_summary (players[i], &name, &icon_name, &full_path))
+              if (pulseaudio_mpris_get_player_summary (players[i], &name, &icon_name))
                 {
                   if (g_file_test (icon_name, G_FILE_TEST_EXISTS) && !g_file_test (icon_name, G_FILE_TEST_IS_DIR))
                     {
@@ -359,7 +356,6 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
 
                   g_free (name);
                   g_free (icon_name);
-                  g_free (full_path);
                   if (icon != NULL)
                     g_object_unref (icon);
                 }
@@ -372,8 +368,6 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
 
       object = gtk_builder_get_object(builder, "clear_players");
       g_signal_connect (object, "clicked", (GCallback) pulseaudio_dialog_clear_players_cb, dialog);
-
-      dialog->revealer = GTK_WIDGET(gtk_builder_get_object(builder, "restart_revealer"));
 
       object = gtk_builder_get_object(builder, "checkbutton-wnck");
       g_return_if_fail(GTK_IS_CHECK_BUTTON(object));

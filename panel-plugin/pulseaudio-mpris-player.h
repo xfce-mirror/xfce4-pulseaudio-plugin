@@ -21,6 +21,8 @@
 #include <glib.h>
 #include <gtk/gtk.h>
 
+#include "pulseaudio-config.h"
+
 G_BEGIN_DECLS
 
 /**
@@ -50,7 +52,8 @@ GType pulseaudio_mpris_player_get_type (void);
 typedef struct          _PulseaudioMprisPlayer                     PulseaudioMprisPlayer;
 typedef struct          _PulseaudioMprisPlayerClass                PulseaudioMprisPlayerClass;
 
-PulseaudioMprisPlayer  *pulseaudio_mpris_player_new                (gchar *name);
+PulseaudioMprisPlayer  *pulseaudio_mpris_player_new                (gchar            *name,
+                                                                    PulseaudioConfig *config);
 
 const gchar            *pulseaudio_mpris_player_get_player         (PulseaudioMprisPlayer *player);
 const gchar            *pulseaudio_mpris_player_get_player_title   (PulseaudioMprisPlayer *player);
@@ -68,7 +71,6 @@ gboolean                pulseaudio_mpris_player_can_pause          (PulseaudioMp
 gboolean                pulseaudio_mpris_player_can_go_previous    (PulseaudioMprisPlayer *player);
 gboolean                pulseaudio_mpris_player_can_go_next        (PulseaudioMprisPlayer *player);
 gboolean                pulseaudio_mpris_player_can_raise          (PulseaudioMprisPlayer *player);
-gboolean                pulseaudio_mpris_player_can_launch         (PulseaudioMprisPlayer *player);
 
 gboolean                pulseaudio_mpris_player_is_equal           (PulseaudioMprisPlayer *a,
                                                                     PulseaudioMprisPlayer *b);
