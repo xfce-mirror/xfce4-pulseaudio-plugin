@@ -148,7 +148,7 @@ player_is_usable (PulseaudioMpris *mpris,
                                         g_variant_new ("(s)", "org.mpris.MediaPlayer2"),
                                         G_VARIANT_TYPE ("(a{sv})"),
                                         G_DBUS_CALL_FLAGS_NONE,
-                                        -1,
+                                        5000,
                                         NULL,
                                         NULL);
 
