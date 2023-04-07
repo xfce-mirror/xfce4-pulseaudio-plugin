@@ -107,8 +107,7 @@ find_desktop_entry (const gchar *player_name)
 
   g_key_file_free (key_file);
 
-  if (file)
-    g_free (file);
+  g_free (file);
 
   return filename;
 }
@@ -258,7 +257,7 @@ pulseaudio_mpris_manage_players (PulseaudioMpris *mpris)
 {
   PulseaudioMprisPlayer  *player;
   gchar                 **players;
-  guint                   i = 0;
+  guint                   i;
   guint                   num_players;
 
   players = pulseaudio_mpris_get_available_players (mpris);
@@ -336,7 +335,8 @@ pulseaudio_mpris_get_player_snapshot (PulseaudioMpris  *mpris,
           *can_go_previous    = pulseaudio_mpris_player_can_go_previous (player);
           *can_go_next        = pulseaudio_mpris_player_can_go_next (player);
           *can_raise          = pulseaudio_mpris_player_can_raise (player);
-          *playlists          = pulseaudio_mpris_player_get_playlists (player);
+          if (playlists)
+            *playlists        = pulseaudio_mpris_player_get_playlists (player);
         }
       else
         {
@@ -351,7 +351,8 @@ pulseaudio_mpris_get_player_snapshot (PulseaudioMpris  *mpris,
           *can_go_previous    = FALSE;
           *can_go_next        = FALSE;
           *can_raise          = FALSE;
-          *playlists          = NULL;
+          if (playlists)
+            *playlists        = NULL;
         }
       if (*title == NULL || g_strcmp0 (*title, "") == 0)
         *title = g_strdup(pulseaudio_mpris_player_get_player_title (player));

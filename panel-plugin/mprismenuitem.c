@@ -516,12 +516,9 @@ mpris_menu_item_finalize (GObject *object)
   item = MPRIS_MENU_ITEM (object);
   priv = mpris_menu_item_get_instance_private (item);
 
-  if (priv->player)
-    g_free (priv->player);
-  if (priv->title)
-    g_free (priv->title);
-  if (priv->filename)
-    g_free (priv->filename);
+  g_free (priv->player);
+  g_free (priv->title);
+  g_free (priv->filename);
 
   g_object_unref (priv->title_label);
   g_object_unref (priv->artist_label);

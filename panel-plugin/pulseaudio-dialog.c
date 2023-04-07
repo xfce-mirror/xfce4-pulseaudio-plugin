@@ -325,7 +325,8 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
       players = pulseaudio_config_get_mpris_players (dialog->config);
       if (players != NULL)
         {
-          for (i = 0; i < g_strv_length (players); i++)
+          const guint num_players = g_strv_length (players);
+          for (i = 0; i < num_players; i++)
             {
               gchar *name = NULL;
               gchar *icon_name = NULL;

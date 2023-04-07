@@ -742,10 +742,8 @@ pulseaudio_mpris_player_on_dbus_lost (GDBusConnection *connection,
   player->can_raise       = FALSE;
   player->connected       = FALSE;
 
-  if (player->title != NULL)
-    g_free (player->title);
-  if (player->artist != NULL)
-    g_free (player->artist);
+  g_free (player->title);
+  g_free (player->artist);
 
   player->title           = NULL;
   player->artist          = NULL;
@@ -813,10 +811,8 @@ pulseaudio_mpris_player_set_details_from_desktop (PulseaudioMprisPlayer *player,
 
   filename = find_desktop_entry (player_name);
 
-  if (player->player_label != NULL)
-    g_free (player->player_label);
-  if (player->icon_name != NULL)
-    g_free (player->icon_name);
+  g_free (player->player_label);
+  g_free (player->icon_name);
 
   if (filename == NULL)
     {
@@ -831,14 +827,8 @@ pulseaudio_mpris_player_set_details_from_desktop (PulseaudioMprisPlayer *player,
   key_file = g_key_file_new();
   if (g_key_file_load_from_data_dirs (key_file, file, &full_path, G_KEY_FILE_NONE, NULL))
     {
-      gchar *name = g_key_file_get_locale_string (key_file, "Desktop Entry", "Name", NULL, NULL);
-      gchar *icon_name = g_key_file_get_string (key_file, "Desktop Entry", "Icon", NULL);
-
-      player->player_label = g_strdup (name);
-      player->icon_name = g_strdup (icon_name);
-
-      g_free (name);
-      g_free (icon_name);
+      player->player_label = g_key_file_get_locale_string (key_file, "Desktop Entry", "Name", NULL, NULL);
+      player->icon_name = g_key_file_get_string (key_file, "Desktop Entry", "Icon", NULL);
     }
   else
     {
@@ -846,10 +836,7 @@ pulseaudio_mpris_player_set_details_from_desktop (PulseaudioMprisPlayer *player,
       player->icon_name = g_strdup ("applications-multimedia");
     }
 
-  if (full_path != NULL) {
-    player->full_path = g_strdup (full_path);
-    g_free (full_path);
-  }
+  player->full_path = full_path;
 
   g_key_file_free (key_file);
   g_free (file);
