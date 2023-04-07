@@ -71,7 +71,7 @@ void               pulseaudio_config_player_blacklist_add           (PulseaudioC
 void               pulseaudio_config_player_blacklist_remove        (PulseaudioConfig     *config,
                                                                      const gchar          *player);
 gboolean           pulseaudio_config_player_blacklist_lookup        (PulseaudioConfig     *config,
-                                                                     gchar                *player);
+                                                                     const gchar          *player);
 
 void               pulseaudio_config_clear_known_players            (PulseaudioConfig     *config);
 

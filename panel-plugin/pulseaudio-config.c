@@ -793,7 +793,7 @@ pulseaudio_config_player_blacklist_remove (PulseaudioConfig *config,
 
 gboolean
 pulseaudio_config_player_blacklist_lookup (PulseaudioConfig *config,
-                                           gchar            *player)
+                                           const gchar      *player)
 {
   gchar    **players;
   gboolean   found = FALSE;

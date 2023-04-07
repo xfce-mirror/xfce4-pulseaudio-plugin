@@ -486,14 +486,18 @@ pulseaudio_mpris_notify_any_player (PulseaudioMpris *mpris,
   g_hash_table_iter_init (&iter, mpris->players);
   while (g_hash_table_iter_next(&iter, (gpointer *) &key, (gpointer) &player))
     {
-      if (player != NULL)
-        {
-          if (pulseaudio_mpris_player_is_connected(player))
-            {
-              pulseaudio_mpris_player_call_player_method(player, message);
-              found = TRUE;
-            }
-        }
+      const gchar *player_title;
+
+      if (player == NULL || !pulseaudio_mpris_player_is_connected (player))
+        continue;
+
+      player_title = pulseaudio_mpris_player_get_player_title (player);
+      if (player_title && pulseaudio_config_player_blacklist_lookup (mpris->config, player_title))
+        continue;
+
+      pulseaudio_mpris_player_call_player_method (player, message);
+
+      found = TRUE;
     }
 
   return found;
