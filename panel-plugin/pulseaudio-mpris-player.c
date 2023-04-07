@@ -1110,26 +1110,7 @@ pulseaudio_mpris_player_is_equal (PulseaudioMprisPlayer *a,
 static void
 pulseaudio_mpris_player_init (PulseaudioMprisPlayer *player)
 {
-  player->dbus_connection   = NULL;
-  player->dbus_name         = NULL;
-  player->dbus_props_proxy  = NULL;
-  player->dbus_player_proxy = NULL;
-  player->dbus_playlists_proxy = NULL;
-  player->connected         = FALSE;
-
-  player->title             = NULL;
-  player->artist            = NULL;
-  player->full_path         = NULL;
-
-  player->can_go_next       = FALSE;
-  player->can_go_previous   = FALSE;
-  player->can_pause         = FALSE;
-  player->can_play          = FALSE;
-  player->can_raise         = FALSE;
-
   player->playback_status   = STOPPED;
-
-  player->watch_id          = 0;
 
 #ifdef HAVE_LIBXFCE4WINDOWING
   player->screen = xfw_screen_get_default ();

@@ -487,22 +487,6 @@ mpris_menu_item_class_init (MprisMenuItemClass *item_class)
 static void
 mpris_menu_item_init (MprisMenuItem *item)
 {
-  MprisMenuItemPrivate *priv;
-
-  priv = mpris_menu_item_get_instance_private (item);
-
-  priv->title_label = NULL;
-  priv->artist_label = NULL;
-  priv->button_box = NULL;
-  priv->vbox = NULL;
-  priv->hbox = NULL;
-  priv->go_previous = NULL;
-  priv->play_pause = NULL;
-  priv->go_next = NULL;
-
-  priv->player = NULL;
-  priv->title = NULL;
-  priv->filename = NULL;
 }
 
 

@@ -510,10 +510,6 @@ pulseaudio_mpris_activate_playlist (PulseaudioMpris *mpris,
 static void
 pulseaudio_mpris_init (PulseaudioMpris *mpris)
 {
-  mpris->config            = NULL;
-  mpris->dbus_connection   = NULL;
-  mpris->players           = NULL;
-  mpris->dbus_signal_id    = 0;
 }
 
 
