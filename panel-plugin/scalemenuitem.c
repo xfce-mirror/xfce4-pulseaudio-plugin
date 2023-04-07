@@ -118,7 +118,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 
   /* Configure the menu item scale */
   priv->scale = gtk_scale_new_with_range (GTK_ORIENTATION_HORIZONTAL, min, max, step);
-  gtk_widget_set_size_request (priv->scale, 100, -1);
+  gtk_widget_set_size_request (priv->scale, 150, -1);
   gtk_range_set_inverted (GTK_RANGE(priv->scale), FALSE);
   gtk_scale_set_draw_value (GTK_SCALE(priv->scale), FALSE);
   gtk_range_set_round_digits(GTK_RANGE(priv->scale), 0);
