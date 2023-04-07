@@ -56,13 +56,11 @@ struct _MprisMenuItemPrivate {
   gboolean   can_raise;
   gboolean   can_raise_wnck;
 
-  gboolean   is_running;
   gboolean   is_playing;
   gboolean   is_stopped;
 
   gchar     *player;
   gchar     *title;
-  gchar     *filename;
 
   GtkWidget *image;
   GtkWidget *vbox;
@@ -90,9 +88,6 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 /* Static Declarations */
 static void         mpris_menu_item_finalize                (GObject        *object);
 static void         mpris_menu_item_raise                   (MprisMenuItem  *item);
-
-static void         mpris_menu_item_launch                  (MprisMenuItem  *item);
-static void         mpris_menu_item_raise_or_launch         (MprisMenuItem  *item);
 static GtkWidget *  mpris_menu_item_get_widget_at_event     (MprisMenuItem  *item,
                                                              GdkEventButton *event);
 static gboolean     mpris_menu_item_button_press_event      (GtkWidget      *item,
@@ -121,8 +116,7 @@ static void         update_packing                          (MprisMenuItem  *ite
 GtkWidget*
 mpris_menu_item_new_with_player (const gchar *player,
                                  const gchar *title,
-                                 const gchar *icon_name,
-                                 const gchar *filename)
+                                 const gchar *icon_name)
 {
   MprisMenuItem        *menu_item;
   MprisMenuItemPrivate *priv;
@@ -138,7 +132,6 @@ mpris_menu_item_new_with_player (const gchar *player,
     priv->title = g_strdup(title);
   else
     priv->title = g_strdup(player);
-  priv->filename = g_strdup(filename);
 
   update_packing (menu_item);
 
@@ -167,26 +160,6 @@ mpris_menu_item_new_with_player (const gchar *player,
   }
 
   return GTK_WIDGET(menu_item);
-}
-
-
-
-GtkWidget*
-mpris_menu_item_new_from_player_name (const gchar *player)
-{
-  GtkWidget *widget = NULL;
-  gchar     *name;
-  gchar     *icon_name;
-  gchar     *full_path;
-
-  if (pulseaudio_mpris_get_player_summary (player, &name, &icon_name, &full_path)) {
-    widget = mpris_menu_item_new_with_player (player, name, icon_name, full_path);
-    g_free (name);
-    g_free (icon_name);
-    g_free (full_path);
-  }
-
-  return widget;
 }
 
 
@@ -253,10 +226,7 @@ mpris_menu_item_set_can_go_previous (MprisMenuItem *item,
 
   priv->can_go_previous = enabled;
 
-  if (priv->is_running)
-    gtk_widget_set_sensitive (priv->go_previous, priv->can_go_previous);
-  else
-    gtk_widget_set_sensitive (priv->go_previous, FALSE);
+  gtk_widget_set_sensitive (priv->go_previous, priv->can_go_previous);
 }
 
 
@@ -273,10 +243,10 @@ mpris_menu_item_set_can_play (MprisMenuItem *item,
 
   priv->can_play = enabled;
 
-  if (priv->is_running)
-    gtk_widget_set_sensitive (priv->play_pause, priv->can_play);
-  else
-    gtk_widget_set_sensitive (priv->play_pause, FALSE);
+  if (!priv->is_playing)
+    {
+      gtk_widget_set_sensitive (priv->play_pause, priv->can_play);
+    }
 }
 
 
@@ -293,15 +263,10 @@ mpris_menu_item_set_can_pause (MprisMenuItem *item,
 
   priv->can_pause = enabled;
 
-  if (priv->is_running)
+  if (priv->is_playing)
     {
-      if (priv->is_playing)
-        {
-          gtk_widget_set_sensitive (priv->play_pause, priv->can_pause);
-        }
+      gtk_widget_set_sensitive (priv->play_pause, priv->can_pause);
     }
-  else
-    gtk_widget_set_sensitive (priv->play_pause, FALSE);
 }
 
 
@@ -318,10 +283,7 @@ mpris_menu_item_set_can_go_next (MprisMenuItem *item,
 
   priv->can_go_next = enabled;
 
-  if (priv->is_running)
-    gtk_widget_set_sensitive (priv->go_next, priv->can_go_next);
-  else
-    gtk_widget_set_sensitive (priv->go_next, FALSE);
+  gtk_widget_set_sensitive (priv->go_next, priv->can_go_next);
 }
 
 
@@ -357,42 +319,6 @@ mpris_menu_item_set_can_raise_wnck (MprisMenuItem *item,
 
 
 void
-mpris_menu_item_set_is_running (MprisMenuItem *item,
-                                gboolean       running)
-{
-  MprisMenuItemPrivate *priv;
-
-  g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
-
-  priv = mpris_menu_item_get_instance_private (item);
-
-  priv->is_running = running;
-
-  if (!priv->is_running)
-    {
-      mpris_menu_item_set_title (item, NULL);
-      mpris_menu_item_set_artist (item, _("Not currently playing"));
-      mpris_menu_item_set_can_play (item, FALSE);
-      mpris_menu_item_set_can_pause (item, FALSE);
-      mpris_menu_item_set_can_go_previous (item, FALSE);
-      mpris_menu_item_set_can_go_next (item, FALSE);
-      mpris_menu_item_set_is_playing (item, FALSE);
-      mpris_menu_item_set_is_stopped (item, TRUE);
-    }
-  else
-    {
-      mpris_menu_item_set_can_play (item, priv->can_play);
-      mpris_menu_item_set_can_pause (item, priv->can_pause);
-      mpris_menu_item_set_can_go_next (item, priv->can_go_next);
-      mpris_menu_item_set_can_go_previous (item, priv->can_go_previous);
-      mpris_menu_item_set_is_playing (item, priv->is_playing);
-      mpris_menu_item_set_is_stopped (item, priv->is_stopped);
-    }
-}
-
-
-
-void
 mpris_menu_item_set_is_playing (MprisMenuItem *item,
                                 gboolean       playing)
 {
@@ -414,11 +340,6 @@ mpris_menu_item_set_is_playing (MprisMenuItem *item,
     {
       gtk_image_set_from_icon_name (GTK_IMAGE (gtk_button_get_image (GTK_BUTTON (priv->play_pause))), "media-playback-start-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR);
       gtk_widget_set_sensitive (priv->play_pause, priv->can_play);
-    }
-
-  if (!priv->is_running)
-    {
-      gtk_widget_set_sensitive (priv->play_pause, FALSE);
     }
 }
 
@@ -482,22 +403,6 @@ mpris_menu_item_class_init (MprisMenuItemClass *item_class)
 static void
 mpris_menu_item_init (MprisMenuItem *item)
 {
-  MprisMenuItemPrivate *priv;
-
-  priv = mpris_menu_item_get_instance_private (item);
-
-  priv->title_label = NULL;
-  priv->artist_label = NULL;
-  priv->button_box = NULL;
-  priv->vbox = NULL;
-  priv->hbox = NULL;
-  priv->go_previous = NULL;
-  priv->play_pause = NULL;
-  priv->go_next = NULL;
-
-  priv->player = NULL;
-  priv->title = NULL;
-  priv->filename = NULL;
 }
 
 
@@ -511,12 +416,8 @@ mpris_menu_item_finalize (GObject *object)
   item = MPRIS_MENU_ITEM (object);
   priv = mpris_menu_item_get_instance_private (item);
 
-  if (priv->player)
-    g_free (priv->player);
-  if (priv->title)
-    g_free (priv->title);
-  if (priv->filename)
-    g_free (priv->filename);
+  g_free (priv->player);
+  g_free (priv->title);
 
   g_object_unref (priv->title_label);
   g_object_unref (priv->artist_label);
@@ -542,59 +443,16 @@ mpris_menu_item_raise (MprisMenuItem *item)
 
   priv = mpris_menu_item_get_instance_private (item);
 
-  if (priv->is_running)
+  if (priv->can_raise)
     {
-      if (priv->can_raise)
-        {
-          media_notify (item, "Raise");
-        }
+      media_notify (item, "Raise");
+    }
 #if defined (HAVE_WNCK) || defined (HAVE_LIBXFCE4WINDOWING)
-      else if (priv->can_raise_wnck)
-        {
-          media_notify (item, "RaiseWnck");
-        }
-#endif
-    }
-}
-
-
-
-static void
-mpris_menu_item_launch (MprisMenuItem *item)
-{
-  MprisMenuItemPrivate *priv;
-  GAppInfo             *app_info;
-
-  g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
-
-  priv = mpris_menu_item_get_instance_private (item);
-
-  if (priv->is_running)
-    return;
-
-  app_info = (GAppInfo*)g_desktop_app_info_new_from_filename (priv->filename);
-  if (app_info != NULL)
+  else if (priv->can_raise_wnck)
     {
-      g_app_info_launch (app_info, NULL, NULL, NULL);
-      g_object_unref (app_info);
+      media_notify (item, "RaiseWnck");
     }
-}
-
-
-
-static void
-mpris_menu_item_raise_or_launch (MprisMenuItem *item)
-{
-  MprisMenuItemPrivate *priv;
-
-  g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
-
-  priv = mpris_menu_item_get_instance_private (item);
-
-  if (priv->is_running)
-    mpris_menu_item_raise (item);
-  else
-    mpris_menu_item_launch (item);
+#endif
 }
 
 
@@ -714,7 +572,7 @@ media_go_next_clicked_event (GtkButton *button, gpointer user_data)
 static void
 menu_item_activate_event (GtkMenuItem *mi, gpointer user_data)
 {
-  mpris_menu_item_raise_or_launch (MPRIS_MENU_ITEM (mi));
+  mpris_menu_item_raise (MPRIS_MENU_ITEM (mi));
 }
 
 
