@@ -274,7 +274,12 @@ mpris_menu_item_set_can_play (MprisMenuItem *item,
   priv->can_play = enabled;
 
   if (priv->is_running)
-    gtk_widget_set_sensitive (priv->play_pause, priv->can_play);
+    {
+      if (!priv->is_playing)
+        {
+          gtk_widget_set_sensitive (priv->play_pause, priv->can_play);
+        }
+    }
   else
     gtk_widget_set_sensitive (priv->play_pause, FALSE);
 }
