@@ -274,7 +274,12 @@ mpris_menu_item_set_can_play (MprisMenuItem *item,
   priv->can_play = enabled;
 
   if (priv->is_running)
-    gtk_widget_set_sensitive (priv->play_pause, priv->can_play);
+    {
+      if (!priv->is_playing)
+        {
+          gtk_widget_set_sensitive (priv->play_pause, priv->can_play);
+        }
+    }
   else
     gtk_widget_set_sensitive (priv->play_pause, FALSE);
 }
@@ -482,22 +487,6 @@ mpris_menu_item_class_init (MprisMenuItemClass *item_class)
 static void
 mpris_menu_item_init (MprisMenuItem *item)
 {
-  MprisMenuItemPrivate *priv;
-
-  priv = mpris_menu_item_get_instance_private (item);
-
-  priv->title_label = NULL;
-  priv->artist_label = NULL;
-  priv->button_box = NULL;
-  priv->vbox = NULL;
-  priv->hbox = NULL;
-  priv->go_previous = NULL;
-  priv->play_pause = NULL;
-  priv->go_next = NULL;
-
-  priv->player = NULL;
-  priv->title = NULL;
-  priv->filename = NULL;
 }
 
 
@@ -511,12 +500,9 @@ mpris_menu_item_finalize (GObject *object)
   item = MPRIS_MENU_ITEM (object);
   priv = mpris_menu_item_get_instance_private (item);
 
-  if (priv->player)
-    g_free (priv->player);
-  if (priv->title)
-    g_free (priv->title);
-  if (priv->filename)
-    g_free (priv->filename);
+  g_free (priv->player);
+  g_free (priv->title);
+  g_free (priv->filename);
 
   g_object_unref (priv->title_label);
   g_object_unref (priv->artist_label);

@@ -365,7 +365,6 @@ mpris_update_cb (PulseaudioMpris *mpris,
   gboolean        can_go_previous;
   gboolean        can_go_next;
   gboolean        can_raise;
-  GList          *playlists;
 
   g_return_if_fail (IS_PULSEAUDIO_MPRIS (mpris));
   g_return_if_fail (IS_MPRIS_MENU_ITEM (menu_item));
@@ -387,7 +386,7 @@ mpris_update_cb (PulseaudioMpris *mpris,
                                                 &can_go_previous,
                                                 &can_go_next,
                                                 &can_raise,
-                                                &playlists))
+                                                NULL))
         {
           mpris_menu_item_set_is_running (menu_item, is_running);
           mpris_menu_item_set_title (menu_item, title);
@@ -403,12 +402,8 @@ mpris_update_cb (PulseaudioMpris *mpris,
           mpris_menu_item_set_is_stopped (menu_item, is_stopped);
         }
 
-      if (title != NULL)
-        g_free (title);
-      if (artist != NULL)
-        g_free (artist);
-      if (playlists != NULL)
-        g_list_free (playlists);
+      g_free (title);
+      g_free (artist);
     }
 }
 
@@ -448,6 +443,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
   gboolean        available;
 
 #ifdef HAVE_MPRIS2
+  guint           num_players;
   gchar         **players;
   gchar          *title = NULL;
   gchar          *artist = NULL;
@@ -575,7 +571,8 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
       players = pulseaudio_config_get_mpris_players (menu->config);
       if (players != NULL)
         {
-          for (i = 0; i < g_strv_length (players); i++)
+          num_players = g_strv_length (players);
+          for (i = 0; i < num_players; i++)
             {
               if (pulseaudio_config_player_blacklist_lookup (menu->config, players[i]))
                 continue;
@@ -613,10 +610,8 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
                       mpris_menu_item_set_is_playing (MPRIS_MENU_ITEM (mi), is_playing);
                       mpris_menu_item_set_is_stopped (MPRIS_MENU_ITEM (mi), is_stopped);
 
-                      if (title != NULL)
-                        g_free (title);
-                      if (artist != NULL)
-                        g_free (artist);
+                      g_free (title);
+                      g_free (artist);
                     }
                   else
                     {

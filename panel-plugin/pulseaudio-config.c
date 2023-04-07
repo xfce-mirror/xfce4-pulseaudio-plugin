@@ -600,11 +600,14 @@ pulseaudio_config_set_mpris_players (PulseaudioConfig  *config,
   guint   index = 0;
   guint   i = 0;
   GSList *list = NULL;
+  guint   num_players;
 
   g_return_if_fail (IS_PULSEAUDIO_CONFIG (config));
 
+  num_players = g_strv_length (players);
+
   player_array = NULL;
-  for (i = 0; i < g_strv_length (players); i++)
+  for (i = 0; i < num_players; i++)
     {
       player_array = g_slist_prepend (player_array, players[i]);
     }
@@ -687,11 +690,14 @@ pulseaudio_config_set_blacklisted_players (PulseaudioConfig  *config,
   guint   index = 0;
   guint   i = 0;
   GSList *list = NULL;
+  guint   num_players;
 
   g_return_if_fail (IS_PULSEAUDIO_CONFIG (config));
 
+  num_players = g_strv_length (players);
+
   player_array = NULL;
-  for (i = 0; i < g_strv_length (players); i++)
+  for (i = 0; i < num_players; i++)
     {
       player_array = g_slist_prepend (player_array, players[i]);
     }

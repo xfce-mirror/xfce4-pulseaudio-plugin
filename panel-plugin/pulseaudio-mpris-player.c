@@ -742,10 +742,8 @@ pulseaudio_mpris_player_on_dbus_lost (GDBusConnection *connection,
   player->can_raise       = FALSE;
   player->connected       = FALSE;
 
-  if (player->title != NULL)
-    g_free (player->title);
-  if (player->artist != NULL)
-    g_free (player->artist);
+  g_free (player->title);
+  g_free (player->artist);
 
   player->title           = NULL;
   player->artist          = NULL;
@@ -813,15 +811,15 @@ pulseaudio_mpris_player_set_details_from_desktop (PulseaudioMprisPlayer *player,
 
   filename = find_desktop_entry (player_name);
 
-  if (player->player_label != NULL)
-    g_free (player->player_label);
-  if (player->icon_name != NULL)
-    g_free (player->icon_name);
+  g_free (player->player_label);
+  g_free (player->icon_name);
+  g_free (player->full_path);
 
   if (filename == NULL)
     {
       player->player_label = g_strdup (player->player);
       player->icon_name = g_strdup ("applications-multimedia");
+      player->full_path = NULL;
       return;
     }
 
@@ -831,14 +829,8 @@ pulseaudio_mpris_player_set_details_from_desktop (PulseaudioMprisPlayer *player,
   key_file = g_key_file_new();
   if (g_key_file_load_from_data_dirs (key_file, file, &full_path, G_KEY_FILE_NONE, NULL))
     {
-      gchar *name = g_key_file_get_locale_string (key_file, "Desktop Entry", "Name", NULL, NULL);
-      gchar *icon_name = g_key_file_get_string (key_file, "Desktop Entry", "Icon", NULL);
-
-      player->player_label = g_strdup (name);
-      player->icon_name = g_strdup (icon_name);
-
-      g_free (name);
-      g_free (icon_name);
+      player->player_label = g_key_file_get_locale_string (key_file, "Desktop Entry", "Name", NULL, NULL);
+      player->icon_name = g_key_file_get_string (key_file, "Desktop Entry", "Icon", NULL);
     }
   else
     {
@@ -846,57 +838,10 @@ pulseaudio_mpris_player_set_details_from_desktop (PulseaudioMprisPlayer *player,
       player->icon_name = g_strdup ("applications-multimedia");
     }
 
-  if (full_path != NULL) {
-    player->full_path = g_strdup (full_path);
-    g_free (full_path);
-  }
+  player->full_path = full_path;
 
   g_key_file_free (key_file);
   g_free (file);
-}
-
-
-
-static void
-pulseaudio_mpris_player_set_player (PulseaudioMprisPlayer *player,
-                                    const gchar           *player_name)
-{
-  /* Disconnect dbus */
-  if (player->watch_id)
-    {
-      g_bus_unwatch_name (player->watch_id);
-      player->watch_id = 0;
-    }
-  if (player->dbus_props_proxy != NULL)
-    {
-      g_object_unref (player->dbus_props_proxy);
-      player->dbus_props_proxy = NULL;
-    }
-  if (player->dbus_player_proxy != NULL)
-    {
-      g_object_unref (player->dbus_player_proxy);
-      player->dbus_player_proxy = NULL;
-    }
-  if (player->dbus_playlists_proxy != NULL)
-    {
-      g_object_unref (player->dbus_playlists_proxy);
-      player->dbus_playlists_proxy = NULL;
-    }
-
-  /* Clean player */
-  if (player->player != NULL)
-    {
-      g_free (player->player);
-      player->player = NULL;
-    }
-
-  /* Set new player and connect again */
-  player->player = g_strdup(player_name);
-
-  pulseaudio_mpris_player_set_details_from_desktop (player, player_name);
-  pulseaudio_mpris_player_dbus_connect (player);
-
-  player->can_launch = player->full_path != NULL;
 }
 
 
@@ -1123,26 +1068,7 @@ pulseaudio_mpris_player_is_equal (PulseaudioMprisPlayer *a,
 static void
 pulseaudio_mpris_player_init (PulseaudioMprisPlayer *player)
 {
-  player->dbus_connection   = NULL;
-  player->dbus_name         = NULL;
-  player->dbus_props_proxy  = NULL;
-  player->dbus_player_proxy = NULL;
-  player->dbus_playlists_proxy = NULL;
-  player->connected         = FALSE;
-
-  player->title             = NULL;
-  player->artist            = NULL;
-  player->full_path         = NULL;
-
-  player->can_go_next       = FALSE;
-  player->can_go_previous   = FALSE;
-  player->can_pause         = FALSE;
-  player->can_play          = FALSE;
-  player->can_raise         = FALSE;
-
   player->playback_status   = STOPPED;
-
-  player->watch_id          = 0;
 
 #ifdef HAVE_LIBXFCE4WINDOWING
   player->screen = xfw_screen_get_default ();
@@ -1158,26 +1084,18 @@ pulseaudio_mpris_player_finalize (GObject *object)
 
   player = PULSEAUDIO_MPRIS_PLAYER (object);
 
-  player->dbus_connection   = NULL;
-  player->dbus_name         = NULL;
-  player->dbus_props_proxy  = NULL;
-  player->dbus_player_proxy = NULL;
-  player->dbus_playlists_proxy = NULL;
-  player->connected         = FALSE;
+  /* Disconnect dbus */
+  if (player->watch_id)
+    g_bus_unwatch_name (player->watch_id);
+  if (player->dbus_props_proxy != NULL)
+    g_object_unref (player->dbus_props_proxy);
+  if (player->dbus_player_proxy != NULL)
+    g_object_unref (player->dbus_player_proxy);
+  if (player->dbus_playlists_proxy != NULL)
+    g_object_unref (player->dbus_playlists_proxy);
 
-  player->title             = NULL;
-  player->artist            = NULL;
-  player->full_path         = NULL;
-
-  player->can_go_next       = FALSE;
-  player->can_go_previous   = FALSE;
-  player->can_pause         = FALSE;
-  player->can_play          = FALSE;
-  player->can_raise         = FALSE;
-
-  player->playback_status   = STOPPED;
-
-  player->watch_id          = 0;
+  /* Clean player */
+  g_free (player->player);
 
   if (player->playlists != NULL)
     g_hash_table_destroy (player->playlists);
@@ -1203,15 +1121,18 @@ pulseaudio_mpris_player_new (gchar *name)
     {
       g_message ("Failed to get session bus: %s", gerror->message);
       g_error_free (gerror);
-      gerror = NULL;
+      return NULL;
     }
 
   player = g_object_new (TYPE_PULSEAUDIO_MPRIS_PLAYER, NULL);
 
   player->dbus_connection = gconnection;
+  player->player = g_strdup (name);
 
+  pulseaudio_mpris_player_set_details_from_desktop (player, name);
   pulseaudio_mpris_player_dbus_connect (player);
-  pulseaudio_mpris_player_set_player (player, name);
+
+  player->can_launch = player->full_path != NULL;
 
   player->playlists = g_hash_table_new_full (g_str_hash, g_str_equal, (GDestroyNotify)g_free, (GDestroyNotify)g_free);
 

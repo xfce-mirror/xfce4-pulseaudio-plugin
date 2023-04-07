@@ -107,8 +107,7 @@ find_desktop_entry (const gchar *player_name)
 
   g_key_file_free (key_file);
 
-  if (file)
-    g_free (file);
+  g_free (file);
 
   return filename;
 }
@@ -149,7 +148,7 @@ player_is_usable (PulseaudioMpris *mpris,
                                         g_variant_new ("(s)", "org.mpris.MediaPlayer2"),
                                         G_VARIANT_TYPE ("(a{sv})"),
                                         G_DBUS_CALL_FLAGS_NONE,
-                                        -1,
+                                        5000,
                                         NULL,
                                         NULL);
 
@@ -227,6 +226,26 @@ pulseaudio_mpris_get_available_players (PulseaudioMpris *mpris)
 
 
 static void
+pulseaudio_mpris_player_connection_cb (PulseaudioMprisPlayer *player,
+                                       gchar                 *sender_name,
+                                       gpointer               user_data)
+{
+  PulseaudioMpris *mpris = user_data;
+  const gchar     *player_name;
+
+  g_return_if_fail (IS_PULSEAUDIO_MPRIS (mpris));
+
+  player_name = pulseaudio_mpris_player_get_player (player);
+
+  g_signal_emit (mpris, signals[UPDATE], 0, player_name);
+
+  if (!pulseaudio_mpris_player_is_connected (player))
+    g_hash_table_remove (mpris->players, player_name);
+}
+
+
+
+static void
 pulseaudio_mpris_player_update_cb (PulseaudioMprisPlayer *player,
                                    gchar                 *sender_name,
                                    gpointer               user_data)
@@ -258,7 +277,7 @@ pulseaudio_mpris_manage_players (PulseaudioMpris *mpris)
 {
   PulseaudioMprisPlayer  *player;
   gchar                 **players;
-  guint                   i = 0;
+  guint                   i;
   guint                   num_players;
 
   players = pulseaudio_mpris_get_available_players (mpris);
@@ -271,8 +290,10 @@ pulseaudio_mpris_manage_players (PulseaudioMpris *mpris)
       if (!g_hash_table_contains (mpris->players, players[i]))
         {
           player = pulseaudio_mpris_player_new (players[i]);
+          if (!player)
+            continue;
 
-          g_signal_connect (player, "connection", G_CALLBACK (pulseaudio_mpris_player_update_cb), mpris);
+          g_signal_connect (player, "connection", G_CALLBACK (pulseaudio_mpris_player_connection_cb), mpris);
           g_signal_connect (player, "playback-status", G_CALLBACK (pulseaudio_mpris_player_update_cb), mpris);
           g_signal_connect (player, "metadata", G_CALLBACK (pulseaudio_mpris_player_metadata_cb), mpris);
 
@@ -336,7 +357,8 @@ pulseaudio_mpris_get_player_snapshot (PulseaudioMpris  *mpris,
           *can_go_previous    = pulseaudio_mpris_player_can_go_previous (player);
           *can_go_next        = pulseaudio_mpris_player_can_go_next (player);
           *can_raise          = pulseaudio_mpris_player_can_raise (player);
-          *playlists          = pulseaudio_mpris_player_get_playlists (player);
+          if (playlists)
+            *playlists        = pulseaudio_mpris_player_get_playlists (player);
         }
       else
         {
@@ -351,7 +373,8 @@ pulseaudio_mpris_get_player_snapshot (PulseaudioMpris  *mpris,
           *can_go_previous    = FALSE;
           *can_go_next        = FALSE;
           *can_raise          = FALSE;
-          *playlists          = NULL;
+          if (playlists)
+            *playlists        = NULL;
         }
       if (*title == NULL || g_strcmp0 (*title, "") == 0)
         *title = g_strdup(pulseaudio_mpris_player_get_player_title (player));
@@ -509,10 +532,6 @@ pulseaudio_mpris_activate_playlist (PulseaudioMpris *mpris,
 static void
 pulseaudio_mpris_init (PulseaudioMpris *mpris)
 {
-  mpris->config            = NULL;
-  mpris->dbus_connection   = NULL;
-  mpris->players           = NULL;
-  mpris->dbus_signal_id    = 0;
 }
 
 
@@ -523,6 +542,8 @@ pulseaudio_mpris_finalize (GObject *object)
   PulseaudioMpris *mpris;
 
   mpris = PULSEAUDIO_MPRIS (object);
+
+  mpris_instance = NULL;
 
   if (mpris->dbus_signal_id != 0 && mpris->dbus_connection != NULL)
     g_dbus_connection_signal_unsubscribe (mpris->dbus_connection, mpris->dbus_signal_id);
@@ -544,19 +565,22 @@ pulseaudio_mpris_new (PulseaudioConfig *config)
 
   g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), NULL);
 
+  if (mpris_instance)
+    return NULL;
+
   gconnection = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, &gerror);
   if (gconnection == NULL)
     {
       g_message ("Failed to get session bus: %s", gerror->message);
       g_error_free (gerror);
-      gerror = NULL;
+      return NULL;
     }
 
   mpris = g_object_new (TYPE_PULSEAUDIO_MPRIS, NULL);
 
   mpris->config = config;
   mpris->dbus_connection = gconnection;
-  mpris->players = g_hash_table_new_full (g_str_hash, g_str_equal, (GDestroyNotify)g_free, (GDestroyNotify)g_free);
+  mpris->players = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
   mpris->dbus_signal_id = g_dbus_connection_signal_subscribe (gconnection,
                                                               "org.freedesktop.DBus",
                                                               "org.freedesktop.DBus",
