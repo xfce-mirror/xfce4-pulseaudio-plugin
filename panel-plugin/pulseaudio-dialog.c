@@ -329,10 +329,9 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
             {
               gchar *name = NULL;
               gchar *icon_name = NULL;
-              gchar *full_path = NULL;
               GIcon *icon = NULL;
 
-              if (pulseaudio_mpris_get_player_summary (players[i], &name, &icon_name, &full_path))
+              if (pulseaudio_mpris_get_player_summary (players[i], &name, &icon_name))
                 {
                   if (g_file_test (icon_name, G_FILE_TEST_EXISTS) && !g_file_test (icon_name, G_FILE_TEST_IS_DIR))
                     {
@@ -359,7 +358,6 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
 
                   g_free (name);
                   g_free (icon_name);
-                  g_free (full_path);
                   if (icon != NULL)
                     g_object_unref (icon);
                 }

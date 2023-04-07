@@ -61,10 +61,7 @@ GType        mpris_menu_item_get_type              (void) G_GNUC_CONST;
 
 GtkWidget   *mpris_menu_item_new_with_player       (const gchar *player,
                                                     const gchar *title,
-                                                    const gchar *icon_name,
-                                                    const gchar *filename);
-
-GtkWidget   *mpris_menu_item_new_from_player_name  (const gchar *player);
+                                                    const gchar *icon_name);
 
 const gchar *mpris_menu_item_get_player            (MprisMenuItem *item);
 
@@ -91,9 +88,6 @@ void         mpris_menu_item_set_can_raise         (MprisMenuItem *item,
 
 void         mpris_menu_item_set_can_raise_wnck    (MprisMenuItem *item,
                                                     gboolean can_raise);
-
-void         mpris_menu_item_set_is_running        (MprisMenuItem *item,
-                                                    gboolean running);
 
 void         mpris_menu_item_set_is_playing        (MprisMenuItem *item,
                                                     gboolean playing);

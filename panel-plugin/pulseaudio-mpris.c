@@ -169,7 +169,33 @@ player_is_usable (PulseaudioMpris *mpris,
 }
 
 
-gchar **
+
+const gchar **
+pulseaudio_mpris_get_players (PulseaudioMpris *mpris,
+                              guint           *num_players)
+{
+  const gchar           **players;
+  GHashTableIter          iter;
+  const gchar            *key;
+  guint                   i = 0;
+
+  players = g_new (const gchar *, g_hash_table_size (mpris->players) + 1);
+
+  g_hash_table_iter_init (&iter, mpris->players);
+  while (g_hash_table_iter_next (&iter, (gpointer) &key, NULL))
+    players[i++] = key;
+
+  players[i] = NULL;
+
+  if (num_players)
+    *num_players = i;
+
+  return players;
+}
+
+
+
+static gchar **
 pulseaudio_mpris_get_available_players (PulseaudioMpris *mpris)
 {
   GError *error = NULL;
@@ -308,7 +334,6 @@ pulseaudio_mpris_get_player_snapshot (PulseaudioMpris  *mpris,
                                       const gchar      *name,
                                       gchar           **title,
                                       gchar           **artist,
-                                      gboolean         *is_running,
                                       gboolean         *is_playing,
                                       gboolean         *is_stopped,
                                       gboolean         *can_play,
@@ -321,38 +346,21 @@ pulseaudio_mpris_get_player_snapshot (PulseaudioMpris  *mpris,
   PulseaudioMprisPlayer *player;
   player = PULSEAUDIO_MPRIS_PLAYER (g_hash_table_lookup (mpris->players, name));
 
-  if (player != NULL)
+  if (player != NULL && pulseaudio_mpris_player_is_connected (player))
     {
-      if (pulseaudio_mpris_player_is_connected (player))
-        {
-          *title = g_strdup(pulseaudio_mpris_player_get_title (player));
-          *artist = g_strdup(pulseaudio_mpris_player_get_artist (player));
+      *title = g_strdup(pulseaudio_mpris_player_get_title (player));
+      *artist = g_strdup(pulseaudio_mpris_player_get_artist (player));
 
-          *is_running         = TRUE;
-          *is_playing         = pulseaudio_mpris_player_is_playing (player);
-          *is_stopped         = pulseaudio_mpris_player_is_stopped (player);
-          *can_play           = pulseaudio_mpris_player_can_play (player);
-          *can_pause          = pulseaudio_mpris_player_can_pause (player);
-          *can_go_previous    = pulseaudio_mpris_player_can_go_previous (player);
-          *can_go_next        = pulseaudio_mpris_player_can_go_next (player);
-          *can_raise          = pulseaudio_mpris_player_can_raise (player);
-          *playlists          = pulseaudio_mpris_player_get_playlists (player);
-        }
-      else
-        {
-          *title = g_strdup(pulseaudio_mpris_player_get_player_title (player));
-          *artist = g_strdup("Not currently playing");
+      *is_playing         = pulseaudio_mpris_player_is_playing (player);
+      *is_stopped         = pulseaudio_mpris_player_is_stopped (player);
+      *can_play           = pulseaudio_mpris_player_can_play (player);
+      *can_pause          = pulseaudio_mpris_player_can_pause (player);
+      *can_go_previous    = pulseaudio_mpris_player_can_go_previous (player);
+      *can_go_next        = pulseaudio_mpris_player_can_go_next (player);
+      *can_raise          = pulseaudio_mpris_player_can_raise (player);
+      if (playlists)
+        *playlists          = pulseaudio_mpris_player_get_playlists (player);
 
-          *is_running         = FALSE;
-          *is_playing         = FALSE;
-          *is_stopped         = TRUE;
-          *can_play           = FALSE;
-          *can_pause          = FALSE;
-          *can_go_previous    = FALSE;
-          *can_go_next        = FALSE;
-          *can_raise          = FALSE;
-          *playlists          = NULL;
-        }
       if (*title == NULL || g_strcmp0 (*title, "") == 0)
         *title = g_strdup(pulseaudio_mpris_player_get_player_title (player));
       return TRUE;
@@ -366,8 +374,7 @@ pulseaudio_mpris_get_player_snapshot (PulseaudioMpris  *mpris,
 static gboolean
 pulseaudio_mpris_get_player_summary_from_desktop (const gchar  *player_id,
                                                   gchar       **name,
-                                                  gchar       **icon_name,
-                                                  gchar       **full_path)
+                                                  gchar       **icon_name)
 {
   GKeyFile  *key_file;
   gchar     *file;
@@ -388,7 +395,6 @@ pulseaudio_mpris_get_player_summary_from_desktop (const gchar  *player_id,
     {
       *name = g_key_file_get_string (key_file, "Desktop Entry", "Name", NULL);
       *icon_name = g_key_file_get_string (key_file, "Desktop Entry", "Icon", NULL);
-      *full_path = g_strdup (path);
       g_free (path);
     }
 
@@ -403,24 +409,22 @@ pulseaudio_mpris_get_player_summary_from_desktop (const gchar  *player_id,
 gboolean
 pulseaudio_mpris_get_player_summary (const gchar  *player_id,
                                      gchar       **name,
-                                     gchar       **icon_name,
-                                     gchar       **full_path)
+                                     gchar       **icon_name)
 {
   PulseaudioMprisPlayer *player;
   player = PULSEAUDIO_MPRIS_PLAYER (g_hash_table_lookup (mpris_instance->players, player_id));
 
   if (player == NULL)
-    return pulseaudio_mpris_get_player_summary_from_desktop (player_id, name, icon_name, full_path);
+    return pulseaudio_mpris_get_player_summary_from_desktop (player_id, name, icon_name);
+
+  if (!pulseaudio_mpris_player_is_connected (player))
+    return FALSE;
+
+  if (pulseaudio_mpris_player_get_full_path (player) == NULL)
+    return FALSE;
 
   *name = g_strdup (pulseaudio_mpris_player_get_player_title (player));
   *icon_name = g_strdup (pulseaudio_mpris_player_get_icon_name (player));
-  *full_path = g_strdup (pulseaudio_mpris_player_get_full_path (player));
-
-  if (*full_path == NULL)
-    return FALSE;
-
-  if (!pulseaudio_mpris_player_is_connected (player) && !pulseaudio_mpris_player_can_launch (player))
-    return FALSE;
 
   return TRUE;
 }
