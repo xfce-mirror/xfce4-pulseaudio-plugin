@@ -186,7 +186,8 @@ pulseaudio_plugin_free_data (XfcePanelPlugin *plugin)
   pulseaudio_plugin_unbind_multimedia_keys (pulseaudio_plugin);
 #endif
 #ifdef HAVE_MPRIS2
-  g_object_unref (pulseaudio_plugin->mpris);
+  if (pulseaudio_plugin->mpris)
+    g_object_unref (pulseaudio_plugin->mpris);
 #endif
 #ifdef HAVE_LIBCANBERRA
   if (pulseaudio_plugin->canberra)
