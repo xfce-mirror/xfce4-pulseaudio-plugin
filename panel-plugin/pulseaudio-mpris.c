@@ -38,6 +38,7 @@ struct _PulseaudioMpris
 
   GDBusConnection  *dbus_connection;
   GHashTable       *players;
+  GHashTable       *players_by_title;
 
   guint             dbus_signal_id;
 };
@@ -68,49 +69,6 @@ G_DEFINE_TYPE (PulseaudioMpris, pulseaudio_mpris, G_TYPE_OBJECT)
 
 
 static PulseaudioMpris *mpris_instance;
-
-
-
-static gchar *
-find_desktop_entry (const gchar *player_name)
-{
-  GKeyFile  *key_file;
-  gchar     *file = NULL;
-  gchar     *filename = NULL;
-
-  file = g_strconcat ("applications/", player_name, ".desktop", NULL);
-
-  key_file = g_key_file_new();
-  if (g_key_file_load_from_data_dirs (key_file, file, NULL, G_KEY_FILE_NONE, NULL))
-    {
-      filename = g_strconcat (player_name, ".desktop", NULL);
-    }
-  else
-    {
-      /* Support reverse domain name (RDN) formatted launchers. */
-      gchar ***results = g_desktop_app_info_search (player_name);
-      gint i, j;
-
-      for (i = 0; results[i]; i++)
-        {
-          for (j = 0; results[i][j]; j++)
-            {
-              if (filename == NULL)
-                {
-                  filename = g_strdup (results[i][j]);
-                }
-            }
-          g_strfreev (results[i]);
-      }
-      g_free (results);
-    }
-
-  g_key_file_free (key_file);
-
-  g_free (file);
-
-  return filename;
-}
 
 
 
@@ -168,7 +126,7 @@ player_is_usable (PulseaudioMpris *mpris,
 }
 
 
-gchar **
+static gchar **
 pulseaudio_mpris_get_available_players (PulseaudioMpris *mpris)
 {
   GError *error = NULL;
@@ -231,16 +189,28 @@ pulseaudio_mpris_player_connection_cb (PulseaudioMprisPlayer *player,
                                        gpointer               user_data)
 {
   PulseaudioMpris *mpris = user_data;
-  const gchar     *player_name;
+  const gchar     *player_title;
 
   g_return_if_fail (IS_PULSEAUDIO_MPRIS (mpris));
 
-  player_name = pulseaudio_mpris_player_get_player (player);
+  player = g_object_ref (player);
 
-  g_signal_emit (mpris, signals[UPDATE], 0, player_name);
+  player_title = pulseaudio_mpris_player_get_player_title (player);
 
   if (!pulseaudio_mpris_player_is_connected (player))
-    g_hash_table_remove (mpris->players, player_name);
+    {
+      g_hash_table_remove (mpris->players, pulseaudio_mpris_player_get_player (player));
+      g_hash_table_remove (mpris->players_by_title, player_title);
+    }
+  else if (G_LIKELY (!g_hash_table_contains (mpris->players_by_title, (gpointer) player_title)))
+    {
+      g_hash_table_insert (mpris->players_by_title, g_strdup (player_title), g_object_ref (player));
+      pulseaudio_config_add_mpris_player (mpris->config, player_title);
+    }
+
+  g_signal_emit (mpris, signals[UPDATE], 0, player_title);
+
+  g_object_unref (player);
 }
 
 
@@ -254,7 +224,7 @@ pulseaudio_mpris_player_update_cb (PulseaudioMprisPlayer *player,
 
   g_return_if_fail (IS_PULSEAUDIO_MPRIS (mpris));
 
-  g_signal_emit (mpris, signals[UPDATE], 0, pulseaudio_mpris_player_get_player (player));
+  g_signal_emit (mpris, signals[UPDATE], 0, pulseaudio_mpris_player_get_player_title (player));
 }
 
 
@@ -267,7 +237,7 @@ pulseaudio_mpris_player_metadata_cb (PulseaudioMprisPlayer *player,
 
   g_return_if_fail (IS_PULSEAUDIO_MPRIS (mpris));
 
-  g_signal_emit (mpris, signals[UPDATE], 0, pulseaudio_mpris_player_get_player (player));
+  g_signal_emit (mpris, signals[UPDATE], 0, pulseaudio_mpris_player_get_player_title (player));
 }
 
 
@@ -287,20 +257,18 @@ pulseaudio_mpris_manage_players (PulseaudioMpris *mpris)
   num_players = g_strv_length (players);
   for (i = 0; i < num_players; i++)
     {
-      if (!g_hash_table_contains (mpris->players, players[i]))
-        {
-          player = pulseaudio_mpris_player_new (players[i]);
-          if (!player)
-            continue;
+      if (g_hash_table_contains (mpris->players, players[i]))
+        continue;
 
-          g_signal_connect (player, "connection", G_CALLBACK (pulseaudio_mpris_player_connection_cb), mpris);
-          g_signal_connect (player, "playback-status", G_CALLBACK (pulseaudio_mpris_player_update_cb), mpris);
-          g_signal_connect (player, "metadata", G_CALLBACK (pulseaudio_mpris_player_metadata_cb), mpris);
+      player = pulseaudio_mpris_player_new (players[i]);
+      if (!player)
+        continue;
 
-          g_hash_table_insert (mpris->players, g_strdup (players[i]), player);
+      g_signal_connect (player, "connection", G_CALLBACK (pulseaudio_mpris_player_connection_cb), mpris);
+      g_signal_connect (player, "playback-status", G_CALLBACK (pulseaudio_mpris_player_update_cb), mpris);
+      g_signal_connect (player, "metadata", G_CALLBACK (pulseaudio_mpris_player_metadata_cb), mpris);
 
-          pulseaudio_config_add_mpris_player (mpris->config, players[i]);
-        }
+      g_hash_table_insert (mpris->players, g_strdup (players[i]), player);
     }
 
   if (players != NULL)
@@ -329,7 +297,6 @@ pulseaudio_mpris_get_player_snapshot (PulseaudioMpris  *mpris,
                                       const gchar      *name,
                                       gchar           **title,
                                       gchar           **artist,
-                                      gboolean         *is_running,
                                       gboolean         *is_playing,
                                       gboolean         *is_stopped,
                                       gboolean         *can_play,
@@ -340,55 +307,41 @@ pulseaudio_mpris_get_player_snapshot (PulseaudioMpris  *mpris,
                                       GList           **playlists)
 {
   PulseaudioMprisPlayer *player;
-  player = PULSEAUDIO_MPRIS_PLAYER (g_hash_table_lookup (mpris->players, name));
+  player = PULSEAUDIO_MPRIS_PLAYER (g_hash_table_lookup (mpris->players_by_title, name));
 
-  if (player != NULL)
+  if (player == NULL || G_UNLIKELY (!pulseaudio_mpris_player_is_connected (player)))
+    return FALSE;
+
+  *title = g_strdup (pulseaudio_mpris_player_get_title (player));
+  *artist = g_strdup (pulseaudio_mpris_player_get_artist (player));
+
+  *is_playing         = pulseaudio_mpris_player_is_playing (player);
+  *is_stopped         = pulseaudio_mpris_player_is_stopped (player);
+  *can_play           = pulseaudio_mpris_player_can_play (player);
+  *can_pause          = pulseaudio_mpris_player_can_pause (player);
+  *can_go_previous    = pulseaudio_mpris_player_can_go_previous (player);
+  *can_go_next        = pulseaudio_mpris_player_can_go_next (player);
+  *can_raise          = pulseaudio_mpris_player_can_raise (player);
+  if (playlists)
+    *playlists        = pulseaudio_mpris_player_get_playlists (player);
+
+  if (g_strcmp0 (*title, "") == 0)
     {
-      if (pulseaudio_mpris_player_is_connected (player))
-        {
-          *title = g_strdup(pulseaudio_mpris_player_get_title (player));
-          *artist = g_strdup(pulseaudio_mpris_player_get_artist (player));
-
-          *is_running         = TRUE;
-          *is_playing         = pulseaudio_mpris_player_is_playing (player);
-          *is_stopped         = pulseaudio_mpris_player_is_stopped (player);
-          *can_play           = pulseaudio_mpris_player_can_play (player);
-          *can_pause          = pulseaudio_mpris_player_can_pause (player);
-          *can_go_previous    = pulseaudio_mpris_player_can_go_previous (player);
-          *can_go_next        = pulseaudio_mpris_player_can_go_next (player);
-          *can_raise          = pulseaudio_mpris_player_can_raise (player);
-          if (playlists)
-            *playlists        = pulseaudio_mpris_player_get_playlists (player);
-        }
-      else
-        {
-          *title = g_strdup(pulseaudio_mpris_player_get_player_title (player));
-          *artist = g_strdup("Not currently playing");
-
-          *is_running         = FALSE;
-          *is_playing         = FALSE;
-          *is_stopped         = TRUE;
-          *can_play           = FALSE;
-          *can_pause          = FALSE;
-          *can_go_previous    = FALSE;
-          *can_go_next        = FALSE;
-          *can_raise          = FALSE;
-          if (playlists)
-            *playlists        = NULL;
-        }
-      if (*title == NULL || g_strcmp0 (*title, "") == 0)
-        *title = g_strdup(pulseaudio_mpris_player_get_player_title (player));
-      return TRUE;
+      g_free (*title);
+      *title = NULL;
+    }
+  if (*title == NULL)
+    {
+      *title = g_strdup (pulseaudio_mpris_player_get_player_title (player));
     }
 
-  return FALSE;
+  return TRUE;
 }
 
 
 
 static gboolean
-pulseaudio_mpris_get_player_summary_from_desktop (const gchar  *player_id,
-                                                  gchar       **name,
+pulseaudio_mpris_get_player_summary_from_desktop (const gchar  *player_title,
                                                   gchar       **icon_name,
                                                   gchar       **full_path)
 {
@@ -396,11 +349,12 @@ pulseaudio_mpris_get_player_summary_from_desktop (const gchar  *player_id,
   gchar     *file;
   gchar     *filename;
   gchar     *path;
+  gboolean   ret = FALSE;
 
-  filename = find_desktop_entry (player_id);
+  filename = pulseaudio_mpris_player_find_desktop_entry (player_title);
   if (filename == NULL)
     {
-      return FALSE;
+      return ret;
     }
 
   file = g_strconcat("applications/", filename, NULL);
@@ -409,41 +363,38 @@ pulseaudio_mpris_get_player_summary_from_desktop (const gchar  *player_id,
   key_file = g_key_file_new();
   if (g_key_file_load_from_data_dirs (key_file, file, &path, G_KEY_FILE_NONE, NULL))
     {
-      *name = g_key_file_get_string (key_file, "Desktop Entry", "Name", NULL);
       *icon_name = g_key_file_get_string (key_file, "Desktop Entry", "Icon", NULL);
-      *full_path = g_strdup (path);
+      if (full_path)
+        *full_path = g_strdup (path);
       g_free (path);
+      ret = TRUE;
     }
 
   g_key_file_free (key_file);
   g_free (file);
 
-  return TRUE;
+  return ret;
 }
 
 
 
 gboolean
-pulseaudio_mpris_get_player_summary (const gchar  *player_id,
-                                     gchar       **name,
+pulseaudio_mpris_get_player_summary (const gchar  *player_title,
                                      gchar       **icon_name,
                                      gchar       **full_path)
 {
   PulseaudioMprisPlayer *player;
-  player = PULSEAUDIO_MPRIS_PLAYER (g_hash_table_lookup (mpris_instance->players, player_id));
+  player = PULSEAUDIO_MPRIS_PLAYER (g_hash_table_lookup (mpris_instance->players_by_title, player_title));
 
   if (player == NULL)
-    return pulseaudio_mpris_get_player_summary_from_desktop (player_id, name, icon_name, full_path);
+    return pulseaudio_mpris_get_player_summary_from_desktop (player_title, icon_name, full_path);
 
-  *name = g_strdup (pulseaudio_mpris_player_get_player_title (player));
+  if (G_UNLIKELY (!pulseaudio_mpris_player_is_connected (player)))
+    return FALSE;
+
   *icon_name = g_strdup (pulseaudio_mpris_player_get_icon_name (player));
-  *full_path = g_strdup (pulseaudio_mpris_player_get_full_path (player));
-
-  if (*full_path == NULL)
-    return FALSE;
-
-  if (!pulseaudio_mpris_player_is_connected (player) && !pulseaudio_mpris_player_can_launch (player))
-    return FALSE;
+  if (full_path)
+    *full_path = g_strdup (pulseaudio_mpris_player_get_full_path (player));
 
   return TRUE;
 }
@@ -459,15 +410,12 @@ pulseaudio_mpris_notify_player (PulseaudioMpris  *mpris,
 
   g_return_val_if_fail (IS_PULSEAUDIO_MPRIS (mpris), FALSE);
 
-  player = g_hash_table_lookup (mpris->players, name);
+  player = g_hash_table_lookup (mpris->players_by_title, name);
 
-  if (player != NULL)
+  if (player != NULL && G_LIKELY (pulseaudio_mpris_player_is_connected (player)))
     {
-      if (pulseaudio_mpris_player_is_connected (player))
-        {
-          pulseaudio_mpris_player_call_player_method (player, message);
-          return TRUE;
-        }
+      pulseaudio_mpris_player_call_player_method (player, message);
+      return TRUE;
     }
 
   return FALSE;
@@ -486,17 +434,20 @@ pulseaudio_mpris_notify_any_player (PulseaudioMpris *mpris,
 
   g_return_val_if_fail(IS_PULSEAUDIO_MPRIS(mpris), FALSE);
 
-  g_hash_table_iter_init (&iter, mpris->players);
+  g_hash_table_iter_init (&iter, mpris->players_by_title);
   while (g_hash_table_iter_next(&iter, (gpointer *) &key, (gpointer) &player))
     {
-      if (player != NULL)
-        {
-          if (pulseaudio_mpris_player_is_connected(player))
-            {
-              pulseaudio_mpris_player_call_player_method(player, message);
-              found = TRUE;
-            }
-        }
+      if (player == NULL)
+        continue;
+
+      if (G_UNLIKELY (!pulseaudio_mpris_player_is_connected (player)))
+        continue;
+
+      if (pulseaudio_config_player_blacklist_lookup (mpris->config, key))
+        continue;
+
+      pulseaudio_mpris_player_call_player_method(player, message);
+      found = TRUE;
     }
 
   return found;
@@ -513,15 +464,12 @@ pulseaudio_mpris_activate_playlist (PulseaudioMpris *mpris,
 
   g_return_val_if_fail(IS_PULSEAUDIO_MPRIS(mpris), FALSE);
 
-  player = g_hash_table_lookup(mpris->players, name);
+  player = g_hash_table_lookup(mpris->players_by_title, name);
 
-  if (player != NULL)
+  if (player != NULL && G_LIKELY (pulseaudio_mpris_player_is_connected (player)))
   {
-    if (pulseaudio_mpris_player_is_connected (player))
-    {
-      pulseaudio_mpris_player_activate_playlist (player, playlist);
-      return TRUE;
-    }
+    pulseaudio_mpris_player_activate_playlist (player, playlist);
+    return TRUE;
   }
 
   return FALSE;
@@ -550,6 +498,8 @@ pulseaudio_mpris_finalize (GObject *object)
 
   if (mpris->players != NULL)
     g_hash_table_destroy (mpris->players);
+  if (mpris->players_by_title != NULL)
+    g_hash_table_destroy (mpris->players_by_title);
 
   (*G_OBJECT_CLASS (pulseaudio_mpris_parent_class)->finalize) (object);
 }
@@ -581,6 +531,7 @@ pulseaudio_mpris_new (PulseaudioConfig *config)
   mpris->config = config;
   mpris->dbus_connection = gconnection;
   mpris->players = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
+  mpris->players_by_title = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
   mpris->dbus_signal_id = g_dbus_connection_signal_subscribe (gconnection,
                                                               "org.freedesktop.DBus",
                                                               "org.freedesktop.DBus",
