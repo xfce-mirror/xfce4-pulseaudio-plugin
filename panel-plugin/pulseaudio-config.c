@@ -56,9 +56,10 @@
 #define DEFAULT_ENABLE_MPRIS                      FALSE
 #define DEFAULT_ENABLE_MULTIMEDIA_KEYS            FALSE
 #endif
-#define DEFAULT_BLACKLISTED_PLAYERS               ""
+#define DEFAULT_IGNORED_PLAYERS                   ""
+#define DEFAULT_PERSISTENT_PLAYERS                ""
 
-#define DEFAULT_MPRIS_PLAYERS                     ""
+#define DEFAULT_KNOWN_PLAYERS                     ""
 #define DEFAULT_ENABLE_WNCK                       FALSE
 
 
@@ -84,6 +85,9 @@ struct _PulseaudioConfig
 {
   GObject          __parent__;
 
+  const gchar     *property_base;
+  XfconfChannel   *channel;
+
   gboolean         enable_keyboard_shortcuts;
   gboolean         enable_multimedia_keys;
   guint            show_notifications;
@@ -94,8 +98,9 @@ struct _PulseaudioConfig
   guint            volume_max;
   gchar           *mixer_command;
   gboolean         enable_mpris;
-  gchar           *mpris_players;
-  gchar           *blacklisted_players;
+  gchar           *known_players;
+  gchar           *ignored_players;
+  gchar           *persistent_players;
   gboolean         enable_wnck;
 };
 
@@ -114,8 +119,9 @@ enum
     PROP_VOLUME_MAX,
     PROP_MIXER_COMMAND,
     PROP_ENABLE_MPRIS,
-    PROP_MPRIS_PLAYERS,
-    PROP_BLACKLISTED_PLAYERS,
+    PROP_KNOWN_PLAYERS,
+    PROP_IGNORED_PLAYERS,
+    PROP_PERSISTENT_PLAYERS,
     PROP_ENABLE_WNCK,
     N_PROPERTIES,
   };
@@ -220,20 +226,29 @@ pulseaudio_config_class_init (PulseaudioConfigClass *klass)
 
 
   g_object_class_install_property (gobject_class,
-                                   PROP_MPRIS_PLAYERS,
-                                   g_param_spec_string ("mpris-players",
+                                   PROP_KNOWN_PLAYERS,
+                                   g_param_spec_string ("known-players",
                                                         NULL, NULL,
-                                                        DEFAULT_MPRIS_PLAYERS,
+                                                        DEFAULT_KNOWN_PLAYERS,
+                                                        G_PARAM_READWRITE |
+                                                        G_PARAM_STATIC_STRINGS));
+
+
+  g_object_class_install_property (gobject_class,
+                                   PROP_IGNORED_PLAYERS,
+                                   g_param_spec_string ("ignored-players",
+                                                        NULL, NULL,
+                                                        DEFAULT_IGNORED_PLAYERS,
                                                         G_PARAM_READWRITE |
                                                         G_PARAM_STATIC_STRINGS));
 
 
 
   g_object_class_install_property (gobject_class,
-                                   PROP_BLACKLISTED_PLAYERS,
-                                   g_param_spec_string ("blacklisted-players",
+                                   PROP_PERSISTENT_PLAYERS,
+                                   g_param_spec_string ("persistent-players",
                                                         NULL, NULL,
-                                                        DEFAULT_BLACKLISTED_PLAYERS,
+                                                        DEFAULT_PERSISTENT_PLAYERS,
                                                         G_PARAM_READWRITE |
                                                         G_PARAM_STATIC_STRINGS));
 
@@ -272,8 +287,9 @@ pulseaudio_config_init (PulseaudioConfig *config)
   config->volume_max                = DEFAULT_VOLUME_MAX;
   config->mixer_command             = g_strdup (DEFAULT_MIXER_COMMAND);
   config->enable_mpris              = DEFAULT_ENABLE_MPRIS;
-  config->mpris_players             = g_strdup (DEFAULT_MPRIS_PLAYERS);
-  config->blacklisted_players       = g_strdup (DEFAULT_BLACKLISTED_PLAYERS);
+  config->known_players             = g_strdup (DEFAULT_KNOWN_PLAYERS);
+  config->ignored_players           = g_strdup (DEFAULT_IGNORED_PLAYERS);
+  config->persistent_players        = g_strdup (DEFAULT_PERSISTENT_PLAYERS);
   config->enable_wnck               = DEFAULT_ENABLE_WNCK;
 }
 
@@ -336,12 +352,16 @@ pulseaudio_config_get_property (GObject    *object,
       g_value_set_boolean (value, config->enable_mpris);
       break;
 
-    case PROP_MPRIS_PLAYERS:
-      g_value_set_string (value, config->mpris_players);
+    case PROP_KNOWN_PLAYERS:
+      g_value_set_string (value, config->known_players);
       break;
 
-    case PROP_BLACKLISTED_PLAYERS:
-      g_value_set_string (value, config->blacklisted_players);
+    case PROP_IGNORED_PLAYERS:
+      g_value_set_string (value, config->ignored_players);
+      break;
+
+    case PROP_PERSISTENT_PLAYERS:
+      g_value_set_string (value, config->persistent_players);
       break;
 
     case PROP_ENABLE_WNCK:
@@ -455,17 +475,24 @@ pulseaudio_config_set_property (GObject      *object,
         }
       break;
 
-    case PROP_MPRIS_PLAYERS:
-      g_free (config->mpris_players);
-      config->mpris_players = g_value_dup_string (value);
-      g_object_notify (G_OBJECT (config), "mpris-players");
+    case PROP_KNOWN_PLAYERS:
+      g_free (config->known_players);
+      config->known_players = g_value_dup_string (value);
+      g_object_notify (G_OBJECT (config), "known-players");
       g_signal_emit (G_OBJECT (config), pulseaudio_config_signals [CONFIGURATION_CHANGED], 0);
       break;
 
-    case PROP_BLACKLISTED_PLAYERS:
-      g_free (config->blacklisted_players);
-      config->blacklisted_players = g_value_dup_string (value);
-      g_object_notify (G_OBJECT (config), "blacklisted-players");
+    case PROP_IGNORED_PLAYERS:
+      g_free (config->ignored_players);
+      config->ignored_players = g_value_dup_string (value);
+      g_object_notify (G_OBJECT (config), "ignored-players");
+      g_signal_emit (G_OBJECT (config), pulseaudio_config_signals [CONFIGURATION_CHANGED], 0);
+      break;
+
+    case PROP_PERSISTENT_PLAYERS:
+      g_free (config->persistent_players);
+      config->persistent_players = g_value_dup_string (value);
+      g_object_notify (G_OBJECT (config), "persistent-players");
       g_signal_emit (G_OBJECT (config), pulseaudio_config_signals [CONFIGURATION_CHANGED], 0);
       break;
 
@@ -570,14 +597,14 @@ pulseaudio_config_get_enable_mpris (PulseaudioConfig *config)
 
 
 gchar **
-pulseaudio_config_get_mpris_players (PulseaudioConfig *config)
+pulseaudio_config_get_known_players (PulseaudioConfig *config)
 {
   if (!IS_PULSEAUDIO_CONFIG (config))
     {
-      return g_strsplit (DEFAULT_MPRIS_PLAYERS, ";", 1);
+      return g_strsplit (DEFAULT_KNOWN_PLAYERS, ";", 1);
     }
 
-  return g_strsplit (config->mpris_players, ";", 0);
+  return g_strsplit (config->known_players, ";", 0);
 }
 
 
@@ -627,7 +654,7 @@ pulseaudio_config_set_mpris_players (PulseaudioConfig  *config,
   g_value_init(&src, G_TYPE_STRING);
   g_value_set_static_string(&src, player_string);
 
-  pulseaudio_config_set_property (G_OBJECT (config), PROP_MPRIS_PLAYERS, &src, NULL);
+  pulseaudio_config_set_property (G_OBJECT (config), PROP_KNOWN_PLAYERS, &src, NULL);
 
   g_free (player_string);
 }
@@ -635,15 +662,15 @@ pulseaudio_config_set_mpris_players (PulseaudioConfig  *config,
 
 
 void
-pulseaudio_config_add_mpris_player (PulseaudioConfig *config,
-                                    gchar            *player)
+pulseaudio_config_add_known_player (PulseaudioConfig *config,
+                                    const gchar      *player)
 {
   gchar **players;
   gchar **player_list;
   gchar  *players_string;
   gchar  *player_string;
 
-  players = pulseaudio_config_get_mpris_players (config);
+  players = pulseaudio_config_get_known_players (config);
   if (g_strv_contains ((const char * const *) players, player))
     {
       g_strfreev(players);
@@ -668,21 +695,35 @@ pulseaudio_config_add_mpris_player (PulseaudioConfig *config,
 
 
 static gchar **
-pulseaudio_config_get_blacklisted_players (PulseaudioConfig *config)
+pulseaudio_config_get_ignored_players (PulseaudioConfig *config)
 {
   if (!IS_PULSEAUDIO_CONFIG (config))
     {
-      return g_strsplit (DEFAULT_BLACKLISTED_PLAYERS, ";", 1);
+      return g_strsplit (DEFAULT_IGNORED_PLAYERS, ";", 1);
     }
 
-  return g_strsplit (config->blacklisted_players, ";", 0);
+  return g_strsplit (config->ignored_players, ";", 0);
+}
+
+
+
+static gchar **
+pulseaudio_config_get_persistent_players (PulseaudioConfig *config)
+{
+  if (!IS_PULSEAUDIO_CONFIG (config))
+    {
+      return g_strsplit (DEFAULT_PERSISTENT_PLAYERS, ";", 1);
+    }
+
+  return g_strsplit (config->persistent_players, ";", 0);
 }
 
 
 
 static void
-pulseaudio_config_set_blacklisted_players (PulseaudioConfig  *config,
-                                           gchar            **players)
+pulseaudio_config_set_players (PulseaudioConfig  *config,
+                               gchar            **players,
+                               gint               prop)
 {
   GSList *player_array;
   gchar  *player_string;
@@ -717,23 +758,23 @@ pulseaudio_config_set_blacklisted_players (PulseaudioConfig  *config,
   g_value_init(&src, G_TYPE_STRING);
   g_value_set_static_string(&src, player_string);
 
-  pulseaudio_config_set_property (G_OBJECT (config), PROP_BLACKLISTED_PLAYERS, &src, NULL);
+  pulseaudio_config_set_property (G_OBJECT (config), prop, &src, NULL);
 
   g_free (player_string);
 }
 
 
 
-void
-pulseaudio_config_player_blacklist_add (PulseaudioConfig *config,
-                                        const gchar      *player)
+static void
+pulseaudio_config_player_add (PulseaudioConfig *config,
+                              gchar           **players,
+                              const gchar      *player,
+                              gint              prop)
 {
-  gchar **players;
   gchar **player_list;
   gchar  *players_string;
   gchar  *player_string;
 
-  players = pulseaudio_config_get_blacklisted_players (config);
   if (g_strv_contains ((const char * const *) players, player))
     {
       g_strfreev(players);
@@ -748,7 +789,7 @@ pulseaudio_config_player_blacklist_add (PulseaudioConfig *config,
 
   player_list = g_strsplit(player_string, ";", 0);
 
-  pulseaudio_config_set_blacklisted_players (config, player_list);
+  pulseaudio_config_set_players (config, player_list, prop);
 
   g_strfreev (player_list);
   g_free (player_string);
@@ -758,20 +799,15 @@ pulseaudio_config_player_blacklist_add (PulseaudioConfig *config,
 
 
 
-void
-pulseaudio_config_player_blacklist_remove (PulseaudioConfig *config,
-                                           const gchar      *player)
+static void
+pulseaudio_config_player_remove (PulseaudioConfig *config,
+                                 gchar           **players_old,
+                                 const gchar      *player,
+                                 gint              prop)
 {
-  gchar   **players_old;
   gchar   **players_new;
   guint     j = 0;
-  guint     len;
-
-  players_old = pulseaudio_config_get_blacklisted_players (config);
-  if (players_old == NULL)
-    return;
-
-  len = g_strv_length (players_old);
+  guint     len = g_strv_length (players_old);
 
   players_new = g_new (gchar *, len);
 
@@ -782,7 +818,7 @@ pulseaudio_config_player_blacklist_remove (PulseaudioConfig *config,
   if (j < len)
     {
       players_new[j] = NULL;
-      pulseaudio_config_set_blacklisted_players (config, players_new);
+      pulseaudio_config_set_players (config, players_new, prop);
     }
 
   g_free (players_new);
@@ -791,13 +827,79 @@ pulseaudio_config_player_blacklist_remove (PulseaudioConfig *config,
 
 
 
+void
+pulseaudio_config_player_ignored_add (PulseaudioConfig *config,
+                                      const gchar      *player)
+{
+  pulseaudio_config_player_add (config,
+                                pulseaudio_config_get_ignored_players (config),
+                                player,
+                                PROP_IGNORED_PLAYERS);
+}
+
+
+
+void
+pulseaudio_config_player_ignored_remove (PulseaudioConfig *config,
+                                         const gchar      *player)
+{
+  pulseaudio_config_player_remove (config,
+                                   pulseaudio_config_get_ignored_players (config),
+                                   player,
+                                   PROP_IGNORED_PLAYERS);
+}
+
+
+
 gboolean
-pulseaudio_config_player_blacklist_lookup (PulseaudioConfig *config,
-                                           gchar            *player)
+pulseaudio_config_player_ignored_lookup (PulseaudioConfig *config,
+                                         const gchar      *player)
 {
   gchar    **players;
   gboolean   found = FALSE;
-  players = pulseaudio_config_get_blacklisted_players (config);
+  players = pulseaudio_config_get_ignored_players (config);
+  if (g_strv_contains ((const char * const *) players, player))
+    {
+      found = TRUE;
+    }
+
+  g_strfreev(players);
+  return found;
+}
+
+
+
+void
+pulseaudio_config_player_persistent_add (PulseaudioConfig *config,
+                                         const gchar      *player)
+{
+  pulseaudio_config_player_add (config,
+                                pulseaudio_config_get_persistent_players (config),
+                                player,
+                                PROP_PERSISTENT_PLAYERS);
+}
+
+
+
+void
+pulseaudio_config_player_persistent_remove (PulseaudioConfig *config,
+                                            const gchar      *player)
+{
+  pulseaudio_config_player_remove (config,
+                                   pulseaudio_config_get_persistent_players (config),
+                                   player,
+                                   PROP_PERSISTENT_PLAYERS);
+}
+
+
+
+gboolean
+pulseaudio_config_player_persistent_lookup (PulseaudioConfig *config,
+                                            const gchar      *player)
+{
+  gchar    **players;
+  gboolean   found = FALSE;
+  players = pulseaudio_config_get_persistent_players (config);
   if (g_strv_contains ((const char * const *) players, player))
     {
       found = TRUE;
@@ -814,6 +916,7 @@ pulseaudio_config_clear_known_players (PulseaudioConfig *config)
 {
   gchar  *player_string;
   GValue  src = { 0, };
+  gchar  *property;
 
   g_return_if_fail (IS_PULSEAUDIO_CONFIG (config));
 
@@ -822,8 +925,21 @@ pulseaudio_config_clear_known_players (PulseaudioConfig *config)
   g_value_init(&src, G_TYPE_STRING);
   g_value_set_static_string(&src, player_string);
 
-  pulseaudio_config_set_property (G_OBJECT (config), PROP_BLACKLISTED_PLAYERS, &src, NULL);
-  pulseaudio_config_set_property (G_OBJECT (config), PROP_MPRIS_PLAYERS, &src, NULL);
+  /* Remove old properties */
+  if (G_LIKELY (config->channel))
+    {
+      property = g_strconcat (config->property_base, "/mpris-players", NULL);
+      xfconf_channel_reset_property (config->channel, property, FALSE);
+      g_free (property);
+
+      property = g_strconcat (config->property_base, "/blacklisted-players", NULL);
+      xfconf_channel_reset_property (config->channel, property, FALSE);
+      g_free (property);
+    }
+
+  pulseaudio_config_set_property (G_OBJECT (config), PROP_IGNORED_PLAYERS, &src, NULL);
+  pulseaudio_config_set_property (G_OBJECT (config), PROP_PERSISTENT_PLAYERS, &src, NULL);
+  pulseaudio_config_set_property (G_OBJECT (config), PROP_KNOWN_PLAYERS, &src, NULL);
 
   g_free (player_string);
 }
@@ -867,6 +983,9 @@ pulseaudio_config_new (const gchar     *property_base)
     {
       channel = xfconf_channel_get ("xfce4-panel");
 
+      config->property_base = property_base;
+      config->channel = channel;
+
       property = g_strconcat (property_base, "/enable-keyboard-shortcuts", NULL);
       xfconf_g_property_bind (channel, property, G_TYPE_BOOLEAN, config, "enable-keyboard-shortcuts");
       g_free (property);
@@ -901,12 +1020,16 @@ pulseaudio_config_new (const gchar     *property_base)
       xfconf_g_property_bind (channel, property, G_TYPE_BOOLEAN, config, "enable-mpris");
       g_free (property);
 
-      property = g_strconcat (property_base, "/mpris-players", NULL);
-      xfconf_g_property_bind (channel, property, G_TYPE_STRING, config, "mpris-players");
+      property = g_strconcat (property_base, "/known-players", NULL);
+      xfconf_g_property_bind (channel, property, G_TYPE_STRING, config, "known-players");
       g_free (property);
 
-      property = g_strconcat (property_base, "/blacklisted-players", NULL);
-      xfconf_g_property_bind (channel, property, G_TYPE_STRING, config, "blacklisted-players");
+      property = g_strconcat (property_base, "/ignored-players", NULL);
+      xfconf_g_property_bind (channel, property, G_TYPE_STRING, config, "ignored-players");
+      g_free (property);
+
+      property = g_strconcat (property_base, "/persistent-players", NULL);
+      xfconf_g_property_bind (channel, property, G_TYPE_STRING, config, "persistent-players");
       g_free (property);
 
       property = g_strconcat (property_base, "/enable-wnck", NULL);
