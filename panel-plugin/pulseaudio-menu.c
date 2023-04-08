@@ -87,14 +87,6 @@ pulseaudio_menu_class_init (PulseaudioMenuClass *klass)
 static void
 pulseaudio_menu_init (PulseaudioMenu *menu)
 {
-  menu->volume                         = NULL;
-  menu->config                         = NULL;
-  menu->mpris                          = NULL;
-  menu->button                         = NULL;
-  menu->output_scale                   = NULL;
-  menu->input_scale                    = NULL;
-  menu->volume_changed_id              = 0;
-  menu->volume_mic_changed_id          = 0;
 }
 
 
@@ -111,15 +103,6 @@ pulseaudio_menu_finalize (GObject *object)
 
   if (menu->volume_mic_changed_id != 0)
     g_signal_handler_disconnect (G_OBJECT (menu->volume), menu->volume_mic_changed_id);
-
-  menu->volume                         = NULL;
-  menu->config                         = NULL;
-  menu->mpris                          = NULL;
-  menu->button                         = NULL;
-  menu->output_scale                   = NULL;
-  menu->input_scale                    = NULL;
-  menu->volume_changed_id              = 0;
-  menu->volume_mic_changed_id          = 0;
 
   G_OBJECT_CLASS (pulseaudio_menu_parent_class)->finalize (object);
 }
