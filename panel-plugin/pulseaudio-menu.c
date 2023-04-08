@@ -54,6 +54,7 @@ struct _PulseaudioMenu
   GtkWidget            *output_scale;
   GtkWidget            *input_scale;
 
+  gulong                connection_changed_id;
   gulong                volume_changed_id;
   gulong                volume_mic_changed_id;
 };
@@ -97,6 +98,9 @@ pulseaudio_menu_finalize (GObject *object)
   PulseaudioMenu *menu;
 
   menu = PULSEAUDIO_MENU (object);
+
+  if (menu->connection_changed_id != 0)
+    g_signal_handler_disconnect (G_OBJECT (menu->volume), menu->connection_changed_id);
 
   if (menu->volume_changed_id != 0)
     g_signal_handler_disconnect (G_OBJECT (menu->volume), menu->volume_changed_id);
@@ -272,6 +276,29 @@ pulseaudio_menu_activate_playlist (PulseaudioMenu *menu,
 
   g_free (player);
   g_free (playlist);
+}
+
+
+
+static void
+pulseaudio_menu_connection_changed (PulseaudioMenu   *menu,
+                                    PulseaudioVolume *volume)
+{
+  g_return_if_fail(IS_PULSEAUDIO_MENU(menu));
+
+  if (menu->volume_changed_id != 0)
+    {
+      g_signal_handler_disconnect (G_OBJECT (menu->volume), menu->volume_changed_id);
+      menu->volume_changed_id = 0;
+    }
+
+  if (menu->volume_mic_changed_id != 0)
+    {
+      g_signal_handler_disconnect (G_OBJECT (menu->volume), menu->volume_mic_changed_id);
+      menu->volume_mic_changed_id = 0;
+    }
+
+  gtk_widget_set_visible (GTK_WIDGET (menu), FALSE);
 }
 
 
@@ -458,6 +485,9 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
   menu->config = config;
   menu->mpris = mpris;
   menu->button = widget;
+  menu->connection_changed_id =
+    g_signal_connect_swapped (G_OBJECT (menu->volume), "connection-changed",
+                              G_CALLBACK (pulseaudio_menu_connection_changed), menu);
   menu->volume_changed_id =
     g_signal_connect_swapped (G_OBJECT (menu->volume), "volume-changed",
                               G_CALLBACK (pulseaudio_menu_volume_changed), menu);

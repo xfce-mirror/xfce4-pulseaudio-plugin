@@ -113,6 +113,7 @@ typedef struct
 
 enum
 {
+  CONNECTION_CHANGED,
   VOLUME_CHANGED,
   VOLUME_MIC_CHANGED,
   RECORDING_CHANGED,
@@ -147,6 +148,14 @@ pulseaudio_volume_class_init (PulseaudioVolumeClass *klass)
 
   gobject_class = G_OBJECT_CLASS (klass);
   gobject_class->finalize = pulseaudio_volume_finalize;
+
+  pulseaudio_volume_signals[CONNECTION_CHANGED] =
+    g_signal_new (g_intern_static_string ("connection-changed"),
+                  G_TYPE_FROM_CLASS (gobject_class),
+                  G_SIGNAL_RUN_LAST,
+                  0, NULL, NULL,
+                  g_cclosure_marshal_VOID__VOID,
+                  G_TYPE_NONE, 0);
 
   pulseaudio_volume_signals[VOLUME_CHANGED] =
     g_signal_new (g_intern_static_string ("volume-changed"),
@@ -238,6 +247,16 @@ pulseaudio_volume_sink_info_cb (pa_context         *context,
 
   PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
 
+  if (eol > 0)
+    {
+      if (!volume->sink_connected)
+        {
+          g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [CONNECTION_CHANGED], 0);
+          volume->sink_connected = TRUE;
+        }
+      return;
+    }
+
   if (i == NULL)
     return;
 
@@ -269,7 +288,6 @@ pulseaudio_volume_sink_info_cb (pa_context         *context,
     }
 
   pulseaudio_debug ("volume: %f, muted: %d", vol, muted);
-  volume->sink_connected = TRUE;
 }
 
 
@@ -284,6 +302,16 @@ pulseaudio_volume_source_info_cb (pa_context           *context,
   gdouble   vol_mic = 0.0;
 
   PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
+
+  if (eol > 0)
+    {
+      if (!volume->source_connected)
+        {
+          g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [CONNECTION_CHANGED], 0);
+          volume->source_connected = TRUE;
+        }
+      return;
+    }
 
   if (i == NULL)
     return;
@@ -317,7 +345,6 @@ pulseaudio_volume_source_info_cb (pa_context           *context,
     }
 
   pulseaudio_debug ("volume mic: %f, muted mic: %d", vol_mic, muted_mic);
-  volume->source_connected = TRUE;
 }
 
 
@@ -511,25 +538,6 @@ pulseaudio_volume_get_source_list_cb (pa_context           *context,
 
 
 static void
-pulseaudio_volume_get_server_info_cb (pa_context           *context,
-                                      const pa_server_info *i,
-                                      void                 *userdata)
-{
-  PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
-
-  if (i == NULL)
-    return;
-
-  g_free (volume->default_sink_name);
-  g_free (volume->default_source_name);
-
-  volume->default_sink_name = g_strdup (i->default_sink_name);
-  volume->default_source_name = g_strdup (i->default_source_name);
-}
-
-
-
-static void
 pulseaudio_volume_context_state_cb (pa_context *context,
                                     void       *userdata)
 {
@@ -543,17 +551,16 @@ pulseaudio_volume_context_state_cb (pa_context *context,
 
       pulseaudio_debug ("PulseAudio connection established");
       volume->connected = TRUE;
-      // Check current sink and source volume manually. PA sink events usually not emitted.
-      pulseaudio_volume_sink_source_check (volume, context);
-
-      g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_CHANGED], 0, FALSE);
-      g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_MIC_CHANGED], 0, FALSE);
-      g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [RECORDING_CHANGED], 0, FALSE);
-
       volume->sink_connected = FALSE;
       volume->source_connected = FALSE;
 
-      pa_context_get_server_info (volume->pa_context, pulseaudio_volume_get_server_info_cb, volume);
+      // Check current sink and source volume manually. PA sink events usually not emitted.
+      pulseaudio_volume_sink_source_check (volume, context);
+
+      g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [CONNECTION_CHANGED], 0);
+      g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_CHANGED], 0, FALSE);
+      g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_MIC_CHANGED], 0, FALSE);
+      g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [RECORDING_CHANGED], 0, FALSE);
       break;
 
     case PA_CONTEXT_FAILED       :
@@ -561,6 +568,8 @@ pulseaudio_volume_context_state_cb (pa_context *context,
       g_warning ("Disconnected from the PulseAudio server. Attempting to reconnect in 5 seconds...");
       volume->pa_context = NULL;
       volume->connected = FALSE;
+      volume->sink_connected = FALSE;
+      volume->source_connected = FALSE;
       volume->volume = 0.0;
       volume->muted = FALSE;
       volume->recording = FALSE;
@@ -569,6 +578,7 @@ pulseaudio_volume_context_state_cb (pa_context *context,
       volume->base_volume_mic = 0.0;
       volume->muted_mic = FALSE;
 
+      g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [CONNECTION_CHANGED], 0);
       g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_CHANGED], 0, FALSE);
       g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [VOLUME_MIC_CHANGED], 0, FALSE);
       g_signal_emit (G_OBJECT (volume), pulseaudio_volume_signals [RECORDING_CHANGED], 0, FALSE);
@@ -652,26 +662,6 @@ pulseaudio_volume_get_connected (PulseaudioVolume *volume)
   g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), FALSE);
 
   return volume->connected;
-}
-
-
-
-gboolean
-pulseaudio_volume_get_sink_connected (PulseaudioVolume *volume)
-{
-  g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), FALSE);
-
-  return volume->sink_connected;
-}
-
-
-
-gboolean
-pulseaudio_volume_get_source_connected (PulseaudioVolume *volume)
-{
-  g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), FALSE);
-
-  return volume->source_connected;
 }
 
 
