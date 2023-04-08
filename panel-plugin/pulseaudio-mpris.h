@@ -39,13 +39,10 @@ typedef struct          _PulseaudioMprisClass                  PulseaudioMprisCl
 
 PulseaudioMpris        *pulseaudio_mpris_new                   (PulseaudioConfig *config);
 
-gchar                 **pulseaudio_mpris_get_available_players (PulseaudioMpris  *mpris);
-
 gboolean                pulseaudio_mpris_get_player_snapshot   (PulseaudioMpris  *mpris,
                                                                 const gchar      *name,
                                                                 gchar           **title,
                                                                 gchar           **artist,
-                                                                gboolean         *is_running,
                                                                 gboolean         *is_playing,
                                                                 gboolean         *is_stopped,
                                                                 gboolean         *can_play,
@@ -55,8 +52,7 @@ gboolean                pulseaudio_mpris_get_player_snapshot   (PulseaudioMpris 
                                                                 gboolean         *can_raise,
                                                                 GList           **playlists);
 
-gboolean                pulseaudio_mpris_get_player_summary    (const gchar      *player,
-                                                                gchar           **name,
+gboolean                pulseaudio_mpris_get_player_summary    (const gchar      *player_title,
                                                                 gchar           **icon_name,
                                                                 gchar           **full_path);
 

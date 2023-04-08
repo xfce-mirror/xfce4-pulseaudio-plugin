@@ -160,14 +160,14 @@ pulseaudio_dialog_run_mixer (PulseaudioDialog *dialog,
 
 
 static void
-pulseaudio_dialog_player_toggled_cb (GtkCellRendererToggle *toggle, gchar *path, gpointer user_data)
+pulseaudio_dialog_persistent_toggled_cb (GtkCellRendererToggle *toggle, gchar *path, gpointer user_data)
 {
   PulseaudioDialog *dialog = PULSEAUDIO_DIALOG (user_data);
   GtkTreeModel     *model;
   GtkTreePath      *treepath;
   GtkTreeIter       iter;
-  GValue            hidden_val = {0,}, player_val = {0,};
-  gboolean          hidden;
+  GValue            persistent_val = {0,}, player_val = {0,};
+  gboolean          persistent;
   const gchar      *player;
 
   model = GTK_TREE_MODEL(gtk_tree_view_get_model(GTK_TREE_VIEW(dialog->treeview)));
@@ -175,13 +175,43 @@ pulseaudio_dialog_player_toggled_cb (GtkCellRendererToggle *toggle, gchar *path,
   gtk_tree_model_get_iter (model, &iter, treepath);
 
   gtk_tree_model_get_value (model, &iter, 1, &player_val);
-  gtk_tree_model_get_value (model, &iter, 3, &hidden_val);
-  hidden = !g_value_get_boolean(&hidden_val);
+  gtk_tree_model_get_value (model, &iter, 2, &persistent_val);
+  persistent = !g_value_get_boolean(&persistent_val);
   player = g_value_get_string(&player_val);
 
-  gtk_list_store_set(GTK_LIST_STORE(model), &iter, 3, hidden, -1);
+  gtk_list_store_set(GTK_LIST_STORE(model), &iter, 2, persistent, -1);
 
-  if (hidden)
+  if (persistent)
+    pulseaudio_config_player_persistent_add (dialog->config, player);
+  else
+    pulseaudio_config_player_persistent_remove (dialog->config, player);
+}
+
+
+
+static void
+pulseaudio_dialog_ignored_toggled_cb (GtkCellRendererToggle *toggle, gchar *path, gpointer user_data)
+{
+  PulseaudioDialog *dialog = PULSEAUDIO_DIALOG (user_data);
+  GtkTreeModel     *model;
+  GtkTreePath      *treepath;
+  GtkTreeIter       iter;
+  GValue            ignored_val = {0,}, player_val = {0,};
+  gboolean          ignored;
+  const gchar      *player;
+
+  model = GTK_TREE_MODEL(gtk_tree_view_get_model(GTK_TREE_VIEW(dialog->treeview)));
+  treepath = gtk_tree_path_new_from_string (path);
+  gtk_tree_model_get_iter (model, &iter, treepath);
+
+  gtk_tree_model_get_value (model, &iter, 1, &player_val);
+  gtk_tree_model_get_value (model, &iter, 3, &ignored_val);
+  ignored = !g_value_get_boolean(&ignored_val);
+  player = g_value_get_string(&player_val);
+
+  gtk_list_store_set(GTK_LIST_STORE(model), &iter, 3, ignored, -1);
+
+  if (ignored)
     pulseaudio_config_player_blacklist_add (dialog->config, player);
   else
     pulseaudio_config_player_blacklist_remove (dialog->config, player);
@@ -328,12 +358,10 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
           const guint num_players = g_strv_length (players);
           for (i = 0; i < num_players; i++)
             {
-              gchar *name = NULL;
               gchar *icon_name = NULL;
-              gchar *full_path = NULL;
               GIcon *icon = NULL;
 
-              if (pulseaudio_mpris_get_player_summary (players[i], &name, &icon_name, &full_path))
+              if (pulseaudio_mpris_get_player_summary (players[i], &icon_name, NULL))
                 {
                   if (g_file_test (icon_name, G_FILE_TEST_EXISTS) && !g_file_test (icon_name, G_FILE_TEST_IS_DIR))
                     {
@@ -354,22 +382,24 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
                   gtk_list_store_set (liststore, &iter,
                                       0, icon,
                                       1, players[i],
-                                      2, name,
+                                      2, pulseaudio_config_player_persistent_lookup (dialog->config, players[i]),
                                       3, pulseaudio_config_player_blacklist_lookup (dialog->config, players[i]),
                                       -1);
 
-                  g_free (name);
                   g_free (icon_name);
-                  g_free (full_path);
                   if (icon != NULL)
                     g_object_unref (icon);
                 }
             }
-        }
-      g_strfreev (players);
 
-      object = gtk_builder_get_object(builder, "col_hidden_renderer");
-      g_signal_connect (object, "toggled", (GCallback) pulseaudio_dialog_player_toggled_cb, dialog);
+          g_strfreev (players);
+        }
+
+      object = gtk_builder_get_object(builder, "col_persistent_renderer");
+      g_signal_connect (object, "toggled", (GCallback) pulseaudio_dialog_persistent_toggled_cb, dialog);
+
+      object = gtk_builder_get_object(builder, "col_ignored_renderer");
+      g_signal_connect (object, "toggled", (GCallback) pulseaudio_dialog_ignored_toggled_cb, dialog);
 
       object = gtk_builder_get_object(builder, "clear_players");
       g_signal_connect (object, "clicked", (GCallback) pulseaudio_dialog_clear_players_cb, dialog);
