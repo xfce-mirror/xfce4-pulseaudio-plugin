@@ -109,6 +109,7 @@ struct _PulseaudioButton
 
   PulseaudioMenu       *menu;
 
+  gulong                connection_changed_id;
   gulong                volume_changed_id;
   gulong                recording_volume_changed_id;
   gulong                recording_changed_id;
@@ -398,23 +399,6 @@ pulseaudio_button_update_icons (PulseaudioButton *button)
 
 
 
-static gboolean
-pulseaudio_button_sink_connection_timeout  (gpointer userdata)
-{
-  PulseaudioButton *button = PULSEAUDIO_BUTTON (userdata);
-  gboolean sink_connected = pulseaudio_volume_get_sink_connected (button->volume);
-
-  if (sink_connected)
-  {
-    pulseaudio_button_update (button, TRUE);
-    return FALSE;
-  }
-
-  return TRUE;
-}
-
-
-
 static void
 pulseaudio_button_update (PulseaudioButton *button,
                           gboolean          force_update)
@@ -422,7 +406,6 @@ pulseaudio_button_update (PulseaudioButton *button,
   gdouble      volume;
   gdouble      recording_volume;
   gboolean     connected;
-  gboolean     sink_connected;
   gboolean     muted;
   gboolean     recording_muted;
   gboolean     recording;
@@ -435,7 +418,6 @@ pulseaudio_button_update (PulseaudioButton *button,
   volume = pulseaudio_volume_get_volume (button->volume);
   muted = pulseaudio_volume_get_muted (button->volume);
   connected = pulseaudio_volume_get_connected (button->volume);
-  sink_connected = pulseaudio_volume_get_sink_connected (button->volume);
   recording = pulseaudio_volume_get_recording (button->volume);
   recording_volume = pulseaudio_volume_get_volume_mic (button->volume);
   recording_muted = pulseaudio_volume_get_muted_mic (button->volume);
@@ -485,9 +467,6 @@ pulseaudio_button_update (PulseaudioButton *button,
 
   if (gtk_widget_get_visible (button->recording_indicator) != recording)
     gtk_widget_set_visible (button->recording_indicator, recording);
-
-  if (!sink_connected)
-    g_timeout_add (250, pulseaudio_button_sink_connection_timeout, button);
 }
 
 
@@ -538,6 +517,18 @@ pulseaudio_button_volume_changed (PulseaudioButton  *button,
 {
   g_return_if_fail (IS_PULSEAUDIO_BUTTON (button));
 
+  if (pulseaudio_volume_get_connected (button->volume))
+    pulseaudio_button_update (button, FALSE);
+}
+
+
+
+static void
+pulseaudio_button_update2 (PulseaudioButton  *button,
+                           PulseaudioVolume  *volume)
+{
+  g_return_if_fail (IS_PULSEAUDIO_BUTTON (button));
+
   pulseaudio_button_update (button, FALSE);
 }
 
@@ -564,6 +555,9 @@ pulseaudio_button_new (PulseaudioPlugin *plugin,
   button->volume = volume;
   button->config = config;
   button->mpris = mpris;
+  button->connection_changed_id =
+    g_signal_connect_swapped (G_OBJECT (button->volume), "connection-changed",
+                              G_CALLBACK (pulseaudio_button_update2), button);
   button->volume_changed_id =
     g_signal_connect_swapped (G_OBJECT (button->volume), "volume-changed",
                               G_CALLBACK (pulseaudio_button_volume_changed), button);
