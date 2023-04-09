@@ -555,7 +555,7 @@ mpris_menu_item_launch (MprisMenuItem *item)
 
   priv = mpris_menu_item_get_instance_private (item);
 
-  if (priv->is_running)
+  if (priv->is_running || !priv->filename)
     return;
 
   app_info = (GAppInfo*)g_desktop_app_info_new_from_filename (priv->filename);
