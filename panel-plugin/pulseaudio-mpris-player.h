@@ -72,8 +72,6 @@ gboolean                pulseaudio_mpris_player_can_go_next        (PulseaudioMp
 gboolean                pulseaudio_mpris_player_can_raise          (PulseaudioMprisPlayer *player);
 gboolean                pulseaudio_mpris_player_can_launch         (PulseaudioMprisPlayer *player);
 
-gboolean                pulseaudio_mpris_player_is_equal           (PulseaudioMprisPlayer *a,
-                                                                    PulseaudioMprisPlayer *b);
 
 void                    pulseaudio_mpris_player_call_player_method (PulseaudioMprisPlayer *player,
                                                                     const gchar           *method);

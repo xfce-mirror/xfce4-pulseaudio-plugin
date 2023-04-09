@@ -1041,15 +1041,6 @@ pulseaudio_mpris_player_can_launch (PulseaudioMprisPlayer *player)
 
 
 
-gboolean
-pulseaudio_mpris_player_is_equal (PulseaudioMprisPlayer *a,
-                                  PulseaudioMprisPlayer *b)
-{
-  return g_strcmp0 (pulseaudio_mpris_player_get_player_title (a), pulseaudio_mpris_player_get_player_title (b)) == 0;
-}
-
-
-
 static void
 pulseaudio_mpris_player_init (PulseaudioMprisPlayer *player)
 {
