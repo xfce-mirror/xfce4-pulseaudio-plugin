@@ -39,8 +39,6 @@ typedef struct          _PulseaudioMprisClass                  PulseaudioMprisCl
 
 PulseaudioMpris        *pulseaudio_mpris_new                   (PulseaudioConfig *config);
 
-gchar                 **pulseaudio_mpris_get_available_players (PulseaudioMpris  *mpris);
-
 gboolean                pulseaudio_mpris_get_player_snapshot   (PulseaudioMpris  *mpris,
                                                                 const gchar      *name,
                                                                 gchar           **title,

@@ -168,7 +168,7 @@ player_is_usable (PulseaudioMpris *mpris,
 }
 
 
-gchar **
+static gchar **
 pulseaudio_mpris_get_available_players (PulseaudioMpris *mpris)
 {
   GError *error = NULL;
