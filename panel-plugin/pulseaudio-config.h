@@ -58,20 +58,27 @@ gboolean           pulseaudio_config_get_play_sound                 (PulseaudioC
 guint              pulseaudio_config_get_volume_step                (PulseaudioConfig     *config);
 guint              pulseaudio_config_get_volume_max                 (PulseaudioConfig     *config);
 const gchar       *pulseaudio_config_get_mixer_command              (PulseaudioConfig     *config);
-gchar            **pulseaudio_config_get_mpris_players              (PulseaudioConfig     *config);
+gchar            **pulseaudio_config_get_known_players              (PulseaudioConfig     *config);
 
 gboolean           pulseaudio_config_get_enable_mpris               (PulseaudioConfig     *config);
 void               pulseaudio_config_set_mpris_players              (PulseaudioConfig     *config,
                                                                      gchar               **players);
-void               pulseaudio_config_add_mpris_player               (PulseaudioConfig     *config,
-                                                                     gchar                *player);
+void               pulseaudio_config_add_known_player               (PulseaudioConfig     *config,
+                                                                     const gchar          *player);
 
-void               pulseaudio_config_player_blacklist_add           (PulseaudioConfig     *config,
+void               pulseaudio_config_player_ignored_add             (PulseaudioConfig     *config,
                                                                      const gchar          *player);
-void               pulseaudio_config_player_blacklist_remove        (PulseaudioConfig     *config,
+void               pulseaudio_config_player_ignored_remove          (PulseaudioConfig     *config,
                                                                      const gchar          *player);
-gboolean           pulseaudio_config_player_blacklist_lookup        (PulseaudioConfig     *config,
-                                                                     gchar                *player);
+gboolean           pulseaudio_config_player_ignored_lookup          (PulseaudioConfig     *config,
+                                                                     const gchar          *player);
+
+void               pulseaudio_config_player_persistent_add          (PulseaudioConfig     *config,
+                                                                     const gchar          *player);
+void               pulseaudio_config_player_persistent_remove       (PulseaudioConfig     *config,
+                                                                     const gchar          *player);
+gboolean           pulseaudio_config_player_persistent_lookup       (PulseaudioConfig     *config,
+                                                                     const gchar          *player);
 
 void               pulseaudio_config_clear_known_players            (PulseaudioConfig     *config);
 

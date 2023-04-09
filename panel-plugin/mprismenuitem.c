@@ -120,7 +120,6 @@ static void         update_packing                          (MprisMenuItem  *ite
 /* Public API */
 GtkWidget*
 mpris_menu_item_new_with_player (const gchar *player,
-                                 const gchar *title,
                                  const gchar *icon_name,
                                  const gchar *filename)
 {
@@ -134,10 +133,7 @@ mpris_menu_item_new_with_player (const gchar *player,
   priv = mpris_menu_item_get_instance_private (menu_item);
 
   priv->player = g_strdup(player);
-  if (title != NULL)
-    priv->title = g_strdup(title);
-  else
-    priv->title = g_strdup(player);
+  priv->title = g_strdup(player);
   priv->filename = g_strdup(filename);
 
   update_packing (menu_item);
@@ -175,16 +171,15 @@ GtkWidget*
 mpris_menu_item_new_from_player_name (const gchar *player)
 {
   GtkWidget *widget = NULL;
-  gchar     *name;
   gchar     *icon_name;
   gchar     *full_path;
 
-  if (pulseaudio_mpris_get_player_summary (player, &name, &icon_name, &full_path)) {
-    widget = mpris_menu_item_new_with_player (player, name, icon_name, full_path);
-    g_free (name);
-    g_free (icon_name);
-    g_free (full_path);
-  }
+  if (pulseaudio_mpris_get_player_summary (player, &icon_name, &full_path))
+    {
+      widget = mpris_menu_item_new_with_player (player, icon_name, full_path);
+      g_free (icon_name);
+      g_free (full_path);
+    }
 
   return widget;
 }
