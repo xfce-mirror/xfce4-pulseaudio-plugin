@@ -85,6 +85,9 @@ struct _PulseaudioConfig
 {
   GObject          __parent__;
 
+  const gchar     *property_base;
+  XfconfChannel   *channel;
+
   gboolean         enable_keyboard_shortcuts;
   gboolean         enable_multimedia_keys;
   guint            show_notifications;
@@ -913,6 +916,7 @@ pulseaudio_config_clear_known_players (PulseaudioConfig *config)
 {
   gchar  *player_string;
   GValue  src = { 0, };
+  gchar  *property;
 
   g_return_if_fail (IS_PULSEAUDIO_CONFIG (config));
 
@@ -920,6 +924,18 @@ pulseaudio_config_clear_known_players (PulseaudioConfig *config)
 
   g_value_init(&src, G_TYPE_STRING);
   g_value_set_static_string(&src, player_string);
+
+  /* Remove old properties */
+  if (G_LIKELY (config->channel))
+    {
+      property = g_strconcat (config->property_base, "/mpris-players", NULL);
+      xfconf_channel_reset_property (config->channel, property, FALSE);
+      g_free (property);
+
+      property = g_strconcat (config->property_base, "/blacklisted-players", NULL);
+      xfconf_channel_reset_property (config->channel, property, FALSE);
+      g_free (property);
+    }
 
   pulseaudio_config_set_property (G_OBJECT (config), PROP_IGNORED_PLAYERS, &src, NULL);
   pulseaudio_config_set_property (G_OBJECT (config), PROP_PERSISTENT_PLAYERS, &src, NULL);
@@ -966,6 +982,9 @@ pulseaudio_config_new (const gchar     *property_base)
   if (xfconf_init (NULL))
     {
       channel = xfconf_channel_get ("xfce4-panel");
+
+      config->property_base = property_base;
+      config->channel = channel;
 
       property = g_strconcat (property_base, "/enable-keyboard-shortcuts", NULL);
       xfconf_g_property_bind (channel, property, G_TYPE_BOOLEAN, config, "enable-keyboard-shortcuts");
