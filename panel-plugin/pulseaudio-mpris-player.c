@@ -63,7 +63,6 @@ struct _PulseaudioMprisPlayer
   gboolean          can_pause;
   gboolean          can_play;
   gboolean          can_raise;
-  gboolean          can_launch;
 
   PlaybackStatus    playback_status;
 
@@ -1033,14 +1032,6 @@ pulseaudio_mpris_player_can_raise (PulseaudioMprisPlayer *player)
 
 
 
-gboolean
-pulseaudio_mpris_player_can_launch (PulseaudioMprisPlayer *player)
-{
-  return player->can_launch;
-}
-
-
-
 static void
 pulseaudio_mpris_player_init (PulseaudioMprisPlayer *player)
 {
@@ -1112,8 +1103,6 @@ pulseaudio_mpris_player_new (gchar *name)
 
   pulseaudio_mpris_player_set_details_from_desktop (player, name);
   pulseaudio_mpris_player_dbus_connect (player);
-
-  player->can_launch = player->full_path != NULL;
 
   player->playlists = g_hash_table_new_full (g_str_hash, g_str_equal, (GDestroyNotify)g_free, (GDestroyNotify)g_free);
 

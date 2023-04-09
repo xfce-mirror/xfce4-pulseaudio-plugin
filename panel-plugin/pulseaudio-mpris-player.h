@@ -70,8 +70,6 @@ gboolean                pulseaudio_mpris_player_can_pause          (PulseaudioMp
 gboolean                pulseaudio_mpris_player_can_go_previous    (PulseaudioMprisPlayer *player);
 gboolean                pulseaudio_mpris_player_can_go_next        (PulseaudioMprisPlayer *player);
 gboolean                pulseaudio_mpris_player_can_raise          (PulseaudioMprisPlayer *player);
-gboolean                pulseaudio_mpris_player_can_launch         (PulseaudioMprisPlayer *player);
-
 
 void                    pulseaudio_mpris_player_call_player_method (PulseaudioMprisPlayer *player,
                                                                     const gchar           *method);

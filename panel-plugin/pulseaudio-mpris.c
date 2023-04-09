@@ -399,7 +399,7 @@ pulseaudio_mpris_get_player_summary (const gchar  *player_id,
   if (*full_path == NULL)
     return FALSE;
 
-  if (!pulseaudio_mpris_player_is_connected (player) && !pulseaudio_mpris_player_can_launch (player))
+  if (!pulseaudio_mpris_player_is_connected (player))
     return FALSE;
 
   return TRUE;
