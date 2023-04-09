@@ -756,8 +756,8 @@ pulseaudio_mpris_player_on_dbus_lost (GDBusConnection *connection,
 
 
 
-static gchar *
-find_desktop_entry (const gchar *player_name)
+gchar *
+pulseaudio_mpris_player_find_desktop_entry (const gchar *player_name)
 {
   GKeyFile  *key_file;
   gchar     *file = NULL;
@@ -809,7 +809,7 @@ pulseaudio_mpris_player_set_details_from_desktop (PulseaudioMprisPlayer *player,
   gchar     *full_path = NULL;
   gchar     *filename = NULL;
 
-  filename = find_desktop_entry (player_name);
+  filename = pulseaudio_mpris_player_find_desktop_entry (player_name);
 
   g_free (player->player_label);
   g_free (player->icon_name);

@@ -71,49 +71,6 @@ static PulseaudioMpris *mpris_instance;
 
 
 
-static gchar *
-find_desktop_entry (const gchar *player_name)
-{
-  GKeyFile  *key_file;
-  gchar     *file = NULL;
-  gchar     *filename = NULL;
-
-  file = g_strconcat ("applications/", player_name, ".desktop", NULL);
-
-  key_file = g_key_file_new();
-  if (g_key_file_load_from_data_dirs (key_file, file, NULL, G_KEY_FILE_NONE, NULL))
-    {
-      filename = g_strconcat (player_name, ".desktop", NULL);
-    }
-  else
-    {
-      /* Support reverse domain name (RDN) formatted launchers. */
-      gchar ***results = g_desktop_app_info_search (player_name);
-      gint i, j;
-
-      for (i = 0; results[i]; i++)
-        {
-          for (j = 0; results[i][j]; j++)
-            {
-              if (filename == NULL)
-                {
-                  filename = g_strdup (results[i][j]);
-                }
-            }
-          g_strfreev (results[i]);
-      }
-      g_free (results);
-    }
-
-  g_key_file_free (key_file);
-
-  g_free (file);
-
-  return filename;
-}
-
-
-
 static void
 pulseaudio_mpris_class_init (PulseaudioMprisClass *klass)
 {
@@ -397,7 +354,7 @@ pulseaudio_mpris_get_player_summary_from_desktop (const gchar  *player_id,
   gchar     *filename;
   gchar     *path;
 
-  filename = find_desktop_entry (player_id);
+  filename = pulseaudio_mpris_player_find_desktop_entry (player_id);
   if (filename == NULL)
     {
       return FALSE;

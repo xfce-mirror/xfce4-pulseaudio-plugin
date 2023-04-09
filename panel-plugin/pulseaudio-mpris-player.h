@@ -52,6 +52,8 @@ typedef struct          _PulseaudioMprisPlayerClass                PulseaudioMpr
 
 PulseaudioMprisPlayer  *pulseaudio_mpris_player_new                (gchar *name);
 
+gchar                  *pulseaudio_mpris_player_find_desktop_entry (const gchar           *player_name);
+
 const gchar            *pulseaudio_mpris_player_get_player         (PulseaudioMprisPlayer *player);
 const gchar            *pulseaudio_mpris_player_get_player_title   (PulseaudioMprisPlayer *player);
 const gchar            *pulseaudio_mpris_player_get_icon_name      (PulseaudioMprisPlayer *player);
