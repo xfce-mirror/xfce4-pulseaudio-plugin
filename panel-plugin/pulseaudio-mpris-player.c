@@ -602,7 +602,8 @@ pulseaudio_mpris_player_parse_media_player_properties (PulseaudioMprisPlayer *pl
   GVariantIter  iter;
   GVariant     *value;
   const gchar  *key;
-  const gchar  *filename = NULL;
+  const gchar  *name_for_desktop = NULL;
+  const gchar  *identify = NULL;
 
   g_variant_iter_init (&iter, properties);
 
@@ -614,10 +615,22 @@ pulseaudio_mpris_player_parse_media_player_properties (PulseaudioMprisPlayer *pl
         }
       else if (0 == g_ascii_strcasecmp (key, "DesktopEntry"))
         {
-          filename = g_variant_get_string(value, NULL);
-          pulseaudio_mpris_player_set_details_from_desktop (player, filename);
+          name_for_desktop = g_variant_get_string(value, NULL);
+        }
+      else if (0 == g_ascii_strcasecmp (key, "Identity"))
+        {
+          identify = g_variant_get_string(value, NULL);
         }
     }
+
+  if (name_for_desktop == NULL && identify != NULL && g_strcmp0 (identify, "") != 0)
+    player->player_label = g_strdup (identify);
+
+  if (name_for_desktop == NULL)
+    name_for_desktop = player->player_label;
+  if (name_for_desktop == NULL)
+    name_for_desktop = player->player;
+  pulseaudio_mpris_player_set_details_from_desktop (player, name_for_desktop);
 }
 
 
@@ -689,18 +702,6 @@ pulseaudio_mpris_player_on_dbus_connected (GDBusConnection *connection,
 
   player->connected = TRUE;
 
-  /* Notify that connect to a player.*/
-  g_signal_emit (player, signals[CONNECTION], 0, player->connected);
-
-  /* And informs the current status of the player */
-  reply = pulseaudio_mpris_player_get_all_player_properties (player);
-  if (reply)
-    {
-      pulseaudio_mpris_player_parse_player_properties (player, reply);
-      g_variant_unref (reply);
-    }
-
-
   /* Media player properties */
   reply = pulseaudio_mpris_player_get_all_media_player_properties (player);
   if (reply)
@@ -709,6 +710,19 @@ pulseaudio_mpris_player_on_dbus_connected (GDBusConnection *connection,
       g_variant_unref (reply);
     }
 
+  if (player->player_label == NULL)
+    pulseaudio_mpris_player_set_details_from_desktop (player, player->player);
+
+  /* Notify that connect to a player */
+  g_signal_emit (player, signals[CONNECTION], 0, player->connected);
+
+  /* Inform the current status of the player */
+  reply = pulseaudio_mpris_player_get_all_player_properties (player);
+  if (reply)
+    {
+      pulseaudio_mpris_player_parse_player_properties (player, reply);
+      g_variant_unref (reply);
+    }
 
   /* Playlists */
   reply = pulseaudio_mpris_player_playlists_get_playlists (player);
@@ -795,13 +809,13 @@ pulseaudio_mpris_player_set_details_from_desktop (PulseaudioMprisPlayer *player,
 
   filename = pulseaudio_mpris_player_find_desktop_entry (player_name);
 
-  g_free (player->player_label);
   g_free (player->icon_name);
   g_free (player->full_path);
 
   if (filename == NULL)
     {
-      player->player_label = g_strdup (player->player);
+      if (player->player_label == NULL)
+        player->player_label = g_strdup (player->player);
       player->icon_name = g_strdup ("applications-multimedia");
       player->full_path = NULL;
       return;
@@ -813,12 +827,14 @@ pulseaudio_mpris_player_set_details_from_desktop (PulseaudioMprisPlayer *player,
   key_file = g_key_file_new();
   if (g_key_file_load_from_data_dirs (key_file, file, &full_path, G_KEY_FILE_NONE, NULL))
     {
-      player->player_label = g_key_file_get_locale_string (key_file, "Desktop Entry", "Name", NULL, NULL);
+      if (player->player_label == NULL)
+        player->player_label = g_key_file_get_locale_string (key_file, "Desktop Entry", "Name", NULL, NULL);
       player->icon_name = g_key_file_get_string (key_file, "Desktop Entry", "Icon", NULL);
     }
   else
     {
-      player->player_label = g_strdup (player->player);
+      if (player->player_label == NULL)
+        player->player_label = g_strdup (player->player);
       player->icon_name = g_strdup ("applications-multimedia");
     }
 
@@ -1100,11 +1116,9 @@ pulseaudio_mpris_player_new (gchar *name)
 
   player->dbus_connection = gconnection;
   player->player = g_strdup (name);
+  player->playlists = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 
-  pulseaudio_mpris_player_set_details_from_desktop (player, name);
   pulseaudio_mpris_player_dbus_connect (player);
-
-  player->playlists = g_hash_table_new_full (g_str_hash, g_str_equal, (GDestroyNotify)g_free, (GDestroyNotify)g_free);
 
   return player;
 }
