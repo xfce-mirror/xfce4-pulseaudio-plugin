@@ -1071,9 +1071,12 @@ pulseaudio_mpris_player_finalize (GObject *object)
     g_object_unref (player->dbus_playlists_proxy);
 
   g_free (player->player);
+  g_free (player->player_label);
+  g_free (player->icon_name);
 
   g_free (player->title);
   g_free (player->artist);
+  g_free (player->full_path);
 
   if (player->playlists != NULL)
     g_hash_table_destroy (player->playlists);
