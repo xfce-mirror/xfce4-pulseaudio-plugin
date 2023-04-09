@@ -733,24 +733,9 @@ pulseaudio_mpris_player_on_dbus_lost (GDBusConnection *connection,
 {
   PulseaudioMprisPlayer *player = user_data;
 
-  /* Interface MediaPlayer2.Player */
-  player->playback_status = STOPPED;
-  player->can_go_next     = FALSE;
-  player->can_go_previous = FALSE;
-  player->can_play        = FALSE;
-  player->can_pause       = FALSE;
-  player->can_raise       = FALSE;
   player->connected       = FALSE;
 
-  g_free (player->title);
-  g_free (player->artist);
-
-  player->title           = NULL;
-  player->artist          = NULL;
-#ifdef HAVE_WNCK
-  player->xid             = 0L;
-#endif
-
+  /* This will delete the object */
   g_signal_emit (player, signals[CONNECTION], 0, player->connected);
 }
 
@@ -1085,7 +1070,7 @@ pulseaudio_mpris_player_finalize (GObject *object)
   player = PULSEAUDIO_MPRIS_PLAYER (object);
 
   /* Disconnect dbus */
-  if (player->watch_id)
+  if (player->watch_id != 0)
     g_bus_unwatch_name (player->watch_id);
   if (player->dbus_props_proxy != NULL)
     g_object_unref (player->dbus_props_proxy);
@@ -1094,8 +1079,10 @@ pulseaudio_mpris_player_finalize (GObject *object)
   if (player->dbus_playlists_proxy != NULL)
     g_object_unref (player->dbus_playlists_proxy);
 
-  /* Clean player */
   g_free (player->player);
+
+  g_free (player->title);
+  g_free (player->artist);
 
   if (player->playlists != NULL)
     g_hash_table_destroy (player->playlists);
