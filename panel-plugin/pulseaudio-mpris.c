@@ -443,6 +443,9 @@ pulseaudio_mpris_notify_any_player (PulseaudioMpris *mpris,
       if (G_UNLIKELY (!pulseaudio_mpris_player_is_connected (player)))
         continue;
 
+      if (pulseaudio_config_player_ignored_lookup (mpris->config, key))
+        continue;
+
       pulseaudio_mpris_player_call_player_method(player, message);
       found = TRUE;
     }
