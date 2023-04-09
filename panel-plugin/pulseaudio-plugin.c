@@ -242,6 +242,7 @@ pulseaudio_plugin_show_about (XfcePanelPlugin *plugin)
       "Viktor Odintsev <zakhams@gmail.com>",
       "Matthieu Mota <matthieumota@gmail.com>",
       "Sean Davis <bluesabre@xfce.org>",
+      "Błażej Szczygieł <mumei6102@gmail.com>",
       NULL
     };
 
