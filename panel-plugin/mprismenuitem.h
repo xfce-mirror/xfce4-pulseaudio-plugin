@@ -60,7 +60,6 @@ struct _MprisMenuItemClass
 GType        mpris_menu_item_get_type              (void) G_GNUC_CONST;
 
 GtkWidget   *mpris_menu_item_new_with_player       (const gchar *player,
-                                                    const gchar *title,
                                                     const gchar *icon_name,
                                                     const gchar *filename);
 
