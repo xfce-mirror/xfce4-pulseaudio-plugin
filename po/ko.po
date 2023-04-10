@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-03 00:49+0200\n"
+"POT-Creation-Date: 2023-04-10 00:49+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
 "Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>, 2015,2017-2018,2020,2022-2023\n"
 "Language-Team: Korean (http://app.transifex.com/xfce/xfce-panel-plugins/language/ko/)\n"
@@ -24,7 +24,7 @@ msgid "PulseAudio Plugin"
 msgstr "PulseAudio 플러그인"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:251
+#: ../panel-plugin/pulseaudio-plugin.c:256
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "PulseAudio 사운드 시스템의 오디오 음량을 조절합니다"
 
@@ -127,35 +127,39 @@ msgid "Enable experimental window focus support"
 msgstr "실험 창 포커스 지원 사용"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:24
-msgid "Title"
-msgstr "제목"
+msgid "Name"
+msgstr "이름"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:25
-msgid "Hidden"
-msgstr "숨김"
+msgid "Persistent"
+msgstr ""
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:26
+msgid "Ignored"
+msgstr ""
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:27
 msgid "Clear Known Items"
 msgstr "알려진 항목 지우기"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:27
-msgid "Please restart your panel for additional players to be displayed."
-msgstr "추가 재생기 항목을 나타내려면 다시 시작하십시오."
-
 #: ../panel-plugin/pulseaudio-dialog.glade.h:28
+msgid "Please restart the players to make them visible again."
+msgstr ""
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:29
 msgid "Known Media Players"
 msgstr "알려진 미디어 재생기"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:29
+#: ../panel-plugin/pulseaudio-dialog.glade.h:30
 msgid "Media Players"
 msgstr "미디어 재생 프로그램"
 
-#: ../panel-plugin/pulseaudio-plugin.c:253
+#: ../panel-plugin/pulseaudio-plugin.c:258
 msgid "Copyright © 2014-2023 Andrzej Radecki et al.\n"
 msgstr ""
 
 #: ../panel-plugin/pulseaudio-dialog.c:150
-#: ../panel-plugin/pulseaudio-menu.c:264
+#: ../panel-plugin/pulseaudio-menu.c:251
 #, c-format
 msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
@@ -164,44 +168,44 @@ msgid ""
 msgstr "<big><b>\"%s\" 명령 실행에 실패했습니다.</b></big>\n\n%s"
 
 #: ../panel-plugin/pulseaudio-dialog.c:153
-#: ../panel-plugin/pulseaudio-menu.c:267
+#: ../panel-plugin/pulseaudio-menu.c:254
 msgid "Error"
 msgstr "오류"
 
-#: ../panel-plugin/pulseaudio-button.c:335
+#: ../panel-plugin/pulseaudio-button.c:336
 #: ../panel-plugin/pulseaudio-notify.c:199
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "PulseAudio 서버에 연결하지 않았습니다"
 
-#: ../panel-plugin/pulseaudio-button.c:353
+#: ../panel-plugin/pulseaudio-button.c:354
 #, c-format
 msgid ""
 "<b>Volume %d%% (muted)</b>\n"
 "<small>%s</small>"
 msgstr ""
 
-#: ../panel-plugin/pulseaudio-button.c:355
+#: ../panel-plugin/pulseaudio-button.c:356
 #, c-format
 msgid ""
 "<b>Volume %d%%</b>\n"
 "<small>%s</small>"
 msgstr ""
 
-#: ../panel-plugin/pulseaudio-menu.c:509
+#: ../panel-plugin/pulseaudio-menu.c:521
 msgid "Output"
 msgstr "출력"
 
-#: ../panel-plugin/pulseaudio-menu.c:549
+#: ../panel-plugin/pulseaudio-menu.c:561
 msgid "Input"
 msgstr "입력"
 
-#: ../panel-plugin/pulseaudio-menu.c:638
+#: ../panel-plugin/pulseaudio-menu.c:663
 msgid "Choose Playlist"
 msgstr "재생 목록 선택"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:675
+#: ../panel-plugin/pulseaudio-menu.c:698
 msgid "_Audio mixer..."
 msgstr "오디오 음량 조절기(_A)..."
 
@@ -216,6 +220,6 @@ msgid "Volume %d%c"
 msgstr "음량 %d%c"
 
 #: ../panel-plugin/mprismenuitem.c:374 ../panel-plugin/mprismenuitem.c:447
-#: ../panel-plugin/mprismenuitem.c:821
+#: ../panel-plugin/mprismenuitem.c:802
 msgid "Not currently playing"
 msgstr "재생 중 아님"
