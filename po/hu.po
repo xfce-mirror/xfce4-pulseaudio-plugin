@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-03 00:49+0200\n"
+"POT-Creation-Date: 2023-04-10 00:49+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
 "Last-Translator: Gábor P., 2020\n"
 "Language-Team: Hungarian (http://app.transifex.com/xfce/xfce-panel-plugins/language/hu/)\n"
@@ -25,7 +25,7 @@ msgid "PulseAudio Plugin"
 msgstr "PulseAudio bővítmény"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:251
+#: ../panel-plugin/pulseaudio-plugin.c:256
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "A PulseAudio hangrendszer hangerejének beállítása"
 
@@ -128,35 +128,39 @@ msgid "Enable experimental window focus support"
 msgstr "Kísérleti ablakfókusz támogatás engedélyezése"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:24
-msgid "Title"
-msgstr "Cím"
+msgid "Name"
+msgstr "Név"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:25
-msgid "Hidden"
-msgstr "Rejtett"
+msgid "Persistent"
+msgstr ""
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:26
+msgid "Ignored"
+msgstr ""
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:27
 msgid "Clear Known Items"
 msgstr "Ismert elemek törlése"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:27
-msgid "Please restart your panel for additional players to be displayed."
-msgstr "Indítsa újra a panel a további lejátszók megjelenítéséhez."
-
 #: ../panel-plugin/pulseaudio-dialog.glade.h:28
+msgid "Please restart the players to make them visible again."
+msgstr ""
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:29
 msgid "Known Media Players"
 msgstr "Ismert médialejátszó"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:29
+#: ../panel-plugin/pulseaudio-dialog.glade.h:30
 msgid "Media Players"
 msgstr "Médialejátszó"
 
-#: ../panel-plugin/pulseaudio-plugin.c:253
+#: ../panel-plugin/pulseaudio-plugin.c:258
 msgid "Copyright © 2014-2023 Andrzej Radecki et al.\n"
 msgstr ""
 
 #: ../panel-plugin/pulseaudio-dialog.c:150
-#: ../panel-plugin/pulseaudio-menu.c:264
+#: ../panel-plugin/pulseaudio-menu.c:251
 #, c-format
 msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
@@ -165,44 +169,44 @@ msgid ""
 msgstr "<big><b>Nem sikerült a(z) \"%s\" parancs futtatása.</b></big>\n\n%s"
 
 #: ../panel-plugin/pulseaudio-dialog.c:153
-#: ../panel-plugin/pulseaudio-menu.c:267
+#: ../panel-plugin/pulseaudio-menu.c:254
 msgid "Error"
 msgstr "Hiba"
 
-#: ../panel-plugin/pulseaudio-button.c:335
+#: ../panel-plugin/pulseaudio-button.c:336
 #: ../panel-plugin/pulseaudio-notify.c:199
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "Nincs csatlakozva a PulseAudio kiszolgálóhoz"
 
-#: ../panel-plugin/pulseaudio-button.c:353
+#: ../panel-plugin/pulseaudio-button.c:354
 #, c-format
 msgid ""
 "<b>Volume %d%% (muted)</b>\n"
 "<small>%s</small>"
 msgstr ""
 
-#: ../panel-plugin/pulseaudio-button.c:355
+#: ../panel-plugin/pulseaudio-button.c:356
 #, c-format
 msgid ""
 "<b>Volume %d%%</b>\n"
 "<small>%s</small>"
 msgstr ""
 
-#: ../panel-plugin/pulseaudio-menu.c:509
+#: ../panel-plugin/pulseaudio-menu.c:521
 msgid "Output"
 msgstr "Kimenet"
 
-#: ../panel-plugin/pulseaudio-menu.c:549
+#: ../panel-plugin/pulseaudio-menu.c:561
 msgid "Input"
 msgstr "Bemenet"
 
-#: ../panel-plugin/pulseaudio-menu.c:638
+#: ../panel-plugin/pulseaudio-menu.c:663
 msgid "Choose Playlist"
 msgstr "Válasszon lejátszólistát"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:675
+#: ../panel-plugin/pulseaudio-menu.c:698
 msgid "_Audio mixer..."
 msgstr "_Hangerőkeverő..."
 
@@ -217,6 +221,6 @@ msgid "Volume %d%c"
 msgstr "Hangerő %d%c"
 
 #: ../panel-plugin/mprismenuitem.c:374 ../panel-plugin/mprismenuitem.c:447
-#: ../panel-plugin/mprismenuitem.c:821
+#: ../panel-plugin/mprismenuitem.c:802
 msgid "Not currently playing"
 msgstr "Jelenleg nincs lejátszás"
