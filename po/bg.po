@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-03 00:49+0200\n"
+"POT-Creation-Date: 2023-04-10 00:49+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
 "Last-Translator: Kiril Kirilov <cybercop_montana@abv.bg>, 2015,2017-2018,2020,2022-2023\n"
 "Language-Team: Bulgarian (http://app.transifex.com/xfce/xfce-panel-plugins/language/bg/)\n"
@@ -23,7 +23,7 @@ msgid "PulseAudio Plugin"
 msgstr "Добавка за PulseAudio"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:251
+#: ../panel-plugin/pulseaudio-plugin.c:256
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "Регулиране нивата на звука в PulseAudio"
 
@@ -126,35 +126,39 @@ msgid "Enable experimental window focus support"
 msgstr "Включване поддръжката на експерименталното фокусиране на прозорец"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:24
-msgid "Title"
-msgstr "Заглавие"
+msgid "Name"
+msgstr "Име"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:25
-msgid "Hidden"
-msgstr "Скриване"
+msgid "Persistent"
+msgstr "Постоянен"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:26
+msgid "Ignored"
+msgstr "Игнориран"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:27
 msgid "Clear Known Items"
 msgstr "Изчистване на познатите елементи"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:27
-msgid "Please restart your panel for additional players to be displayed."
-msgstr "Моля, рестартирайте вашият панел за да се покажат допълнителните плеъри."
-
 #: ../panel-plugin/pulseaudio-dialog.glade.h:28
+msgid "Please restart the players to make them visible again."
+msgstr "Моля, рестартирайте плеърите, за да ги направите видими отново."
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:29
 msgid "Known Media Players"
 msgstr "Познати медийни плеъри"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:29
+#: ../panel-plugin/pulseaudio-dialog.glade.h:30
 msgid "Media Players"
 msgstr "Мултимедийни плеъри"
 
-#: ../panel-plugin/pulseaudio-plugin.c:253
+#: ../panel-plugin/pulseaudio-plugin.c:258
 msgid "Copyright © 2014-2023 Andrzej Radecki et al.\n"
 msgstr "Авторски права © 2014-2023 Andrzej Radecki и др.\n"
 
 #: ../panel-plugin/pulseaudio-dialog.c:150
-#: ../panel-plugin/pulseaudio-menu.c:264
+#: ../panel-plugin/pulseaudio-menu.c:251
 #, c-format
 msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
@@ -163,44 +167,44 @@ msgid ""
 msgstr "<big><b>Неуспешно изпълнение на команда \"%s\".</b></big>\n\n%s"
 
 #: ../panel-plugin/pulseaudio-dialog.c:153
-#: ../panel-plugin/pulseaudio-menu.c:267
+#: ../panel-plugin/pulseaudio-menu.c:254
 msgid "Error"
 msgstr "Грешка"
 
-#: ../panel-plugin/pulseaudio-button.c:335
+#: ../panel-plugin/pulseaudio-button.c:336
 #: ../panel-plugin/pulseaudio-notify.c:199
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "Няма връзка с  PulseAudio сървър"
 
-#: ../panel-plugin/pulseaudio-button.c:353
+#: ../panel-plugin/pulseaudio-button.c:354
 #, c-format
 msgid ""
 "<b>Volume %d%% (muted)</b>\n"
 "<small>%s</small>"
 msgstr "<b>Сила на звука %d%% (заглушен)</b>\n<small>%s</small>"
 
-#: ../panel-plugin/pulseaudio-button.c:355
+#: ../panel-plugin/pulseaudio-button.c:356
 #, c-format
 msgid ""
 "<b>Volume %d%%</b>\n"
 "<small>%s</small>"
 msgstr "<b>Сила на звука %d%%</b>\n<small>%s</small>"
 
-#: ../panel-plugin/pulseaudio-menu.c:509
+#: ../panel-plugin/pulseaudio-menu.c:521
 msgid "Output"
 msgstr "Изход"
 
-#: ../panel-plugin/pulseaudio-menu.c:549
+#: ../panel-plugin/pulseaudio-menu.c:561
 msgid "Input"
 msgstr "Вход"
 
-#: ../panel-plugin/pulseaudio-menu.c:638
+#: ../panel-plugin/pulseaudio-menu.c:663
 msgid "Choose Playlist"
 msgstr "Избиране на списък"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:675
+#: ../panel-plugin/pulseaudio-menu.c:698
 msgid "_Audio mixer..."
 msgstr "Аудио миксер..."
 
@@ -215,6 +219,6 @@ msgid "Volume %d%c"
 msgstr "Ниво на звука %d%c"
 
 #: ../panel-plugin/mprismenuitem.c:374 ../panel-plugin/mprismenuitem.c:447
-#: ../panel-plugin/mprismenuitem.c:821
+#: ../panel-plugin/mprismenuitem.c:802
 msgid "Not currently playing"
 msgstr "В момента не се изпълнява"
