@@ -132,11 +132,11 @@ msgstr "Pavadinimas"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:25
 msgid "Persistent"
-msgstr ""
+msgstr "Nuolatinis"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:26
 msgid "Ignored"
-msgstr ""
+msgstr "Nepaisomas"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:27
 msgid "Clear Known Items"
@@ -144,7 +144,7 @@ msgstr "Išvalyti žinomus elementus"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:28
 msgid "Please restart the players to make them visible again."
-msgstr ""
+msgstr "Norėdami padaryti leistuves vėl matomas, paleiskite jas iš naujo."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:29
 msgid "Known Media Players"
