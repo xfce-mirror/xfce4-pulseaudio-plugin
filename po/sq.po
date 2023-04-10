@@ -144,7 +144,7 @@ msgstr "Spastro Elementë të Njohur"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:28
 msgid "Please restart the players to make them visible again."
-msgstr ""
+msgstr "Ju lutemi, rinisni lojtësit, që t’i bëni sërish të dukshëm."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:29
 msgid "Known Media Players"
