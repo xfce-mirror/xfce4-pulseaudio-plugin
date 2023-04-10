@@ -414,7 +414,7 @@ pulseaudio_mpris_notify_player (PulseaudioMpris  *mpris,
 
   if (player != NULL && G_LIKELY (pulseaudio_mpris_player_is_connected (player)))
     {
-      pulseaudio_mpris_player_call_player_method (player, message);
+      pulseaudio_mpris_player_call_player_method (player, message, TRUE);
       return TRUE;
     }
 
@@ -428,11 +428,17 @@ pulseaudio_mpris_notify_any_player (PulseaudioMpris *mpris,
                                     const gchar     *message)
 {
   PulseaudioMprisPlayer *player;
+  PulseaudioMprisPlayer *recent_player = NULL;
   GHashTableIter iter;
   const gchar *key;
+  gint64 timestamp;
+  gint64 highest_timestamp = 0;
+  gboolean recent_only;
   gboolean found = FALSE;
 
   g_return_val_if_fail(IS_PULSEAUDIO_MPRIS(mpris), FALSE);
+
+  recent_only = !pulseaudio_config_get_enable_multimedia_keys_all (mpris->config);
 
   g_hash_table_iter_init (&iter, mpris->players_by_title);
   while (g_hash_table_iter_next(&iter, (gpointer *) &key, (gpointer) &player))
@@ -446,9 +452,27 @@ pulseaudio_mpris_notify_any_player (PulseaudioMpris *mpris,
       if (pulseaudio_config_player_ignored_lookup (mpris->config, key))
         continue;
 
-      pulseaudio_mpris_player_call_player_method(player, message);
-      found = TRUE;
+      if (recent_only)
+        {
+          timestamp = pulseaudio_mpris_player_get_timestamp (player);
+          if (timestamp > highest_timestamp || !recent_player)
+            {
+              highest_timestamp = timestamp;
+              recent_player = player;
+            }
+        }
+      else
+        {
+          pulseaudio_mpris_player_call_player_method (player, message, FALSE);
+          found = TRUE;
+        }
     }
+
+    if (recent_player)
+      {
+        pulseaudio_mpris_player_call_player_method (recent_player, message, FALSE);
+        found = TRUE;
+      }
 
   return found;
 }
