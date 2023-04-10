@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-03 00:49+0200\n"
+"POT-Creation-Date: 2023-04-10 00:49+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
 "Last-Translator: 黃柏諺 <s8321414@gmail.com>, 2020,2022-2023\n"
 "Language-Team: Chinese (Taiwan) (http://app.transifex.com/xfce/xfce-panel-plugins/language/zh_TW/)\n"
@@ -26,7 +26,7 @@ msgid "PulseAudio Plugin"
 msgstr "PulseAudio 外掛程式"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:251
+#: ../panel-plugin/pulseaudio-plugin.c:256
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "調整 PulseAudio 音效系統的音量"
 
@@ -129,35 +129,39 @@ msgid "Enable experimental window focus support"
 msgstr "啟用實驗性視窗焦點支援"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:24
-msgid "Title"
-msgstr "標題"
+msgid "Name"
+msgstr "名稱"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:25
-msgid "Hidden"
-msgstr "隱藏"
+msgid "Persistent"
+msgstr "持續"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:26
+msgid "Ignored"
+msgstr "已忽略"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:27
 msgid "Clear Known Items"
 msgstr "清除已知項目"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:27
-msgid "Please restart your panel for additional players to be displayed."
-msgstr "請重新啟動面板以顯示額外的播放器。"
-
 #: ../panel-plugin/pulseaudio-dialog.glade.h:28
+msgid "Please restart the players to make them visible again."
+msgstr "請重新啟動播放器以使其再次可見。"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:29
 msgid "Known Media Players"
 msgstr "已知的媒體播放器"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:29
+#: ../panel-plugin/pulseaudio-dialog.glade.h:30
 msgid "Media Players"
 msgstr "媒體播放器"
 
-#: ../panel-plugin/pulseaudio-plugin.c:253
+#: ../panel-plugin/pulseaudio-plugin.c:258
 msgid "Copyright © 2014-2023 Andrzej Radecki et al.\n"
 msgstr "Copyright © 2014-2023 Andrzej Radecki 等\n"
 
 #: ../panel-plugin/pulseaudio-dialog.c:150
-#: ../panel-plugin/pulseaudio-menu.c:264
+#: ../panel-plugin/pulseaudio-menu.c:251
 #, c-format
 msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
@@ -166,44 +170,44 @@ msgid ""
 msgstr "<big><b>執行指令「%s」失敗。</b></big>\n\n%s"
 
 #: ../panel-plugin/pulseaudio-dialog.c:153
-#: ../panel-plugin/pulseaudio-menu.c:267
+#: ../panel-plugin/pulseaudio-menu.c:254
 msgid "Error"
 msgstr "錯誤"
 
-#: ../panel-plugin/pulseaudio-button.c:335
+#: ../panel-plugin/pulseaudio-button.c:336
 #: ../panel-plugin/pulseaudio-notify.c:199
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "未連線到 PulseAudio 伺服程式"
 
-#: ../panel-plugin/pulseaudio-button.c:353
+#: ../panel-plugin/pulseaudio-button.c:354
 #, c-format
 msgid ""
 "<b>Volume %d%% (muted)</b>\n"
 "<small>%s</small>"
 msgstr "<b>音量 %d%%（已靜音）</b>\n<small>%s</small>"
 
-#: ../panel-plugin/pulseaudio-button.c:355
+#: ../panel-plugin/pulseaudio-button.c:356
 #, c-format
 msgid ""
 "<b>Volume %d%%</b>\n"
 "<small>%s</small>"
 msgstr "<b>音量 %d%%</b>\n<small>%s</small>"
 
-#: ../panel-plugin/pulseaudio-menu.c:509
+#: ../panel-plugin/pulseaudio-menu.c:521
 msgid "Output"
 msgstr "輸出"
 
-#: ../panel-plugin/pulseaudio-menu.c:549
+#: ../panel-plugin/pulseaudio-menu.c:561
 msgid "Input"
 msgstr "輸入"
 
-#: ../panel-plugin/pulseaudio-menu.c:638
+#: ../panel-plugin/pulseaudio-menu.c:663
 msgid "Choose Playlist"
 msgstr "選擇播放清單"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:675
+#: ../panel-plugin/pulseaudio-menu.c:698
 msgid "_Audio mixer..."
 msgstr "混音器... (_A)"
 
@@ -218,6 +222,6 @@ msgid "Volume %d%c"
 msgstr "音量 %d%c"
 
 #: ../panel-plugin/mprismenuitem.c:374 ../panel-plugin/mprismenuitem.c:447
-#: ../panel-plugin/mprismenuitem.c:821
+#: ../panel-plugin/mprismenuitem.c:802
 msgid "Not currently playing"
 msgstr "目前未播放"
