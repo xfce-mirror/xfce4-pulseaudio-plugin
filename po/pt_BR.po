@@ -6,7 +6,7 @@
 # Andre Miranda <andre42m@gmail.com>, 2017-2018,2022
 # Andre Miranda <andre42m@gmail.com>, 2017
 # Andre Miranda <andre42m@gmail.com>, 2015
-# Giálisson Rocha, 2020
+# C. E., 2020
 # Michael Martins <michaelfm21@gmail.com>, 2017
 # Miguel V. S. Frasson <mvsfrasson@gmail.com>, 2017
 # The Cat, 2023
@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-03 00:49+0200\n"
+"POT-Creation-Date: 2023-04-10 00:49+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
 "Last-Translator: The Cat, 2023\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/xfce/xfce-panel-plugins/language/pt_BR/)\n"
@@ -29,7 +29,7 @@ msgid "PulseAudio Plugin"
 msgstr "Plug-in do PulseAudio"
 
 #: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:251
+#: ../panel-plugin/pulseaudio-plugin.c:256
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "Ajusta o volume de áudio do sistema de som PulseAudio"
 
@@ -132,35 +132,39 @@ msgid "Enable experimental window focus support"
 msgstr "Habilitar suporte experimental a foco de janela"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:24
-msgid "Title"
-msgstr "Título"
+msgid "Name"
+msgstr "Nome"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:25
-msgid "Hidden"
-msgstr "Oculto"
+msgid "Persistent"
+msgstr ""
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:26
+msgid "Ignored"
+msgstr ""
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:27
 msgid "Clear Known Items"
 msgstr "Limpar itens conhecidos"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:27
-msgid "Please restart your panel for additional players to be displayed."
-msgstr "Por favor, reiniciar o painel para que os reprodutores adicionais sejam exibidos."
-
 #: ../panel-plugin/pulseaudio-dialog.glade.h:28
+msgid "Please restart the players to make them visible again."
+msgstr ""
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:29
 msgid "Known Media Players"
 msgstr "Reprodutores de Mídia Conhecidos"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:29
+#: ../panel-plugin/pulseaudio-dialog.glade.h:30
 msgid "Media Players"
 msgstr "Reprodutores de mídia"
 
-#: ../panel-plugin/pulseaudio-plugin.c:253
+#: ../panel-plugin/pulseaudio-plugin.c:258
 msgid "Copyright © 2014-2023 Andrzej Radecki et al.\n"
 msgstr ""
 
 #: ../panel-plugin/pulseaudio-dialog.c:150
-#: ../panel-plugin/pulseaudio-menu.c:264
+#: ../panel-plugin/pulseaudio-menu.c:251
 #, c-format
 msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
@@ -169,44 +173,44 @@ msgid ""
 msgstr "<big><b>Falha ao executar comando \"%s\".</b></big>\n\n%s"
 
 #: ../panel-plugin/pulseaudio-dialog.c:153
-#: ../panel-plugin/pulseaudio-menu.c:267
+#: ../panel-plugin/pulseaudio-menu.c:254
 msgid "Error"
 msgstr "Erro"
 
-#: ../panel-plugin/pulseaudio-button.c:335
+#: ../panel-plugin/pulseaudio-button.c:336
 #: ../panel-plugin/pulseaudio-notify.c:199
 #, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "Não conectado ao servidor PulseAudio"
 
-#: ../panel-plugin/pulseaudio-button.c:353
+#: ../panel-plugin/pulseaudio-button.c:354
 #, c-format
 msgid ""
 "<b>Volume %d%% (muted)</b>\n"
 "<small>%s</small>"
 msgstr ""
 
-#: ../panel-plugin/pulseaudio-button.c:355
+#: ../panel-plugin/pulseaudio-button.c:356
 #, c-format
 msgid ""
 "<b>Volume %d%%</b>\n"
 "<small>%s</small>"
 msgstr ""
 
-#: ../panel-plugin/pulseaudio-menu.c:509
+#: ../panel-plugin/pulseaudio-menu.c:521
 msgid "Output"
 msgstr "Saída"
 
-#: ../panel-plugin/pulseaudio-menu.c:549
+#: ../panel-plugin/pulseaudio-menu.c:561
 msgid "Input"
 msgstr "Entrada"
 
-#: ../panel-plugin/pulseaudio-menu.c:638
+#: ../panel-plugin/pulseaudio-menu.c:663
 msgid "Choose Playlist"
 msgstr "Escolha a lista de reprodução"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:675
+#: ../panel-plugin/pulseaudio-menu.c:698
 msgid "_Audio mixer..."
 msgstr "Mixer de áudio..."
 
@@ -221,6 +225,6 @@ msgid "Volume %d%c"
 msgstr "Volume %d%c"
 
 #: ../panel-plugin/mprismenuitem.c:374 ../panel-plugin/mprismenuitem.c:447
-#: ../panel-plugin/mprismenuitem.c:821
+#: ../panel-plugin/mprismenuitem.c:802
 msgid "Not currently playing"
 msgstr "Não está tocando atualmente"
