@@ -553,16 +553,8 @@ pulseaudio_plugin_construct (XfcePanelPlugin *plugin)
                             G_CALLBACK (pulseaudio_plugin_bind_keys_cb), pulseaudio_plugin);
   g_signal_connect_swapped (G_OBJECT (pulseaudio_plugin->config), "notify::enable-multimedia-keys",
                             G_CALLBACK (pulseaudio_plugin_bind_multimedia_keys_cb), pulseaudio_plugin);
-
-  if (pulseaudio_config_get_enable_keyboard_shortcuts (pulseaudio_plugin->config))
-    pulseaudio_plugin_bind_keys(pulseaudio_plugin);
-  else
-    pulseaudio_plugin_unbind_keys(pulseaudio_plugin);
-
-  if (pulseaudio_config_get_enable_multimedia_keys (pulseaudio_plugin->config))
-    pulseaudio_plugin_bind_multimedia_keys(pulseaudio_plugin);
-  else
-    pulseaudio_plugin_unbind_multimedia_keys(pulseaudio_plugin);
+  pulseaudio_plugin_bind_keys_cb (pulseaudio_plugin, NULL);
+  pulseaudio_plugin_bind_multimedia_keys_cb (pulseaudio_plugin, NULL);
 #endif
 
   /* volume controller */
