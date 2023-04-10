@@ -321,14 +321,14 @@ pulseaudio_plugin_bind_keys_cb (PulseaudioPlugin      *pulseaudio_plugin,
 static gboolean
 pulseaudio_plugin_bind_keys (PulseaudioPlugin      *pulseaudio_plugin)
 {
-  gboolean success;
+  gboolean success = TRUE;
   g_return_val_if_fail (IS_PULSEAUDIO_PLUGIN (pulseaudio_plugin), FALSE);
   pulseaudio_debug ("Grabbing volume control keys");
 
-  success = (keybinder_bind (PULSEAUDIO_PLUGIN_LOWER_VOLUME_KEY, pulseaudio_plugin_volume_key_pressed, pulseaudio_plugin) &&
-             keybinder_bind (PULSEAUDIO_PLUGIN_RAISE_VOLUME_KEY, pulseaudio_plugin_volume_key_pressed, pulseaudio_plugin) &&
-             keybinder_bind (PULSEAUDIO_PLUGIN_MUTE_KEY, pulseaudio_plugin_mute_pressed, pulseaudio_plugin) &&
-             keybinder_bind (PULSEAUDIO_PLUGIN_MIC_MUTE_KEY, pulseaudio_plugin_mic_mute_pressed, pulseaudio_plugin));
+  success &= keybinder_bind (PULSEAUDIO_PLUGIN_LOWER_VOLUME_KEY, pulseaudio_plugin_volume_key_pressed, pulseaudio_plugin);
+  success &= keybinder_bind (PULSEAUDIO_PLUGIN_RAISE_VOLUME_KEY, pulseaudio_plugin_volume_key_pressed, pulseaudio_plugin);
+  success &= keybinder_bind (PULSEAUDIO_PLUGIN_MUTE_KEY, pulseaudio_plugin_mute_pressed, pulseaudio_plugin);
+  success &= keybinder_bind (PULSEAUDIO_PLUGIN_MIC_MUTE_KEY, pulseaudio_plugin_mic_mute_pressed, pulseaudio_plugin);
 
   if (!success)
     g_warning ("Could not have grabbed volume control keys. Is another volume control application (xfce4-volumed) running?");
@@ -423,14 +423,14 @@ pulseaudio_plugin_bind_multimedia_keys_cb (PulseaudioPlugin      *pulseaudio_plu
 static gboolean
 pulseaudio_plugin_bind_multimedia_keys (PulseaudioPlugin      *pulseaudio_plugin)
 {
-  gboolean success;
+  gboolean success = TRUE;
   g_return_val_if_fail (IS_PULSEAUDIO_PLUGIN (pulseaudio_plugin), FALSE);
   pulseaudio_debug ("Grabbing multimedia control keys");
 
-  success = (keybinder_bind (PULSEAUDIO_PLUGIN_PLAY_KEY, pulseaudio_plugin_play_key_pressed, pulseaudio_plugin) &&
-             keybinder_bind (PULSEAUDIO_PLUGIN_STOP_KEY, pulseaudio_plugin_stop_key_pressed, pulseaudio_plugin) &&
-             keybinder_bind (PULSEAUDIO_PLUGIN_PREV_KEY, pulseaudio_plugin_prev_key_pressed, pulseaudio_plugin) &&
-             keybinder_bind (PULSEAUDIO_PLUGIN_NEXT_KEY, pulseaudio_plugin_next_key_pressed, pulseaudio_plugin));
+  success &= keybinder_bind (PULSEAUDIO_PLUGIN_PLAY_KEY, pulseaudio_plugin_play_key_pressed, pulseaudio_plugin);
+  success &= keybinder_bind (PULSEAUDIO_PLUGIN_STOP_KEY, pulseaudio_plugin_stop_key_pressed, pulseaudio_plugin);
+  success &= keybinder_bind (PULSEAUDIO_PLUGIN_PREV_KEY, pulseaudio_plugin_prev_key_pressed, pulseaudio_plugin);
+  success &= keybinder_bind (PULSEAUDIO_PLUGIN_NEXT_KEY, pulseaudio_plugin_next_key_pressed, pulseaudio_plugin);
 
   if (!success)
     g_warning ("Could not have grabbed multimedia control keys.");
@@ -553,16 +553,8 @@ pulseaudio_plugin_construct (XfcePanelPlugin *plugin)
                             G_CALLBACK (pulseaudio_plugin_bind_keys_cb), pulseaudio_plugin);
   g_signal_connect_swapped (G_OBJECT (pulseaudio_plugin->config), "notify::enable-multimedia-keys",
                             G_CALLBACK (pulseaudio_plugin_bind_multimedia_keys_cb), pulseaudio_plugin);
-
-  if (pulseaudio_config_get_enable_keyboard_shortcuts (pulseaudio_plugin->config))
-    pulseaudio_plugin_bind_keys(pulseaudio_plugin);
-  else
-    pulseaudio_plugin_unbind_keys(pulseaudio_plugin);
-
-  if (pulseaudio_config_get_enable_multimedia_keys (pulseaudio_plugin->config))
-    pulseaudio_plugin_bind_multimedia_keys(pulseaudio_plugin);
-  else
-    pulseaudio_plugin_unbind_multimedia_keys(pulseaudio_plugin);
+  pulseaudio_plugin_bind_keys_cb (pulseaudio_plugin, NULL);
+  pulseaudio_plugin_bind_multimedia_keys_cb (pulseaudio_plugin, NULL);
 #endif
 
   /* volume controller */
