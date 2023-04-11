@@ -75,6 +75,8 @@ struct _PulseaudioMprisPlayer
 #elif defined (HAVE_WNCK)
   gulong            xid;
 #endif
+
+  gint64            timestamp;
 };
 
 struct _PulseaudioMprisPlayerClass
@@ -351,7 +353,8 @@ pulseaudio_mpris_player_raise_wnck (PulseaudioMprisPlayer *player)
 
 void
 pulseaudio_mpris_player_call_player_method (PulseaudioMprisPlayer *player,
-                                            const gchar           *method)
+                                            const gchar           *method,
+                                            gboolean               update_timestamp)
 {
   GDBusMessage *message;
   GError       *error = NULL;
@@ -393,6 +396,9 @@ pulseaudio_mpris_player_call_player_method (PulseaudioMprisPlayer *player,
     }
 
   g_object_unref (message);
+
+  if (update_timestamp)
+    player->timestamp = g_get_monotonic_time ();
 }
 
 
@@ -701,6 +707,7 @@ pulseaudio_mpris_player_on_dbus_connected (GDBusConnection *connection,
   PulseaudioMprisPlayer *player = user_data;
 
   player->connected = TRUE;
+  player->timestamp = g_get_monotonic_time ();
 
   /* Media player properties */
   reply = pulseaudio_mpris_player_get_all_media_player_properties (player);
@@ -932,6 +939,14 @@ pulseaudio_mpris_player_dbus_connect (PulseaudioMprisPlayer *player)
     }
 
   player->watch_id = watch_id;
+}
+
+
+
+guint
+pulseaudio_mpris_player_get_timestamp (PulseaudioMprisPlayer *player)
+{
+  return player->timestamp;
 }
 
 
