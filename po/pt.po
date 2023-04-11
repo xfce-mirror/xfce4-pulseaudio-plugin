@@ -84,11 +84,11 @@ msgstr "Tamanho da medida utilizada ao ajustar o volume com a roda do rato ou as
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "_Volume step:"
-msgstr "_Medida do volume:"
+msgstr "Medida do _volume:"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "M_aximum volume:"
-msgstr "Volume máximo:"
+msgstr "V_olume máximo:"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:15
 msgid "Behaviour"
@@ -134,11 +134,11 @@ msgstr "Nome"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:25
 msgid "Persistent"
-msgstr ""
+msgstr "Persistente"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:26
 msgid "Ignored"
-msgstr ""
+msgstr "Ignorado"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:27
 msgid "Clear Known Items"
@@ -146,7 +146,7 @@ msgstr "Remover itens conhecidos"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:28
 msgid "Please restart the players to make them visible again."
-msgstr ""
+msgstr "Reiniciar os reprodutores para os tornar novamente visíveis."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:29
 msgid "Known Media Players"
