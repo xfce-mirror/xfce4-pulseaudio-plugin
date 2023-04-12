@@ -134,11 +134,11 @@ msgstr "Имя"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:25
 msgid "Persistent"
-msgstr ""
+msgstr "Постоянный"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:26
 msgid "Ignored"
-msgstr ""
+msgstr "Игнорируемый"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:27
 msgid "Clear Known Items"
@@ -146,7 +146,7 @@ msgstr "Очистить известные элементы"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:28
 msgid "Please restart the players to make them visible again."
-msgstr ""
+msgstr "Пожалуйста, перезапустите проигрыватели, чтобы они снова отобразились."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:29
 msgid "Known Media Players"
