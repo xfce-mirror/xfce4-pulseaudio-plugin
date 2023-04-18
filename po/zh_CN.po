@@ -135,7 +135,7 @@ msgstr "名称"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:25
 msgid "Persistent"
-msgstr ""
+msgstr "持续"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:26
 msgid "Ignored"
