@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-10 00:49+0200\n"
+"POT-Creation-Date: 2023-04-19 01:17+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
 "Last-Translator: Marek Adamski, 2022-2023\n"
 "Language-Team: Polish (http://app.transifex.com/xfce/xfce-panel-plugins/language/pl/)\n"
@@ -156,10 +156,6 @@ msgstr "Znane odtwarzacze mediów"
 #: ../panel-plugin/pulseaudio-dialog.glade.h:30
 msgid "Media Players"
 msgstr "Odtwarzacze mediów"
-
-#: ../panel-plugin/pulseaudio-plugin.c:258
-msgid "Copyright © 2014-2023 Andrzej Radecki et al.\n"
-msgstr "Prawa autorskie © 2014-2023 Andrzej Radecki i inni\n"
 
 #: ../panel-plugin/pulseaudio-dialog.c:150
 #: ../panel-plugin/pulseaudio-menu.c:251
