@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Cally Mal <zhouxiaobo.500@gmail.com>, 2023
 # SamHX <samzh@outlook.com>, 2018
 # SamHX <samzh@outlook.com>, 2017
 # Cally Mal <zhouxiaobo.500@gmail.com>, 2017
@@ -12,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-19 01:17+0200\n"
+"POT-Creation-Date: 2023-05-05 10:56+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
-"Last-Translator: 玉堂白鹤 <yjwork@qq.com>, 2015,2017-2018,2020,2022-2023\n"
+"Last-Translator: Cally Mal <zhouxiaobo.500@gmail.com>, 2023\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/xfce/xfce-panel-plugins/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -139,7 +140,7 @@ msgstr "持续"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:26
 msgid "Ignored"
-msgstr ""
+msgstr "已忽略"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:27
 msgid "Clear Known Items"
@@ -147,7 +148,7 @@ msgstr "清除已知项目"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:28
 msgid "Please restart the players to make them visible again."
-msgstr ""
+msgstr "请重新启动播放器，以使其再次可见。"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:29
 msgid "Known Media Players"
@@ -182,14 +183,14 @@ msgstr "未连接到 PulseAudio 服务"
 msgid ""
 "<b>Volume %d%% (muted)</b>\n"
 "<small>%s</small>"
-msgstr ""
+msgstr "音量 %d%% (已静音)\n</b><small>%s</small>"
 
 #: ../panel-plugin/pulseaudio-button.c:356
 #, c-format
 msgid ""
 "<b>Volume %d%%</b>\n"
 "<small>%s</small>"
-msgstr ""
+msgstr "音量 %d%%\n</b><small>%s</small>"
 
 #: ../panel-plugin/pulseaudio-menu.c:521
 msgid "Output"
