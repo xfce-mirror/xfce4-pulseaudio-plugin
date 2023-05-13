@@ -200,7 +200,8 @@ pulseaudio_mpris_player_connection_cb (PulseaudioMprisPlayer *player,
   if (!pulseaudio_mpris_player_is_connected (player))
     {
       g_hash_table_remove (mpris->players, pulseaudio_mpris_player_get_player (player));
-      g_hash_table_remove (mpris->players_by_title, player_title);
+      if (player_title)
+        g_hash_table_remove (mpris->players_by_title, player_title);
     }
   else if (G_LIKELY (!g_hash_table_contains (mpris->players_by_title, (gpointer) player_title)))
     {
@@ -208,7 +209,8 @@ pulseaudio_mpris_player_connection_cb (PulseaudioMprisPlayer *player,
       pulseaudio_config_add_known_player (mpris->config, player_title);
     }
 
-  g_signal_emit (mpris, signals[UPDATE], 0, player_title);
+  if (player_title)
+    g_signal_emit (mpris, signals[UPDATE], 0, player_title);
 
   g_object_unref (player);
 }
