@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-10 00:49+0200\n"
+"POT-Creation-Date: 2023-05-05 10:56+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
 "Last-Translator: Elishai Eliyahu <elishai@mailfence.com>, 2022-2023\n"
 "Language-Team: Hebrew (http://app.transifex.com/xfce/xfce-panel-plugins/language/he/)\n"
@@ -80,15 +80,15 @@ msgstr "השתק/בטל השתקה קיים עם הודעה בכל המצבים 
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
 msgid "Step size used when adjusting volume with mouse wheel or hotkeys."
-msgstr ""
+msgstr "גודל צעד בשימוש כאשר מכוונים ווליום עם גלגל העכבר או מקשי קיצור."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "_Volume step:"
-msgstr ""
+msgstr "צעד _ווליום:"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "M_aximum volume:"
-msgstr ""
+msgstr "ווליום _מקסימלי:"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:15
 msgid "Behaviour"
@@ -134,11 +134,11 @@ msgstr "שם"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:25
 msgid "Persistent"
-msgstr ""
+msgstr "מתמשך"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:26
 msgid "Ignored"
-msgstr ""
+msgstr "בהתעלמות"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:27
 msgid "Clear Known Items"
@@ -146,7 +146,7 @@ msgstr "נקה פריטים ידועים"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:28
 msgid "Please restart the players to make them visible again."
-msgstr ""
+msgstr "אנא הפעל מחדש את הנגנים כדי להפוך אותם לגלויים שוב."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:29
 msgid "Known Media Players"
@@ -155,10 +155,6 @@ msgstr "נגני מדיה ידועים"
 #: ../panel-plugin/pulseaudio-dialog.glade.h:30
 msgid "Media Players"
 msgstr "נגני מדיה"
-
-#: ../panel-plugin/pulseaudio-plugin.c:258
-msgid "Copyright © 2014-2023 Andrzej Radecki et al.\n"
-msgstr ""
 
 #: ../panel-plugin/pulseaudio-dialog.c:150
 #: ../panel-plugin/pulseaudio-menu.c:251
@@ -185,14 +181,14 @@ msgstr "לא מחובר לשרת PulseAudio"
 msgid ""
 "<b>Volume %d%% (muted)</b>\n"
 "<small>%s</small>"
-msgstr ""
+msgstr "<b>ווליום %d%% (מושתק)</b>\n<small>%s</small>"
 
 #: ../panel-plugin/pulseaudio-button.c:356
 #, c-format
 msgid ""
 "<b>Volume %d%%</b>\n"
 "<small>%s</small>"
-msgstr ""
+msgstr "<b>ווליום %d%%</b>\n<small>%s</small>"
 
 #: ../panel-plugin/pulseaudio-menu.c:521
 msgid "Output"
