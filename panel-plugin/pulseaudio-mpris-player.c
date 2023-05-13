@@ -753,6 +753,9 @@ pulseaudio_mpris_player_on_dbus_lost (GDBusConnection *connection,
 {
   PulseaudioMprisPlayer *player = user_data;
 
+  if (!player->connected)
+    return;
+
   player->connected       = FALSE;
 
   /* This will delete the object */
