@@ -3,9 +3,9 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Andre Miranda <andre42m@gmail.com>, 2017-2018,2022
-# Andre Miranda <andre42m@gmail.com>, 2017
-# Andre Miranda <andre42m@gmail.com>, 2015
+# Andre Miranda <andre@andreldm.com>, 2017-2018,2022
+# Andre Miranda <andre@andreldm.com>, 2017
+# Andre Miranda <andre@andreldm.com>, 2015
 # C. E., 2020
 # Michael Martins <michaelfm21@gmail.com>, 2017
 # Miguel V. S. Frasson <mvsfrasson@gmail.com>, 2017
@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-10 00:49+0200\n"
+"POT-Creation-Date: 2023-05-30 00:54+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
 "Last-Translator: The Cat, 2023\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/xfce/xfce-panel-plugins/language/pt_BR/)\n"
@@ -43,11 +43,11 @@ msgstr "Todos"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:3
 msgid "Output only"
-msgstr ""
+msgstr "Apenas saída"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:4
 msgid "Input only"
-msgstr ""
+msgstr "Apenas entrada"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:5
 msgid "PulseAudio Panel Plugin"
@@ -75,23 +75,23 @@ msgstr "Habilitar o feedback por áudio quando forem utilizadas teclas multimíd
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:10
 msgid "Show volume _notifications:"
-msgstr ""
+msgstr "Mostrar as _notificações do volume:"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:11
 msgid "Mute/unmute is notified in all modes except \"None\""
-msgstr ""
+msgstr "Silenciar/ativar o som é notificado em todos os modos exceto \"Nenhum\""
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:12
 msgid "Step size used when adjusting volume with mouse wheel or hotkeys."
-msgstr ""
+msgstr "Tamanho do incremento utilizado ao ajustar o volume com a roda do mouse ou as teclas de atalho."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "_Volume step:"
-msgstr ""
+msgstr "_Incremento do volume"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "M_aximum volume:"
-msgstr ""
+msgstr "Volume _máximo:"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:15
 msgid "Behaviour"
@@ -137,11 +137,11 @@ msgstr "Nome"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:25
 msgid "Persistent"
-msgstr ""
+msgstr "Persistente"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:26
 msgid "Ignored"
-msgstr ""
+msgstr "Ignorado"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:27
 msgid "Clear Known Items"
@@ -149,7 +149,7 @@ msgstr "Limpar itens conhecidos"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:28
 msgid "Please restart the players to make them visible again."
-msgstr ""
+msgstr "Reiniciar os reprodutores para torná-los visíveis novamente."
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:29
 msgid "Known Media Players"
@@ -158,10 +158,6 @@ msgstr "Reprodutores de Mídia Conhecidos"
 #: ../panel-plugin/pulseaudio-dialog.glade.h:30
 msgid "Media Players"
 msgstr "Reprodutores de mídia"
-
-#: ../panel-plugin/pulseaudio-plugin.c:258
-msgid "Copyright © 2014-2023 Andrzej Radecki et al.\n"
-msgstr ""
 
 #: ../panel-plugin/pulseaudio-dialog.c:150
 #: ../panel-plugin/pulseaudio-menu.c:251
@@ -188,14 +184,14 @@ msgstr "Não conectado ao servidor PulseAudio"
 msgid ""
 "<b>Volume %d%% (muted)</b>\n"
 "<small>%s</small>"
-msgstr ""
+msgstr "<b>Volume %d%% (mudo)</b>\n<small>%s</small>"
 
 #: ../panel-plugin/pulseaudio-button.c:356
 #, c-format
 msgid ""
 "<b>Volume %d%%</b>\n"
 "<small>%s</small>"
-msgstr ""
+msgstr "<b>Volume %d%%</b>\n<small>%s</small>"
 
 #: ../panel-plugin/pulseaudio-menu.c:521
 msgid "Output"
