@@ -61,7 +61,8 @@ gboolean                pulseaudio_mpris_notify_player         (PulseaudioMpris 
                                                                 const gchar      *message);
 
 gboolean                pulseaudio_mpris_notify_any_player     (PulseaudioMpris *mpris,
-                                                                const gchar     *message);
+                                                                const gchar     *message,
+                                                                gboolean         to_all);
 
 gboolean                pulseaudio_mpris_activate_playlist     (PulseaudioMpris *mpris,
                                                                 const gchar     *name,
