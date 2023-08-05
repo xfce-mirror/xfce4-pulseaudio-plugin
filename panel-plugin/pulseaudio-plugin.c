@@ -462,7 +462,7 @@ pulseaudio_plugin_play_key_pressed (const char            *keystring,
 
   pulseaudio_debug ("%s pressed", keystring);
 
-  pulseaudio_mpris_notify_any_player (pulseaudio_plugin->mpris, "PlayPause");
+  pulseaudio_mpris_notify_any_player (pulseaudio_plugin->mpris, "PlayPause", FALSE);
 }
 
 
@@ -475,7 +475,7 @@ pulseaudio_plugin_stop_key_pressed (const char            *keystring,
 
   pulseaudio_debug("%s pressed", keystring);
 
-  pulseaudio_mpris_notify_any_player(pulseaudio_plugin->mpris, "Stop");
+  pulseaudio_mpris_notify_any_player( pulseaudio_plugin->mpris, "Stop", TRUE);
 }
 
 
@@ -488,7 +488,7 @@ pulseaudio_plugin_prev_key_pressed (const char            *keystring,
 
   pulseaudio_debug("%s pressed", keystring);
 
-  pulseaudio_mpris_notify_any_player(pulseaudio_plugin->mpris, "Previous");
+  pulseaudio_mpris_notify_any_player (pulseaudio_plugin->mpris, "Previous", FALSE);
 }
 
 
@@ -501,7 +501,7 @@ pulseaudio_plugin_next_key_pressed (const char            *keystring,
 
   pulseaudio_debug("%s pressed", keystring);
 
-  pulseaudio_mpris_notify_any_player(pulseaudio_plugin->mpris, "Next");
+  pulseaudio_mpris_notify_any_player (pulseaudio_plugin->mpris, "Next", FALSE);
 }
 #endif
 
