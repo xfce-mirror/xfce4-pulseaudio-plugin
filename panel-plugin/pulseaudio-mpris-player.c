@@ -594,8 +594,11 @@ pulseaudio_mpris_player_parse_player_properties (PulseaudioMprisPlayer *player,
 
   if (playback_status != NULL)
     {
+      PlaybackStatus old_status = player->playback_status;
       pulseaudio_mpris_player_parse_playback_status (player, playback_status);
       g_signal_emit (player, signals[PLAYBACK_STATUS], 0, player->playback_status);
+      if (old_status != PLAYING && player->playback_status == PLAYING)
+        player->timestamp = g_get_monotonic_time ();
     }
 }
 
@@ -707,7 +710,6 @@ pulseaudio_mpris_player_on_dbus_connected (GDBusConnection *connection,
   PulseaudioMprisPlayer *player = user_data;
 
   player->connected = TRUE;
-  player->timestamp = g_get_monotonic_time ();
 
   /* Media player properties */
   reply = pulseaudio_mpris_player_get_all_media_player_properties (player);
