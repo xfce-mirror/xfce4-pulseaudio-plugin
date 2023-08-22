@@ -56,6 +56,7 @@
 #define DEFAULT_ENABLE_MPRIS                      FALSE
 #define DEFAULT_ENABLE_MULTIMEDIA_KEYS            FALSE
 #endif
+#define DEFAULT_MULTIMEDIA_KEYS_TO_ALL            FALSE
 #define DEFAULT_IGNORED_PLAYERS                   ""
 #define DEFAULT_PERSISTENT_PLAYERS                ""
 
@@ -90,6 +91,7 @@ struct _PulseaudioConfig
 
   gboolean         enable_keyboard_shortcuts;
   gboolean         enable_multimedia_keys;
+  gboolean         multimedia_keys_to_all;
   guint            show_notifications;
 #ifdef HAVE_LIBCANBERRA
   gboolean         play_sound;
@@ -111,6 +113,7 @@ enum
     PROP_0,
     PROP_ENABLE_KEYBOARD_SHORTCUTS,
     PROP_ENABLE_MULTIMEDIA_KEYS,
+    PROP_MULTIMEDIA_KEYS_TO_ALL,
     PROP_SHOW_NOTIFICATIONS,
 #ifdef HAVE_LIBCANBERRA
     PROP_PLAY_SOUND,
@@ -163,6 +166,15 @@ pulseaudio_config_class_init (PulseaudioConfigClass *klass)
                                    PROP_ENABLE_MULTIMEDIA_KEYS,
                                    g_param_spec_boolean ("enable-multimedia-keys", NULL, NULL,
                                                          DEFAULT_ENABLE_MULTIMEDIA_KEYS,
+                                                         G_PARAM_READWRITE |
+                                                         G_PARAM_STATIC_STRINGS));
+
+
+
+  g_object_class_install_property (gobject_class,
+                                   PROP_MULTIMEDIA_KEYS_TO_ALL,
+                                   g_param_spec_boolean ("multimedia-keys-to-all", NULL, NULL,
+                                                         DEFAULT_MULTIMEDIA_KEYS_TO_ALL,
                                                          G_PARAM_READWRITE |
                                                          G_PARAM_STATIC_STRINGS));
 
@@ -279,6 +291,7 @@ pulseaudio_config_init (PulseaudioConfig *config)
 {
   config->enable_keyboard_shortcuts = DEFAULT_ENABLE_KEYBOARD_SHORTCUTS;
   config->enable_multimedia_keys    = DEFAULT_ENABLE_MULTIMEDIA_KEYS;
+  config->multimedia_keys_to_all    = DEFAULT_MULTIMEDIA_KEYS_TO_ALL;
   config->show_notifications        = DEFAULT_SHOW_NOTIFICATIONS;
 #ifdef HAVE_LIBCANBERRA
   config->play_sound                = DEFAULT_PLAY_SOUND;
@@ -324,6 +337,10 @@ pulseaudio_config_get_property (GObject    *object,
 
     case PROP_ENABLE_MULTIMEDIA_KEYS:
       g_value_set_boolean (value, config->enable_multimedia_keys);
+      break;
+
+    case PROP_MULTIMEDIA_KEYS_TO_ALL:
+      g_value_set_boolean (value, config->multimedia_keys_to_all);
       break;
 
     case PROP_SHOW_NOTIFICATIONS:
@@ -404,6 +421,16 @@ pulseaudio_config_set_property (GObject      *object,
         {
           config->enable_multimedia_keys = val_bool;
           g_object_notify (G_OBJECT (config), "enable-multimedia-keys");
+          g_signal_emit (G_OBJECT (config), pulseaudio_config_signals [CONFIGURATION_CHANGED], 0);
+        }
+      break;
+
+    case PROP_MULTIMEDIA_KEYS_TO_ALL:
+      val_bool = g_value_get_boolean (value);
+      if (config->multimedia_keys_to_all != val_bool)
+        {
+          config->multimedia_keys_to_all = val_bool;
+          g_object_notify (G_OBJECT (config), "multimedia-keys-to-all");
           g_signal_emit (G_OBJECT (config), pulseaudio_config_signals [CONFIGURATION_CHANGED], 0);
         }
       break;
@@ -530,6 +557,16 @@ pulseaudio_config_get_enable_multimedia_keys (PulseaudioConfig *config)
   g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), DEFAULT_ENABLE_MULTIMEDIA_KEYS);
 
   return config->enable_multimedia_keys;
+}
+
+
+
+gboolean
+pulseaudio_config_get_multimedia_keys_to_all (PulseaudioConfig *config)
+{
+  g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), DEFAULT_MULTIMEDIA_KEYS_TO_ALL);
+
+  return config->multimedia_keys_to_all;
 }
 
 
@@ -992,6 +1029,10 @@ pulseaudio_config_new (const gchar     *property_base)
 
       property = g_strconcat (property_base, "/enable-multimedia-keys", NULL);
       xfconf_g_property_bind (channel, property, G_TYPE_BOOLEAN, config, "enable-multimedia-keys");
+      g_free (property);
+
+      property = g_strconcat (property_base, "/multimedia-keys-to-all", NULL);
+      xfconf_g_property_bind (channel, property, G_TYPE_BOOLEAN, config, "multimedia-keys-to-all");
       g_free (property);
 
       property = g_strconcat (property_base, "/show-notifications", NULL);

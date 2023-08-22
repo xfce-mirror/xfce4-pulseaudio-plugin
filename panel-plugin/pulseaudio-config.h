@@ -51,6 +51,7 @@ PulseaudioConfig  *pulseaudio_config_new                            (const gchar
 
 gboolean           pulseaudio_config_get_enable_keyboard_shortcuts  (PulseaudioConfig     *config);
 gboolean           pulseaudio_config_get_enable_multimedia_keys     (PulseaudioConfig     *config);
+gboolean           pulseaudio_config_get_multimedia_keys_to_all     (PulseaudioConfig     *config);
 guint              pulseaudio_config_get_show_notifications         (PulseaudioConfig     *config);
 #ifdef HAVE_LIBCANBERRA
 gboolean           pulseaudio_config_get_play_sound                 (PulseaudioConfig     *config);
