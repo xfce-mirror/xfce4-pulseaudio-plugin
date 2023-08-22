@@ -434,8 +434,11 @@ pulseaudio_mpris_notify_any_player (PulseaudioMpris *mpris,
   gint64 timestamp;
   gint64 highest_timestamp = 0;
   gboolean found = FALSE;
+  gboolean to_all;
 
   g_return_val_if_fail(IS_PULSEAUDIO_MPRIS(mpris), FALSE);
+
+  to_all = pulseaudio_config_get_multimedia_keys_to_all (mpris->config);
 
   g_hash_table_iter_init (&iter, mpris->players_by_title);
   while (g_hash_table_iter_next(&iter, (gpointer *) &key, (gpointer) &player))
@@ -449,11 +452,19 @@ pulseaudio_mpris_notify_any_player (PulseaudioMpris *mpris,
       if (pulseaudio_config_player_ignored_lookup (mpris->config, key))
         continue;
 
-      timestamp = pulseaudio_mpris_player_get_timestamp (player);
-      if (timestamp > highest_timestamp || !recent_player)
+      if (to_all)
         {
-          highest_timestamp = timestamp;
-          recent_player = player;
+          pulseaudio_mpris_player_call_player_method (player, message, FALSE);
+          found = TRUE;
+        }
+      else
+        {
+          timestamp = pulseaudio_mpris_player_get_timestamp (player);
+          if (timestamp > highest_timestamp || !recent_player)
+            {
+              highest_timestamp = timestamp;
+              recent_player = player;
+            }
         }
     }
 
