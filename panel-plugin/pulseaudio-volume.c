@@ -834,6 +834,23 @@ pulseaudio_volume_get_volume (PulseaudioVolume *volume)
 
 
 
+static gboolean
+pulseaudio_volume_prepare_set_volume (pa_cvolume  *cvolume,
+                                      pa_volume_t  new_volume)
+{
+  pa_volume_t curr_volume = pa_cvolume_max (cvolume);
+
+  if (G_UNLIKELY (new_volume == curr_volume))
+    return FALSE;
+
+  if (new_volume > curr_volume)
+    return (pa_cvolume_inc (cvolume, new_volume - curr_volume) != NULL);
+  else // new_volume < curr_volume
+    return (pa_cvolume_dec (cvolume, curr_volume - new_volume) != NULL);
+}
+
+
+
 /* volume setting callbacks */
 /* pa_sink_info_cb_t */
 static void
@@ -847,8 +864,8 @@ pulseaudio_volume_set_volume_cb2 (pa_context         *context,
   if (i == NULL)
     return;
 
-  pa_cvolume_set ((pa_cvolume *)&i->volume, 1, pulseaudio_volume_d2v (volume, volume->volume));
-  pa_context_set_sink_volume_by_index (context, i->index, &i->volume, pulseaudio_volume_sink_volume_changed, volume);
+  if (pulseaudio_volume_prepare_set_volume ((pa_cvolume *)&i->volume, pulseaudio_volume_d2v (volume, volume->volume)))
+    pa_context_set_sink_volume_by_index (context, i->index, &i->volume, pulseaudio_volume_sink_volume_changed, volume);
 }
 
 
@@ -925,8 +942,8 @@ pulseaudio_volume_set_volume_mic_cb2 (pa_context           *context,
   if (i == NULL)
     return;
 
-  pa_cvolume_set ((pa_cvolume *)&i->volume, 1, pulseaudio_volume_d2v (volume, volume->volume_mic));
-  pa_context_set_source_volume_by_index (context, i->index, &i->volume, pulseaudio_volume_source_volume_changed, volume);
+  if (pulseaudio_volume_prepare_set_volume ((pa_cvolume *)&i->volume, pulseaudio_volume_d2v (volume, volume->volume_mic)))
+    pa_context_set_source_volume_by_index (context, i->index, &i->volume, pulseaudio_volume_source_volume_changed, volume);
 }
 
 
