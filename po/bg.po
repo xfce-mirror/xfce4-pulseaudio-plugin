@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-19 01:17+0200\n"
+"POT-Creation-Date: 2023-08-23 00:51+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
 "Last-Translator: Kiril Kirilov <cybercop_montana@abv.bg>, 2015,2017-2018,2020,2022-2023\n"
 "Language-Team: Bulgarian (http://app.transifex.com/xfce/xfce-panel-plugins/language/bg/)\n"
@@ -122,38 +122,42 @@ msgid "Enable multimedia keys for playback control"
 msgstr "Включване на мултимедийните клавиши за управление на възпроизвеждането"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:23
+msgid "Send multimedia keys to all players"
+msgstr "Изпращане на мултимедийните клавиши към всички плеъри"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:24
 msgid "Enable experimental window focus support"
 msgstr "Включване поддръжката на експерименталното фокусиране на прозорец"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:24
+#: ../panel-plugin/pulseaudio-dialog.glade.h:25
 msgid "Name"
 msgstr "Име"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:25
+#: ../panel-plugin/pulseaudio-dialog.glade.h:26
 msgid "Persistent"
 msgstr "Постоянен"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:26
+#: ../panel-plugin/pulseaudio-dialog.glade.h:27
 msgid "Ignored"
 msgstr "Игнориран"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:27
+#: ../panel-plugin/pulseaudio-dialog.glade.h:28
 msgid "Clear Known Items"
 msgstr "Изчистване на познатите елементи"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:28
+#: ../panel-plugin/pulseaudio-dialog.glade.h:29
 msgid "Please restart the players to make them visible again."
 msgstr "Моля, рестартирайте плеърите, за да ги направите видими отново."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:29
+#: ../panel-plugin/pulseaudio-dialog.glade.h:30
 msgid "Known Media Players"
 msgstr "Познати медийни плеъри"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:30
+#: ../panel-plugin/pulseaudio-dialog.glade.h:31
 msgid "Media Players"
 msgstr "Мултимедийни плеъри"
 
-#: ../panel-plugin/pulseaudio-dialog.c:150
+#: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:251
 #, c-format
 msgid ""
@@ -162,7 +166,7 @@ msgid ""
 "%s"
 msgstr "<big><b>Неуспешно изпълнение на команда \"%s\".</b></big>\n\n%s"
 
-#: ../panel-plugin/pulseaudio-dialog.c:153
+#: ../panel-plugin/pulseaudio-dialog.c:145
 #: ../panel-plugin/pulseaudio-menu.c:254
 msgid "Error"
 msgstr "Грешка"
