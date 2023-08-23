@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-19 01:17+0200\n"
+"POT-Creation-Date: 2023-08-23 00:51+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
 "Last-Translator: 黃柏諺 <s8321414@gmail.com>, 2020,2022-2023\n"
 "Language-Team: Chinese (Taiwan) (http://app.transifex.com/xfce/xfce-panel-plugins/language/zh_TW/)\n"
@@ -125,38 +125,42 @@ msgid "Enable multimedia keys for playback control"
 msgstr "啟用多媒體鍵以用於播放控制"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:23
+msgid "Send multimedia keys to all players"
+msgstr "傳送多媒體鍵給所有播放程式"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:24
 msgid "Enable experimental window focus support"
 msgstr "啟用實驗性視窗焦點支援"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:24
+#: ../panel-plugin/pulseaudio-dialog.glade.h:25
 msgid "Name"
 msgstr "名稱"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:25
+#: ../panel-plugin/pulseaudio-dialog.glade.h:26
 msgid "Persistent"
 msgstr "持續"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:26
+#: ../panel-plugin/pulseaudio-dialog.glade.h:27
 msgid "Ignored"
 msgstr "已忽略"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:27
+#: ../panel-plugin/pulseaudio-dialog.glade.h:28
 msgid "Clear Known Items"
 msgstr "清除已知項目"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:28
+#: ../panel-plugin/pulseaudio-dialog.glade.h:29
 msgid "Please restart the players to make them visible again."
 msgstr "請重新啟動播放器以使其再次可見。"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:29
+#: ../panel-plugin/pulseaudio-dialog.glade.h:30
 msgid "Known Media Players"
 msgstr "已知的媒體播放器"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:30
+#: ../panel-plugin/pulseaudio-dialog.glade.h:31
 msgid "Media Players"
 msgstr "媒體播放器"
 
-#: ../panel-plugin/pulseaudio-dialog.c:150
+#: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:251
 #, c-format
 msgid ""
@@ -165,7 +169,7 @@ msgid ""
 "%s"
 msgstr "<big><b>執行指令「%s」失敗。</b></big>\n\n%s"
 
-#: ../panel-plugin/pulseaudio-dialog.c:153
+#: ../panel-plugin/pulseaudio-dialog.c:145
 #: ../panel-plugin/pulseaudio-menu.c:254
 msgid "Error"
 msgstr "錯誤"
