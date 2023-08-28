@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-05 10:56+0200\n"
+"POT-Creation-Date: 2023-08-23 00:51+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
-"Last-Translator: Cally Mal <zhouxiaobo.500@gmail.com>, 2023\n"
+"Last-Translator: 玉堂白鹤 <yjwork@qq.com>, 2015,2017-2018,2020,2022-2023\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/xfce/xfce-panel-plugins/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -127,38 +127,42 @@ msgid "Enable multimedia keys for playback control"
 msgstr "为回放控制启用多媒体按键"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:23
+msgid "Send multimedia keys to all players"
+msgstr "向所有播放器发送多媒体键"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:24
 msgid "Enable experimental window focus support"
 msgstr "启用实验性的窗口焦点支持"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:24
+#: ../panel-plugin/pulseaudio-dialog.glade.h:25
 msgid "Name"
 msgstr "名称"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:25
+#: ../panel-plugin/pulseaudio-dialog.glade.h:26
 msgid "Persistent"
 msgstr "持续"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:26
+#: ../panel-plugin/pulseaudio-dialog.glade.h:27
 msgid "Ignored"
 msgstr "已忽略"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:27
+#: ../panel-plugin/pulseaudio-dialog.glade.h:28
 msgid "Clear Known Items"
 msgstr "清除已知项目"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:28
+#: ../panel-plugin/pulseaudio-dialog.glade.h:29
 msgid "Please restart the players to make them visible again."
 msgstr "请重新启动播放器，以使其再次可见。"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:29
+#: ../panel-plugin/pulseaudio-dialog.glade.h:30
 msgid "Known Media Players"
 msgstr "已知媒体播放器"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:30
+#: ../panel-plugin/pulseaudio-dialog.glade.h:31
 msgid "Media Players"
 msgstr "媒体播放器"
 
-#: ../panel-plugin/pulseaudio-dialog.c:150
+#: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:251
 #, c-format
 msgid ""
@@ -167,7 +171,7 @@ msgid ""
 "%s"
 msgstr "<big><b>运行命令 \"%s\" 失败。</b></big>\n\n%s"
 
-#: ../panel-plugin/pulseaudio-dialog.c:153
+#: ../panel-plugin/pulseaudio-dialog.c:145
 #: ../panel-plugin/pulseaudio-menu.c:254
 msgid "Error"
 msgstr "错误"
