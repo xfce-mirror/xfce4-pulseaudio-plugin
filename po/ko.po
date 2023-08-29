@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-19 01:17+0200\n"
+"POT-Creation-Date: 2023-08-23 00:51+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
 "Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>, 2015,2017-2018,2020,2022-2023\n"
 "Language-Team: Korean (http://app.transifex.com/xfce/xfce-panel-plugins/language/ko/)\n"
@@ -123,38 +123,42 @@ msgid "Enable multimedia keys for playback control"
 msgstr "재생 제어를 위해 멀티미디어 키 사용"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:23
+msgid "Send multimedia keys to all players"
+msgstr "모든 재생 프로그램에 멀티미디어 키 입력 보내기"
+
+#: ../panel-plugin/pulseaudio-dialog.glade.h:24
 msgid "Enable experimental window focus support"
 msgstr "실험 창 포커스 지원 사용"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:24
+#: ../panel-plugin/pulseaudio-dialog.glade.h:25
 msgid "Name"
 msgstr "이름"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:25
+#: ../panel-plugin/pulseaudio-dialog.glade.h:26
 msgid "Persistent"
 msgstr "유지"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:26
+#: ../panel-plugin/pulseaudio-dialog.glade.h:27
 msgid "Ignored"
 msgstr "무시"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:27
+#: ../panel-plugin/pulseaudio-dialog.glade.h:28
 msgid "Clear Known Items"
 msgstr "알려진 항목 지우기"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:28
+#: ../panel-plugin/pulseaudio-dialog.glade.h:29
 msgid "Please restart the players to make them visible again."
 msgstr "재생 프로그램을 다시 시작하여 설정 내용이 보이게 하십시오."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:29
+#: ../panel-plugin/pulseaudio-dialog.glade.h:30
 msgid "Known Media Players"
 msgstr "알려진 미디어 재생기"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:30
+#: ../panel-plugin/pulseaudio-dialog.glade.h:31
 msgid "Media Players"
 msgstr "미디어 재생 프로그램"
 
-#: ../panel-plugin/pulseaudio-dialog.c:150
+#: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:251
 #, c-format
 msgid ""
@@ -163,7 +167,7 @@ msgid ""
 "%s"
 msgstr "<big><b>\"%s\" 명령 실행에 실패했습니다.</b></big>\n\n%s"
 
-#: ../panel-plugin/pulseaudio-dialog.c:153
+#: ../panel-plugin/pulseaudio-dialog.c:145
 #: ../panel-plugin/pulseaudio-menu.c:254
 msgid "Error"
 msgstr "오류"
