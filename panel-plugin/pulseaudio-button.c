@@ -171,17 +171,7 @@ pulseaudio_button_init (PulseaudioButton *button)
   /* Intercept scroll events */
   gtk_widget_add_events (GTK_WIDGET (button), GDK_SCROLL_MASK);
 
-  button->plugin = NULL;
-  button->config = NULL;
-  button->volume = NULL;
   button->icon_size = 16;
-  button->icon_name = NULL;
-
-  button->menu = NULL;
-  button->volume_changed_id = 0;
-  button->recording_volume_changed_id = 0;
-  button->recording_changed_id = 0;
-  button->deactivate_id = 0;
 
   button->image = gtk_image_new ();
   button->recording_indicator = gtk_image_new ();
