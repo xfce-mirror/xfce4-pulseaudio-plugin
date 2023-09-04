@@ -46,6 +46,7 @@
 #define DEFAULT_ENABLE_KEYBOARD_SHORTCUTS         TRUE
 #define DEFAULT_SHOW_NOTIFICATIONS                1
 #define DEFAULT_PLAY_SOUND                        FALSE
+#define DEFAULT_REC_INDICATOR_PERSISTENT          FALSE
 #define DEFAULT_VOLUME_STEP                       5
 #define DEFAULT_VOLUME_MAX                        150
 
@@ -96,6 +97,7 @@ struct _PulseaudioConfig
 #ifdef HAVE_LIBCANBERRA
   gboolean         play_sound;
 #endif
+  gboolean         rec_indicator_persistent;
   guint            volume_step;
   guint            volume_max;
   gchar           *mixer_command;
@@ -118,6 +120,7 @@ enum
 #ifdef HAVE_LIBCANBERRA
     PROP_PLAY_SOUND,
 #endif
+    PROP_REC_INDICATOR_PERSISTENT,
     PROP_VOLUME_STEP,
     PROP_VOLUME_MAX,
     PROP_MIXER_COMMAND,
@@ -198,6 +201,14 @@ pulseaudio_config_class_init (PulseaudioConfigClass *klass)
                                                          G_PARAM_READWRITE |
                                                          G_PARAM_STATIC_STRINGS));
 #endif
+
+
+  g_object_class_install_property (gobject_class,
+                                   PROP_REC_INDICATOR_PERSISTENT,
+                                   g_param_spec_boolean ("rec-indicator-persistent", NULL, NULL,
+                                                         DEFAULT_REC_INDICATOR_PERSISTENT,
+                                                         G_PARAM_READWRITE |
+                                                         G_PARAM_STATIC_STRINGS));
 
 
   g_object_class_install_property (gobject_class,
@@ -296,6 +307,7 @@ pulseaudio_config_init (PulseaudioConfig *config)
 #ifdef HAVE_LIBCANBERRA
   config->play_sound                = DEFAULT_PLAY_SOUND;
 #endif
+  config->rec_indicator_persistent  = DEFAULT_REC_INDICATOR_PERSISTENT;
   config->volume_step               = DEFAULT_VOLUME_STEP;
   config->volume_max                = DEFAULT_VOLUME_MAX;
   config->mixer_command             = g_strdup (DEFAULT_MIXER_COMMAND);
@@ -352,6 +364,10 @@ pulseaudio_config_get_property (GObject    *object,
       g_value_set_boolean (value, config->play_sound);
       break;
 #endif
+
+    case PROP_REC_INDICATOR_PERSISTENT:
+      g_value_set_boolean (value, config->rec_indicator_persistent);
+      break;
 
     case PROP_VOLUME_STEP:
       g_value_set_uint (value, config->volume_step);
@@ -456,6 +472,16 @@ pulseaudio_config_set_property (GObject      *object,
         }
       break;
 #endif
+
+    case PROP_REC_INDICATOR_PERSISTENT:
+      val_bool = g_value_get_boolean (value);
+      if (config->rec_indicator_persistent != val_bool)
+        {
+          config->rec_indicator_persistent = val_bool;
+          g_object_notify (G_OBJECT (config), "rec-indicator-persistent");
+          g_signal_emit (G_OBJECT (config), pulseaudio_config_signals [CONFIGURATION_CHANGED], 0);
+        }
+      break;
 
     case PROP_VOLUME_STEP:
       val_uint = g_value_get_uint (value);
@@ -590,6 +616,16 @@ pulseaudio_config_get_play_sound (PulseaudioConfig *config)
   return config->play_sound;
 }
 #endif
+
+
+
+gboolean
+pulseaudio_config_get_rec_indicator_persistent (PulseaudioConfig *config)
+{
+  g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), DEFAULT_REC_INDICATOR_PERSISTENT);
+
+  return config->rec_indicator_persistent;
+}
 
 
 
@@ -1044,6 +1080,10 @@ pulseaudio_config_new (const gchar     *property_base)
       xfconf_g_property_bind (channel, property, G_TYPE_BOOLEAN, config, "play-sound");
       g_free (property);
 #endif
+
+      property = g_strconcat (property_base, "/rec-indicator-persistent", NULL);
+      xfconf_g_property_bind (channel, property, G_TYPE_BOOLEAN, config, "rec-indicator-persistent");
+      g_free (property);
 
       property = g_strconcat (property_base, "/volume-step", NULL);
       xfconf_g_property_bind (channel, property, G_TYPE_UINT, config, "volume-step");
