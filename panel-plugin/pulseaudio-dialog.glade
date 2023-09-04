@@ -179,6 +179,22 @@
                               </packing>
                             </child>
                             <child>
+                              <object class="GtkCheckButton" id="checkbutton-rec-indicator-persistent">
+                                <property name="label" translatable="yes">Always display the recording _indicator</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">False</property>
+                                <property name="halign">start</property>
+                                <property name="use_underline">True</property>
+                                <property name="draw_indicator">True</property>
+                              </object>
+                              <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
+                                <property name="position">2</property>
+                              </packing>
+                            </child>
+                            <child>
                               <object class="GtkBox" id="vbox2-hbox2">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
@@ -220,7 +236,7 @@
                               <packing>
                                 <property name="expand">True</property>
                                 <property name="fill">True</property>
-                                <property name="position">2</property>
+                                <property name="position">3</property>
                               </packing>
                             </child>
                             <child>
