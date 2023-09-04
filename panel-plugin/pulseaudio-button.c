@@ -217,7 +217,7 @@ static gboolean
 pulseaudio_button_mic_icon_under_pointer (PulseaudioButton *button,
                                           gdouble           pointer_pos_x)
 {
-  if (!pulseaudio_volume_get_recording (button->volume))
+  if (!gtk_widget_is_visible (button->recording_indicator))
     return FALSE;
 
   /* Microphone icon is on the left */
