@@ -139,7 +139,7 @@ msgstr "Navn"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:27
 msgid "Persistent"
-msgstr "Vedvarende"
+msgstr "Vedholdende"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:28
 msgid "Ignored"
