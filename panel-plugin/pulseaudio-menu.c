@@ -649,44 +649,44 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
                   mpris_menu_item_set_is_running (MPRIS_MENU_ITEM (mi), FALSE);
                 }
 
-                g_signal_connect (mi, "media-notify", G_CALLBACK (media_notify_cb), menu);
-                g_signal_connect (menu->mpris, "update", G_CALLBACK (mpris_update_cb), mi);
-                g_signal_connect (mi, "destroy", G_CALLBACK(item_destroy_cb), menu);
+              g_signal_connect (mi, "media-notify", G_CALLBACK (media_notify_cb), menu);
+              g_signal_connect (menu->mpris, "update", G_CALLBACK (mpris_update_cb), mi);
+              g_signal_connect (mi, "destroy", G_CALLBACK(item_destroy_cb), menu);
 
-                gtk_widget_show(mi);
-                gtk_menu_shell_append(GTK_MENU_SHELL(menu), mi);
+              gtk_widget_show(mi);
+              gtk_menu_shell_append(GTK_MENU_SHELL(menu), mi);
 
-                if (playlists != NULL)
+              if (is_running && playlists != NULL)
+                {
+                  if (g_list_length(playlists) > 0)
                   {
-                    if (g_list_length(playlists) > 0)
+                    mi = gtk_menu_item_new_with_label(_("Choose Playlist"));
+                    gtk_widget_show(mi);
+                    gtk_menu_shell_append(GTK_MENU_SHELL(menu), mi);
+
+                    submenu = gtk_menu_new();
+                    gtk_menu_item_set_submenu(GTK_MENU_ITEM(mi), submenu);
+
+                    for (list = playlists; list != NULL; list = g_list_next(list))
                     {
-                      mi = gtk_menu_item_new_with_label(_("Choose Playlist"));
+                      mi = gtk_menu_item_new_with_label((gchar *)list->data);
                       gtk_widget_show(mi);
-                      gtk_menu_shell_append(GTK_MENU_SHELL(menu), mi);
+                      gtk_menu_shell_append(GTK_MENU_SHELL(submenu), mi);
 
-                      submenu = gtk_menu_new();
-                      gtk_menu_item_set_submenu(GTK_MENU_ITEM(mi), submenu);
+                      g_object_set_data (G_OBJECT(mi), "player", g_strdup (players[i]));
+                      g_object_set_data (G_OBJECT(mi), "playlist", g_strdup ((gchar *)list->data));
 
-                      for (list = playlists; list != NULL; list = g_list_next(list))
-                      {
-                        mi = gtk_menu_item_new_with_label((gchar *)list->data);
-                        gtk_widget_show(mi);
-                        gtk_menu_shell_append(GTK_MENU_SHELL(submenu), mi);
-
-                        g_object_set_data (G_OBJECT(mi), "player", g_strdup (players[i]));
-                        g_object_set_data (G_OBJECT(mi), "playlist", g_strdup ((gchar *)list->data));
-
-                        g_signal_connect_swapped(G_OBJECT(mi), "activate", G_CALLBACK (pulseaudio_menu_activate_playlist), menu);
-                      }
+                      g_signal_connect_swapped(G_OBJECT(mi), "activate", G_CALLBACK (pulseaudio_menu_activate_playlist), menu);
                     }
-
-                    g_list_free(playlists);
                   }
 
-                /* separator */
-                mi = gtk_separator_menu_item_new ();
-                gtk_widget_show (mi);
-                gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
+                  g_list_free(playlists);
+                }
+
+              /* separator */
+              mi = gtk_separator_menu_item_new ();
+              gtk_widget_show (mi);
+              gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
             }
 
           g_strfreev (players);
