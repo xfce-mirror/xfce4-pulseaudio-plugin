@@ -166,7 +166,7 @@ pulseaudio_dialog_persistent_toggled_cb (GtkCellRendererToggle *toggle, gchar *p
   treepath = gtk_tree_path_new_from_string (path);
   gtk_tree_model_get_iter (model, &iter, treepath);
 
-  gtk_tree_model_get_value (model, &iter, 1, &player_val);
+  gtk_tree_model_get_value (model, &iter, 4, &player_val);
   gtk_tree_model_get_value (model, &iter, 2, &persistent_val);
   persistent = !g_value_get_boolean(&persistent_val);
   player = g_value_get_string(&player_val);
@@ -196,7 +196,7 @@ pulseaudio_dialog_ignored_toggled_cb (GtkCellRendererToggle *toggle, gchar *path
   treepath = gtk_tree_path_new_from_string (path);
   gtk_tree_model_get_iter (model, &iter, treepath);
 
-  gtk_tree_model_get_value (model, &iter, 1, &player_val);
+  gtk_tree_model_get_value (model, &iter, 4, &player_val);
   gtk_tree_model_get_value (model, &iter, 3, &ignored_val);
   ignored = !g_value_get_boolean(&ignored_val);
   player = g_value_get_string(&player_val);
@@ -361,10 +361,11 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
           const guint num_players = g_strv_length (players);
           for (i = 0; i < num_players; i++)
             {
+              gchar *player_label = NULL;
               gchar *icon_name = NULL;
               GIcon *icon = NULL;
 
-              if (pulseaudio_mpris_get_player_summary (players[i], &icon_name, NULL))
+              if (pulseaudio_mpris_get_player_summary (players[i], &player_label, &icon_name, NULL))
                 {
                   if (g_file_test (icon_name, G_FILE_TEST_EXISTS) && !g_file_test (icon_name, G_FILE_TEST_IS_DIR))
                     {
@@ -384,11 +385,13 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
                   gtk_list_store_append (liststore, &iter);
                   gtk_list_store_set (liststore, &iter,
                                       0, icon,
-                                      1, players[i],
+                                      1, player_label,
                                       2, pulseaudio_config_player_persistent_lookup (dialog->config, players[i]),
                                       3, pulseaudio_config_player_ignored_lookup (dialog->config, players[i]),
+                                      4, players[i],
                                       -1);
 
+                  g_free (player_label);
                   g_free (icon_name);
                   if (icon != NULL)
                     g_object_unref (icon);

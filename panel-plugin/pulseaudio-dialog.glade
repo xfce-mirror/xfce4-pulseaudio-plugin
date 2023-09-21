@@ -31,12 +31,14 @@
     <columns>
       <!-- column-name gicon -->
       <column type="GIcon"/>
-      <!-- column-name player -->
+      <!-- column-name label -->
       <column type="gchararray"/>
       <!-- column-name persistent -->
       <column type="gboolean"/>
       <!-- column-name ignored -->
       <column type="gboolean"/>
+      <!-- column-name player -->
+      <column type="gchararray"/>
     </columns>
   </object>
   <object class="GtkListStore" id="notifications-store">
