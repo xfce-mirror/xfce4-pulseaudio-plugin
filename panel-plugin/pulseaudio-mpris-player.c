@@ -50,6 +50,7 @@ struct _PulseaudioMprisPlayer
 
   gchar            *player;
   gchar            *player_label;
+  gchar            *player_dbus_name;
   gchar            *icon_name;
 
   gboolean          connected;
@@ -639,7 +640,8 @@ pulseaudio_mpris_player_parse_media_player_properties (PulseaudioMprisPlayer *pl
     name_for_desktop = player->player_label;
   if (name_for_desktop == NULL)
     name_for_desktop = player->player;
-  pulseaudio_mpris_player_set_details_from_desktop (player, name_for_desktop);
+  player->player_dbus_name = g_strdup (name_for_desktop);
+  pulseaudio_mpris_player_set_details_from_desktop (player, player->player_dbus_name);
 }
 
 
@@ -819,6 +821,9 @@ pulseaudio_mpris_player_set_details_from_desktop (PulseaudioMprisPlayer *player,
   gchar     *full_path = NULL;
   gchar     *filename = NULL;
 
+  if (G_UNLIKELY (player->player_dbus_name == NULL))
+    player->player_dbus_name = g_strdup (player_name);
+
   filename = pulseaudio_mpris_player_find_desktop_entry (player_name);
 
   g_free (player->icon_name);
@@ -965,9 +970,17 @@ pulseaudio_mpris_player_get_player (PulseaudioMprisPlayer *player)
 
 
 const gchar *
-pulseaudio_mpris_player_get_player_title (PulseaudioMprisPlayer *player)
+pulseaudio_mpris_player_get_player_label (PulseaudioMprisPlayer *player)
 {
   return player->player_label;
+}
+
+
+
+const gchar *
+pulseaudio_mpris_player_get_dbus_name (PulseaudioMprisPlayer *player)
+{
+  return player->player_dbus_name;
 }
 
 
@@ -1099,6 +1112,7 @@ pulseaudio_mpris_player_finalize (GObject *object)
 
   g_free (player->player);
   g_free (player->player_label);
+  g_free (player->player_dbus_name);
   g_free (player->icon_name);
 
   g_free (player->title);
