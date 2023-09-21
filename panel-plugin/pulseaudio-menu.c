@@ -656,7 +656,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
               gtk_widget_show(mi);
               gtk_menu_shell_append(GTK_MENU_SHELL(menu), mi);
 
-              if (playlists != NULL)
+              if (is_running && playlists != NULL)
                 {
                   if (g_list_length(playlists) > 0)
                   {
