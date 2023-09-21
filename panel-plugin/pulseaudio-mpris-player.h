@@ -56,7 +56,8 @@ gchar                  *pulseaudio_mpris_player_find_desktop_entry (const gchar 
 
 gint64                  pulseaudio_mpris_player_get_timestamp      (PulseaudioMprisPlayer *player);
 const gchar            *pulseaudio_mpris_player_get_player         (PulseaudioMprisPlayer *player);
-const gchar            *pulseaudio_mpris_player_get_player_title   (PulseaudioMprisPlayer *player);
+const gchar            *pulseaudio_mpris_player_get_player_label   (PulseaudioMprisPlayer *player);
+const gchar            *pulseaudio_mpris_player_get_dbus_name      (PulseaudioMprisPlayer *player);
 const gchar            *pulseaudio_mpris_player_get_icon_name      (PulseaudioMprisPlayer *player);
 const gchar            *pulseaudio_mpris_player_get_title          (PulseaudioMprisPlayer *player);
 const gchar            *pulseaudio_mpris_player_get_artist         (PulseaudioMprisPlayer *player);
