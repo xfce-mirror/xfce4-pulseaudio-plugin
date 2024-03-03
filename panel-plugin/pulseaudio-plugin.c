@@ -47,8 +47,10 @@
 #include "pulseaudio-mpris.h"
 
 
-#ifdef HAVE_KEYBINDER
+#if defined (HAVE_KEYBINDER) && defined (GDK_WINDOWING_X11)
+#define ENABLE_KEYBINDER 1
 #include <keybinder.h>
+#include <gdk/gdkx.h>
 
 #define PULSEAUDIO_PLUGIN_RAISE_VOLUME_KEY  "XF86AudioRaiseVolume"
 #define PULSEAUDIO_PLUGIN_LOWER_VOLUME_KEY  "XF86AudioLowerVolume"
@@ -73,7 +75,7 @@ static void             pulseaudio_plugin_configure_plugin                 (Xfce
 static gboolean         pulseaudio_plugin_size_changed                     (XfcePanelPlugin       *plugin,
                                                                             gint                   size);
 
-#ifdef HAVE_KEYBINDER
+#ifdef ENABLE_KEYBINDER
 static void             pulseaudio_plugin_bind_keys_cb                     (PulseaudioPlugin      *pulseaudio_plugin,
                                                                             PulseaudioConfig      *pulseaudio_config);
 static gboolean         pulseaudio_plugin_bind_keys                        (PulseaudioPlugin      *pulseaudio_plugin);
@@ -180,7 +182,7 @@ pulseaudio_plugin_free_data (XfcePanelPlugin *plugin)
 {
   PulseaudioPlugin *pulseaudio_plugin = PULSEAUDIO_PLUGIN (plugin);
 
-#ifdef HAVE_KEYBINDER
+#ifdef ENABLE_KEYBINDER
   /* release keybindings */
   pulseaudio_plugin_unbind_keys (pulseaudio_plugin);
   pulseaudio_plugin_unbind_multimedia_keys (pulseaudio_plugin);
@@ -303,7 +305,7 @@ pulseaudio_plugin_size_changed (XfcePanelPlugin *plugin,
 
 
 
-#ifdef HAVE_KEYBINDER
+#ifdef ENABLE_KEYBINDER
 static void
 pulseaudio_plugin_bind_keys_cb (PulseaudioPlugin      *pulseaudio_plugin,
                                 PulseaudioConfig      *pulseaudio_config)
@@ -546,15 +548,18 @@ pulseaudio_plugin_construct (XfcePanelPlugin *plugin)
   /* instantiate preference dialog builder */
   pulseaudio_plugin->dialog = pulseaudio_dialog_new (pulseaudio_plugin->config);
 
-#ifdef HAVE_KEYBINDER
-  /* Initialize libkeybinder */
-  keybinder_init ();
-  g_signal_connect_swapped (G_OBJECT (pulseaudio_plugin->config), "notify::enable-keyboard-shortcuts",
-                            G_CALLBACK (pulseaudio_plugin_bind_keys_cb), pulseaudio_plugin);
-  g_signal_connect_swapped (G_OBJECT (pulseaudio_plugin->config), "notify::enable-multimedia-keys",
-                            G_CALLBACK (pulseaudio_plugin_bind_multimedia_keys_cb), pulseaudio_plugin);
-  pulseaudio_plugin_bind_keys_cb (pulseaudio_plugin, NULL);
-  pulseaudio_plugin_bind_multimedia_keys_cb (pulseaudio_plugin, NULL);
+#ifdef ENABLE_KEYBINDER
+  if (GDK_IS_X11_DISPLAY (gdk_display_get_default ()))
+    {
+      /* Initialize libkeybinder */
+      keybinder_init ();
+      g_signal_connect_swapped (G_OBJECT (pulseaudio_plugin->config), "notify::enable-keyboard-shortcuts",
+                                G_CALLBACK (pulseaudio_plugin_bind_keys_cb), pulseaudio_plugin);
+      g_signal_connect_swapped (G_OBJECT (pulseaudio_plugin->config), "notify::enable-multimedia-keys",
+                                G_CALLBACK (pulseaudio_plugin_bind_multimedia_keys_cb), pulseaudio_plugin);
+      pulseaudio_plugin_bind_keys_cb (pulseaudio_plugin, NULL);
+      pulseaudio_plugin_bind_multimedia_keys_cb (pulseaudio_plugin, NULL);
+    }
 #endif
 
   /* volume controller */

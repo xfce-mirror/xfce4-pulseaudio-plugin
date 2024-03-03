@@ -28,7 +28,8 @@
 
 #ifdef HAVE_LIBXFCE4WINDOWING
 #include <libxfce4windowing/libxfce4windowing.h>
-#elif defined (HAVE_WNCK)
+#elif defined (HAVE_WNCK) && defined (GDK_WINDOWING_X11)
+#define ENABLE_WNCK 1
 #define WNCK_I_KNOW_THIS_IS_UNSTABLE = 1
 #include <libwnck/libwnck.h>
 #include <gdk/gdkx.h>
@@ -73,7 +74,7 @@ struct _PulseaudioMprisPlayer
 
 #ifdef HAVE_LIBXFCE4WINDOWING
   XfwScreen        *screen;
-#elif defined (HAVE_WNCK)
+#elif defined (ENABLE_WNCK)
   gulong            xid;
 #endif
 
@@ -297,7 +298,7 @@ pulseaudio_mpris_player_raise_wnck (PulseaudioMprisPlayer *player)
     }
 }
 
-#elif defined (HAVE_WNCK)
+#elif defined (ENABLE_WNCK)
 
 static void
 pulseaudio_mpris_player_get_xid (PulseaudioMprisPlayer *player)
@@ -363,7 +364,7 @@ pulseaudio_mpris_player_call_player_method (PulseaudioMprisPlayer *player,
 
   if (g_strcmp0 (method, "Raise") == 0)
     iface = "org.mpris.MediaPlayer2";
-#if defined (HAVE_WNCK) || defined (HAVE_LIBXFCE4WINDOWING)
+#if defined (ENABLE_WNCK) || defined (HAVE_LIBXFCE4WINDOWING)
   else if (g_strcmp0 (method, "RaiseWnck") == 0)
     return pulseaudio_mpris_player_raise_wnck (player);
 #endif
@@ -743,7 +744,7 @@ pulseaudio_mpris_player_on_dbus_connected (GDBusConnection *connection,
     g_variant_unref (reply);
   }
 
-#ifdef HAVE_WNCK
+#ifdef ENABLE_WNCK
   pulseaudio_mpris_player_get_xid (player);
 #endif
 }
