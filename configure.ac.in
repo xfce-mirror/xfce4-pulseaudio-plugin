@@ -63,11 +63,6 @@ dnl *** Check for i18n support ***
 dnl ******************************
 XDT_I18N([@LINGUAS@])
 
-dnl *******************************
-dnl *** Check for X11 installed ***
-dnl *******************************
-XDT_CHECK_LIBX11_REQUIRE()
-
 dnl ***********************************
 dnl *** Check for required packages ***
 dnl ***********************************
