@@ -73,6 +73,8 @@ AC_SUBST([LIBXFCE4PANEL_VERSION_API])
 
 XDT_CHECK_PACKAGE([PULSEAUDIO], [libpulse-mainloop-glib], [0.9.19])
 XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [2.44.0])
+XDT_CHECK_PACKAGE([GIO], [gio-2.0], [2.44.0])
+XDT_CHECK_PACKAGE([GIO_UNIX], [gio-unix-2.0], [2.44.0])
 XDT_CHECK_PACKAGE([GTK], [gtk+-3.0], [3.20.0])
 XDT_CHECK_PACKAGE([EXO], [exo-2], [0.11.0])
 XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.9.0])
@@ -104,8 +106,13 @@ AC_SUBST(LIBM)
 dnl *******************************
 dnl *** Optional MPRIS2 Support ***
 dnl *******************************
-XDT_CHECK_OPTIONAL_PACKAGE([MPRIS2], [gio-2.0], [2.42], [mpris2],
-                           [mpris2 support])
+AC_ARG_ENABLE([mpris2],
+              [AS_HELP_STRING([--disable-mpris2],
+                              [Do not build MPRIS2 support])],
+              [enable_mpris2=$enableval], [enable_mpris2=yes])
+if test x"$enable_mpris2" != x"no"; then
+  AC_DEFINE([HAVE_MPRIS2], [1], [Define to enable MPRIS2 support])
+fi
 
 dnl *********************************************************
 dnl *** Optional (experimental) Libxfce4windowing Support ***
@@ -169,7 +176,7 @@ echo "* Debug Support:                $enable_debug"
 echo "* Use keybinder:                ${KEYBINDER_FOUND:-no}"
 echo "* Use libnotify:                ${LIBNOTIFY_FOUND:-no}"
 echo "* Use libcanberra:              ${LIBCANBERRA_FOUND:-no}"
-echo "* Use MPRIS2:                   ${MPRIS2_FOUND:-no}"
+echo "* Use MPRIS2:                   $enable_mpris2"
 if test "$LIBXFCE4WINDOWING_FOUND" = "yes"; then
 echo "* Libxfce4windowing support:    ${LIBXFCE4WINDOWING_FOUND:-no}"
 else
