@@ -52,6 +52,8 @@ libpulseaudio_plugin_la_SOURCES = \
 libpulseaudio_plugin_la_CFLAGS = \
 	$(PULSEAUDIO_CFLAGS) \
 	$(GLIB_CFLAGS) \
+	$(GIO_CFLAGS) \
+	$(GIO_UNIX_CFLAGS) \
 	$(GTK_CFLAGS) \
 	$(LIBXFCE4UTIL_CFLAGS) \
 	$(LIBXFCE4UI_CFLAGS) \
@@ -60,7 +62,6 @@ libpulseaudio_plugin_la_CFLAGS = \
 	$(KEYBINDER_CFLAGS) \
 	$(LIBNOTIFY_CFLAGS) \
 	$(LIBCANBERRA_CFLAGS) \
-	$(MPRIS2_CFLAGS) \
 	$(EXO_CFLAGS) \
 	$(WNCK_CFLAGS) \
 	$(LIBXFCE4WINDOWING_CFLAGS) \
@@ -76,6 +77,8 @@ libpulseaudio_plugin_la_LDFLAGS = \
 libpulseaudio_plugin_la_LIBADD = \
 	$(PULSEAUDIO_LIBS) \
 	$(GLIB_LIBS) \
+	$(GIO_LIBS) \
+	$(GIO_UNIX_LIBS) \
 	$(GTK_LIBS) \
 	$(LIBXFCE4UTIL_LIBS) \
 	$(LIBXFCE4UI_LIBS) \
@@ -84,7 +87,6 @@ libpulseaudio_plugin_la_LIBADD = \
 	$(KEYBINDER_LIBS) \
 	$(LIBNOTIFY_LIBS) \
 	$(LIBCANBERRA_LIBS) \
-	$(MPRIS2_LIBS) \
 	$(EXO_LIBS) \
 	$(WNCK_LIBS) \
 	$(LIBXFCE4WINDOWING_LIBS) \
