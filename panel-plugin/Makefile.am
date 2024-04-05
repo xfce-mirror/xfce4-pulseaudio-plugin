@@ -99,17 +99,20 @@ desktopdir = \
 	$(datadir)/xfce4/panel/plugins
 
 desktop_in_files = \
-	pulseaudio.desktop.in.in
+	pulseaudio.desktop.in
 
-desktop_DATA = $(desktop_in_files:.desktop.in.in=.desktop)
+desktop_in_in_files = $(desktop_in_files:.desktop.in=.desktop.in.in)
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
-@INTLTOOL_DESKTOP_RULE@
+$(desktop_DATA): $(desktop_in_files) Makefile
+	$(AM_V_GEN)$(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
 
 EXTRA_DIST = \
 	pulseaudio-dialog.glade \
-	$(desktop_in_files)
+	$(desktop_in_in_files)
 
 DISTCLEANFILES = \
+	$(desktop_in_files) \
 	$(desktop_DATA)
 
 if MAINTAINER_MODE
