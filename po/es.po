@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-05 00:50+0200\n"
+"POT-Creation-Date: 2024-04-07 00:55+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
 "Last-Translator: Ignacio Poggi <ignaciop.3@gmail.com>, 2023\n"
 "Language-Team: Spanish (http://app.transifex.com/xfce/xfce-panel-plugins/language/es/)\n"
@@ -23,15 +23,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es\n"
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
-
-#: ../panel-plugin/pulseaudio.desktop.in.in.h:1
-msgid "PulseAudio Plugin"
-msgstr "PulseAudio"
-
-#: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:256
-msgid "Adjust the audio volume of the PulseAudio sound system"
-msgstr "Ajusta el volumen del sistema de sonido PulseAudio"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:1
 msgid "None"
@@ -167,6 +158,10 @@ msgstr "Reproductores multimedia conocidos"
 msgid "Media Players"
 msgstr "Reproductores multimedia"
 
+#: ../panel-plugin/pulseaudio-plugin.c:258
+msgid "Adjust the audio volume of the PulseAudio sound system"
+msgstr "Ajusta el volumen del sistema de sonido PulseAudio"
+
 #: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:251
 #, c-format
@@ -228,7 +223,7 @@ msgstr "Volumen: %d%c (silenciado)"
 msgid "Volume %d%c"
 msgstr "Volumen: %d%c"
 
-#: ../panel-plugin/mprismenuitem.c:374 ../panel-plugin/mprismenuitem.c:447
-#: ../panel-plugin/mprismenuitem.c:802
+#: ../panel-plugin/mprismenuitem.c:375 ../panel-plugin/mprismenuitem.c:448
+#: ../panel-plugin/mprismenuitem.c:803
 msgid "Not currently playing"
 msgstr "No se está reproduciendo"
