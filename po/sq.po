@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-05 00:50+0200\n"
+"POT-Creation-Date: 2024-04-07 00:55+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>, 2022-2023\n"
 "Language-Team: Albanian (http://app.transifex.com/xfce/xfce-panel-plugins/language/sq/)\n"
@@ -18,15 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sq\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: ../panel-plugin/pulseaudio.desktop.in.in.h:1
-msgid "PulseAudio Plugin"
-msgstr "Shtojcë për PulseAudio"
-
-#: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:256
-msgid "Adjust the audio volume of the PulseAudio sound system"
-msgstr "Rregulloni volumin e zërit të sistemit PulseAudio të tingujve"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:1
 msgid "None"
@@ -162,6 +153,10 @@ msgstr "Lojtës Media të Ditur"
 msgid "Media Players"
 msgstr "Lojtës Media"
 
+#: ../panel-plugin/pulseaudio-plugin.c:258
+msgid "Adjust the audio volume of the PulseAudio sound system"
+msgstr "Rregulloni volumin e zërit të sistemit PulseAudio të tingujve"
+
 #: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:251
 #, c-format
@@ -223,7 +218,7 @@ msgstr "Volumi %d%c (heshtuar)"
 msgid "Volume %d%c"
 msgstr "Volumi %d%c"
 
-#: ../panel-plugin/mprismenuitem.c:374 ../panel-plugin/mprismenuitem.c:447
-#: ../panel-plugin/mprismenuitem.c:802
+#: ../panel-plugin/mprismenuitem.c:375 ../panel-plugin/mprismenuitem.c:448
+#: ../panel-plugin/mprismenuitem.c:803
 msgid "Not currently playing"
 msgstr "S’po luhet gjë"
