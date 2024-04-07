@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-05 00:50+0200\n"
+"POT-Creation-Date: 2024-04-07 00:55+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
 "Last-Translator: Andrei Stepanov, 2022-2023\n"
 "Language-Team: Russian (http://app.transifex.com/xfce/xfce-panel-plugins/language/ru/)\n"
@@ -20,15 +20,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
-
-#: ../panel-plugin/pulseaudio.desktop.in.in.h:1
-msgid "PulseAudio Plugin"
-msgstr "Модуль PulseAudio"
-
-#: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:256
-msgid "Adjust the audio volume of the PulseAudio sound system"
-msgstr "Управление громкостью звука системы PulseAudio"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:1
 msgid "None"
@@ -164,6 +155,10 @@ msgstr "Известные медиаплееры"
 msgid "Media Players"
 msgstr "Медиаплееры"
 
+#: ../panel-plugin/pulseaudio-plugin.c:258
+msgid "Adjust the audio volume of the PulseAudio sound system"
+msgstr "Управление громкостью звука системы PulseAudio"
+
 #: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:251
 #, c-format
@@ -225,7 +220,7 @@ msgstr "Громкость %d%c (откл.)"
 msgid "Volume %d%c"
 msgstr "Громкость %d%c"
 
-#: ../panel-plugin/mprismenuitem.c:374 ../panel-plugin/mprismenuitem.c:447
-#: ../panel-plugin/mprismenuitem.c:802
+#: ../panel-plugin/mprismenuitem.c:375 ../panel-plugin/mprismenuitem.c:448
+#: ../panel-plugin/mprismenuitem.c:803
 msgid "Not currently playing"
 msgstr "Ничего не воспроизводится"
