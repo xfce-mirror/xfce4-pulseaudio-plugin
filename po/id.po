@@ -1,6 +1,6 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR Xfce
+# This file is distributed under the same license as the xfce-panel-plugins.xfce4-pulseaudio-plugin package.
 # 
 # Translators:
 # Muhammad Akbar Yanuar Mantari, 2023
@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-07 00:55+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
+"POT-Creation-Date: 2024-04-07 12:54+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
 "Last-Translator: Muhammad Akbar Yanuar Mantari, 2023\n"
 "Language-Team: Indonesian (http://app.transifex.com/xfce/xfce-panel-plugins/language/id/)\n"
@@ -19,146 +19,150 @@ msgstr ""
 "Language: id\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:1
+#: panel-plugin/pulseaudio.desktop.in.in:5
+msgid "PulseAudio Plugin"
+msgstr "Pengaya PulseAudio"
+
+#: panel-plugin/pulseaudio.desktop.in.in:6
+#: panel-plugin/pulseaudio-plugin.c:258
+msgid "Adjust the audio volume of the PulseAudio sound system"
+msgstr "Sesuaikan volume audio dari sistem suara PulseAudio"
+
+#: panel-plugin/pulseaudio-dialog.glade:51
 msgid "None"
 msgstr "Tidak ada"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:2
+#: panel-plugin/pulseaudio-dialog.glade:54
 msgid "All"
 msgstr "Semua"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:3
+#: panel-plugin/pulseaudio-dialog.glade:57
 msgid "Output only"
 msgstr "Untuk keluaran"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:4
+#: panel-plugin/pulseaudio-dialog.glade:60
 msgid "Input only"
 msgstr "Untuk masukan"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:5
+#: panel-plugin/pulseaudio-dialog.glade:66
 msgid "PulseAudio Panel Plugin"
 msgstr "Panel Pengaya PulseAudio"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:6
+#: panel-plugin/pulseaudio-dialog.glade:151
 msgid "Enable keyboard _shortcuts for volume control"
 msgstr "Aktifkan pinta_san papan tik untuk kontrol volume"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:7
+#: panel-plugin/pulseaudio-dialog.glade:155
 msgid ""
 "Enables volume control using multimedia keys. Make sure no other application"
 " that listens to these keys (e.g. xfce4-volumed) is running in the "
 "background."
 msgstr "Aktifkan kontrol volume menggunakan tombol multimedia. Pastikan tidak ada aplikasi lain yang mendengarkan tombol ini (mis. Xfce4-volumed) yang berjalan di latar belakang."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:8
+#: panel-plugin/pulseaudio-dialog.glade:168
 msgid "Play system _sound when volume changes"
 msgstr "Mainkan _suara sistem saat volume berubah"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:9
+#: panel-plugin/pulseaudio-dialog.glade:172
 msgid ""
 "Enables audio feedback when using multimedia keys to change the volume."
 msgstr "Aktifkan umpan balik audio ketika menggunakan tombol multimedia untuk mengubah volume."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:10
+#: panel-plugin/pulseaudio-dialog.glade:185
 msgid "Always display the recording _indicator"
 msgstr ""
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:11
+#: panel-plugin/pulseaudio-dialog.glade:208
 msgid "Show volume _notifications:"
 msgstr "Tampilkan _notifikasi volume:"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:12
+#: panel-plugin/pulseaudio-dialog.glade:222
 msgid "Mute/unmute is notified in all modes except \"None\""
 msgstr "Senyapkan/tidak akan ternotifikasi dalam semua mode kecuali 'None'"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:13
+#: panel-plugin/pulseaudio-dialog.glade:248
 msgid "Step size used when adjusting volume with mouse wheel or hotkeys."
 msgstr "Ukuran tingkatan yang digunakan untuk mengelola volume dengan gilir tektikus atau pintasan papan tik."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:14
+#: panel-plugin/pulseaudio-dialog.glade:254
 msgid "_Volume step:"
 msgstr "_Tingkatan volume: "
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:15
+#: panel-plugin/pulseaudio-dialog.glade:300
 msgid "M_aximum volume:"
 msgstr "M_aksimal volume:"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:16
+#: panel-plugin/pulseaudio-dialog.glade:345
 msgid "Behaviour"
 msgstr "Perilaku"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:17
+#: panel-plugin/pulseaudio-dialog.glade:380
 msgid "Audio _Mixer"
 msgstr "_Mixer Audio"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:18
+#: panel-plugin/pulseaudio-dialog.glade:392
 msgid ""
 "Audio mixer command that can be executed from the context menu, e.g. "
 "\"pavucontrol\", \"unity-control-center sound\"."
 msgstr "Perintah mixer audio yang bisa dijalankan dari menu konteks, mis. \"pavucontrol\", \"unity-control-center sound\"."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:19
+#: panel-plugin/pulseaudio-dialog.glade:405
 msgid "_Run Audio Mixer..."
 msgstr "_Jalankan Mixer Audio..."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:20
+#: panel-plugin/pulseaudio-dialog.glade:427
 msgid "Sound Settings"
 msgstr "Pengaturan Suara"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:21
+#: panel-plugin/pulseaudio-dialog.glade:446
 msgid "General"
 msgstr "Umum"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:22
+#: panel-plugin/pulseaudio-dialog.glade:478
 msgid "Control Playback of Media Players"
 msgstr "Kontrol Pemutaran Pemutar Media"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:23
+#: panel-plugin/pulseaudio-dialog.glade:521
 msgid "Enable multimedia keys for playback control"
 msgstr "Aktifkan tombol multimedia untuk kontrol pemutaran"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:24
+#: panel-plugin/pulseaudio-dialog.glade:536
 msgid "Send multimedia keys to all players"
 msgstr ""
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:25
+#: panel-plugin/pulseaudio-dialog.glade:551
 msgid "Enable experimental window focus support"
 msgstr "Aktifkan dukungan eksperimental fokus jendela"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:26
+#: panel-plugin/pulseaudio-dialog.glade:629
 msgid "Name"
 msgstr "Nama"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:27
+#: panel-plugin/pulseaudio-dialog.glade:641
 msgid "Persistent"
 msgstr "Pengukuhan"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:28
+#: panel-plugin/pulseaudio-dialog.glade:652
 msgid "Ignored"
 msgstr "Abaikan"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:29
+#: panel-plugin/pulseaudio-dialog.glade:672
 msgid "Clear Known Items"
 msgstr "Bersihkan Item yang Diketahui"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:30
+#: panel-plugin/pulseaudio-dialog.glade:694
 msgid "Please restart the players to make them visible again."
 msgstr "Dimohon agar memuat ulang pemutar media agar dapat tampil lagi."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:31
+#: panel-plugin/pulseaudio-dialog.glade:717
 msgid "Known Media Players"
 msgstr "Pemutar Media yang Diketahui"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:32
+#: panel-plugin/pulseaudio-dialog.glade:739
 msgid "Media Players"
 msgstr "Pemutar Media"
 
-#: ../panel-plugin/pulseaudio-plugin.c:258
-msgid "Adjust the audio volume of the PulseAudio sound system"
-msgstr "Sesuaikan volume audio dari sistem suara PulseAudio"
-
-#: ../panel-plugin/pulseaudio-dialog.c:142
-#: ../panel-plugin/pulseaudio-menu.c:251
+#: panel-plugin/pulseaudio-dialog.c:142 panel-plugin/pulseaudio-menu.c:251
 #, c-format
 msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
@@ -166,59 +170,56 @@ msgid ""
 "%s"
 msgstr "<big><b>Gagal menjalankan perintah \"%s\".</b></big>\n\n%s"
 
-#: ../panel-plugin/pulseaudio-dialog.c:145
-#: ../panel-plugin/pulseaudio-menu.c:254
+#: panel-plugin/pulseaudio-dialog.c:145 panel-plugin/pulseaudio-menu.c:254
 msgid "Error"
 msgstr "Galat"
 
-#: ../panel-plugin/pulseaudio-button.c:339
-#: ../panel-plugin/pulseaudio-notify.c:199
-#, c-format
+#: panel-plugin/pulseaudio-button.c:339 panel-plugin/pulseaudio-notify.c:199
 msgid "Not connected to the PulseAudio server"
 msgstr "Tidak terhubung ke server PulseAudio"
 
-#: ../panel-plugin/pulseaudio-button.c:357
+#: panel-plugin/pulseaudio-button.c:357
 #, c-format
 msgid ""
 "<b>Volume %d%% (muted)</b>\n"
 "<small>%s</small>"
 msgstr "<b>Volume%d%%(senyapkan)</b>\n<small>%s</small>"
 
-#: ../panel-plugin/pulseaudio-button.c:359
+#: panel-plugin/pulseaudio-button.c:359
 #, c-format
 msgid ""
 "<b>Volume %d%%</b>\n"
 "<small>%s</small>"
 msgstr "<b>Volume%d%%</b>\n<small>%s</small>"
 
-#: ../panel-plugin/pulseaudio-menu.c:521
+#: panel-plugin/pulseaudio-menu.c:521
 msgid "Output"
 msgstr "keluaran"
 
-#: ../panel-plugin/pulseaudio-menu.c:561
+#: panel-plugin/pulseaudio-menu.c:561
 msgid "Input"
 msgstr "Masukan"
 
-#: ../panel-plugin/pulseaudio-menu.c:663
+#: panel-plugin/pulseaudio-menu.c:663
 msgid "Choose Playlist"
 msgstr "Pilih Senarai Putar"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:698
+#: panel-plugin/pulseaudio-menu.c:698
 msgid "_Audio mixer..."
 msgstr "Mixer _audio..."
 
-#: ../panel-plugin/pulseaudio-notify.c:201
+#: panel-plugin/pulseaudio-notify.c:201
 #, c-format
 msgid "Volume %d%c (muted)"
 msgstr "Volume %d%c (bisu)"
 
-#: ../panel-plugin/pulseaudio-notify.c:203
+#: panel-plugin/pulseaudio-notify.c:203
 #, c-format
 msgid "Volume %d%c"
 msgstr "Volume %d%c"
 
-#: ../panel-plugin/mprismenuitem.c:375 ../panel-plugin/mprismenuitem.c:448
-#: ../panel-plugin/mprismenuitem.c:803
+#: panel-plugin/mprismenuitem.c:375 panel-plugin/mprismenuitem.c:448
+#: panel-plugin/mprismenuitem.c:803
 msgid "Not currently playing"
 msgstr "Tidak sedang memutar"
