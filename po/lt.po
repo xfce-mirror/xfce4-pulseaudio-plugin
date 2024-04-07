@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-05 00:50+0200\n"
+"POT-Creation-Date: 2024-04-07 00:55+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
 "Last-Translator: Moo, 2023\n"
 "Language-Team: Lithuanian (http://app.transifex.com/xfce/xfce-panel-plugins/language/lt/)\n"
@@ -18,15 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: lt\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);\n"
-
-#: ../panel-plugin/pulseaudio.desktop.in.in.h:1
-msgid "PulseAudio Plugin"
-msgstr "PulseAudio įskiepis"
-
-#: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:256
-msgid "Adjust the audio volume of the PulseAudio sound system"
-msgstr "Reguliuoti PulseAudio garso sistemos garsų garsį"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:1
 msgid "None"
@@ -162,6 +153,10 @@ msgstr "Žinomos medijos leistuvės"
 msgid "Media Players"
 msgstr "Medijos leistuvės"
 
+#: ../panel-plugin/pulseaudio-plugin.c:258
+msgid "Adjust the audio volume of the PulseAudio sound system"
+msgstr "Reguliuoti PulseAudio garso sistemos garsų garsį"
+
 #: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:251
 #, c-format
@@ -223,7 +218,7 @@ msgstr "Garsis %d%c (nutildyta)"
 msgid "Volume %d%c"
 msgstr "Garsis %d%c"
 
-#: ../panel-plugin/mprismenuitem.c:374 ../panel-plugin/mprismenuitem.c:447
-#: ../panel-plugin/mprismenuitem.c:802
+#: ../panel-plugin/mprismenuitem.c:375 ../panel-plugin/mprismenuitem.c:448
+#: ../panel-plugin/mprismenuitem.c:803
 msgid "Not currently playing"
 msgstr "Šiuo metu negroja"
