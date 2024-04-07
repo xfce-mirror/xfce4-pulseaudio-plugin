@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-05 00:50+0200\n"
+"POT-Creation-Date: 2024-04-07 00:55+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
 "Last-Translator: Ioannis LM, 2018,2022-2024\n"
 "Language-Team: Greek (http://app.transifex.com/xfce/xfce-panel-plugins/language/el/)\n"
@@ -21,15 +21,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: ../panel-plugin/pulseaudio.desktop.in.in.h:1
-msgid "PulseAudio Plugin"
-msgstr "Πρόσθετο PulseAudio"
-
-#: ../panel-plugin/pulseaudio.desktop.in.in.h:2
-#: ../panel-plugin/pulseaudio-plugin.c:256
-msgid "Adjust the audio volume of the PulseAudio sound system"
-msgstr "Προσαρμογή της έντασης του συστήματος ήχου PulseΑudio"
 
 #: ../panel-plugin/pulseaudio-dialog.glade.h:1
 msgid "None"
@@ -165,6 +156,10 @@ msgstr "Γνωστές εφαρμογές πολυμέσων"
 msgid "Media Players"
 msgstr "Εφαρμογές πολυμέσων"
 
+#: ../panel-plugin/pulseaudio-plugin.c:258
+msgid "Adjust the audio volume of the PulseAudio sound system"
+msgstr "Προσαρμογή της έντασης του συστήματος ήχου PulseΑudio"
+
 #: ../panel-plugin/pulseaudio-dialog.c:142
 #: ../panel-plugin/pulseaudio-menu.c:251
 #, c-format
@@ -226,7 +221,7 @@ msgstr "Ένταση %d%c (σε σίγαση)"
 msgid "Volume %d%c"
 msgstr "Ένταση %d%c"
 
-#: ../panel-plugin/mprismenuitem.c:374 ../panel-plugin/mprismenuitem.c:447
-#: ../panel-plugin/mprismenuitem.c:802
+#: ../panel-plugin/mprismenuitem.c:375 ../panel-plugin/mprismenuitem.c:448
+#: ../panel-plugin/mprismenuitem.c:803
 msgid "Not currently playing"
 msgstr "Δεν αναπαράγεται τώρα"
