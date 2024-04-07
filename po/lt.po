@@ -1,6 +1,6 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR Xfce
+# This file is distributed under the same license as the xfce-panel-plugins.xfce4-pulseaudio-plugin package.
 # 
 # Translators:
 # Moo, 2015-2018,2020,2022-2023
@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-07 00:55+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
+"POT-Creation-Date: 2024-04-07 12:54+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
 "Last-Translator: Moo, 2023\n"
 "Language-Team: Lithuanian (http://app.transifex.com/xfce/xfce-panel-plugins/language/lt/)\n"
@@ -19,146 +19,150 @@ msgstr ""
 "Language: lt\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);\n"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:1
+#: panel-plugin/pulseaudio.desktop.in.in:5
+msgid "PulseAudio Plugin"
+msgstr "PulseAudio įskiepis"
+
+#: panel-plugin/pulseaudio.desktop.in.in:6
+#: panel-plugin/pulseaudio-plugin.c:258
+msgid "Adjust the audio volume of the PulseAudio sound system"
+msgstr "Reguliuoti PulseAudio garso sistemos garsų garsį"
+
+#: panel-plugin/pulseaudio-dialog.glade:51
 msgid "None"
 msgstr "Nėra"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:2
+#: panel-plugin/pulseaudio-dialog.glade:54
 msgid "All"
 msgstr "Visi"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:3
+#: panel-plugin/pulseaudio-dialog.glade:57
 msgid "Output only"
 msgstr "Tik išvestis"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:4
+#: panel-plugin/pulseaudio-dialog.glade:60
 msgid "Input only"
 msgstr "Tik įvestis"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:5
+#: panel-plugin/pulseaudio-dialog.glade:66
 msgid "PulseAudio Panel Plugin"
 msgstr "PulseAudio skydelio įskiepis"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:6
+#: panel-plugin/pulseaudio-dialog.glade:151
 msgid "Enable keyboard _shortcuts for volume control"
 msgstr "Įjungti _sparčiuosius klaviatūros klavišus garsio reguliavimui"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:7
+#: panel-plugin/pulseaudio-dialog.glade:155
 msgid ""
 "Enables volume control using multimedia keys. Make sure no other application"
 " that listens to these keys (e.g. xfce4-volumed) is running in the "
 "background."
 msgstr "Įjungia garsio reguliavimą, naudojant multimedijos klavišus. Įsitikinkite, kad fone nėra vykdoma jokia kita, šių klavišų besiklausanti, programa (pvz., xfce4-volumed)."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:8
+#: panel-plugin/pulseaudio-dialog.glade:168
 msgid "Play system _sound when volume changes"
 msgstr "Atkurti sistemos garsą, kai keičiamas garsio lygis"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:9
+#: panel-plugin/pulseaudio-dialog.glade:172
 msgid ""
 "Enables audio feedback when using multimedia keys to change the volume."
 msgstr "Įjungia garso atsaką, kai garsio keitimui naudojami multimedijos klavišai."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:10
+#: panel-plugin/pulseaudio-dialog.glade:185
 msgid "Always display the recording _indicator"
 msgstr "Visada rodyti įrašymo _indikatorių"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:11
+#: panel-plugin/pulseaudio-dialog.glade:208
 msgid "Show volume _notifications:"
 msgstr "Rodyti _pranešimus apie garsį:"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:12
+#: panel-plugin/pulseaudio-dialog.glade:222
 msgid "Mute/unmute is notified in all modes except \"None\""
 msgstr "Apie nutildymą/garso įjungimą yra pranešama visose veiksenose, išskyrus „Nėra“"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:13
+#: panel-plugin/pulseaudio-dialog.glade:248
 msgid "Step size used when adjusting volume with mouse wheel or hotkeys."
 msgstr "Žingsnio dydis reguliuojant garsį pelės ratuku ar sparčiaisiais klavišais."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:14
+#: panel-plugin/pulseaudio-dialog.glade:254
 msgid "_Volume step:"
 msgstr "_Garsio žingsnis:"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:15
+#: panel-plugin/pulseaudio-dialog.glade:300
 msgid "M_aximum volume:"
 msgstr "_Didžiausias garsis:"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:16
+#: panel-plugin/pulseaudio-dialog.glade:345
 msgid "Behaviour"
 msgstr "Elgsena"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:17
+#: panel-plugin/pulseaudio-dialog.glade:380
 msgid "Audio _Mixer"
 msgstr "Garsų _maišiklis"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:18
+#: panel-plugin/pulseaudio-dialog.glade:392
 msgid ""
 "Audio mixer command that can be executed from the context menu, e.g. "
 "\"pavucontrol\", \"unity-control-center sound\"."
 msgstr "Garsų maišiklio komanda, kuri gali būti vykdoma iš kontekstinio meniu, pvz., „pavucontrol“, „unity-control-center sound“."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:19
+#: panel-plugin/pulseaudio-dialog.glade:405
 msgid "_Run Audio Mixer..."
 msgstr "_Paleisti garsų maišiklį..."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:20
+#: panel-plugin/pulseaudio-dialog.glade:427
 msgid "Sound Settings"
 msgstr "Garso nustatymai"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:21
+#: panel-plugin/pulseaudio-dialog.glade:446
 msgid "General"
 msgstr "Bendra"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:22
+#: panel-plugin/pulseaudio-dialog.glade:478
 msgid "Control Playback of Media Players"
 msgstr "Valdyti medijos leistuvių atkūrimą"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:23
+#: panel-plugin/pulseaudio-dialog.glade:521
 msgid "Enable multimedia keys for playback control"
 msgstr "Įjungti multimedijos klavišus, skirtus atkūrimo valdymui"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:24
+#: panel-plugin/pulseaudio-dialog.glade:536
 msgid "Send multimedia keys to all players"
 msgstr "Siųsti multimedijos klavišus į visas leistuves"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:25
+#: panel-plugin/pulseaudio-dialog.glade:551
 msgid "Enable experimental window focus support"
 msgstr "Įjungti eksperimentinį langų fokusavimo palaikymą"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:26
+#: panel-plugin/pulseaudio-dialog.glade:629
 msgid "Name"
 msgstr "Pavadinimas"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:27
+#: panel-plugin/pulseaudio-dialog.glade:641
 msgid "Persistent"
 msgstr "Nuolatinis"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:28
+#: panel-plugin/pulseaudio-dialog.glade:652
 msgid "Ignored"
 msgstr "Nepaisomas"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:29
+#: panel-plugin/pulseaudio-dialog.glade:672
 msgid "Clear Known Items"
 msgstr "Išvalyti žinomus elementus"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:30
+#: panel-plugin/pulseaudio-dialog.glade:694
 msgid "Please restart the players to make them visible again."
 msgstr "Norėdami padaryti leistuves vėl matomas, paleiskite jas iš naujo."
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:31
+#: panel-plugin/pulseaudio-dialog.glade:717
 msgid "Known Media Players"
 msgstr "Žinomos medijos leistuvės"
 
-#: ../panel-plugin/pulseaudio-dialog.glade.h:32
+#: panel-plugin/pulseaudio-dialog.glade:739
 msgid "Media Players"
 msgstr "Medijos leistuvės"
 
-#: ../panel-plugin/pulseaudio-plugin.c:258
-msgid "Adjust the audio volume of the PulseAudio sound system"
-msgstr "Reguliuoti PulseAudio garso sistemos garsų garsį"
-
-#: ../panel-plugin/pulseaudio-dialog.c:142
-#: ../panel-plugin/pulseaudio-menu.c:251
+#: panel-plugin/pulseaudio-dialog.c:142 panel-plugin/pulseaudio-menu.c:251
 #, c-format
 msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
@@ -166,59 +170,56 @@ msgid ""
 "%s"
 msgstr "<big><b>Nepavyko įvykdyti komandos „%s“.</b></big>\n\n%s"
 
-#: ../panel-plugin/pulseaudio-dialog.c:145
-#: ../panel-plugin/pulseaudio-menu.c:254
+#: panel-plugin/pulseaudio-dialog.c:145 panel-plugin/pulseaudio-menu.c:254
 msgid "Error"
 msgstr "Klaida"
 
-#: ../panel-plugin/pulseaudio-button.c:339
-#: ../panel-plugin/pulseaudio-notify.c:199
-#, c-format
+#: panel-plugin/pulseaudio-button.c:339 panel-plugin/pulseaudio-notify.c:199
 msgid "Not connected to the PulseAudio server"
 msgstr "Neprisijungta prie PulseAudio serverio"
 
-#: ../panel-plugin/pulseaudio-button.c:357
+#: panel-plugin/pulseaudio-button.c:357
 #, c-format
 msgid ""
 "<b>Volume %d%% (muted)</b>\n"
 "<small>%s</small>"
 msgstr "<b>Garsis %d%% (nutildyta)</b>\n<small>%s</small>"
 
-#: ../panel-plugin/pulseaudio-button.c:359
+#: panel-plugin/pulseaudio-button.c:359
 #, c-format
 msgid ""
 "<b>Volume %d%%</b>\n"
 "<small>%s</small>"
 msgstr "<b>Garsis %d%%</b>\n<small>%s</small>"
 
-#: ../panel-plugin/pulseaudio-menu.c:521
+#: panel-plugin/pulseaudio-menu.c:521
 msgid "Output"
 msgstr "Išvestis"
 
-#: ../panel-plugin/pulseaudio-menu.c:561
+#: panel-plugin/pulseaudio-menu.c:561
 msgid "Input"
 msgstr "Įvestis"
 
-#: ../panel-plugin/pulseaudio-menu.c:663
+#: panel-plugin/pulseaudio-menu.c:663
 msgid "Choose Playlist"
 msgstr "Pasirinkti grojaraštį"
 
 #. Audio mixers
-#: ../panel-plugin/pulseaudio-menu.c:698
+#: panel-plugin/pulseaudio-menu.c:698
 msgid "_Audio mixer..."
 msgstr "_Garsų maišiklis..."
 
-#: ../panel-plugin/pulseaudio-notify.c:201
+#: panel-plugin/pulseaudio-notify.c:201
 #, c-format
 msgid "Volume %d%c (muted)"
 msgstr "Garsis %d%c (nutildyta)"
 
-#: ../panel-plugin/pulseaudio-notify.c:203
+#: panel-plugin/pulseaudio-notify.c:203
 #, c-format
 msgid "Volume %d%c"
 msgstr "Garsis %d%c"
 
-#: ../panel-plugin/mprismenuitem.c:375 ../panel-plugin/mprismenuitem.c:448
-#: ../panel-plugin/mprismenuitem.c:803
+#: panel-plugin/mprismenuitem.c:375 panel-plugin/mprismenuitem.c:448
+#: panel-plugin/mprismenuitem.c:803
 msgid "Not currently playing"
 msgstr "Šiuo metu negroja"
