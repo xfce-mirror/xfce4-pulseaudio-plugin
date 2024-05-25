@@ -1,0 +1,224 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Xfce
+# This file is distributed under the same license as the xfce-panel-plugins.xfce4-pulseaudio-plugin package.
+# 
+# Translators:
+# Priit Jõerüüt <transifex@joeruut.com>, 2020,2023-2024
+msgid ""
+msgstr ""
+"Project-Id-Version: Xfce Panel Plugins\n"
+"Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
+"POT-Creation-Date: 2024-04-07 12:54+0200\n"
+"PO-Revision-Date: 2015-10-05 20:18+0000\n"
+"Last-Translator: Priit Jõerüüt <transifex@joeruut.com>, 2020,2023-2024\n"
+"Language-Team: Estonian (http://app.transifex.com/xfce/xfce-panel-plugins/language/et/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: panel-plugin/pulseaudio.desktop.in.in:5
+msgid "PulseAudio Plugin"
+msgstr "PulseAudio pistikprogramm"
+
+#: panel-plugin/pulseaudio.desktop.in.in:6
+#: panel-plugin/pulseaudio-plugin.c:258
+msgid "Adjust the audio volume of the PulseAudio sound system"
+msgstr "Seadista PulseAudio helisüsteemi helivaljust"
+
+#: panel-plugin/pulseaudio-dialog.glade:51
+msgid "None"
+msgstr "Mitte midagi"
+
+#: panel-plugin/pulseaudio-dialog.glade:54
+msgid "All"
+msgstr "Kõik"
+
+#: panel-plugin/pulseaudio-dialog.glade:57
+msgid "Output only"
+msgstr "Ainult väljundid"
+
+#: panel-plugin/pulseaudio-dialog.glade:60
+msgid "Input only"
+msgstr "Ainult sisendid"
+
+#: panel-plugin/pulseaudio-dialog.glade:66
+msgid "PulseAudio Panel Plugin"
+msgstr "PulseAudio pistikprogramm ribale"
+
+#: panel-plugin/pulseaudio-dialog.glade:151
+msgid "Enable keyboard _shortcuts for volume control"
+msgstr "Kasuta helivaljuse juhtimi_seks klaviatuuri kiirklahve"
+
+#: panel-plugin/pulseaudio-dialog.glade:155
+msgid ""
+"Enables volume control using multimedia keys. Make sure no other application"
+" that listens to these keys (e.g. xfce4-volumed) is running in the "
+"background."
+msgstr "Võimaldab helivaljust juhtida multimeedia nuppudega. Palun kontrolli, et taustal ei tööta ühtegi teist samu nuppe haldavat rakendust (näiteks xfce4-volumed)."
+
+#: panel-plugin/pulseaudio-dialog.glade:168
+msgid "Play system _sound when volume changes"
+msgstr "Helivaljuse muutumisel anna _süsteemse heligateavitusega sellest märku"
+
+#: panel-plugin/pulseaudio-dialog.glade:172
+msgid ""
+"Enables audio feedback when using multimedia keys to change the volume."
+msgstr "Multimeedianuppude kasutamisel helivaljuse muutmiseks anna sellest helisignaaliga märku."
+
+#: panel-plugin/pulseaudio-dialog.glade:185
+msgid "Always display the recording _indicator"
+msgstr "Näita alati helisalvestamise mõõd_ikut"
+
+#: panel-plugin/pulseaudio-dialog.glade:208
+msgid "Show volume _notifications:"
+msgstr "Näita helivaljuse _teavitusi:"
+
+#: panel-plugin/pulseaudio-dialog.glade:222
+msgid "Mute/unmute is notified in all modes except \"None\""
+msgstr "Summutamisest või selle lõpetamisestantakse kõikides režiimides märku „Mitte ükski“"
+
+#: panel-plugin/pulseaudio-dialog.glade:248
+msgid "Step size used when adjusting volume with mouse wheel or hotkeys."
+msgstr "Helivaljuse muutmisel hiirerattaga või kiirklahvidega kasutatakse sellist muutmise sammu."
+
+#: panel-plugin/pulseaudio-dialog.glade:254
+msgid "_Volume step:"
+msgstr "Helituge_vuse samm:"
+
+#: panel-plugin/pulseaudio-dialog.glade:300
+msgid "M_aximum volume:"
+msgstr "M_aksimaalne helivaljus:"
+
+#: panel-plugin/pulseaudio-dialog.glade:345
+msgid "Behaviour"
+msgstr "Käitumine"
+
+#: panel-plugin/pulseaudio-dialog.glade:380
+msgid "Audio _Mixer"
+msgstr "_Mikseripult"
+
+#: panel-plugin/pulseaudio-dialog.glade:392
+msgid ""
+"Audio mixer command that can be executed from the context menu, e.g. "
+"\"pavucontrol\", \"unity-control-center sound\"."
+msgstr "Mikseripuldi käsk, mis käivitatakse kontekstimenüüst, näiteks „pavucontrol“ või „unity-control-center sound“."
+
+#: panel-plugin/pulseaudio-dialog.glade:405
+msgid "_Run Audio Mixer..."
+msgstr "_Käivita mikseripult..."
+
+#: panel-plugin/pulseaudio-dialog.glade:427
+msgid "Sound Settings"
+msgstr "Heliseadistused"
+
+#: panel-plugin/pulseaudio-dialog.glade:446
+msgid "General"
+msgstr "Üldine"
+
+#: panel-plugin/pulseaudio-dialog.glade:478
+msgid "Control Playback of Media Players"
+msgstr "Meediamängijate taasesituse kontroll"
+
+#: panel-plugin/pulseaudio-dialog.glade:521
+msgid "Enable multimedia keys for playback control"
+msgstr "Võimalda kasutada taasesituse juhtimiseks multimeedia nuppe klaviatuuril"
+
+#: panel-plugin/pulseaudio-dialog.glade:536
+msgid "Send multimedia keys to all players"
+msgstr "Saada multimeedianuppude sisend kõikidele meediamängijatele"
+
+#: panel-plugin/pulseaudio-dialog.glade:551
+msgid "Enable experimental window focus support"
+msgstr "Kasuta katselist aknafookuse tuge"
+
+#: panel-plugin/pulseaudio-dialog.glade:629
+msgid "Name"
+msgstr "Nimi"
+
+#: panel-plugin/pulseaudio-dialog.glade:641
+msgid "Persistent"
+msgstr "Püsiv"
+
+#: panel-plugin/pulseaudio-dialog.glade:652
+msgid "Ignored"
+msgstr "Eiratud"
+
+#: panel-plugin/pulseaudio-dialog.glade:672
+msgid "Clear Known Items"
+msgstr "Eemalda teadaolevad kirjed"
+
+#: panel-plugin/pulseaudio-dialog.glade:694
+msgid "Please restart the players to make them visible again."
+msgstr "Kui soovid teha meediamängijad jälle nähtavaks, siis käivita nad uuesti."
+
+#: panel-plugin/pulseaudio-dialog.glade:717
+msgid "Known Media Players"
+msgstr "Teadaolevad meediamängijad"
+
+#: panel-plugin/pulseaudio-dialog.glade:739
+msgid "Media Players"
+msgstr "Meediamängijad"
+
+#: panel-plugin/pulseaudio-dialog.c:142 panel-plugin/pulseaudio-menu.c:251
+#, c-format
+msgid ""
+"<big><b>Failed to execute command \"%s\".</b></big>\n"
+"\n"
+"%s"
+msgstr "<big><b>„%s“ käsu käivitamine ei õnnestunud.</b></big>\n\n%s"
+
+#: panel-plugin/pulseaudio-dialog.c:145 panel-plugin/pulseaudio-menu.c:254
+msgid "Error"
+msgstr "Viga"
+
+#: panel-plugin/pulseaudio-button.c:339 panel-plugin/pulseaudio-notify.c:199
+msgid "Not connected to the PulseAudio server"
+msgstr "Pole ühendatud PulseAudio serveriga"
+
+#: panel-plugin/pulseaudio-button.c:357
+#, c-format
+msgid ""
+"<b>Volume %d%% (muted)</b>\n"
+"<small>%s</small>"
+msgstr "<b>Helivaljus %d%% (summutatud)</b>\n<small>%s</small>"
+
+#: panel-plugin/pulseaudio-button.c:359
+#, c-format
+msgid ""
+"<b>Volume %d%%</b>\n"
+"<small>%s</small>"
+msgstr "<b>Helivaljus %d%%</b>\n<small>%s</small>"
+
+#: panel-plugin/pulseaudio-menu.c:521
+msgid "Output"
+msgstr "Väljund"
+
+#: panel-plugin/pulseaudio-menu.c:561
+msgid "Input"
+msgstr "Sisend"
+
+#: panel-plugin/pulseaudio-menu.c:663
+msgid "Choose Playlist"
+msgstr "Vali esitusloend"
+
+#. Audio mixers
+#: panel-plugin/pulseaudio-menu.c:698
+msgid "_Audio mixer..."
+msgstr "_Mikseripult..."
+
+#: panel-plugin/pulseaudio-notify.c:201
+#, c-format
+msgid "Volume %d%c (muted)"
+msgstr "Helivaljus %d%c (summutatud)"
+
+#: panel-plugin/pulseaudio-notify.c:203
+#, c-format
+msgid "Volume %d%c"
+msgstr "Helivaljus %d%c"
+
+#: panel-plugin/mprismenuitem.c:375 panel-plugin/mprismenuitem.c:448
+#: panel-plugin/mprismenuitem.c:803
+msgid "Not currently playing"
+msgstr "Mitte midagi pole hetkel esitamisel"
