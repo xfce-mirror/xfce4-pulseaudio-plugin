@@ -41,6 +41,7 @@
 
 #define SYNCHRONOUS      "x-canonical-private-synchronous"
 #define LAYOUT_ICON_ONLY "x-canonical-private-icon-only"
+#define VALUE            "value"
 
 #include "pulseaudio-notify.h"
 
@@ -84,6 +85,7 @@ struct _PulseaudioNotify
   PulseaudioButton     *button;
 
   gboolean              gauge_notifications;
+  gboolean              were_gauge_notifications_set;
   NotifyNotification   *notification;
   NotifyNotification   *notification_mic;
 
@@ -120,6 +122,7 @@ pulseaudio_notify_init (PulseaudioNotify *notify)
   GList *node;
 
   notify->gauge_notifications = TRUE;
+  notify->were_gauge_notifications_set = FALSE;
   notify->notification = NULL;
   notify->notification_mic = NULL;
   notify->volume_changed_id = 0;
@@ -221,14 +224,25 @@ pulseaudio_notify_notify (PulseaudioNotify *notify, gboolean mic)
                               icon);
   g_free (title);
 
-  if (notify->gauge_notifications)
+  if (notify->gauge_notifications || pulseaudio_config_get_force_gauge_notifications (notify->config))
     {
       notify_notification_set_hint (notification,
-                                    "value",
+                                    VALUE,
                                     g_variant_new_int32 (MIN (100, volume_i)));
       notify_notification_set_hint (notification,
-                                    "x-canonical-private-synchronous",
+                                    SYNCHRONOUS,
                                     g_variant_new_string(""));
+      notify->were_gauge_notifications_set = TRUE;
+    }
+  else if (notify->were_gauge_notifications_set)
+    {
+      notify_notification_set_hint (notification,
+                                    VALUE,
+                                    NULL);
+      notify_notification_set_hint (notification,
+                                    SYNCHRONOUS,
+                                    NULL);
+      notify->were_gauge_notifications_set = FALSE;
     }
 
   if (!notify_notification_show (notification, &error))
