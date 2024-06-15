@@ -6,24 +6,18 @@ dnl
 dnl ***************************
 dnl *** Version information ***
 dnl ***************************
-m4_define([pulseaudio_version_major], [0])
-m4_define([pulseaudio_version_minor], [4])
-m4_define([pulseaudio_version_micro], [8])
-m4_define([pulseaudio_version_nano],  []) dnl leave this empty to have no nano version
-m4_define([pulseaudio_version_build], [@REVISION@])
-m4_define([pulseaudio_version_tag], [git])
-m4_define([pulseaudio_version], [pulseaudio_version_major().pulseaudio_version_minor().pulseaudio_version_micro()ifelse(pulseaudio_version_nano(), [], [], [.pulseaudio_version_nano()])ifelse(pulseaudio_version_tag(), [git], [pulseaudio_version_tag()-pulseaudio_version_build()], [pulseaudio_version_tag()])])
+XDT_VERSION_INIT([0.4.8], [git])
 
 dnl ***************************
 dnl *** Initialize autoconf ***
 dnl ***************************
 AC_COPYRIGHT([Copyright (c) 2014-2023
         The Xfce development team. All rights reserved.])
-AC_INIT([xfce4-pulseaudio-plugin], [pulseaudio_version], [https://gitlab.xfce.org/panel-plugins/xfce4-pulseaudio-plugin], [xfce4-pulseaudio-plugin])
-AC_PREREQ([2.50])
+AC_INIT([xfce4-pulseaudio-plugin], [xdt_version], [https://gitlab.xfce.org/panel-plugins/xfce4-pulseaudio-plugin], [xfce4-pulseaudio-plugin])
+AC_PREREQ([2.69])
 AC_CONFIG_HEADERS([config.h])
 AC_CANONICAL_TARGET()
-AC_REVISION([@REVISION@])
+AC_REVISION([xdt_version_build])
 AC_CONFIG_MACRO_DIRS([m4])
 
 dnl ***************************
@@ -132,7 +126,7 @@ XDT_CHECK_OPTIONAL_PACKAGE([WNCK], [libwnck-3.0], [3.20], [wnck], [Libwnck suppo
 dnl ***********************************
 dnl *** Check for debugging support ***
 dnl ***********************************
-XDT_FEATURE_DEBUG()
+XDT_FEATURE_DEBUG([xdt_debug_default])
 
 dnl *****************************
 dnl *** Default mixer command ***

@@ -12,10 +12,8 @@ autom4te.cache/
 compile
 config.*
 configure
-configure.ac
 depcomp
 install-sh
-intltool*
 libtool
 ltmain.sh
 m4/
@@ -23,7 +21,6 @@ missing
 panel-plugin/pulseaudio.desktop
 panel-plugin/pulseaudio.desktop.in
 po/*.gmo
-po/.intltool-merge-cache*
 po/Makefile.in.in
 po/POTFILES
 po/stamp-it
