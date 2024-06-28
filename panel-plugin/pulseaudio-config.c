@@ -47,6 +47,7 @@
 #define DEFAULT_SHOW_NOTIFICATIONS                1
 #define DEFAULT_PLAY_SOUND                        FALSE
 #define DEFAULT_REC_INDICATOR_PERSISTENT          FALSE
+#define DEFAULT_FORCE_GAUGE_NOTIFICATIONS         FALSE
 #define DEFAULT_VOLUME_STEP                       5
 #define DEFAULT_VOLUME_MAX                        150
 
@@ -98,6 +99,7 @@ struct _PulseaudioConfig
   gboolean         play_sound;
 #endif
   gboolean         rec_indicator_persistent;
+  gboolean         force_gauge_notifications;
   guint            volume_step;
   guint            volume_max;
   gchar           *mixer_command;
@@ -121,6 +123,7 @@ enum
     PROP_PLAY_SOUND,
 #endif
     PROP_REC_INDICATOR_PERSISTENT,
+    PROP_FORCE_GAUGE_NOTIFICATIONS,
     PROP_VOLUME_STEP,
     PROP_VOLUME_MAX,
     PROP_MIXER_COMMAND,
@@ -207,6 +210,14 @@ pulseaudio_config_class_init (PulseaudioConfigClass *klass)
                                    PROP_REC_INDICATOR_PERSISTENT,
                                    g_param_spec_boolean ("rec-indicator-persistent", NULL, NULL,
                                                          DEFAULT_REC_INDICATOR_PERSISTENT,
+                                                         G_PARAM_READWRITE |
+                                                         G_PARAM_STATIC_STRINGS));
+
+
+  g_object_class_install_property (gobject_class,
+                                   PROP_FORCE_GAUGE_NOTIFICATIONS,
+                                   g_param_spec_boolean ("force-gauge-notifications", NULL, NULL,
+                                                         DEFAULT_FORCE_GAUGE_NOTIFICATIONS,
                                                          G_PARAM_READWRITE |
                                                          G_PARAM_STATIC_STRINGS));
 
@@ -308,6 +319,7 @@ pulseaudio_config_init (PulseaudioConfig *config)
   config->play_sound                = DEFAULT_PLAY_SOUND;
 #endif
   config->rec_indicator_persistent  = DEFAULT_REC_INDICATOR_PERSISTENT;
+  config->force_gauge_notifications = DEFAULT_FORCE_GAUGE_NOTIFICATIONS;
   config->volume_step               = DEFAULT_VOLUME_STEP;
   config->volume_max                = DEFAULT_VOLUME_MAX;
   config->mixer_command             = g_strdup (DEFAULT_MIXER_COMMAND);
@@ -367,6 +379,10 @@ pulseaudio_config_get_property (GObject    *object,
 
     case PROP_REC_INDICATOR_PERSISTENT:
       g_value_set_boolean (value, config->rec_indicator_persistent);
+      break;
+
+    case PROP_FORCE_GAUGE_NOTIFICATIONS:
+      g_value_set_boolean (value, config->force_gauge_notifications);
       break;
 
     case PROP_VOLUME_STEP:
@@ -479,6 +495,16 @@ pulseaudio_config_set_property (GObject      *object,
         {
           config->rec_indicator_persistent = val_bool;
           g_object_notify (G_OBJECT (config), "rec-indicator-persistent");
+          g_signal_emit (G_OBJECT (config), pulseaudio_config_signals [CONFIGURATION_CHANGED], 0);
+        }
+      break;
+
+    case PROP_FORCE_GAUGE_NOTIFICATIONS:
+      val_bool = g_value_get_boolean (value);
+      if (config->force_gauge_notifications != val_bool)
+        {
+          config->force_gauge_notifications = val_bool;
+          g_object_notify (G_OBJECT (config), "force-gauge-notifications");
           g_signal_emit (G_OBJECT (config), pulseaudio_config_signals [CONFIGURATION_CHANGED], 0);
         }
       break;
@@ -625,6 +651,16 @@ pulseaudio_config_get_rec_indicator_persistent (PulseaudioConfig *config)
   g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), DEFAULT_REC_INDICATOR_PERSISTENT);
 
   return config->rec_indicator_persistent;
+}
+
+
+
+gboolean
+pulseaudio_config_get_force_gauge_notifications (PulseaudioConfig *config)
+{
+  g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), DEFAULT_FORCE_GAUGE_NOTIFICATIONS);
+
+  return config->force_gauge_notifications;
 }
 
 
