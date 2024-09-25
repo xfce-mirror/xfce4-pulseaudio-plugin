@@ -7,7 +7,7 @@
 # Andre Miranda <andre@andreldm.com>, 2017
 # Andre Miranda <andre@andreldm.com>, 2015
 # C. E., 2020
-# Michael Martins <michaelfm21@gmail.com>, 2017
+# Michael Martins, 2017
 # Miguel V. S. Frasson <mvsfrasson@gmail.com>, 2017
 # The Cat, 2023
 msgid ""
