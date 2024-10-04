@@ -123,7 +123,7 @@ msgstr "Ogólne"
 
 #: panel-plugin/pulseaudio-dialog.glade:478
 msgid "Control Playback of Media Players"
-msgstr "Kontrola odtwarzania odtwarzaczy mediów"
+msgstr "Sterowanie odtwarzaniem odtwarzaczy multimedialnych"
 
 #: panel-plugin/pulseaudio-dialog.glade:521
 msgid "Enable multimedia keys for playback control"
@@ -159,11 +159,11 @@ msgstr "Uruchom ponownie odtwarzacze, aby znów były widoczne."
 
 #: panel-plugin/pulseaudio-dialog.glade:717
 msgid "Known Media Players"
-msgstr "Znane odtwarzacze mediów"
+msgstr "Znane odtwarzacze multimedialne"
 
 #: panel-plugin/pulseaudio-dialog.glade:739
 msgid "Media Players"
-msgstr "Odtwarzacze mediów"
+msgstr "Odtwarzacze multimedialne"
 
 #: panel-plugin/pulseaudio-dialog.c:142 panel-plugin/pulseaudio-menu.c:251
 #, c-format
