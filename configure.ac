@@ -114,7 +114,7 @@ fi
 dnl *********************************************************
 dnl *** Optional (experimental) Libxfce4windowing Support ***
 dnl *********************************************************
-XDT_CHECK_OPTIONAL_PACKAGE([LIBXFCE4WINDOWING], [libxfce4windowing-0], [4.19.1], [libxfce4windowing],
+XDT_CHECK_OPTIONAL_PACKAGE([LIBXFCE4WINDOWING], [libxfce4windowing-0], [4.19.6], [libxfce4windowing],
                            [Libxfce4windowing support])
 
 dnl To be removed when Libxfce4windowing reaches at least stable version 4.20
