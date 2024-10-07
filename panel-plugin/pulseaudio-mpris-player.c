@@ -292,7 +292,7 @@ pulseaudio_mpris_player_raise_wnck (PulseaudioMprisPlayer *player)
     {
       if (g_strcmp0 (player->player_label, xfw_window_get_name (lp->data)) == 0)
         {
-          xfw_window_activate (lp->data, g_get_monotonic_time () / 1000, NULL);
+          xfw_window_activate (lp->data, NULL, g_get_monotonic_time () / 1000, NULL);
           break;
         }
     }
