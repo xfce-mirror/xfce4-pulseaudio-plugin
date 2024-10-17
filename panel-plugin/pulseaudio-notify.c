@@ -134,7 +134,7 @@ pulseaudio_notify_init (PulseaudioNotify *notify)
       node = g_list_find_custom (caps_list, LAYOUT_ICON_ONLY, (GCompareFunc) g_strcmp0);
       if (!node)
         notify->gauge_notifications = FALSE;
-      g_list_free (caps_list);
+      g_list_free_full (caps_list, g_free);
     }
   notify->notification = notify_notification_new ("xfce4-pulseaudio-plugin", NULL, NULL);
   notify_notification_set_timeout (notify->notification, 2000);
