@@ -182,6 +182,9 @@ pulseaudio_plugin_free_data (XfcePanelPlugin *plugin)
 {
   PulseaudioPlugin *pulseaudio_plugin = PULSEAUDIO_PLUGIN (plugin);
 
+  g_object_unref (pulseaudio_plugin->volume);
+  g_object_unref (pulseaudio_plugin->dialog);
+
 #ifdef ENABLE_KEYBINDER
   /* release keybindings */
   pulseaudio_plugin_unbind_keys (pulseaudio_plugin);
@@ -195,6 +198,11 @@ pulseaudio_plugin_free_data (XfcePanelPlugin *plugin)
   if (pulseaudio_plugin->canberra)
     ca_context_destroy (pulseaudio_plugin->canberra);
 #endif
+#ifdef HAVE_LIBNOTIFY
+  if (pulseaudio_plugin->notify)
+    g_object_unref (pulseaudio_plugin->notify);
+#endif
+
 }
 
 
