@@ -228,6 +228,9 @@ pulseaudio_volume_finalize (GObject *object)
   g_hash_table_destroy (volume->sources);
   g_hash_table_destroy (volume->source_idx_to_name);
 
+  if (volume->pa_context)
+    pa_context_unref (volume->pa_context);
+
   pa_glib_mainloop_free (volume->pa_mainloop);
 
   (*G_OBJECT_CLASS (pulseaudio_volume_parent_class)->finalize) (object);
@@ -634,6 +637,7 @@ pulseaudio_volume_connect (PulseaudioVolume *volume)
 #endif
 
   volume->pa_context = pa_context_new_with_proplist (pa_glib_mainloop_get_api (volume->pa_mainloop), NULL, proplist);
+  pa_proplist_free (proplist);
   pa_context_set_state_callback(volume->pa_context, pulseaudio_volume_context_state_cb, volume);
 
   err = pa_context_connect (volume->pa_context, NULL, PA_CONTEXT_NOFAIL, NULL);
