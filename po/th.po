@@ -37,11 +37,11 @@ msgstr "ทั้งหมด"
 
 #: panel-plugin/pulseaudio-dialog.glade:57
 msgid "Output only"
-msgstr ""
+msgstr "เสียงออกเท่านั้น"
 
 #: panel-plugin/pulseaudio-dialog.glade:60
 msgid "Input only"
-msgstr ""
+msgstr "เสียงเข้าเท่านั้น"
 
 #: panel-plugin/pulseaudio-dialog.glade:66
 msgid "PulseAudio Panel Plugin"
@@ -60,36 +60,36 @@ msgstr "เปิดใช้การควบคุมความดังเ
 
 #: panel-plugin/pulseaudio-dialog.glade:168
 msgid "Play system _sound when volume changes"
-msgstr ""
+msgstr "เล่นเ_สียงของระบบเมื่อความดังเปลี่ยน"
 
 #: panel-plugin/pulseaudio-dialog.glade:172
 msgid ""
 "Enables audio feedback when using multimedia keys to change the volume."
-msgstr ""
+msgstr "เปิดใช้การส่งเสียงตอบสนองเมื่อมีการใช้ปุ่มควบคุมสื่อปรับความดัง"
 
 #: panel-plugin/pulseaudio-dialog.glade:185
 msgid "Always display the recording _indicator"
-msgstr ""
+msgstr "แสดงตัวบ่งชี้การ_อัดเสียงเสมอ"
 
 #: panel-plugin/pulseaudio-dialog.glade:208
 msgid "Show volume _notifications:"
-msgstr ""
+msgstr "แ_จ้งเหตุความดังเสียง:"
 
 #: panel-plugin/pulseaudio-dialog.glade:222
 msgid "Mute/unmute is notified in all modes except \"None\""
-msgstr ""
+msgstr "จะแจ้งเหตุการปิด/เปิดเสียงในทุกโหมด ยกเว้นโหมด \"ไม่ใช้\""
 
 #: panel-plugin/pulseaudio-dialog.glade:248
 msgid "Step size used when adjusting volume with mouse wheel or hotkeys."
-msgstr ""
+msgstr "ขนาดของระดับขั้นของการปรับความดังเสียงด้วยล้อเมาส์หรือปุ่มลัด"
 
 #: panel-plugin/pulseaudio-dialog.glade:254
 msgid "_Volume step:"
-msgstr ""
+msgstr "ระดับ_ขั้นความดัง:"
 
 #: panel-plugin/pulseaudio-dialog.glade:300
 msgid "M_aximum volume:"
-msgstr ""
+msgstr "ความดังสู_งสุด:"
 
 #: panel-plugin/pulseaudio-dialog.glade:345
 msgid "Behaviour"
@@ -127,7 +127,7 @@ msgstr "เปิดใช้ปุ่มสื่อผสมสำหรับ
 
 #: panel-plugin/pulseaudio-dialog.glade:536
 msgid "Send multimedia keys to all players"
-msgstr ""
+msgstr "ส่งการกดปุ่มควบคุมสื่อไปยังโปรแกรมเล่นสื่อทั้งหมด"
 
 #: panel-plugin/pulseaudio-dialog.glade:551
 msgid "Enable experimental window focus support"
@@ -139,11 +139,11 @@ msgstr "ชื่อ"
 
 #: panel-plugin/pulseaudio-dialog.glade:641
 msgid "Persistent"
-msgstr ""
+msgstr "ถาวร"
 
 #: panel-plugin/pulseaudio-dialog.glade:652
 msgid "Ignored"
-msgstr ""
+msgstr "ไม่สนใจ"
 
 #: panel-plugin/pulseaudio-dialog.glade:672
 msgid "Clear Known Items"
@@ -151,7 +151,7 @@ msgstr "ล้างรายการที่รู้จัก"
 
 #: panel-plugin/pulseaudio-dialog.glade:694
 msgid "Please restart the players to make them visible again."
-msgstr ""
+msgstr "กรุณาเปิดโปรแกรมเล่นสื่อต่างๆ ใหม่เพื่อให้โปรแกรมเหล่านั้นปรากฏอีกครั้ง"
 
 #: panel-plugin/pulseaudio-dialog.glade:717
 msgid "Known Media Players"
@@ -182,14 +182,14 @@ msgstr "ไม่มีการเชื่อมต่อกับเซิร
 msgid ""
 "<b>Volume %d%% (muted)</b>\n"
 "<small>%s</small>"
-msgstr ""
+msgstr "<b>ความดัง %d%% (ปิดเสียง)</b>\n<small>%s</small>"
 
 #: panel-plugin/pulseaudio-button.c:359
 #, c-format
 msgid ""
 "<b>Volume %d%%</b>\n"
 "<small>%s</small>"
-msgstr ""
+msgstr "<b>ความดัง %d%%</b>\n<small>%s</small>"
 
 #: panel-plugin/pulseaudio-menu.c:521
 msgid "Output"
