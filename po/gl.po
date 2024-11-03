@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Daniel Muñiz Fontoira <dani@damufo.eu>, 2019-2020
+# Daniel Muñiz Fontoira <dani@damufo.eu>, 2024
 # Xosé, 2018
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
 "POT-Creation-Date: 2024-04-07 12:54+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
-"Last-Translator: Daniel Muñiz Fontoira <dani@damufo.eu>, 2019-2020\n"
+"Last-Translator: Daniel Muñiz Fontoira <dani@damufo.eu>, 2024\n"
 "Language-Team: Galician (http://app.transifex.com/xfce/xfce-panel-plugins/language/gl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,11 +39,11 @@ msgstr "Todo"
 
 #: panel-plugin/pulseaudio-dialog.glade:57
 msgid "Output only"
-msgstr ""
+msgstr "Só a saída"
 
 #: panel-plugin/pulseaudio-dialog.glade:60
 msgid "Input only"
-msgstr ""
+msgstr "Só a entrada"
 
 #: panel-plugin/pulseaudio-dialog.glade:66
 msgid "PulseAudio Panel Plugin"
@@ -61,36 +62,36 @@ msgstr "Activa o axuste do volume empregando as teclas multimedia. Asegúrese de
 
 #: panel-plugin/pulseaudio-dialog.glade:168
 msgid "Play system _sound when volume changes"
-msgstr ""
+msgstr "Reproducir o _son do sistema cando cambie o volume"
 
 #: panel-plugin/pulseaudio-dialog.glade:172
 msgid ""
 "Enables audio feedback when using multimedia keys to change the volume."
-msgstr ""
+msgstr "Activa a retroalimentación de son ao usar as teclas multimedia para cambiar o volume."
 
 #: panel-plugin/pulseaudio-dialog.glade:185
 msgid "Always display the recording _indicator"
-msgstr ""
+msgstr "Amosar sempre o _indicador de gravación"
 
 #: panel-plugin/pulseaudio-dialog.glade:208
 msgid "Show volume _notifications:"
-msgstr ""
+msgstr "Amosar as _notificacións do volume:"
 
 #: panel-plugin/pulseaudio-dialog.glade:222
 msgid "Mute/unmute is notified in all modes except \"None\""
-msgstr ""
+msgstr "Enmudecer/desenmudecer notifícase en todos os modos agás en «Ningún»"
 
 #: panel-plugin/pulseaudio-dialog.glade:248
 msgid "Step size used when adjusting volume with mouse wheel or hotkeys."
-msgstr ""
+msgstr "Tamaño do paso usado ao axustar o volume coa roda do rato ou as teclas de acceso rápido."
 
 #: panel-plugin/pulseaudio-dialog.glade:254
 msgid "_Volume step:"
-msgstr ""
+msgstr "Paso de _volume:"
 
 #: panel-plugin/pulseaudio-dialog.glade:300
 msgid "M_aximum volume:"
-msgstr ""
+msgstr "Volume _máximo:"
 
 #: panel-plugin/pulseaudio-dialog.glade:345
 msgid "Behaviour"
@@ -128,7 +129,7 @@ msgstr "Activar as teclas de multimedia para o control da reprodució"
 
 #: panel-plugin/pulseaudio-dialog.glade:536
 msgid "Send multimedia keys to all players"
-msgstr ""
+msgstr "Enviar as teclas multimedia a todos os reprodutores"
 
 #: panel-plugin/pulseaudio-dialog.glade:551
 msgid "Enable experimental window focus support"
@@ -140,11 +141,11 @@ msgstr "Nome"
 
 #: panel-plugin/pulseaudio-dialog.glade:641
 msgid "Persistent"
-msgstr ""
+msgstr "Persistente"
 
 #: panel-plugin/pulseaudio-dialog.glade:652
 msgid "Ignored"
-msgstr ""
+msgstr "Ignorado"
 
 #: panel-plugin/pulseaudio-dialog.glade:672
 msgid "Clear Known Items"
@@ -152,7 +153,7 @@ msgstr "Limpar os elementos coñecidos"
 
 #: panel-plugin/pulseaudio-dialog.glade:694
 msgid "Please restart the players to make them visible again."
-msgstr ""
+msgstr "Reiniciar os reprodutores para facelos visibles de novo."
 
 #: panel-plugin/pulseaudio-dialog.glade:717
 msgid "Known Media Players"
@@ -183,14 +184,14 @@ msgstr "Non conectado ao servidor de PulseAudio"
 msgid ""
 "<b>Volume %d%% (muted)</b>\n"
 "<small>%s</small>"
-msgstr ""
+msgstr "<b>Volume %d%% (enmudecido)</b>\n<small>%s</small>"
 
 #: panel-plugin/pulseaudio-button.c:359
 #, c-format
 msgid ""
 "<b>Volume %d%%</b>\n"
 "<small>%s</small>"
-msgstr ""
+msgstr "<b>Volume %d%%</b>\n<small>%s</small>"
 
 #: panel-plugin/pulseaudio-menu.c:521
 msgid "Output"
