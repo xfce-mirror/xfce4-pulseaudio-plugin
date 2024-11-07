@@ -358,6 +358,7 @@ pulseaudio_volume_server_info_cb (pa_context           *context,
                                   void                 *userdata)
 {
   PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
+  pa_operation *op;
 
   if (i == NULL)
     return;
@@ -366,8 +367,13 @@ pulseaudio_volume_server_info_cb (pa_context           *context,
   pulseaudio_volume_set_default_output (volume, i->default_sink_name, FALSE);
 
   pulseaudio_debug ("server: %s@%s, v.%s", i->user_name, i->server_name, i->server_version);
-  pa_context_get_sink_info_by_name (context, i->default_sink_name, pulseaudio_volume_sink_info_cb, volume);
-  pa_context_get_source_info_by_name (context, i->default_source_name, pulseaudio_volume_source_info_cb, volume);
+  op = pa_context_get_sink_info_by_name (context, i->default_sink_name, pulseaudio_volume_sink_info_cb, volume);
+  if (op)
+    pa_operation_unref (op);
+
+  op = pa_context_get_source_info_by_name (context, i->default_source_name, pulseaudio_volume_source_info_cb, volume);
+  if (op)
+    pa_operation_unref (op);
 }
 
 
@@ -376,16 +382,25 @@ static void
 pulseaudio_volume_sink_source_check (PulseaudioVolume *volume,
                                      pa_context       *context)
 {
+  pa_operation *op;
+
   g_return_if_fail (IS_PULSEAUDIO_VOLUME (volume));
 
-  pa_context_get_server_info (context, pulseaudio_volume_server_info_cb, volume);
+  op = pa_context_get_server_info (context, pulseaudio_volume_server_info_cb, volume);
+  if (op)
+    pa_operation_unref (op);
 
   g_hash_table_remove_all (volume->sinks);
   g_hash_table_remove_all (volume->sources);
   g_hash_table_remove_all (volume->source_idx_to_name);
 
-  pa_context_get_sink_info_list (volume->pa_context, pulseaudio_volume_get_sink_list_cb, volume);
-  pa_context_get_source_info_list (volume->pa_context, pulseaudio_volume_get_source_list_cb, volume);
+  op = pa_context_get_sink_info_list (volume->pa_context, pulseaudio_volume_get_sink_list_cb, volume);
+  if (op)
+    pa_operation_unref (op);
+
+  op = pa_context_get_source_info_list (volume->pa_context, pulseaudio_volume_get_source_list_cb, volume);
+  if (op)
+    pa_operation_unref (op);
 }
 
 
@@ -394,8 +409,12 @@ static void
 pulseaudio_volume_update_recording_state (PulseaudioVolume             *volume,
                                           pa_context                   *context)
 {
+  pa_operation *op;
+
   volume->recording = FALSE;
-  pa_context_get_source_output_info_list (context, pulseaudio_volume_get_source_output_info_cb, volume);
+  op = pa_context_get_source_output_info_list (context, pulseaudio_volume_get_source_output_info_cb, volume);
+  if (op)
+    pa_operation_unref (op);
 }
 
 
@@ -545,11 +564,15 @@ pulseaudio_volume_context_state_cb (pa_context *context,
                                     void       *userdata)
 {
   PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
+  pa_operation *op;
 
   switch (pa_context_get_state (context))
     {
     case PA_CONTEXT_READY        :
-      pa_context_subscribe (context, PA_SUBSCRIPTION_MASK_SINK | PA_SUBSCRIPTION_MASK_SINK_INPUT | PA_SUBSCRIPTION_MASK_SOURCE | PA_SUBSCRIPTION_MASK_SOURCE_OUTPUT | PA_SUBSCRIPTION_MASK_SERVER , NULL, NULL);
+      op = pa_context_subscribe (context, PA_SUBSCRIPTION_MASK_SINK | PA_SUBSCRIPTION_MASK_SINK_INPUT | PA_SUBSCRIPTION_MASK_SOURCE | PA_SUBSCRIPTION_MASK_SOURCE_OUTPUT | PA_SUBSCRIPTION_MASK_SERVER , NULL, NULL);
+      if (op)
+        pa_operation_unref (op);
+
       pa_context_set_subscribe_callback (context, pulseaudio_volume_subscribe_cb, volume);
 
       pulseaudio_debug ("PulseAudio connection established");
@@ -752,6 +775,8 @@ void
 pulseaudio_volume_set_muted (PulseaudioVolume *volume,
                              gboolean          muted)
 {
+  pa_operation *op;
+
   g_return_if_fail (IS_PULSEAUDIO_VOLUME (volume));
   g_return_if_fail (volume->pa_context != NULL);
   g_return_if_fail (pa_context_get_state (volume->pa_context) == PA_CONTEXT_READY);
@@ -759,7 +784,9 @@ pulseaudio_volume_set_muted (PulseaudioVolume *volume,
   if (volume->muted != muted)
     {
       volume->muted = muted;
-      pa_context_set_sink_mute_by_index (volume->pa_context, volume->sink_index, volume->muted, pulseaudio_volume_sink_volume_changed, volume);
+      op = pa_context_set_sink_mute_by_index (volume->pa_context, volume->sink_index, volume->muted, pulseaudio_volume_sink_volume_changed, volume);
+      if (op)
+        pa_operation_unref (op);
     }
 }
 
@@ -805,6 +832,8 @@ void
 pulseaudio_volume_set_muted_mic (PulseaudioVolume *volume,
                                  gboolean          muted_mic)
 {
+  pa_operation *op;
+
   g_return_if_fail (IS_PULSEAUDIO_VOLUME (volume));
   g_return_if_fail (volume->pa_context != NULL);
   g_return_if_fail (pa_context_get_state (volume->pa_context) == PA_CONTEXT_READY);
@@ -812,7 +841,9 @@ pulseaudio_volume_set_muted_mic (PulseaudioVolume *volume,
   if (volume->muted_mic != muted_mic)
     {
       volume->muted_mic = muted_mic;
-      pa_context_set_source_mute_by_index (volume->pa_context, volume->source_index, volume->muted_mic, pulseaudio_volume_source_volume_changed, volume);
+      op = pa_context_set_source_mute_by_index (volume->pa_context, volume->source_index, volume->muted_mic, pulseaudio_volume_source_volume_changed, volume);
+      if (op)
+        pa_operation_unref (op);
     }
 }
 
@@ -864,12 +895,17 @@ pulseaudio_volume_set_volume_cb2 (pa_context         *context,
                                   void               *userdata)
 {
   PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
+  pa_operation *op;
 
   if (i == NULL)
     return;
 
   if (pulseaudio_volume_prepare_set_volume ((pa_cvolume *)&i->volume, pulseaudio_volume_d2v (volume, volume->volume)))
-    pa_context_set_sink_volume_by_index (context, i->index, &i->volume, pulseaudio_volume_sink_volume_changed, volume);
+    {
+      op = pa_context_set_sink_volume_by_index (context, i->index, &i->volume, pulseaudio_volume_sink_volume_changed, volume);
+      if (op)
+        pa_operation_unref (op);
+    }
 }
 
 
@@ -881,11 +917,14 @@ pulseaudio_volume_set_volume_cb1 (pa_context           *context,
                                   void                 *userdata)
 {
   PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
+  pa_operation *op;
 
   if (i == NULL)
     return;
 
-  pa_context_get_sink_info_by_name (context, i->default_sink_name, pulseaudio_volume_set_volume_cb2, volume);
+  op = pa_context_get_sink_info_by_name (context, i->default_sink_name, pulseaudio_volume_set_volume_cb2, volume);
+  if (op)
+    pa_operation_unref (op);
 }
 
 
@@ -894,6 +933,7 @@ void
 pulseaudio_volume_set_volume (PulseaudioVolume *volume,
                               gdouble           vol)
 {
+  pa_operation *op;
   gdouble vol_max;
   gdouble vol_trim;
 
@@ -907,7 +947,9 @@ pulseaudio_volume_set_volume (PulseaudioVolume *volume,
   if (volume->volume != vol_trim)
   {
     volume->volume = vol_trim;
-    pa_context_get_server_info (volume->pa_context, pulseaudio_volume_set_volume_cb1, volume);
+    op = pa_context_get_server_info (volume->pa_context, pulseaudio_volume_set_volume_cb1, volume);
+    if (op)
+      pa_operation_unref (op);
   }
 }
 
@@ -942,12 +984,17 @@ pulseaudio_volume_set_volume_mic_cb2 (pa_context           *context,
                                       void                 *userdata)
 {
   PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
+  pa_operation *op;
 
   if (i == NULL)
     return;
 
   if (pulseaudio_volume_prepare_set_volume ((pa_cvolume *)&i->volume, pulseaudio_volume_d2v (volume, volume->volume_mic)))
-    pa_context_set_source_volume_by_index (context, i->index, &i->volume, pulseaudio_volume_source_volume_changed, volume);
+    {
+      op = pa_context_set_source_volume_by_index (context, i->index, &i->volume, pulseaudio_volume_source_volume_changed, volume);
+      if (op)
+        pa_operation_unref (op);
+    }
 }
 
 
@@ -959,9 +1006,13 @@ pulseaudio_volume_set_volume_mic_cb1 (pa_context           *context,
                                       void                 *userdata)
 {
   PulseaudioVolume *volume = PULSEAUDIO_VOLUME (userdata);
+  pa_operation *op;
+
   if (i == NULL) return;
 
-  pa_context_get_source_info_by_name (context, i->default_source_name, pulseaudio_volume_set_volume_mic_cb2, volume);
+  op = pa_context_get_source_info_by_name (context, i->default_source_name, pulseaudio_volume_set_volume_mic_cb2, volume);
+  if (op)
+    pa_operation_unref (op);
 }
 
 
@@ -970,6 +1021,7 @@ void
 pulseaudio_volume_set_volume_mic (PulseaudioVolume *volume,
                                   gdouble           vol)
 {
+  pa_operation *op;
   gdouble vol_max;
   gdouble vol_trim;
 
@@ -983,7 +1035,9 @@ pulseaudio_volume_set_volume_mic (PulseaudioVolume *volume,
   if (volume->volume_mic != vol_trim)
     {
       volume->volume_mic = vol_trim;
-      pa_context_get_server_info (volume->pa_context, pulseaudio_volume_set_volume_mic_cb1, volume);
+      op = pa_context_get_server_info (volume->pa_context, pulseaudio_volume_set_volume_mic_cb1, volume);
+      if (op)
+        pa_operation_unref (op);
     }
 }
 
@@ -1100,13 +1154,17 @@ pulseaudio_volume_set_default_output (PulseaudioVolume *volume,
                                       const gchar      *name,
                                       gboolean          make_default)
 {
+  pa_operation *op;
+
   if (g_strcmp0(name, volume->default_sink_name) == 0)
     return;
 
   if (make_default)
     {
       /* "default_sink_name" will be updated in "else" called from "pulseaudio_volume_subscribe_cb" callback */
-      pa_context_set_default_sink (volume->pa_context, name, NULL, volume);
+      op = pa_context_set_default_sink (volume->pa_context, name, NULL, volume);
+      if (op)
+        pa_operation_unref (op);
     }
   else
     {
@@ -1122,13 +1180,17 @@ pulseaudio_volume_set_default_input (PulseaudioVolume *volume,
                                      const gchar      *name,
                                      gboolean          make_default)
 {
+  pa_operation *op;
+
   if (g_strcmp0 (name, volume->default_source_name) == 0)
     return;
 
   if (make_default)
     {
       /* "default_source_name" will be updated in "else" called from "pulseaudio_volume_subscribe_cb" callback */
-      pa_context_set_default_source (volume->pa_context, name, NULL, volume);
+      op = pa_context_set_default_source (volume->pa_context, name, NULL, volume);
+      if (op)
+        pa_operation_unref (op);
     }
   else
     {
