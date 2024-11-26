@@ -61,7 +61,7 @@ msgstr "Activa lo contraròtle del volum amb las tòcas multimèdia. Asseguratz-
 
 #: panel-plugin/pulseaudio-dialog.glade:168
 msgid "Play system _sound when volume changes"
-msgstr ""
+msgstr "Jogar un _son sistèma en cambiant lo volum"
 
 #: panel-plugin/pulseaudio-dialog.glade:172
 msgid ""
@@ -70,7 +70,7 @@ msgstr ""
 
 #: panel-plugin/pulseaudio-dialog.glade:185
 msgid "Always display the recording _indicator"
-msgstr ""
+msgstr "Totjorn afichar l’_indicador d’enregistrament"
 
 #: panel-plugin/pulseaudio-dialog.glade:208
 msgid "Show volume _notifications:"
@@ -156,7 +156,7 @@ msgstr ""
 
 #: panel-plugin/pulseaudio-dialog.glade:717
 msgid "Known Media Players"
-msgstr ""
+msgstr "Lectors mèdia coneguts"
 
 #: panel-plugin/pulseaudio-dialog.glade:739
 msgid "Media Players"
