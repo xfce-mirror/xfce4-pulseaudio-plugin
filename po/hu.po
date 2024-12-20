@@ -63,36 +63,36 @@ msgstr "Engedélyezi a hangerővezérlést a multimédia billentyűkkel. Győző
 
 #: panel-plugin/pulseaudio-dialog.glade:168
 msgid "Play system _sound when volume changes"
-msgstr ""
+msgstr "_Rendszerhang lejátszása, ha a hangerő változik"
 
 #: panel-plugin/pulseaudio-dialog.glade:172
 msgid ""
 "Enables audio feedback when using multimedia keys to change the volume."
-msgstr ""
+msgstr "Hang visszajelzés használata, ha multimédia gombokkal változik a hangerő."
 
 #: panel-plugin/pulseaudio-dialog.glade:185
 msgid "Always display the recording _indicator"
-msgstr ""
+msgstr "Mindig jelenjen meg a felvétel _jelző"
 
 #: panel-plugin/pulseaudio-dialog.glade:208
 msgid "Show volume _notifications:"
-msgstr ""
+msgstr "Hangerő _értesítések megjelenítése:"
 
 #: panel-plugin/pulseaudio-dialog.glade:222
 msgid "Mute/unmute is notified in all modes except \"None\""
-msgstr ""
+msgstr "A némítás/feloldás a \"None\" kivételével minden üzemmódban értesít"
 
 #: panel-plugin/pulseaudio-dialog.glade:248
 msgid "Step size used when adjusting volume with mouse wheel or hotkeys."
-msgstr ""
+msgstr "Léptetés mértéke, mikor a hangerőt egér görgővel vagy gyorsbillentyűvel változtatja."
 
 #: panel-plugin/pulseaudio-dialog.glade:254
 msgid "_Volume step:"
-msgstr ""
+msgstr "_Hangerő léptetés:"
 
 #: panel-plugin/pulseaudio-dialog.glade:300
 msgid "M_aximum volume:"
-msgstr ""
+msgstr "M_aximum hangerő:"
 
 #: panel-plugin/pulseaudio-dialog.glade:345
 msgid "Behaviour"
@@ -130,7 +130,7 @@ msgstr "Multimédia billentyűk engedélyezése a lejátszás vezérlésére"
 
 #: panel-plugin/pulseaudio-dialog.glade:536
 msgid "Send multimedia keys to all players"
-msgstr ""
+msgstr "Multimédia gombok kiküldése minden lejátszónak"
 
 #: panel-plugin/pulseaudio-dialog.glade:551
 msgid "Enable experimental window focus support"
@@ -142,11 +142,11 @@ msgstr "Név"
 
 #: panel-plugin/pulseaudio-dialog.glade:641
 msgid "Persistent"
-msgstr ""
+msgstr "Állandó"
 
 #: panel-plugin/pulseaudio-dialog.glade:652
 msgid "Ignored"
-msgstr ""
+msgstr "Figyelmen kívül hagyva"
 
 #: panel-plugin/pulseaudio-dialog.glade:672
 msgid "Clear Known Items"
@@ -154,7 +154,7 @@ msgstr "Ismert elemek törlése"
 
 #: panel-plugin/pulseaudio-dialog.glade:694
 msgid "Please restart the players to make them visible again."
-msgstr ""
+msgstr "Kérjük indítsa újra a lejátszókat, hogy újra láthatóak legyenek."
 
 #: panel-plugin/pulseaudio-dialog.glade:717
 msgid "Known Media Players"
@@ -185,14 +185,14 @@ msgstr "Nincs csatlakozva a PulseAudio kiszolgálóhoz"
 msgid ""
 "<b>Volume %d%% (muted)</b>\n"
 "<small>%s</small>"
-msgstr ""
+msgstr "<b>Hangerő %d%% (némítva)</b>\n<small>%s</small>"
 
 #: panel-plugin/pulseaudio-button.c:359
 #, c-format
 msgid ""
 "<b>Volume %d%%</b>\n"
 "<small>%s</small>"
-msgstr ""
+msgstr "<b>Hangerő %d%%</b>\n<small>%s</small>"
 
 #: panel-plugin/pulseaudio-menu.c:521
 msgid "Output"
