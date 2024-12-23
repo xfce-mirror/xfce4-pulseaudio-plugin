@@ -240,9 +240,9 @@ pulseaudio_menu_run_audio_mixer (PulseaudioMenu   *menu,
 
   g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
 
-  if (!xfce_spawn_command_line_on_screen (gtk_widget_get_screen (GTK_WIDGET (menu)),
-                                          pulseaudio_config_get_mixer_command (menu->config),
-                                          FALSE, FALSE, &error))
+  if (!xfce_spawn_command_line (gtk_widget_get_screen (GTK_WIDGET (menu)),
+                                pulseaudio_config_get_mixer_command (menu->config),
+                                FALSE, FALSE, TRUE, &error))
     {
       message_dialog = gtk_message_dialog_new_with_markup (NULL,
                                                            GTK_DIALOG_DESTROY_WITH_PARENT,

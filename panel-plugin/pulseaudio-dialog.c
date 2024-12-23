@@ -131,9 +131,9 @@ pulseaudio_dialog_run_mixer (PulseaudioDialog *dialog,
   g_return_if_fail (IS_PULSEAUDIO_DIALOG (dialog));
   g_return_if_fail (GTK_IS_BUTTON (widget));
 
-  if (!xfce_spawn_command_line_on_screen (gtk_widget_get_screen (widget),
-                                          pulseaudio_config_get_mixer_command (dialog->config),
-                                          FALSE, FALSE, &error))
+  if (!xfce_spawn_command_line (gtk_widget_get_screen (widget),
+                                pulseaudio_config_get_mixer_command (dialog->config),
+                                FALSE, FALSE, TRUE, &error))
     {
       message_dialog = gtk_message_dialog_new_with_markup (NULL,
                                                            GTK_DIALOG_DESTROY_WITH_PARENT,
