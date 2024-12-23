@@ -69,15 +69,15 @@ AC_DEFINE([LIBXFCE4PANEL_VERSION_API], "libxfce4panel_version_api()", [libxfce4p
 AC_SUBST([LIBXFCE4PANEL_VERSION_API])
 
 XDT_CHECK_PACKAGE([PULSEAUDIO], [libpulse-mainloop-glib], [0.9.19])
-XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [2.44.0])
-XDT_CHECK_PACKAGE([GIO], [gio-2.0], [2.44.0])
-XDT_CHECK_PACKAGE([GIO_UNIX], [gio-unix-2.0], [2.44.0])
-XDT_CHECK_PACKAGE([GTK], [gtk+-3.0], [3.20.0])
-XDT_CHECK_PACKAGE([EXO], [exo-2], [0.11.0])
-XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.9.0])
-XDT_CHECK_PACKAGE([LIBXFCE4UI], [libxfce4ui-2], [4.11.0])
-XDT_CHECK_PACKAGE([LIBXFCE4PANEL], [libxfce4panel-${LIBXFCE4PANEL_VERSION_API}], [4.11.0])
-XDT_CHECK_PACKAGE([XFCONF], [libxfconf-0], [4.6.0])
+XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [2.50.0])
+XDT_CHECK_PACKAGE([GIO], [gio-2.0], [2.50.0])
+XDT_CHECK_PACKAGE([GIO_UNIX], [gio-unix-2.0], [2.50.0])
+XDT_CHECK_PACKAGE([GTK], [gtk+-3.0], [3.22.0])
+XDT_CHECK_PACKAGE([EXO], [exo-2], [4.16.0])
+XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.16.0])
+XDT_CHECK_PACKAGE([LIBXFCE4UI], [libxfce4ui-2], [4.16.0])
+XDT_CHECK_PACKAGE([LIBXFCE4PANEL], [libxfce4panel-${LIBXFCE4PANEL_VERSION_API}], [4.16.0])
+XDT_CHECK_PACKAGE([XFCONF], [libxfconf-0], [4.16.0])
 
 dnl **********************************
 dnl *** Optional keybinder Support ***
