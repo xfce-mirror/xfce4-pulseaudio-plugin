@@ -45,6 +45,19 @@ enum
   VOLUME_NOTIFICATIONS_COUNT,
 };
 
+enum
+{
+  REC_IND_POSITION_CENTER,
+  REC_IND_POSITION_TOPLEFT,
+  REC_IND_POSITION_TOP,
+  REC_IND_POSITION_TOPRIGHT,
+  REC_IND_POSITION_RIGHT,
+  REC_IND_POSITION_BOTTOMRIGHT,
+  REC_IND_POSITION_BOTTOM,
+  REC_IND_POSITION_BOTTOMLEFT,
+  REC_IND_POSITION_LEFT
+};
+
 GType              pulseaudio_config_get_type                       (void)                                       G_GNUC_CONST;
 
 PulseaudioConfig  *pulseaudio_config_new                            (const gchar          *property_base);
@@ -57,6 +70,9 @@ guint              pulseaudio_config_get_show_notifications         (PulseaudioC
 gboolean           pulseaudio_config_get_play_sound                 (PulseaudioConfig     *config);
 #endif
 gboolean           pulseaudio_config_get_rec_indicator_persistent   (PulseaudioConfig     *config);
+guint              pulseaudio_config_get_rec_indicator_position     (PulseaudioConfig     *config);
+void               pulseaudio_config_set_rec_indicator_position     (PulseaudioConfig     *config,
+                                                                     gint                  rec_ind_position);
 guint              pulseaudio_config_get_volume_step                (PulseaudioConfig     *config);
 guint              pulseaudio_config_get_volume_max                 (PulseaudioConfig     *config);
 const gchar       *pulseaudio_config_get_mixer_command              (PulseaudioConfig     *config);
