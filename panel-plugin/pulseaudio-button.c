@@ -72,21 +72,25 @@ static const char *recording_icons[] = {
 
 
 
-static void                 pulseaudio_button_finalize        (GObject            *object);
-static gboolean             pulseaudio_button_button_press    (GtkWidget          *widget,
-                                                               GdkEventButton     *event);
-static gboolean             pulseaudio_button_scroll_event    (GtkWidget          *widget,
-                                                               GdkEventScroll     *event);
-static gboolean             pulseaudio_query_tooltip          (GtkWidget          *widget,
-                                                               gint                x,
-                                                               gint                y,
-                                                               gboolean            keyboard_mode,
-                                                               GtkTooltip         *tooltip);
-static void                 pulseaudio_button_menu_deactivate (PulseaudioButton   *button,
-                                                               GtkMenuShell       *menu);
-static void                 pulseaudio_button_update_icons    (PulseaudioButton   *button);
-static void                 pulseaudio_button_update          (PulseaudioButton   *button,
-                                                               gboolean            force_update);
+static void                 pulseaudio_button_finalize           (GObject            *object);
+static gboolean             pulseaudio_button_button_press       (GtkWidget          *widget,
+                                                                  GdkEventButton     *event);
+static gboolean             pulseaudio_button_scroll_event       (GtkWidget          *widget,
+                                                                  GdkEventScroll     *event);
+static gboolean             pulseaudio_button_enter_notify_event (GtkWidget           *widget,
+                                                                  GdkEventCrossing    *event);
+static gboolean             pulseaudio_button_leave_notify_event (GtkWidget           *widget,
+                                                                  GdkEventCrossing    *event);
+static gboolean             pulseaudio_query_tooltip             (GtkWidget          *widget,
+                                                                  gint                x,
+                                                                  gint                y,
+                                                                  gboolean            keyboard_mode,
+                                                                  GtkTooltip         *tooltip);
+static void                 pulseaudio_button_menu_deactivate    (PulseaudioButton   *button,
+                                                                  GtkMenuShell       *menu);
+static void                 pulseaudio_button_update_icons       (PulseaudioButton   *button);
+static void                 pulseaudio_button_update             (PulseaudioButton   *button,
+                                                                  gboolean            force_update);
 
 
 
@@ -99,11 +103,13 @@ struct _PulseaudioButton
   PulseaudioMpris      *mpris;
   PulseaudioVolume     *volume;
 
+  GtkWidget            *overlay;
   GtkWidget            *image;
   GtkWidget            *recording_indicator;
   GtkCssProvider       *recording_indicator_style_css_provider;
   gboolean              recording;
   gboolean              recording_indicator_persistent;
+  guint                 recording_indicator_position;
 
   /* Icon size currently used */
   gint                  icon_size;
@@ -112,6 +118,7 @@ struct _PulseaudioButton
 
   PulseaudioMenu       *menu;
 
+  gboolean              on_mic;
   gulong                connection_changed_id;
   gulong                volume_changed_id;
   gulong                recording_volume_changed_id;
@@ -141,6 +148,8 @@ pulseaudio_button_class_init (PulseaudioButtonClass *klass)
   gtkwidget_class = GTK_WIDGET_CLASS (klass);
   gtkwidget_class->button_press_event   = pulseaudio_button_button_press;
   gtkwidget_class->scroll_event         = pulseaudio_button_scroll_event;
+  gtkwidget_class->enter_notify_event   = pulseaudio_button_enter_notify_event;
+  gtkwidget_class->leave_notify_event   = pulseaudio_button_leave_notify_event;
   gtkwidget_class->query_tooltip        = pulseaudio_query_tooltip;
 }
 
@@ -163,7 +172,6 @@ pulseaudio_button_init (PulseaudioButton *button)
 {
   GtkStyleContext *context;
   GtkCssProvider *css_provider;
-  GtkWidget *box;
 
   gtk_widget_set_can_focus(GTK_WIDGET(button), FALSE);
   gtk_widget_set_can_default (GTK_WIDGET (button), FALSE);
@@ -185,17 +193,19 @@ pulseaudio_button_init (PulseaudioButton *button)
                                   GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 
   /* Intercept scroll events */
-  gtk_widget_add_events (GTK_WIDGET (button), GDK_SCROLL_MASK);
+  gtk_widget_add_events (GTK_WIDGET (button), GDK_SCROLL_MASK | GDK_ENTER_NOTIFY_MASK | GDK_LEAVE_NOTIFY_MASK );
 
   button->icon_size = 16;
 
   button->image = gtk_image_new ();
   button->recording_indicator = gtk_image_new ();
-  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-  gtk_container_add (GTK_CONTAINER (button), box);
-  gtk_box_pack_start (GTK_BOX (box), GTK_WIDGET (button->recording_indicator), TRUE, FALSE, 0);
-  gtk_box_pack_start (GTK_BOX (box), GTK_WIDGET (button->image), TRUE, FALSE, 0);
-  gtk_widget_show_all (box);
+  button->overlay = gtk_overlay_new ();
+  gtk_widget_add_events (GTK_WIDGET (button->overlay), GDK_BUTTON_PRESS_MASK | GDK_SCROLL_MASK | GDK_ENTER_NOTIFY_MASK | GDK_LEAVE_NOTIFY_MASK);
+
+  gtk_container_add (GTK_CONTAINER (button), button->overlay);
+  gtk_container_add (GTK_CONTAINER (button->overlay), GTK_WIDGET (button->image));
+  gtk_overlay_add_overlay (GTK_OVERLAY (button->overlay), GTK_WIDGET (button->recording_indicator));
+  gtk_widget_show_all (button->overlay);
 
   context = gtk_widget_get_style_context (button->recording_indicator);
   button->recording_indicator_style_css_provider = gtk_css_provider_new ();
@@ -222,19 +232,6 @@ pulseaudio_button_finalize (GObject *object)
   g_object_unref (button->recording_indicator_style_css_provider);
 
   (*G_OBJECT_CLASS (pulseaudio_button_parent_class)->finalize) (object);
-}
-
-
-
-static gboolean
-pulseaudio_button_mic_icon_under_pointer (PulseaudioButton *button,
-                                          gdouble           pointer_pos_x)
-{
-  if (!gtk_widget_is_visible (button->recording_indicator))
-    return FALSE;
-
-  /* Microphone icon is on the left */
-  return (pointer_pos_x / (gdouble) gtk_widget_get_allocated_width (GTK_WIDGET (button))) < 0.5;
 }
 
 
@@ -279,7 +276,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 
   if (event->button == 2) /* middle button */
     {
-      if (pulseaudio_button_mic_icon_under_pointer (button, event->x))
+      if (button->on_mic)
         pulseaudio_volume_toggle_muted_mic (button->volume);
       else
         pulseaudio_volume_toggle_muted (button->volume);
@@ -295,8 +292,7 @@ static gboolean
 pulseaudio_button_scroll_event (GtkWidget *widget, GdkEventScroll *event)
 {
   PulseaudioButton *button      = PULSEAUDIO_BUTTON (widget);
-  gboolean          is_mic      = pulseaudio_button_mic_icon_under_pointer (button, event->x);
-  gdouble           volume      = is_mic ? pulseaudio_volume_get_volume_mic (button->volume) : pulseaudio_volume_get_volume (button->volume);
+  gdouble           volume      = button->on_mic ? pulseaudio_volume_get_volume_mic (button->volume) : pulseaudio_volume_get_volume (button->volume);
   gdouble           volume_step = pulseaudio_config_get_volume_step (button->config) / 100.0;
   gdouble           new_volume;
 
@@ -307,11 +303,39 @@ pulseaudio_button_scroll_event (GtkWidget *widget, GdkEventScroll *event)
   else
     new_volume = volume;
 
-  if (is_mic)
+  if (button->on_mic)
     pulseaudio_volume_set_volume_mic (button->volume, new_volume);
   else
     pulseaudio_volume_set_volume (button->volume, new_volume);
 
+  return TRUE;
+}
+
+
+
+static gboolean
+pulseaudio_button_enter_notify_event (GtkWidget        *widget,
+                                      GdkEventCrossing *event)
+{
+  PulseaudioButton *button = PULSEAUDIO_BUTTON (widget);
+  g_return_val_if_fail (IS_PULSEAUDIO_BUTTON (button), FALSE);
+
+  button->on_mic = FALSE;
+  
+  return TRUE;
+}
+
+
+
+static gboolean
+pulseaudio_button_leave_notify_event (GtkWidget        *widget,
+                                      GdkEventCrossing *event)
+{
+  PulseaudioButton *button = PULSEAUDIO_BUTTON (widget);
+  g_return_val_if_fail (IS_PULSEAUDIO_BUTTON (button), FALSE);
+
+  button->on_mic = TRUE;
+  
   return TRUE;
 }
 
@@ -340,7 +364,7 @@ pulseaudio_query_tooltip (GtkWidget  *widget,
     }
   else
     {
-      if (pulseaudio_button_mic_icon_under_pointer (button, x))
+      if (button->on_mic)
         {
           dev_name = pulseaudio_volume_get_input_by_name (button->volume, pulseaudio_volume_get_default_input (button->volume), NULL);
           muted = pulseaudio_volume_get_muted_mic (button->volume);
@@ -465,7 +489,7 @@ pulseaudio_button_update (PulseaudioButton *button,
     {
       button->recording_icon_name = recording_icon_name;
       gtk_image_set_from_icon_name (GTK_IMAGE (button->recording_indicator), recording_icon_name, GTK_ICON_SIZE_BUTTON);
-      gtk_image_set_pixel_size (GTK_IMAGE (button->recording_indicator), button->icon_size);
+      gtk_image_set_pixel_size (GTK_IMAGE (button->recording_indicator), button->icon_size / 2);
     }
 
   if (force_update || button->recording != recording)
@@ -537,11 +561,56 @@ pulseaudio_button_configuration_changed (PulseaudioButton  *button,
                                          PulseaudioConfig  *config)
 {
   gboolean rec_indicator_persistent = pulseaudio_config_get_rec_indicator_persistent (config);
+
   if (rec_indicator_persistent != button->recording_indicator_persistent)
     {
       button->recording_indicator_persistent = rec_indicator_persistent;
       pulseaudio_set_recording_indicator_state (button);
     }
+
+  guint rec_indicator_position = pulseaudio_config_get_rec_indicator_position (config);
+
+  switch (rec_indicator_position)
+    {
+      case REC_IND_POSITION_CENTER :
+        gtk_widget_set_halign (GTK_WIDGET (button->recording_indicator), GTK_ALIGN_CENTER);
+        gtk_widget_set_valign (GTK_WIDGET (button->recording_indicator), GTK_ALIGN_CENTER);
+        break;
+      case REC_IND_POSITION_TOPLEFT :
+        gtk_widget_set_halign (GTK_WIDGET (button->recording_indicator), GTK_ALIGN_START);
+        gtk_widget_set_valign (GTK_WIDGET (button->recording_indicator), GTK_ALIGN_START);
+        break;
+      case REC_IND_POSITION_TOP :
+        gtk_widget_set_halign (GTK_WIDGET (button->recording_indicator), GTK_ALIGN_CENTER);
+        gtk_widget_set_valign (GTK_WIDGET (button->recording_indicator), GTK_ALIGN_START);
+        break;
+      case REC_IND_POSITION_TOPRIGHT :
+        gtk_widget_set_halign (GTK_WIDGET (button->recording_indicator), GTK_ALIGN_END);
+        gtk_widget_set_valign (GTK_WIDGET (button->recording_indicator), GTK_ALIGN_START);
+        break;
+      case REC_IND_POSITION_RIGHT :
+        gtk_widget_set_halign (GTK_WIDGET (button->recording_indicator), GTK_ALIGN_END);
+        gtk_widget_set_valign (GTK_WIDGET (button->recording_indicator), GTK_ALIGN_CENTER);
+        break;
+      case REC_IND_POSITION_BOTTOMRIGHT :
+        gtk_widget_set_halign (GTK_WIDGET (button->recording_indicator), GTK_ALIGN_END);
+        gtk_widget_set_valign (GTK_WIDGET (button->recording_indicator), GTK_ALIGN_END);
+        break;
+      case REC_IND_POSITION_BOTTOM :
+        gtk_widget_set_halign (GTK_WIDGET (button->recording_indicator), GTK_ALIGN_CENTER);
+        gtk_widget_set_valign (GTK_WIDGET (button->recording_indicator), GTK_ALIGN_END);
+        break;
+      case REC_IND_POSITION_BOTTOMLEFT :
+        gtk_widget_set_halign (GTK_WIDGET (button->recording_indicator), GTK_ALIGN_START);
+        gtk_widget_set_valign (GTK_WIDGET (button->recording_indicator), GTK_ALIGN_END);
+        break;
+      case REC_IND_POSITION_LEFT :
+        gtk_widget_set_halign (GTK_WIDGET (button->recording_indicator), GTK_ALIGN_START);
+        gtk_widget_set_valign (GTK_WIDGET (button->recording_indicator), GTK_ALIGN_CENTER);
+        break;
+    }
+
+  gtk_widget_queue_allocate (GTK_WIDGET (button->overlay));
 }
 
 
@@ -595,7 +664,10 @@ pulseaudio_button_new (PulseaudioPlugin *plugin,
                               G_CALLBACK (pulseaudio_button_configuration_changed), button);
 
   button->recording_indicator_persistent = pulseaudio_config_get_rec_indicator_persistent (button->config);
+  button->recording_indicator_position = pulseaudio_config_get_rec_indicator_position (button->config);
+
   pulseaudio_button_update (button, TRUE);
+  pulseaudio_button_configuration_changed (button, button->config);
 
   return button;
 }

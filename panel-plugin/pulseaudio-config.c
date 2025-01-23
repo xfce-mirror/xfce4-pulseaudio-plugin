@@ -98,6 +98,7 @@ struct _PulseaudioConfig
   gboolean         play_sound;
 #endif
   gboolean         rec_indicator_persistent;
+  guint            rec_indicator_position;
   guint            volume_step;
   guint            volume_max;
   gchar           *mixer_command;
@@ -121,6 +122,7 @@ enum
     PROP_PLAY_SOUND,
 #endif
     PROP_REC_INDICATOR_PERSISTENT,
+    PROP_REC_INDICATOR_POSITION,
     PROP_VOLUME_STEP,
     PROP_VOLUME_MAX,
     PROP_MIXER_COMMAND,
@@ -210,6 +212,12 @@ pulseaudio_config_class_init (PulseaudioConfigClass *klass)
                                                          G_PARAM_READWRITE |
                                                          G_PARAM_STATIC_STRINGS));
 
+  g_object_class_install_property (gobject_class,
+                                   PROP_REC_INDICATOR_POSITION,
+                                   g_param_spec_uint ("rec-indicator-position", NULL, NULL,
+                                                      0, 8, REC_IND_POSITION_TOPLEFT,
+                                                      G_PARAM_READWRITE |
+                                                      G_PARAM_STATIC_STRINGS));
 
   g_object_class_install_property (gobject_class,
                                    PROP_VOLUME_STEP,
@@ -308,6 +316,7 @@ pulseaudio_config_init (PulseaudioConfig *config)
   config->play_sound                = DEFAULT_PLAY_SOUND;
 #endif
   config->rec_indicator_persistent  = DEFAULT_REC_INDICATOR_PERSISTENT;
+  config->rec_indicator_position    = REC_IND_POSITION_TOPLEFT;
   config->volume_step               = DEFAULT_VOLUME_STEP;
   config->volume_max                = DEFAULT_VOLUME_MAX;
   config->mixer_command             = g_strdup (DEFAULT_MIXER_COMMAND);
@@ -367,6 +376,10 @@ pulseaudio_config_get_property (GObject    *object,
 
     case PROP_REC_INDICATOR_PERSISTENT:
       g_value_set_boolean (value, config->rec_indicator_persistent);
+      break;
+
+    case PROP_REC_INDICATOR_POSITION:
+      g_value_set_uint (value, config->rec_indicator_position);
       break;
 
     case PROP_VOLUME_STEP:
@@ -479,6 +492,16 @@ pulseaudio_config_set_property (GObject      *object,
         {
           config->rec_indicator_persistent = val_bool;
           g_object_notify (G_OBJECT (config), "rec-indicator-persistent");
+          g_signal_emit (G_OBJECT (config), pulseaudio_config_signals [CONFIGURATION_CHANGED], 0);
+        }
+      break;
+
+    case PROP_REC_INDICATOR_POSITION:
+      val_uint = g_value_get_uint (value);
+      if (config->rec_indicator_position != val_uint)
+        {
+          config->rec_indicator_position = val_uint;
+          g_object_notify (G_OBJECT (config), "rec-indicator-position");
           g_signal_emit (G_OBJECT (config), pulseaudio_config_signals [CONFIGURATION_CHANGED], 0);
         }
       break;
@@ -625,6 +648,27 @@ pulseaudio_config_get_rec_indicator_persistent (PulseaudioConfig *config)
   g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), DEFAULT_REC_INDICATOR_PERSISTENT);
 
   return config->rec_indicator_persistent;
+}
+
+
+
+guint
+pulseaudio_config_get_rec_indicator_position (PulseaudioConfig     *config)
+{
+  g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), REC_IND_POSITION_TOPRIGHT);
+
+  return config->rec_indicator_position;
+}
+
+
+
+void
+pulseaudio_config_set_rec_indicator_position (PulseaudioConfig     *config,
+                                              gint                  rec_ind_position)
+{
+  g_return_if_fail (IS_PULSEAUDIO_CONFIG (config));
+
+  config->rec_indicator_position = rec_ind_position;
 }
 
 
@@ -1083,6 +1127,10 @@ pulseaudio_config_new (const gchar     *property_base)
 
       property = g_strconcat (property_base, "/rec-indicator-persistent", NULL);
       xfconf_g_property_bind (channel, property, G_TYPE_BOOLEAN, config, "rec-indicator-persistent");
+      g_free (property);
+
+      property = g_strconcat (property_base, "/rec-indicator-position", NULL);
+      xfconf_g_property_bind (channel, property, G_TYPE_UINT, config, "rec-indicator-position");
       g_free (property);
 
       property = g_strconcat (property_base, "/volume-step", NULL);

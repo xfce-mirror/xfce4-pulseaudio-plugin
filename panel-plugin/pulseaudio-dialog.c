@@ -292,6 +292,11 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
                               G_OBJECT (object), "active",
                               G_BINDING_SYNC_CREATE | G_BINDING_BIDIRECTIONAL);
 
+      object = gtk_builder_get_object (builder, "combobox-rec-indicator-position");
+      g_object_bind_property (G_OBJECT (dialog->config), "rec-indicator-position",
+                              G_OBJECT (object), "active",
+                              G_BINDING_SYNC_CREATE | G_BINDING_BIDIRECTIONAL);
+
       object = gtk_builder_get_object (builder, "spinbutton-volume-step");
       g_return_if_fail (GTK_IS_ENTRY (object));
       g_object_bind_property (G_OBJECT (dialog->config), "volume-step",
