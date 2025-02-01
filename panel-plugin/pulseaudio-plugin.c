@@ -74,7 +74,8 @@ static void             pulseaudio_plugin_show_about                       (Xfce
 static void             pulseaudio_plugin_configure_plugin                 (XfcePanelPlugin       *plugin);
 static gboolean         pulseaudio_plugin_size_changed                     (XfcePanelPlugin       *plugin,
                                                                             gint                   size);
-
+static void             pulseaudio_plugin_orientation_changed              (XfcePanelPlugin       *plugin,
+                                                                            GtkOrientation         orientation);
 #ifdef ENABLE_KEYBINDER
 static void             pulseaudio_plugin_bind_keys_cb                     (PulseaudioPlugin      *pulseaudio_plugin,
                                                                             PulseaudioConfig      *pulseaudio_config);
@@ -151,6 +152,7 @@ pulseaudio_plugin_class_init (PulseaudioPluginClass *klass)
   plugin_class->about = pulseaudio_plugin_show_about;
   plugin_class->configure_plugin = pulseaudio_plugin_configure_plugin;
   plugin_class->size_changed = pulseaudio_plugin_size_changed;
+  plugin_class->orientation_changed = pulseaudio_plugin_orientation_changed;
 }
 
 
@@ -299,6 +301,17 @@ pulseaudio_plugin_size_changed (XfcePanelPlugin *plugin,
   pulseaudio_button_set_size (pulseaudio_plugin->button, size, icon_size);
 
   return TRUE;
+}
+
+
+
+static void
+pulseaudio_plugin_orientation_changed (XfcePanelPlugin *plugin,
+                                       GtkOrientation   orientation)
+{
+  PulseaudioPlugin *pulseaudio_plugin = PULSEAUDIO_PLUGIN (plugin);
+
+  pulseaudio_button_set_orientation (pulseaudio_plugin->button, orientation);
 }
 
 
@@ -534,8 +547,6 @@ pulseaudio_plugin_construct (XfcePanelPlugin *plugin)
 
   xfce_panel_plugin_menu_show_configure (plugin);
   xfce_panel_plugin_menu_show_about (plugin);
-
-  xfce_panel_plugin_set_small (plugin, TRUE);
 
   /* setup transation domain */
   xfce_textdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR, "UTF-8");
