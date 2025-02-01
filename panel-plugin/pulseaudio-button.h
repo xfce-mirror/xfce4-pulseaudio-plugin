@@ -38,19 +38,21 @@ GType pulseaudio_button_get_type (void);
 #define IS_PULSEAUDIO_BUTTON_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE((klass),  TYPE_PULSEAUDIO_BUTTON))
 #define PULSEAUDIO_BUTTON_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS((obj),  TYPE_PULSEAUDIO_BUTTON, PulseaudioButtonClass))
 
-typedef struct          _PulseaudioButton              PulseaudioButton;
-typedef struct          _PulseaudioButtonClass         PulseaudioButtonClass;
+typedef struct          _PulseaudioButton                    PulseaudioButton;
+typedef struct          _PulseaudioButtonClass               PulseaudioButtonClass;
 
-PulseaudioButton       *pulseaudio_button_new         (PulseaudioPlugin *plugin,
-                                                       PulseaudioConfig *config,
-                                                       PulseaudioMpris  *mpris,
-                                                       PulseaudioVolume *volume);
+PulseaudioButton       *pulseaudio_button_new                (PulseaudioPlugin *plugin,
+                                                              PulseaudioConfig *config,
+                                                              PulseaudioMpris  *mpris,
+                                                              PulseaudioVolume *volume);
 
-void                    pulseaudio_button_set_size    (PulseaudioButton *button,
-                                                       gint              size,
-                                                       gint              icon_size);
+void                    pulseaudio_button_set_size           (PulseaudioButton *button,
+                                                              gint              size,
+                                                              gint              icon_size);
+void                    pulseaudio_button_set_orientation    (PulseaudioButton *button,
+                                                              GtkOrientation    orientation);
 
-PulseaudioMenu         *pulseaudio_button_get_menu    (PulseaudioButton *button);
+PulseaudioMenu         *pulseaudio_button_get_menu           (PulseaudioButton *button);
 
 G_END_DECLS
 

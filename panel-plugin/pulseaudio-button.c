@@ -99,6 +99,7 @@ struct _PulseaudioButton
   PulseaudioMpris      *mpris;
   PulseaudioVolume     *volume;
 
+  GtkWidget            *box;
   GtkWidget            *image;
   GtkWidget            *recording_indicator;
   GtkCssProvider       *recording_indicator_style_css_provider;
@@ -163,7 +164,6 @@ pulseaudio_button_init (PulseaudioButton *button)
 {
   GtkStyleContext *context;
   GtkCssProvider *css_provider;
-  GtkWidget *box;
 
   gtk_widget_set_can_focus(GTK_WIDGET(button), FALSE);
   gtk_widget_set_can_default (GTK_WIDGET (button), FALSE);
@@ -191,11 +191,11 @@ pulseaudio_button_init (PulseaudioButton *button)
 
   button->image = gtk_image_new ();
   button->recording_indicator = gtk_image_new ();
-  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-  gtk_container_add (GTK_CONTAINER (button), box);
-  gtk_box_pack_start (GTK_BOX (box), GTK_WIDGET (button->recording_indicator), TRUE, FALSE, 0);
-  gtk_box_pack_start (GTK_BOX (box), GTK_WIDGET (button->image), TRUE, FALSE, 0);
-  gtk_widget_show_all (box);
+  button->box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+  gtk_container_add (GTK_CONTAINER (button), button->box);
+  gtk_box_pack_start (GTK_BOX (button->box), GTK_WIDGET (button->recording_indicator), TRUE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (button->box), GTK_WIDGET (button->image), TRUE, FALSE, 0);
+  gtk_widget_show_all (button->box);
 
   context = gtk_widget_get_style_context (button->recording_indicator);
   button->recording_indicator_style_css_provider = gtk_css_provider_new ();
@@ -228,13 +228,21 @@ pulseaudio_button_finalize (GObject *object)
 
 static gboolean
 pulseaudio_button_mic_icon_under_pointer (PulseaudioButton *button,
-                                          gdouble           pointer_pos_x)
+                                          gdouble           pointer_pos_x,
+                                          gdouble           pointer_pos_y)
 {
+  GtkOrientation orientation;
+
   if (!gtk_widget_is_visible (button->recording_indicator))
     return FALSE;
 
+  orientation = gtk_orientable_get_orientation (GTK_ORIENTABLE (button->box));
+
   /* Microphone icon is on the left */
-  return (pointer_pos_x / (gdouble) gtk_widget_get_allocated_width (GTK_WIDGET (button))) < 0.5;
+  if (orientation == GTK_ORIENTATION_HORIZONTAL)
+    return (pointer_pos_x / (gdouble) gtk_widget_get_allocated_width (GTK_WIDGET (button))) < 0.5;
+  else
+    return (pointer_pos_y / (gdouble) gtk_widget_get_allocated_height (GTK_WIDGET (button))) < 0.5;
 }
 
 
@@ -279,7 +287,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 
   if (event->button == 2) /* middle button */
     {
-      if (pulseaudio_button_mic_icon_under_pointer (button, event->x))
+      if (pulseaudio_button_mic_icon_under_pointer (button, event->x, event->y))
         pulseaudio_volume_toggle_muted_mic (button->volume);
       else
         pulseaudio_volume_toggle_muted (button->volume);
@@ -295,7 +303,7 @@ static gboolean
 pulseaudio_button_scroll_event (GtkWidget *widget, GdkEventScroll *event)
 {
   PulseaudioButton *button      = PULSEAUDIO_BUTTON (widget);
-  gboolean          is_mic      = pulseaudio_button_mic_icon_under_pointer (button, event->x);
+  gboolean          is_mic      = pulseaudio_button_mic_icon_under_pointer (button, event->x, event->y);
   gdouble           volume      = is_mic ? pulseaudio_volume_get_volume_mic (button->volume) : pulseaudio_volume_get_volume (button->volume);
   gdouble           volume_step = pulseaudio_config_get_volume_step (button->config) / 100.0;
   gdouble           new_volume;
@@ -340,7 +348,7 @@ pulseaudio_query_tooltip (GtkWidget  *widget,
     }
   else
     {
-      if (pulseaudio_button_mic_icon_under_pointer (button, x))
+      if (pulseaudio_button_mic_icon_under_pointer (button, x, y))
         {
           dev_name = pulseaudio_volume_get_input_by_name (button->volume, pulseaudio_volume_get_default_input (button->volume), NULL);
           muted = pulseaudio_volume_get_muted_mic (button->volume);
@@ -490,6 +498,17 @@ pulseaudio_button_set_size (PulseaudioButton *button,
   gtk_image_set_pixel_size (GTK_IMAGE (button->image), button->icon_size);
   if (gtk_widget_get_visible (button->recording_indicator))
     gtk_image_set_pixel_size (GTK_IMAGE (button->recording_indicator), button->icon_size);
+}
+
+
+
+void
+pulseaudio_button_set_orientation (PulseaudioButton *button,
+                                   GtkOrientation    orientation)
+{
+  g_return_if_fail (IS_PULSEAUDIO_BUTTON (button));
+  
+  gtk_orientable_set_orientation (GTK_ORIENTABLE (button->box), orientation);
 }
 
 
