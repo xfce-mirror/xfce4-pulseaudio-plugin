@@ -50,7 +50,11 @@ void                    pulseaudio_button_set_size    (PulseaudioButton *button,
                                                        gint              size,
                                                        gint              icon_size);
 
+void                    pulseaudio_button_set_orientation    (PulseaudioButton *button,
+                                                              GtkOrientation    orientation);
+
 PulseaudioMenu         *pulseaudio_button_get_menu    (PulseaudioButton *button);
+
 
 G_END_DECLS
 
