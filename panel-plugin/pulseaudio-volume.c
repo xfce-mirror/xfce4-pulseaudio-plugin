@@ -1048,7 +1048,10 @@ pulseaudio_volume_get_description (GHashTable  *hash_table,
                                    const gchar *key,
                                    gboolean    *available)
 {
-  PulseAudioDeviceInfo *device_info = g_hash_table_lookup (hash_table, key);
+  PulseAudioDeviceInfo *device_info = NULL;
+
+  if (G_LIKELY (key))
+    device_info = g_hash_table_lookup (hash_table, key);
 
   if (device_info)
     {
