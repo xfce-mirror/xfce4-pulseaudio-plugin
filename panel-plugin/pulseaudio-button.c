@@ -494,6 +494,7 @@ pulseaudio_button_set_size (PulseaudioButton *button,
   g_return_if_fail (size > 0);
 
   gtk_widget_set_size_request (GTK_WIDGET (button), size, size);
+
   button->icon_size = icon_size;
   gtk_image_set_pixel_size (GTK_IMAGE (button->image), button->icon_size);
   if (gtk_widget_get_visible (button->recording_indicator))
