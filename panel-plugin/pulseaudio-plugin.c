@@ -332,6 +332,7 @@ pulseaudio_plugin_set_orientation (PulseaudioPlugin *pulseaudio_plugin)
   size = xfce_panel_plugin_get_size (XFCE_PANEL_PLUGIN (pulseaudio_plugin));
   icon_size = xfce_panel_plugin_get_icon_size (XFCE_PANEL_PLUGIN (pulseaudio_plugin));
 
+
   if (size > icon_size * 2 + XFCE_PANEL_PLUGIN_ICON_PADDING )
     {
       if (orientation == GTK_ORIENTATION_VERTICAL)
@@ -343,6 +344,8 @@ pulseaudio_plugin_set_orientation (PulseaudioPlugin *pulseaudio_plugin)
     {
       pulseaudio_button_set_orientation (pulseaudio_plugin->button, orientation);
     }
+
+  pulseaudio_button_set_size (pulseaudio_plugin->button, size / xfce_panel_plugin_get_nrows (XFCE_PANEL_PLUGIN (pulseaudio_plugin)), icon_size);
 }
 
 
