@@ -77,8 +77,8 @@ static gboolean         pulseaudio_plugin_size_changed                     (Xfce
 
 static void             pulseaudio_plugin_orientation_changed              (XfcePanelPlugin       *plugin,
                                                                             GtkOrientation         orientation);
-static void             pulseaudio_plugin_set_orientation                  (PulseaudioPlugin *pulseaudio_plugin);
-static void             pulseaudio_plugin_set_small                        (PulseaudioPlugin *pulseaudio_plugin);
+static void             pulseaudio_plugin_set_orientation                  (PulseaudioPlugin      *pulseaudio_plugin);
+static void             pulseaudio_plugin_set_small                        (PulseaudioPlugin      *pulseaudio_plugin);
 #ifdef ENABLE_KEYBINDER
 static void             pulseaudio_plugin_bind_keys_cb                     (PulseaudioPlugin      *pulseaudio_plugin,
                                                                             PulseaudioConfig      *pulseaudio_config);
@@ -296,7 +296,7 @@ pulseaudio_plugin_size_changed (XfcePanelPlugin *plugin,
 {
   PulseaudioPlugin *pulseaudio_plugin = PULSEAUDIO_PLUGIN (plugin);
   gint              icon_size;
-  
+
   /* The plugin only occupies a single row */
   size /= xfce_panel_plugin_get_nrows(plugin);
 
@@ -325,13 +325,14 @@ static void
 pulseaudio_plugin_set_orientation (PulseaudioPlugin *pulseaudio_plugin)
 {
   GtkOrientation orientation;
+  gint           nrows;
   gint           size;
   gint           icon_size;
 
   orientation = xfce_panel_plugin_get_orientation (XFCE_PANEL_PLUGIN (pulseaudio_plugin));
+  nrows = xfce_panel_plugin_get_nrows (XFCE_PANEL_PLUGIN (pulseaudio_plugin));
   size = xfce_panel_plugin_get_size (XFCE_PANEL_PLUGIN (pulseaudio_plugin));
   icon_size = xfce_panel_plugin_get_icon_size (XFCE_PANEL_PLUGIN (pulseaudio_plugin));
-
 
   if (size > icon_size * 2 + XFCE_PANEL_PLUGIN_ICON_PADDING )
     {
@@ -345,7 +346,7 @@ pulseaudio_plugin_set_orientation (PulseaudioPlugin *pulseaudio_plugin)
       pulseaudio_button_set_orientation (pulseaudio_plugin->button, orientation);
     }
 
-  pulseaudio_button_set_size (pulseaudio_plugin->button, size / xfce_panel_plugin_get_nrows (XFCE_PANEL_PLUGIN (pulseaudio_plugin)), icon_size);
+  pulseaudio_button_set_size (pulseaudio_plugin->button, size / nrows, icon_size);
 }
 
 
