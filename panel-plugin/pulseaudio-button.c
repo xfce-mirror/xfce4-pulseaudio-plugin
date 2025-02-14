@@ -92,7 +92,7 @@ static void                 pulseaudio_button_update          (PulseaudioButton 
 
 struct _PulseaudioButton
 {
-  GtkToggleButton      __parent__;
+  GtkToggleButton       __parent__;
 
   PulseaudioPlugin     *plugin;
   PulseaudioConfig     *config;
@@ -172,8 +172,8 @@ pulseaudio_button_init (PulseaudioButton *button)
   gtk_widget_set_focus_on_click (GTK_WIDGET (button), FALSE);
   gtk_widget_set_name (GTK_WIDGET (button), "pulseaudio-button");
   gtk_widget_set_has_tooltip (GTK_WIDGET (button), TRUE);
-  gtk_widget_set_halign(GTK_WIDGET(button), GTK_ALIGN_START);
-  gtk_widget_set_valign(GTK_WIDGET(button), GTK_ALIGN_START);
+  gtk_widget_set_halign (GTK_WIDGET(button), GTK_ALIGN_START);
+  gtk_widget_set_valign (GTK_WIDGET(button), GTK_ALIGN_START);
 
   /* Preload icons */
   g_signal_connect (G_OBJECT (button), "style-updated", G_CALLBACK (pulseaudio_button_update_icons), button);
@@ -569,20 +569,19 @@ pulseaudio_button_configuration_changed (PulseaudioButton  *button,
                                          PulseaudioConfig  *config)
 {
   gboolean rec_indicator_persistent = pulseaudio_config_get_rec_indicator_persistent (config);
+  gint     width;
+
   if (rec_indicator_persistent != button->recording_indicator_persistent)
     {
       button->recording_indicator_persistent = rec_indicator_persistent;
       pulseaudio_set_recording_indicator_state (button);
 
-      gint width;
       if ( gtk_orientable_get_orientation (GTK_ORIENTABLE (button->box)) == GTK_ORIENTATION_HORIZONTAL)
         gtk_widget_get_size_request (GTK_WIDGET(button), NULL, &width);
       else
         gtk_widget_get_size_request (GTK_WIDGET(button), &width, NULL);
 
-      pulseaudio_button_set_size (button,
-                                  width,
-                                  button->icon_size);
+      pulseaudio_button_set_size (button, width, button->icon_size);
     }
 }
 
