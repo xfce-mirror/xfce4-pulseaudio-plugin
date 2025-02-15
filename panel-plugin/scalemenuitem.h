@@ -25,57 +25,35 @@
  */
 
 
-#ifndef _SCALE_MENU_ITEM_H_
-#define _SCALE_MENU_ITEM_H_
+#ifndef _XFPA_SCALE_MENU_ITEM_H_
+#define _XFPA_SCALE_MENU_ITEM_H_
 
 #include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
-#define TYPE_SCALE_MENU_ITEM         (scale_menu_item_get_type ())
-#define SCALE_MENU_ITEM(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), TYPE_SCALE_MENU_ITEM, ScaleMenuItem))
-#define SCALE_MENU_ITEM_CLASS(c)     (G_TYPE_CHECK_CLASS_CAST ((c), TYPE_SCALE_MENU_ITEM, ScaleMenuItemClass))
-#define IS_SCALE_MENU_ITEM(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), TYPE_SCALE_MENU_ITEM))
-#define IS_SCALE_MENU_ITEM_CLASS(c)  (G_TYPE_CHECK_CLASS_TYPE ((c), TYPE_SCALE_MENU_ITEM))
-#define SCALE_MENU_ITEM_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), TYPE_SCALE_MENU_ITEM, ScaleMenuItemClass))
+#define XFPA_TYPE_SCALE_MENU_ITEM (xfpa_scale_menu_item_get_type ())
+#ifndef glib_autoptr_clear_GtkImageMenuItem
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkImageMenuItem, g_object_unref)
+#endif
+G_DECLARE_FINAL_TYPE (XfpaScaleMenuItem, xfpa_scale_menu_item, XFPA, SCALE_MENU_ITEM, GtkImageMenuItem)
 
+GtkWidget   *xfpa_scale_menu_item_new_with_range        (gdouble            min,
+                                                         gdouble            max,
+                                                         gdouble            step,
+                                                         gdouble            base);
 
-typedef struct _ScaleMenuItem        ScaleMenuItem;
-typedef struct _ScaleMenuItemClass   ScaleMenuItemClass;
-typedef struct _ScaleMenuItemPrivate ScaleMenuItemPrivate;
+gdouble      xfpa_scale_menu_item_get_value             (XfpaScaleMenuItem *item);
+void         xfpa_scale_menu_item_set_value             (XfpaScaleMenuItem *item,
+                                                         gdouble            value);
 
-struct _ScaleMenuItem
-{
-  GtkImageMenuItem parent_instance;
+gboolean     xfpa_scale_menu_item_get_muted             (XfpaScaleMenuItem *item);
+void         xfpa_scale_menu_item_set_muted             (XfpaScaleMenuItem *item,
+                                                         gboolean           muted);
 
-  ScaleMenuItemPrivate *priv;
-};
-
-struct _ScaleMenuItemClass
-{
-  GtkImageMenuItemClass parent_class;
-};
-
-
-GType        scale_menu_item_get_type              (void) G_GNUC_CONST;
-
-GtkWidget   *scale_menu_item_new_with_range        (gdouble        min,
-                                                    gdouble        max,
-                                                    gdouble        step,
-                                                    gdouble        base);
-
-gdouble      scale_menu_item_get_value             (ScaleMenuItem *item);
-void         scale_menu_item_set_value             (ScaleMenuItem *item,
-                                                    gdouble        value);
-
-gboolean     scale_menu_item_get_muted             (ScaleMenuItem *item);
-void         scale_menu_item_set_muted             (ScaleMenuItem *item,
-                                                    gboolean       muted);
-
-void         scale_menu_item_set_base_icon_name    (ScaleMenuItem *item,
-                                                    const gchar   *base_icon_name);
-
+void         xfpa_scale_menu_item_set_base_icon_name    (XfpaScaleMenuItem *item,
+                                                         const gchar       *base_icon_name);
 
 G_END_DECLS
 
-#endif /* _SCALE_MENU_ITEM_H_ */
+#endif /* _XFPA_SCALE_MENU_ITEM_H_ */

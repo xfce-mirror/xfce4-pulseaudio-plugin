@@ -38,7 +38,9 @@
 
 
 
-struct _ScaleMenuItemPrivate {
+struct _XfpaScaleMenuItem {
+  GtkImageMenuItem      __parent__;
+
   GtkWidget            *scale;
   GtkWidget            *hbox;
   GtkWidget            *vbox;
@@ -66,92 +68,85 @@ static guint signals[LAST_SIGNAL] = { 0 };
 
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-G_DEFINE_TYPE_WITH_PRIVATE (ScaleMenuItem, scale_menu_item, GTK_TYPE_IMAGE_MENU_ITEM)
+G_DEFINE_TYPE (XfpaScaleMenuItem, xfpa_scale_menu_item, GTK_TYPE_IMAGE_MENU_ITEM)
 G_GNUC_END_IGNORE_DEPRECATIONS
 
 
 
 /* Static Declarations */
-static void         scale_menu_item_finalize                (GObject            *object);
-static void         scale_menu_item_update_icon             (ScaleMenuItem      *self);
-static void         scale_menu_item_scale_value_changed     (GtkRange           *range,
-                                                             gpointer            user_data);
-static gboolean     scale_menu_item_button_press_event      (GtkWidget          *item,
-                                                             GdkEventButton     *event);
-static gboolean     scale_menu_item_button_release_event    (GtkWidget          *item,
-                                                             GdkEventButton     *event);
-static gboolean     scale_menu_item_motion_notify_event     (GtkWidget          *item,
-                                                             GdkEventMotion     *event);
-static gboolean     scale_menu_item_leave_notify_event      (GtkWidget          *item,
-                                                             GdkEventCrossing   *event);
-static gboolean     scale_menu_item_mute_toggle_state_set   (GtkWidget          *mute_toggle,
-                                                             gboolean            state,
-                                                             gpointer            user_data);
-static void         menu_hidden                             (GtkWidget          *menu,
-                                                             ScaleMenuItem      *scale);
-static void         scale_menu_item_parent_set              (GtkWidget          *item,
-                                                             GtkWidget          *previous_parent);
+static void         xfpa_scale_menu_item_finalize                (GObject            *object);
+static void         xfpa_scale_menu_item_update_icon             (XfpaScaleMenuItem  *self);
+static void         xfpa_scale_menu_item_scale_value_changed     (GtkRange           *range,
+                                                                  gpointer            user_data);
+static gboolean     xfpa_scale_menu_item_button_press_event      (GtkWidget          *item,
+                                                                  GdkEventButton     *event);
+static gboolean     xfpa_scale_menu_item_button_release_event    (GtkWidget          *item,
+                                                                  GdkEventButton     *event);
+static gboolean     xfpa_scale_menu_item_motion_notify_event     (GtkWidget          *item,
+                                                                  GdkEventMotion     *event);
+static gboolean     xfpa_scale_menu_item_leave_notify_event      (GtkWidget          *item,
+                                                                  GdkEventCrossing   *event);
+static gboolean     xfpa_scale_menu_item_mute_toggle_state_set   (GtkWidget          *mute_toggle,
+                                                                  gboolean            state,
+                                                                  gpointer            user_data);
+static void         xfpa_scale_menu_hidden                       (GtkWidget          *menu,
+                                                                  XfpaScaleMenuItem  *scale);
+static void         xfpa_scale_menu_item_parent_set              (GtkWidget          *item,
+                                                                  GtkWidget          *previous_parent);
 
 
 
 /* Public API */
 GtkWidget*
-scale_menu_item_new_with_range (gdouble min,
-                                gdouble max,
-                                gdouble step,
-                                gdouble base)
+xfpa_scale_menu_item_new_with_range (gdouble min,
+                                     gdouble max,
+                                     gdouble step,
+                                     gdouble base)
 {
-  ScaleMenuItem        *scale_item;
-  ScaleMenuItemPrivate *priv;
-
-  TRACE("entering");
-
-  scale_item = SCALE_MENU_ITEM (g_object_new (TYPE_SCALE_MENU_ITEM, NULL));
-
-  priv = scale_menu_item_get_instance_private (scale_item);
+  XfpaScaleMenuItem *scale_item = XFPA_SCALE_MENU_ITEM (g_object_new (XFPA_TYPE_SCALE_MENU_ITEM, NULL));
 
   /* Configure the menu item image */
-  priv->image = gtk_image_new ();
+  scale_item->image = gtk_image_new ();
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (scale_item), priv->image);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (scale_item), scale_item->image);
 G_GNUC_END_IGNORE_DEPRECATIONS
 
   /* Configure the menu item scale */
-  priv->scale = gtk_scale_new_with_range (GTK_ORIENTATION_HORIZONTAL, min, max, step);
-  gtk_widget_set_size_request (priv->scale, 100, -1);
-  gtk_range_set_inverted (GTK_RANGE(priv->scale), FALSE);
-  gtk_scale_set_draw_value (GTK_SCALE(priv->scale), FALSE);
-  gtk_range_set_round_digits(GTK_RANGE(priv->scale), 0);
+  scale_item->scale = gtk_scale_new_with_range (GTK_ORIENTATION_HORIZONTAL, min, max, step);
+  gtk_widget_set_size_request (scale_item->scale, 100, -1);
+  gtk_range_set_inverted (GTK_RANGE(scale_item->scale), FALSE);
+  gtk_scale_set_draw_value (GTK_SCALE(scale_item->scale), FALSE);
+  gtk_range_set_round_digits(GTK_RANGE(scale_item->scale), 0);
 
   if (base > 0.0 && base < max)
-    gtk_scale_add_mark (GTK_SCALE (priv->scale), base, GTK_POS_BOTTOM, NULL);
+    gtk_scale_add_mark (GTK_SCALE (scale_item->scale), base, GTK_POS_BOTTOM, NULL);
 
   if (max > 100.0)
-    gtk_scale_add_mark (GTK_SCALE (priv->scale), 100.0, GTK_POS_BOTTOM, NULL);
+    gtk_scale_add_mark (GTK_SCALE (scale_item->scale), 100.0, GTK_POS_BOTTOM, NULL);
 
   /* Configure the mute toggle */
-  priv->mute_toggle = gtk_switch_new ();
+  scale_item->mute_toggle = gtk_switch_new ();
 
   /* Pack the scale widget */
-  priv->hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-  priv->vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-  gtk_box_pack_start (GTK_BOX (priv->hbox), priv->scale, TRUE, TRUE, 0);
-  gtk_box_set_center_widget (GTK_BOX (priv->vbox), priv->mute_toggle);
-  gtk_box_pack_start (GTK_BOX (priv->hbox), priv->vbox, FALSE, FALSE, 0);
-  gtk_container_add (GTK_CONTAINER (scale_item), priv->hbox);
-  gtk_widget_show_all (priv->hbox);
+  scale_item->hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+  scale_item->vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
+  gtk_box_pack_start (GTK_BOX (scale_item->hbox), scale_item->scale, TRUE, TRUE, 0);
+  gtk_box_set_center_widget (GTK_BOX (scale_item->vbox), scale_item->mute_toggle);
+  gtk_box_pack_start (GTK_BOX (scale_item->hbox), scale_item->vbox, FALSE, FALSE, 0);
+  gtk_container_add (GTK_CONTAINER (scale_item), scale_item->hbox);
+  gtk_widget_show_all (scale_item->hbox);
 
   /* Connect events */
-  g_signal_connect (priv->scale, "value-changed", G_CALLBACK (scale_menu_item_scale_value_changed), scale_item);
-  g_signal_connect (priv->mute_toggle, "state-set", G_CALLBACK (scale_menu_item_mute_toggle_state_set), NULL);
+  g_signal_connect (scale_item->scale, "value-changed", G_CALLBACK (xfpa_scale_menu_item_scale_value_changed), scale_item);
+  g_signal_connect (scale_item->mute_toggle, "state-set", G_CALLBACK (xfpa_scale_menu_item_mute_toggle_state_set), NULL);
   gtk_widget_add_events (GTK_WIDGET(scale_item), GDK_SCROLL_MASK|GDK_POINTER_MOTION_MASK|GDK_BUTTON_MOTION_MASK);
 
   /* Keep references to the widgets */
-  g_object_ref (priv->image);
-  g_object_ref (priv->scale);
-  g_object_ref (priv->mute_toggle);
-  g_object_ref (priv->hbox);
-  g_object_ref (priv->vbox);
+  g_object_ref (scale_item->image);
+  g_object_ref (scale_item->scale);
+  g_object_ref (scale_item->mute_toggle);
+  g_object_ref (scale_item->hbox);
+  g_object_ref (scale_item->vbox);
 
   return GTK_WIDGET(scale_item);
 }
@@ -159,98 +154,79 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 
 
 gdouble
-scale_menu_item_get_value (ScaleMenuItem *item)
+xfpa_scale_menu_item_get_value (XfpaScaleMenuItem *item)
 {
-  ScaleMenuItemPrivate *priv;
+  g_return_val_if_fail (XFPA_IS_SCALE_MENU_ITEM (item), 0.0);
 
-  g_return_val_if_fail (IS_SCALE_MENU_ITEM (item), 0.0);
-
-  priv = scale_menu_item_get_instance_private (item);
-
-  return gtk_range_get_value (GTK_RANGE (priv->scale));
+  return gtk_range_get_value (GTK_RANGE (item->scale));
 }
 
 
 
 void
-scale_menu_item_set_value (ScaleMenuItem *item,
-                           gdouble        value)
+xfpa_scale_menu_item_set_value (XfpaScaleMenuItem *item,
+                                gdouble            value)
 {
-  ScaleMenuItemPrivate *priv;
+  g_return_if_fail (XFPA_IS_SCALE_MENU_ITEM (item));
 
-  g_return_if_fail (IS_SCALE_MENU_ITEM (item));
-
-  priv = scale_menu_item_get_instance_private (item);
-
-  gtk_range_set_value (GTK_RANGE (priv->scale), value);
+  gtk_range_set_value (GTK_RANGE (item->scale), value);
 }
 
 
 
 gboolean
-scale_menu_item_get_muted (ScaleMenuItem *item)
+xfpa_scale_menu_item_get_muted (XfpaScaleMenuItem *item)
 {
-  ScaleMenuItemPrivate *priv;
+  g_return_val_if_fail (XFPA_IS_SCALE_MENU_ITEM (item), TRUE);
 
-  g_return_val_if_fail (IS_SCALE_MENU_ITEM (item), TRUE);
-
-  priv = scale_menu_item_get_instance_private (item);
-
-  return !gtk_switch_get_state (GTK_SWITCH (priv->mute_toggle));
+  return !gtk_switch_get_state (GTK_SWITCH (item->mute_toggle));
 }
 
 
 
 void
-scale_menu_item_set_muted (ScaleMenuItem *item,
-                           gboolean       muted)
+xfpa_scale_menu_item_set_muted (XfpaScaleMenuItem *item,
+                                gboolean           muted)
 {
-  ScaleMenuItemPrivate *priv;
 
-  g_return_if_fail (IS_SCALE_MENU_ITEM (item));
+  g_return_if_fail (XFPA_IS_SCALE_MENU_ITEM (item));
 
-  priv = scale_menu_item_get_instance_private (item);
+  gtk_switch_set_active (GTK_SWITCH (item->mute_toggle), !muted);
+  gtk_switch_set_state (GTK_SWITCH (item->mute_toggle), !muted);
 
-  gtk_switch_set_active (GTK_SWITCH (priv->mute_toggle), !muted);
-  gtk_switch_set_state (GTK_SWITCH (priv->mute_toggle), !muted);
-
-  scale_menu_item_update_icon (item);
+  xfpa_scale_menu_item_update_icon (item);
 }
 
 
 
 void
-scale_menu_item_set_base_icon_name (ScaleMenuItem *item,
-                                    const gchar   *base_icon_name)
+xfpa_scale_menu_item_set_base_icon_name (XfpaScaleMenuItem *item,
+                                         const gchar       *base_icon_name)
 {
-  ScaleMenuItemPrivate *priv;
+  g_return_if_fail (XFPA_IS_SCALE_MENU_ITEM (item));
 
-  g_return_if_fail (IS_SCALE_MENU_ITEM (item));
+  if (item->icon_name)
+    g_free (item->icon_name);
 
-  priv = scale_menu_item_get_instance_private (item);
-
-  if (priv->icon_name)
-    g_free (priv->icon_name);
-
-  priv->icon_name = g_strdup (base_icon_name);
+  item->icon_name = g_strdup (base_icon_name);
 }
 
 
 
 /* Private API */
 static void
-scale_menu_item_class_init (ScaleMenuItemClass *item_class)
+xfpa_scale_menu_item_class_init (XfpaScaleMenuItemClass *item_class)
 {
   GObjectClass      *gobject_class =   G_OBJECT_CLASS      (item_class);
   GtkWidgetClass    *widget_class =    GTK_WIDGET_CLASS    (item_class);
 
-  widget_class->button_press_event   = scale_menu_item_button_press_event;
-  widget_class->button_release_event = scale_menu_item_button_release_event;
-  widget_class->motion_notify_event  = scale_menu_item_motion_notify_event;
-  widget_class->leave_notify_event   = scale_menu_item_leave_notify_event;
-  widget_class->parent_set           = scale_menu_item_parent_set;
+  widget_class->button_press_event   = xfpa_scale_menu_item_button_press_event;
+  widget_class->button_release_event = xfpa_scale_menu_item_button_release_event;
+  widget_class->motion_notify_event  = xfpa_scale_menu_item_motion_notify_event;
+  widget_class->leave_notify_event   = xfpa_scale_menu_item_leave_notify_event;
+  widget_class->parent_set           = xfpa_scale_menu_item_parent_set;
 
-  gobject_class->finalize = scale_menu_item_finalize;
+  gobject_class->finalize = xfpa_scale_menu_item_finalize;
 
   /**
    * ScaleMenuItem::slider-grabbed:
@@ -290,7 +266,7 @@ scale_menu_item_class_init (ScaleMenuItemClass *item_class)
    * of user input.
    */
   signals[VALUE_CHANGED] = g_signal_new ("value-changed",
-                                         TYPE_SCALE_MENU_ITEM,
+                                         XFPA_TYPE_SCALE_MENU_ITEM,
                                          G_SIGNAL_RUN_LAST,
                                          0, NULL, NULL,
                                          g_cclosure_marshal_VOID__DOUBLE,
@@ -315,120 +291,111 @@ scale_menu_item_class_init (ScaleMenuItemClass *item_class)
 
 
 static void
-scale_menu_item_init (ScaleMenuItem *self)
+xfpa_scale_menu_item_init (XfpaScaleMenuItem *self)
 {
-  ScaleMenuItemPrivate *priv;
-
-  priv = scale_menu_item_get_instance_private (self);
-
-  priv->scale = NULL;
-  priv->image = NULL;
-  priv->hbox = NULL;
-  priv->vbox = NULL;
-  priv->mute_toggle = NULL;
-  priv->icon_name = NULL;
+  self->scale = NULL;
+  self->image = NULL;
+  self->hbox = NULL;
+  self->vbox = NULL;
+  self->mute_toggle = NULL;
+  self->icon_name = NULL;
 }
 
 
 
 static void
-scale_menu_item_finalize (GObject *object)
+xfpa_scale_menu_item_finalize (GObject *object)
 {
-  ScaleMenuItem        *self;
-  ScaleMenuItemPrivate *priv;
+  XfpaScaleMenuItem        *self = XFPA_SCALE_MENU_ITEM (object);
 
-  self = SCALE_MENU_ITEM (object);
-  priv = scale_menu_item_get_instance_private (self);
+  if (self->icon_name)
+    g_free (self->icon_name);
 
-  if (priv->icon_name)
-    g_free (priv->icon_name);
+  g_object_unref (self->scale);
+  g_object_unref (self->image);
+  g_object_unref (self->mute_toggle);
+  g_object_unref (self->vbox);
+  g_object_unref (self->hbox);
 
-  g_object_unref (priv->scale);
-  g_object_unref (priv->image);
-  g_object_unref (priv->mute_toggle);
-  g_object_unref (priv->vbox);
-  g_object_unref (priv->hbox);
-
-  (*G_OBJECT_CLASS (scale_menu_item_parent_class)->finalize) (object);
+  (*G_OBJECT_CLASS (xfpa_scale_menu_item_parent_class)->finalize) (object);
 }
 
 
 
 static void
-scale_menu_item_update_icon (ScaleMenuItem *self)
+xfpa_scale_menu_item_update_icon (XfpaScaleMenuItem *self)
 {
-  ScaleMenuItemPrivate *priv = scale_menu_item_get_instance_private (self);
   gchar                *icon_name = NULL;
-  gdouble               value = gtk_range_get_value (GTK_RANGE (priv->scale));
+  gdouble               value = gtk_range_get_value (GTK_RANGE (self->scale));
 
   /* Update the menuitem icon */
-  if (scale_menu_item_get_muted (self) || value <= 0.0)
-    icon_name = g_strconcat(priv->icon_name, "-muted-symbolic", NULL);
+  if (xfpa_scale_menu_item_get_muted (self) || value <= 0.0)
+    icon_name = g_strconcat(self->icon_name, "-muted-symbolic", NULL);
   else if (value < 30.0)
-    icon_name = g_strconcat(priv->icon_name, "-low-symbolic", NULL);
+    icon_name = g_strconcat(self->icon_name, "-low-symbolic", NULL);
   else if (value < 70.0)
-    icon_name = g_strconcat(priv->icon_name, "-medium-symbolic", NULL);
+    icon_name = g_strconcat(self->icon_name, "-medium-symbolic", NULL);
   else
-    icon_name = g_strconcat(priv->icon_name, "-high-symbolic", NULL);
+    icon_name = g_strconcat(self->icon_name, "-high-symbolic", NULL);
 
-  gtk_image_set_from_icon_name (GTK_IMAGE (priv->image), icon_name, GTK_ICON_SIZE_MENU);
+  gtk_image_set_from_icon_name (GTK_IMAGE (self->image), icon_name, GTK_ICON_SIZE_MENU);
   g_free (icon_name);
 }
 
 
 
 static void
-scale_menu_item_scale_value_changed (GtkRange *range,
-                                     gpointer  user_data)
+xfpa_scale_menu_item_scale_value_changed (GtkRange *range,
+                                          gpointer  user_data)
 {
-  ScaleMenuItem *self = SCALE_MENU_ITEM (user_data);
+  XfpaScaleMenuItem *self = XFPA_SCALE_MENU_ITEM (user_data);
   gdouble        value = gtk_range_get_value (range);
 
   g_signal_emit (self, signals[VALUE_CHANGED], 0, value);
 
-  scale_menu_item_update_icon (self);
+  xfpa_scale_menu_item_update_icon (self);
 }
 
 
 
 static gboolean
-scale_menu_item_button_press_event (GtkWidget      *item,
-                                    GdkEventButton *event)
+xfpa_scale_menu_item_button_press_event (GtkWidget      *item,
+                                         GdkEventButton *event)
 {
-  ScaleMenuItemPrivate *priv;
+  XfpaScaleMenuItem    *self;
   GtkAllocation         alloc;
   GtkSwitch            *mute_toggle;
   gint                  x, y;
 
   TRACE("entering");
 
-  g_return_val_if_fail (IS_SCALE_MENU_ITEM (item), FALSE);
+  g_return_val_if_fail (XFPA_IS_SCALE_MENU_ITEM (item), FALSE);
 
   if ((event->type == GDK_2BUTTON_PRESS) || (event->type == GDK_3BUTTON_PRESS))
     return TRUE;
 
-  priv = scale_menu_item_get_instance_private (SCALE_MENU_ITEM (item));
+  self = XFPA_SCALE_MENU_ITEM (item);
 
-  gtk_widget_get_allocation (priv->mute_toggle, &alloc);
-  gtk_widget_translate_coordinates (GTK_WIDGET (item), priv->mute_toggle, event->x, event->y, &x, &y);
+  gtk_widget_get_allocation (self->mute_toggle, &alloc);
+  gtk_widget_translate_coordinates (GTK_WIDGET (item), self->mute_toggle, event->x, event->y, &x, &y);
   if (x > 0 && x < alloc.width && y > 0 && y < alloc.height)
     {
       /* toggle the desired state, but keep the underlying state as is */
-      mute_toggle = GTK_SWITCH (priv->mute_toggle);
+      mute_toggle = GTK_SWITCH (self->mute_toggle);
       gtk_switch_set_active (mute_toggle, !gtk_switch_get_active (mute_toggle));
       return TRUE;
     }
 
-  gtk_widget_get_allocation (priv->scale, &alloc);
-  gtk_widget_translate_coordinates (item, priv->scale, event->x, event->y, &x, &y);
+  gtk_widget_get_allocation (self->scale, &alloc);
+  gtk_widget_translate_coordinates (item, self->scale, event->x, event->y, &x, &y);
   if (x > 0 && x < alloc.width && y > 0 && y < alloc.height)
     {
-      gtk_widget_event (priv->scale, (GdkEvent*) event);
+      gtk_widget_event (self->scale, (GdkEvent*) event);
     }
 
-  if (!priv->grabbed)
+  if (!self->grabbed)
     {
-      priv->grabbed = TRUE;
+      self->grabbed = TRUE;
       g_signal_emit (item, signals[SLIDER_GRABBED], 0);
     }
 
@@ -438,10 +405,10 @@ scale_menu_item_button_press_event (GtkWidget      *item,
 
 
 static gboolean
-scale_menu_item_button_release_event (GtkWidget      *item,
-                                      GdkEventButton *event)
+xfpa_scale_menu_item_button_release_event (GtkWidget      *item,
+                                           GdkEventButton *event)
 {
-  ScaleMenuItemPrivate *priv;
+  XfpaScaleMenuItem    *self;
   GtkAllocation         alloc;
   GtkSwitch            *mute_toggle;
   gint                  x, y;
@@ -449,16 +416,16 @@ scale_menu_item_button_release_event (GtkWidget      *item,
 
   TRACE("entering");
 
-  g_return_val_if_fail (IS_SCALE_MENU_ITEM (item), FALSE);
+  g_return_val_if_fail (XFPA_IS_SCALE_MENU_ITEM (item), FALSE);
 
-  priv = scale_menu_item_get_instance_private (SCALE_MENU_ITEM (item));
+  self = (XFPA_SCALE_MENU_ITEM (item));
 
-  gtk_widget_get_allocation (priv->mute_toggle, &alloc);
-  gtk_widget_translate_coordinates (GTK_WIDGET (item), priv->mute_toggle, event->x, event->y, &x, &y);
+  gtk_widget_get_allocation (self->mute_toggle, &alloc);
+  gtk_widget_translate_coordinates (GTK_WIDGET (item), self->mute_toggle, event->x, event->y, &x, &y);
 
   /* toggle the switch's underlying state if the pointer is still within the
    * widget area, otherwise reset its desired state */
-  mute_toggle = GTK_SWITCH (priv->mute_toggle);
+  mute_toggle = GTK_SWITCH (self->mute_toggle);
   cur_mute_state = gtk_switch_get_state (mute_toggle);
   new_mute_state = (x > 0 && x < alloc.width && y > 0 && y < alloc.height)
                    ? gtk_switch_get_active (mute_toggle) : cur_mute_state;
@@ -472,16 +439,16 @@ scale_menu_item_button_release_event (GtkWidget      *item,
       gtk_switch_set_active (mute_toggle, cur_mute_state);
     }
 
-  gtk_widget_get_allocation (priv->scale, &alloc);
-  gtk_widget_translate_coordinates (item, priv->scale, event->x, event->y, &x, &y);
+  gtk_widget_get_allocation (self->scale, &alloc);
+  gtk_widget_translate_coordinates (item, self->scale, event->x, event->y, &x, &y);
   if (x > 0 && x < alloc.width && y > 0 && y < alloc.height)
     {
-      gtk_widget_event (priv->scale, (GdkEvent*) event);
+      gtk_widget_event (self->scale, (GdkEvent*) event);
     }
 
-  if (priv->grabbed)
+  if (self->grabbed)
     {
-      priv->grabbed = FALSE;
+      self->grabbed = FALSE;
       g_signal_emit (item, signals[SLIDER_RELEASED], 0);
     }
 
@@ -491,21 +458,21 @@ scale_menu_item_button_release_event (GtkWidget      *item,
 
 
 static gboolean
-scale_menu_item_motion_notify_event (GtkWidget      *item,
-                                     GdkEventMotion *event)
+xfpa_scale_menu_item_motion_notify_event (GtkWidget      *item,
+                                          GdkEventMotion *event)
 {
-  ScaleMenuItemPrivate *priv;
+  XfpaScaleMenuItem    *self;
   GtkWidget            *scale;
   GtkAllocation         alloc;
   gint                  x, y;
 
-  g_return_val_if_fail (IS_SCALE_MENU_ITEM (item), FALSE);
+  g_return_val_if_fail (XFPA_IS_SCALE_MENU_ITEM (item), FALSE);
 
-  priv = scale_menu_item_get_instance_private (SCALE_MENU_ITEM (item));
-  scale = priv->scale;
+  self = XFPA_SCALE_MENU_ITEM (item);
+  scale = self->scale;
 
-  gtk_widget_get_allocation (priv->scale, &alloc);
-  gtk_widget_translate_coordinates (item, priv->scale, event->x, event->y, &x, &y);
+  gtk_widget_get_allocation (self->scale, &alloc);
+  gtk_widget_translate_coordinates (item, self->scale, event->x, event->y, &x, &y);
 
   if (x > 0 && x < alloc.width && y > 0 && y < alloc.height)
     {
@@ -516,16 +483,16 @@ scale_menu_item_motion_notify_event (GtkWidget      *item,
 }
 
 static gboolean
-scale_menu_item_leave_notify_event (GtkWidget        *item,
-                                    GdkEventCrossing *event)
+xfpa_scale_menu_item_leave_notify_event (GtkWidget        *item,
+                                         GdkEventCrossing *event)
 {
-  ScaleMenuItemPrivate *priv;
+  XfpaScaleMenuItem    *self;
   GtkSwitch            *mute_toggle;
 
-  g_return_val_if_fail (IS_SCALE_MENU_ITEM (item), FALSE);
+  g_return_val_if_fail (XFPA_IS_SCALE_MENU_ITEM (item), FALSE);
 
-  priv = scale_menu_item_get_instance_private (SCALE_MENU_ITEM (item));
-  mute_toggle = GTK_SWITCH (priv->mute_toggle);
+  self = XFPA_SCALE_MENU_ITEM (item);
+  mute_toggle = GTK_SWITCH (self->mute_toggle);
 
   /* reset the switch to its current underlying state */
   gtk_switch_set_active (mute_toggle, gtk_switch_get_state (mute_toggle));
@@ -533,7 +500,7 @@ scale_menu_item_leave_notify_event (GtkWidget        *item,
   return TRUE;
 }
 
-gboolean scale_menu_item_mute_toggle_state_set (GtkWidget *mute_toggle,
+gboolean xfpa_scale_menu_item_mute_toggle_state_set (GtkWidget *mute_toggle,
                                                 gboolean   state,
                                                 gpointer   user_data)
 {
@@ -543,19 +510,15 @@ gboolean scale_menu_item_mute_toggle_state_set (GtkWidget *mute_toggle,
 
 
 static void
-menu_hidden (GtkWidget     *menu,
-             ScaleMenuItem *scale)
+xfpa_scale_menu_hidden (GtkWidget         *menu,
+                        XfpaScaleMenuItem *scale)
 {
-  ScaleMenuItemPrivate *priv;
-
-  g_return_if_fail (IS_SCALE_MENU_ITEM (scale));
+  g_return_if_fail (XFPA_IS_SCALE_MENU_ITEM (scale));
   g_return_if_fail (GTK_IS_MENU (menu));
 
-  priv = scale_menu_item_get_instance_private (scale);
-
-  if (priv->grabbed)
+  if (scale->grabbed)
     {
-      priv->grabbed = FALSE;
+      scale->grabbed = FALSE;
       g_signal_emit (scale, signals[SLIDER_RELEASED], 0);
     }
 }
@@ -563,23 +526,23 @@ menu_hidden (GtkWidget     *menu,
 
 
 static void
-scale_menu_item_parent_set (GtkWidget *item,
-                            GtkWidget *previous_parent)
+xfpa_scale_menu_item_parent_set (GtkWidget *item,
+                                 GtkWidget *previous_parent)
 
 {
   GtkWidget *parent;
 
-  g_return_if_fail (IS_SCALE_MENU_ITEM (item));
+  g_return_if_fail (XFPA_IS_SCALE_MENU_ITEM (item));
 
   if (previous_parent != NULL)
     {
-      g_signal_handlers_disconnect_by_func (previous_parent, menu_hidden, item);
+      g_signal_handlers_disconnect_by_func (previous_parent, xfpa_scale_menu_hidden, item);
     }
 
   parent = gtk_widget_get_parent (item);
 
   if (parent != NULL)
     {
-      g_signal_connect (parent, "hide", G_CALLBACK (menu_hidden), item);
+      g_signal_connect (parent, "hide", G_CALLBACK (xfpa_scale_menu_hidden), item);
     }
 }
