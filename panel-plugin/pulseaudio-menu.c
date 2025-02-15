@@ -143,7 +143,7 @@ pulseaudio_menu_output_range_value_changed (PulseaudioMenu   *menu,
 
   g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
 
-  new_volume = scale_menu_item_get_value (SCALE_MENU_ITEM (menu->output_scale)) / 100.0;
+  new_volume = xfpa_scale_menu_item_get_value (XFPA_SCALE_MENU_ITEM (menu->output_scale)) / 100.0;
   pulseaudio_volume_set_volume (menu->volume, new_volume);
 }
 
@@ -151,11 +151,11 @@ pulseaudio_menu_output_range_value_changed (PulseaudioMenu   *menu,
 
 static void
 pulseaudio_menu_mute_output_item_toggled (PulseaudioMenu   *menu,
-                                          ScaleMenuItem    *menu_item)
+                                          XfpaScaleMenuItem    *menu_item)
 {
   g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
 
-  pulseaudio_volume_set_muted (menu->volume, scale_menu_item_get_muted (menu_item));
+  pulseaudio_volume_set_muted (menu->volume, xfpa_scale_menu_item_get_muted (menu_item));
 }
 
 
@@ -214,7 +214,7 @@ pulseaudio_menu_input_range_value_changed (PulseaudioMenu   *menu,
 
   g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
 
-  new_volume_mic = scale_menu_item_get_value (SCALE_MENU_ITEM (menu->input_scale)) / 100.0;
+  new_volume_mic = xfpa_scale_menu_item_get_value (XFPA_SCALE_MENU_ITEM (menu->input_scale)) / 100.0;
   pulseaudio_volume_set_volume_mic (menu->volume, new_volume_mic);
 }
 
@@ -222,11 +222,11 @@ pulseaudio_menu_input_range_value_changed (PulseaudioMenu   *menu,
 
 static void
 pulseaudio_menu_mute_input_item_toggled (PulseaudioMenu   *menu,
-                                         ScaleMenuItem    *menu_item)
+                                         XfpaScaleMenuItem    *menu_item)
 {
   g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
 
-  pulseaudio_volume_set_muted_mic (menu->volume, scale_menu_item_get_muted (menu_item));
+  pulseaudio_volume_set_muted_mic (menu->volume, xfpa_scale_menu_item_get_muted (menu_item));
 }
 
 
@@ -316,13 +316,13 @@ pulseaudio_menu_volume_changed (PulseaudioMenu   *menu,
       g_signal_handlers_block_by_func (G_OBJECT (menu->output_scale),
                                        pulseaudio_menu_mute_output_item_toggled,
                                        menu);
-      scale_menu_item_set_muted (SCALE_MENU_ITEM (menu->output_scale),
-                                 pulseaudio_volume_get_muted (volume));
+      xfpa_scale_menu_item_set_muted (XFPA_SCALE_MENU_ITEM (menu->output_scale),
+                                      pulseaudio_volume_get_muted (volume));
       g_signal_handlers_unblock_by_func (G_OBJECT (menu->output_scale),
                                          pulseaudio_menu_mute_output_item_toggled,
                                          menu);
-      scale_menu_item_set_value (SCALE_MENU_ITEM (menu->output_scale),
-                                 pulseaudio_volume_get_volume (menu->volume) * 100.0);
+      xfpa_scale_menu_item_set_value (XFPA_SCALE_MENU_ITEM (menu->output_scale),
+                                      pulseaudio_volume_get_volume (menu->volume) * 100.0);
     }
 
   if (menu->input_scale != NULL)
@@ -330,13 +330,13 @@ pulseaudio_menu_volume_changed (PulseaudioMenu   *menu,
       g_signal_handlers_block_by_func (G_OBJECT (menu->input_scale),
                                        pulseaudio_menu_mute_input_item_toggled,
                                        menu);
-      scale_menu_item_set_muted (SCALE_MENU_ITEM (menu->input_scale),
-                                 pulseaudio_volume_get_muted_mic (volume));
+      xfpa_scale_menu_item_set_muted (XFPA_SCALE_MENU_ITEM (menu->input_scale),
+                                      pulseaudio_volume_get_muted_mic (volume));
       g_signal_handlers_unblock_by_func (G_OBJECT (menu->input_scale),
                                          pulseaudio_menu_mute_input_item_toggled,
                                          menu);
-      scale_menu_item_set_value (SCALE_MENU_ITEM (menu->input_scale),
-                                 pulseaudio_volume_get_volume_mic (menu->volume) * 100.0);
+      xfpa_scale_menu_item_set_value (XFPA_SCALE_MENU_ITEM (menu->input_scale),
+                                      pulseaudio_volume_get_volume_mic (menu->volume) * 100.0);
     }
 }
 
@@ -505,8 +505,8 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
   if (g_list_length (sources) > 0)
     {
       /* output volume slider */
-      menu->output_scale = scale_menu_item_new_with_range (0.0, volume_max, 1.0, -1.0);
-      scale_menu_item_set_base_icon_name (SCALE_MENU_ITEM (menu->output_scale), "audio-volume");
+      menu->output_scale = xfpa_scale_menu_item_new_with_range (0.0, volume_max, 1.0, -1.0);
+      xfpa_scale_menu_item_set_base_icon_name (XFPA_SCALE_MENU_ITEM (menu->output_scale), "audio-volume");
 
       g_signal_connect_swapped (menu->output_scale, "value-changed", G_CALLBACK (pulseaudio_menu_output_range_value_changed), menu);
       g_signal_connect_swapped (menu->output_scale, "toggled", G_CALLBACK (pulseaudio_menu_mute_output_item_toggled), menu);
@@ -545,8 +545,8 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
   if (g_list_length (sources) > 0)
     {
       /* input volume slider */
-      menu->input_scale = scale_menu_item_new_with_range (0.0, volume_max, 1.0, pulseaudio_volume_get_base_volume_mic (menu->volume) * 100.0);
-      scale_menu_item_set_base_icon_name (SCALE_MENU_ITEM (menu->input_scale), "microphone-sensitivity");
+      menu->input_scale = xfpa_scale_menu_item_new_with_range (0.0, volume_max, 1.0, pulseaudio_volume_get_base_volume_mic (menu->volume) * 100.0);
+      xfpa_scale_menu_item_set_base_icon_name (XFPA_SCALE_MENU_ITEM (menu->input_scale), "microphone-sensitivity");
 
       g_signal_connect_swapped (menu->input_scale, "value-changed", G_CALLBACK (pulseaudio_menu_input_range_value_changed), menu);
       g_signal_connect_swapped (menu->input_scale, "toggled", G_CALLBACK (pulseaudio_menu_mute_input_item_toggled), menu);
