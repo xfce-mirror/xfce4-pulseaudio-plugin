@@ -510,7 +510,9 @@ pulseaudio_button_set_size (PulseaudioButton *button,
         gtk_widget_set_size_request (GTK_WIDGET (button), size, size * 2);
     }
   else
-    gtk_widget_set_size_request (GTK_WIDGET (button), size, size);
+    {
+      gtk_widget_set_size_request (GTK_WIDGET (button), size, size);
+    }
 }
 
 
@@ -576,7 +578,7 @@ pulseaudio_button_configuration_changed (PulseaudioButton  *button,
       button->recording_indicator_persistent = rec_indicator_persistent;
       pulseaudio_set_recording_indicator_state (button);
 
-      if ( gtk_orientable_get_orientation (GTK_ORIENTABLE (button->box)) == GTK_ORIENTATION_HORIZONTAL)
+      if (gtk_orientable_get_orientation (GTK_ORIENTABLE (button->box)) == GTK_ORIENTATION_HORIZONTAL)
         gtk_widget_get_size_request (GTK_WIDGET(button), NULL, &width);
       else
         gtk_widget_get_size_request (GTK_WIDGET(button), &width, NULL);
