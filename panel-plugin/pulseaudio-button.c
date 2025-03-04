@@ -194,6 +194,8 @@ pulseaudio_button_init (PulseaudioButton *button)
   button->image = gtk_image_new ();
   button->recording_indicator = gtk_image_new ();
   button->box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+  gtk_box_set_homogeneous (GTK_BOX (button->box), TRUE);
+
   gtk_container_add (GTK_CONTAINER (button), button->box);
   gtk_box_pack_start (GTK_BOX (button->box), GTK_WIDGET (button->recording_indicator), TRUE, FALSE, 0);
   gtk_box_pack_start (GTK_BOX (button->box), GTK_WIDGET (button->image), TRUE, FALSE, 0);
@@ -492,7 +494,6 @@ pulseaudio_button_set_size (PulseaudioButton *button,
                             gint              size,
                             gint              icon_size)
 {
-  GtkOrientation orientation;
   g_return_if_fail (IS_PULSEAUDIO_BUTTON (button));
   g_return_if_fail (size > 0);
 
@@ -500,19 +501,12 @@ pulseaudio_button_set_size (PulseaudioButton *button,
   gtk_image_set_pixel_size (GTK_IMAGE (button->image), button->icon_size);
   gtk_image_set_pixel_size (GTK_IMAGE (button->recording_indicator), button->icon_size);
 
-  orientation = gtk_orientable_get_orientation (GTK_ORIENTABLE (button->box));
+  if (size > 0)
+    {
+      gtk_widget_set_size_request (button->image, size, size);
+      gtk_widget_set_size_request (button->recording_indicator, size, size);
+    }
 
-  if (gtk_widget_get_visible (button->recording_indicator))
-    {
-      if (orientation == GTK_ORIENTATION_HORIZONTAL)
-        gtk_widget_set_size_request (GTK_WIDGET (button), size * 2, size);
-      else
-        gtk_widget_set_size_request (GTK_WIDGET (button), size, size * 2);
-    }
-  else
-    {
-      gtk_widget_set_size_request (GTK_WIDGET (button), size, size);
-    }
 }
 
 
@@ -583,7 +577,8 @@ pulseaudio_button_configuration_changed (PulseaudioButton  *button,
       else
         gtk_widget_get_size_request (GTK_WIDGET(button), &width, NULL);
 
-      pulseaudio_button_set_size (button, width, button->icon_size);
+      if (width > 0)
+        pulseaudio_button_set_size (button, width, button->icon_size);
     }
 }
 
