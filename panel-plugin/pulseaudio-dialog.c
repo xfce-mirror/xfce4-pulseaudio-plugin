@@ -44,8 +44,6 @@
 #include "pulseaudio-dialog-resources.h"
 #include "pulseaudio-mpris.h"
 
-#include <exo/exo.h>
-
 
 
 static void              pulseaudio_dialog_build                  (PulseaudioDialog          *dialog);
