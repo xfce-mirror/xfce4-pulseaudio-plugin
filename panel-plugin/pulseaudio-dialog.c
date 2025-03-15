@@ -41,7 +41,7 @@
 #include <libxfce4ui/libxfce4ui.h>
 
 #include "pulseaudio-dialog.h"
-#include "pulseaudio-dialog_ui.h"
+#include "pulseaudio-dialog-resources.h"
 #include "pulseaudio-mpris.h"
 
 #include <exo/exo.h>
@@ -243,8 +243,10 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
     return;
 
   /* load the builder data into the object */
-  if (gtk_builder_add_from_string (builder, pulseaudio_dialog_ui,
-                                   pulseaudio_dialog_ui_length, &error))
+  pulseaudio_dialog_register_resource ();
+  if (gtk_builder_add_from_resource (builder,
+                                     "/org/xfce/pulseaudio-plugin/pulseaudio-dialog.glade",
+                                     &error))
     {
       dialog->dialog = gtk_builder_get_object (builder, "dialog");
       g_return_if_fail (XFCE_IS_TITLED_DIALOG (dialog->dialog));
