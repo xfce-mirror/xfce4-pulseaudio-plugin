@@ -274,7 +274,7 @@ pulseaudio_plugin_show_about (XfcePanelPlugin *plugin)
                          "program-name",   PACKAGE_NAME,
                          "comments",       _("Adjust the audio volume of the PulseAudio sound system"),
                          "website",        "https://docs.xfce.org/panel-plugins/xfce4-pulseaudio-plugin",
-                         "copyright",      "Copyright \xc2\xa9 2014-2023 The Xfce development team",
+                         "copyright",      "Copyright \xc2\xa9 2014-" COPYRIGHT_YEAR " The Xfce development team",
                          "authors",        auth,
                          NULL);
 }
