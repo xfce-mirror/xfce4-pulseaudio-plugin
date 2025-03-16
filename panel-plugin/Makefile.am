@@ -17,7 +17,8 @@ plugin_LTLIBRARIES = \
 	libpulseaudio-plugin.la
 
 libpulseaudio_built_sources = \
-	pulseaudio-dialog_ui.h
+	pulseaudio-dialog-resources.c \
+	pulseaudio-dialog-resources.h
 
 libpulseaudio_plugin_la_SOURCES = \
 	$(libpulseaudio_built_sources) \
@@ -63,7 +64,6 @@ libpulseaudio_plugin_la_CFLAGS = \
 	$(LIBNOTIFY_CFLAGS) \
 	$(LIBCANBERRA_CFLAGS) \
 	$(EXO_CFLAGS) \
-	$(WNCK_CFLAGS) \
 	$(LIBXFCE4WINDOWING_CFLAGS) \
 	$(PLATFORM_CFLAGS)
 
@@ -88,7 +88,6 @@ libpulseaudio_plugin_la_LIBADD = \
 	$(LIBNOTIFY_LIBS) \
 	$(LIBCANBERRA_LIBS) \
 	$(EXO_LIBS) \
-	$(WNCK_LIBS) \
 	$(LIBXFCE4WINDOWING_LIBS) \
 	$(LIBM)
 
@@ -107,23 +106,23 @@ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 $(desktop_DATA): $(desktop_in_files) Makefile
 	$(AM_V_GEN)$(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
 
+pulseaudio_dialog_glade_files = $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir) $(srcdir)/pulseaudio-dialog.gresource.xml)
+
+pulseaudio-dialog-resources.h: $(srcdir)/pulseaudio-dialog.gresource.xml $(pulseaudio_dialog_glade_files) Makefile
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-header --manual-register $<
+
+pulseaudio-dialog-resources.c: $(srcdir)/pulseaudio-dialog.gresource.xml $(pulseaudio_dialog_glade_files) Makefile pulseaudio-dialog-resources.h
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-source --manual-register $<
+
 EXTRA_DIST = \
+	meson.build \
 	pulseaudio-dialog.glade \
+	pulseaudio-dialog.gresource.xml \
 	$(desktop_in_in_files)
 
 DISTCLEANFILES = \
 	$(desktop_in_files) \
-	$(desktop_DATA)
-
-if MAINTAINER_MODE
-BUILT_SOURCES = \
+	$(desktop_DATA) \
 	$(libpulseaudio_built_sources)
-
-DISTCLEANFILES += \
-	$(libpulseaudio_built_sources)
-
-pulseaudio-dialog_ui.h: pulseaudio-dialog.glade
-	$(AM_V_GEN) xdt-csource --static --strip-comments --strip-content --name=pulseaudio_dialog_ui $< >$@
-endif
 
 # vi:set ts=8 sw=8 noet ai nocindent syntax=automake:

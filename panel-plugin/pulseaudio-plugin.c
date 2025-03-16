@@ -28,6 +28,9 @@
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
+#ifdef HAVE_XFCE_REVISION_H
+#include "xfce-revision.h"
+#endif
 #ifdef HAVE_STRING_H
 #include <string.h>
 #endif
@@ -267,11 +270,11 @@ pulseaudio_plugin_show_about (XfcePanelPlugin *plugin)
   gtk_show_about_dialog (NULL,
                          "logo-icon-name", "xfce4-pulseaudio-plugin",
                          "license",        xfce_get_license_text (XFCE_LICENSE_TEXT_GPL),
-                         "version",        PACKAGE_VERSION,
+                         "version",        VERSION_FULL,
                          "program-name",   PACKAGE_NAME,
                          "comments",       _("Adjust the audio volume of the PulseAudio sound system"),
                          "website",        "https://docs.xfce.org/panel-plugins/xfce4-pulseaudio-plugin",
-                         "copyright",      "Copyright \xc2\xa9 2014-2023 The Xfce development team",
+                         "copyright",      "Copyright \xc2\xa9 2014-" COPYRIGHT_YEAR " The Xfce development team",
                          "authors",        auth,
                          NULL);
 }

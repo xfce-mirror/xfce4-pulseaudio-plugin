@@ -29,6 +29,9 @@
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
+#ifdef HAVE_XFCE_REVISION_H
+#include "xfce-revision.h"
+#endif
 
 #include <pulse/pulseaudio.h>
 #include <pulse/glib-mainloop.h>
@@ -652,12 +655,10 @@ pulseaudio_volume_connect (PulseaudioVolume *volume)
   g_return_if_fail (!volume->connected);
 
   proplist = pa_proplist_new ();
-#ifdef HAVE_CONFIG_H
   pa_proplist_sets (proplist, PA_PROP_APPLICATION_NAME, PACKAGE_NAME);
-  pa_proplist_sets (proplist, PA_PROP_APPLICATION_VERSION, PACKAGE_VERSION);
+  pa_proplist_sets (proplist, PA_PROP_APPLICATION_VERSION, VERSION_FULL);
   pa_proplist_sets (proplist, PA_PROP_APPLICATION_ID, "org.xfce.pulseaudio-plugin");
   pa_proplist_sets (proplist, PA_PROP_APPLICATION_ICON_NAME, "multimedia-volume-control");
-#endif
 
   volume->pa_context = pa_context_new_with_proplist (pa_glib_mainloop_get_api (volume->pa_mainloop), NULL, proplist);
   pa_proplist_free (proplist);

@@ -1,0 +1,41 @@
+option(
+  'keybinder',
+  type: 'feature',
+  value: 'auto',
+  description: 'keybinder support',
+)
+
+option(
+  'libnotify',
+  type: 'feature',
+  value: 'auto',
+  description: 'libnotify support',
+)
+
+option(
+  'libcanberra',
+  type: 'feature',
+  value: 'auto',
+  description: 'libcanberra support',
+)
+
+option(
+  'libxfce4windowing',
+  type: 'feature',
+  value: 'auto',
+  description: 'libxfce4windowing support',
+)
+
+option(
+  'mpris2',
+  type: 'feature',
+  value: 'auto',
+  description: 'mpris2 support',
+)
+
+option(
+  'mixer-command',
+  type: 'string',
+  value: 'pavucontrol',
+  description: 'Default mixer command',
+)

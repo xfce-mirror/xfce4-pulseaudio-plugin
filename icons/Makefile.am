@@ -1,8 +1,13 @@
 # $Id: Makefile.am 2257 2006-12-19 19:49:00Z nick $
 
 SUBDIRS =								\
+        32x32                                                           \
 	48x48								\
 	scalable
+
+EXTRA_DIST =                                                            \
+	meson.build                                                     \
+	$(NULL)
 
 gtk_update_icon_cache = gtk-update-icon-cache -f -t $(datadir)/icons/hicolor
 
