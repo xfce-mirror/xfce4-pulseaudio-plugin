@@ -172,6 +172,8 @@ pulseaudio_button_init (PulseaudioButton *button)
   gtk_widget_set_focus_on_click (GTK_WIDGET (button), FALSE);
   gtk_widget_set_name (GTK_WIDGET (button), "pulseaudio-button");
   gtk_widget_set_has_tooltip (GTK_WIDGET (button), TRUE);
+  gtk_widget_set_halign (GTK_WIDGET(button), GTK_ALIGN_START);
+  gtk_widget_set_valign (GTK_WIDGET(button), GTK_ALIGN_START);
 
   /* Preload icons */
   g_signal_connect (G_OBJECT (button), "style-updated", G_CALLBACK (pulseaudio_button_update_icons), button);
@@ -192,6 +194,8 @@ pulseaudio_button_init (PulseaudioButton *button)
   button->image = gtk_image_new ();
   button->recording_indicator = gtk_image_new ();
   button->box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+  gtk_box_set_homogeneous (GTK_BOX (button->box), TRUE);
+
   gtk_container_add (GTK_CONTAINER (button), button->box);
   gtk_box_pack_start (GTK_BOX (button->box), GTK_WIDGET (button->recording_indicator), TRUE, FALSE, 0);
   gtk_box_pack_start (GTK_BOX (button->box), GTK_WIDGET (button->image), TRUE, FALSE, 0);
@@ -493,11 +497,16 @@ pulseaudio_button_set_size (PulseaudioButton *button,
   g_return_if_fail (IS_PULSEAUDIO_BUTTON (button));
   g_return_if_fail (size > 0);
 
-  gtk_widget_set_size_request (GTK_WIDGET (button), size, size);
   button->icon_size = icon_size;
   gtk_image_set_pixel_size (GTK_IMAGE (button->image), button->icon_size);
-  if (gtk_widget_get_visible (button->recording_indicator))
-    gtk_image_set_pixel_size (GTK_IMAGE (button->recording_indicator), button->icon_size);
+  gtk_image_set_pixel_size (GTK_IMAGE (button->recording_indicator), button->icon_size);
+
+  if (size > 0)
+    {
+      gtk_widget_set_size_request (button->image, size, size);
+      gtk_widget_set_size_request (button->recording_indicator, size, size);
+    }
+
 }
 
 
@@ -556,10 +565,20 @@ pulseaudio_button_configuration_changed (PulseaudioButton  *button,
                                          PulseaudioConfig  *config)
 {
   gboolean rec_indicator_persistent = pulseaudio_config_get_rec_indicator_persistent (config);
+  gint     width;
+
   if (rec_indicator_persistent != button->recording_indicator_persistent)
     {
       button->recording_indicator_persistent = rec_indicator_persistent;
       pulseaudio_set_recording_indicator_state (button);
+
+      if (gtk_orientable_get_orientation (GTK_ORIENTABLE (button->box)) == GTK_ORIENTATION_HORIZONTAL)
+        gtk_widget_get_size_request (GTK_WIDGET(button), NULL, &width);
+      else
+        gtk_widget_get_size_request (GTK_WIDGET(button), &width, NULL);
+
+      if (width > 0)
+        pulseaudio_button_set_size (button, width, button->icon_size);
     }
 }
 
