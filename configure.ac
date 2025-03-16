@@ -148,6 +148,7 @@ AC_SUBST([PLATFORM_LDFLAGS])
 AC_CONFIG_FILES([
 Makefile
 icons/Makefile
+icons/32x32/Makefile
 icons/48x48/Makefile
 icons/scalable/Makefile
 icons/scalable/apps/Makefile
