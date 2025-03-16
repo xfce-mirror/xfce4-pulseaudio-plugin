@@ -115,6 +115,7 @@ pulseaudio-dialog-resources.c: $(srcdir)/pulseaudio-dialog.gresource.xml $(pulse
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-source --manual-register $<
 
 EXTRA_DIST = \
+	meson.build \
 	pulseaudio-dialog.glade \
 	pulseaudio-dialog.gresource.xml \
 	$(desktop_in_in_files)
