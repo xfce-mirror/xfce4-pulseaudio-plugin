@@ -28,11 +28,6 @@
 
 #ifdef HAVE_LIBXFCE4WINDOWING
 #include <libxfce4windowing/libxfce4windowing.h>
-#elif defined (HAVE_WNCK) && defined (GDK_WINDOWING_X11)
-#define ENABLE_WNCK 1
-#define WNCK_I_KNOW_THIS_IS_UNSTABLE = 1
-#include <libwnck/libwnck.h>
-#include <gdk/gdkx.h>
 #endif
 
 #include "pulseaudio-mpris-player.h"
@@ -74,8 +69,6 @@ struct _PulseaudioMprisPlayer
 
 #ifdef HAVE_LIBXFCE4WINDOWING
   XfwScreen        *screen;
-#elif defined (ENABLE_WNCK)
-  gulong            xid;
 #endif
 
   gint64            timestamp;
@@ -297,58 +290,6 @@ pulseaudio_mpris_player_raise_wnck (PulseaudioMprisPlayer *player)
         }
     }
 }
-
-#elif defined (ENABLE_WNCK)
-
-static void
-pulseaudio_mpris_player_get_xid (PulseaudioMprisPlayer *player)
-{
-  WnckScreen           *screen = NULL;
-  GList                *window = NULL;
-
-  if (player->xid > 0L || ! GDK_IS_X11_DISPLAY (gdk_display_get_default ()))
-    return;
-
-  screen = wnck_screen_get_default ();
-  if (screen != NULL)
-    {
-      wnck_screen_force_update (screen);
-      if (player->xid == 0L)
-        {
-          for (window = wnck_screen_get_windows (screen); window != NULL; window = window->next)
-            {
-              if (0 == g_strcmp0 (player->player_label, wnck_window_get_name (WNCK_WINDOW (window->data))))
-                {
-                  player->xid = wnck_window_get_xid (WNCK_WINDOW (window->data));
-                  if (player->xid > 0L)
-                    return;
-                }
-            }
-        }
-    }
-}
-
-
-
-/**
- * Alternative "Raise" method.
- * Some media players (e.g. Spotify) do not support the "Raise" method.
- * This workaround utilizes libwnck to find the correct window and raise it.
- */
-static void
-pulseaudio_mpris_player_raise_wnck (PulseaudioMprisPlayer *player)
-{
-  WnckWindow           *window = NULL;
-
-  pulseaudio_mpris_player_get_xid (player);
-
-  if (player->xid == 0L)
-    return;
-
-  window = wnck_window_get (player->xid);
-  if (window != NULL)
-    wnck_window_activate (window, g_get_monotonic_time () / 1000);
-}
 #endif
 
 
@@ -364,7 +305,7 @@ pulseaudio_mpris_player_call_player_method (PulseaudioMprisPlayer *player,
 
   if (g_strcmp0 (method, "Raise") == 0)
     iface = "org.mpris.MediaPlayer2";
-#if defined (ENABLE_WNCK) || defined (HAVE_LIBXFCE4WINDOWING)
+#ifdef HAVE_LIBXFCE4WINDOWING
   else if (g_strcmp0 (method, "RaiseWnck") == 0)
     return pulseaudio_mpris_player_raise_wnck (player);
 #endif
@@ -743,10 +684,6 @@ pulseaudio_mpris_player_on_dbus_connected (GDBusConnection *connection,
     pulseaudio_mpris_player_parse_playlists (player, reply);
     g_variant_unref (reply);
   }
-
-#ifdef ENABLE_WNCK
-  pulseaudio_mpris_player_get_xid (player);
-#endif
 }
 
 

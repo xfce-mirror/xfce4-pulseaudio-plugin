@@ -530,7 +530,7 @@ mpris_menu_item_raise (MprisMenuItem *item)
         {
           media_notify (item, "Raise");
         }
-#if defined (HAVE_WNCK) || defined (HAVE_LIBXFCE4WINDOWING)
+#ifdef HAVE_LIBXFCE4WINDOWING
       else if (priv->can_raise_wnck)
         {
           media_notify (item, "RaiseWnck");

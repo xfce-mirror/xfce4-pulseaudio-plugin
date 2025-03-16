@@ -416,7 +416,7 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
 
       object = gtk_builder_get_object(builder, "checkbutton-wnck");
       g_return_if_fail(GTK_IS_CHECK_BUTTON(object));
-#if defined (HAVE_WNCK) || defined (HAVE_LIBXFCE4WINDOWING)
+#ifdef HAVE_LIBXFCE4WINDOWING
       g_object_bind_property(G_OBJECT(dialog->config), "enable-wnck",
                              G_OBJECT(object), "active",
                              G_BINDING_SYNC_CREATE | G_BINDING_BIDIRECTIONAL);
