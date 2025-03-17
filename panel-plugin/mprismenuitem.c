@@ -34,8 +34,11 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkkeysyms.h>
 #include <gio/gdesktopappinfo.h>
+#include <libxfce4ui/libxfce4ui.h>
 
+#if !LIBXFCE4UI_CHECK_VERSION(4, 21, 0)
 #include <exo/exo.h>
+#endif
 
 
 /* for DBG/TRACE */
@@ -149,7 +152,11 @@ mpris_menu_item_new_with_player (const gchar *player,
       size = 24;
     size *= scale_factor;
 
+#if LIBXFCE4UI_CHECK_VERSION(4, 21, 0)
+    buf = xfce_gdk_pixbuf_new_from_file_at_max_size (icon_name, size, size, TRUE, NULL);
+#else
     buf = exo_gdk_pixbuf_new_from_file_at_max_size (icon_name, size, size, TRUE, NULL);
+#endif
     if (buf != NULL) {
       cairo_surface_t *surface = gdk_cairo_surface_create_from_pixbuf (buf, scale_factor, NULL);
       gtk_image_set_from_surface (GTK_IMAGE (priv->image), surface);
