@@ -39,9 +39,6 @@
 #include <libxfce4util/libxfce4util.h>
 
 
-#define SYNCHRONOUS      "x-canonical-private-synchronous"
-#define LAYOUT_ICON_ONLY "x-canonical-private-icon-only"
-
 #include "pulseaudio-notify.h"
 
 #define V_MUTED  0
@@ -83,7 +80,6 @@ struct _PulseaudioNotify
   PulseaudioVolume     *volume;
   PulseaudioButton     *button;
 
-  gboolean              gauge_notifications;
   NotifyNotification   *notification;
   NotifyNotification   *notification_mic;
 
@@ -116,10 +112,6 @@ pulseaudio_notify_class_init (PulseaudioNotifyClass *klass)
 static void
 pulseaudio_notify_init (PulseaudioNotify *notify)
 {
-  GList *caps_list;
-  GList *node;
-
-  notify->gauge_notifications = TRUE;
   notify->notification = NULL;
   notify->notification_mic = NULL;
   notify->volume_changed_id = 0;
@@ -127,15 +119,6 @@ pulseaudio_notify_init (PulseaudioNotify *notify)
 
   notify_init ("Xfce volume control");
 
-  caps_list = notify_get_server_caps ();
-
-  if (caps_list)
-    {
-      node = g_list_find_custom (caps_list, LAYOUT_ICON_ONLY, (GCompareFunc) g_strcmp0);
-      if (!node)
-        notify->gauge_notifications = FALSE;
-      g_list_free_full (caps_list, g_free);
-    }
   notify->notification = notify_notification_new ("xfce4-pulseaudio-plugin", NULL, NULL);
   notify_notification_set_timeout (notify->notification, 2000);
   notify_notification_set_hint (notify->notification, "transient", g_variant_new_boolean (TRUE));
@@ -221,15 +204,9 @@ pulseaudio_notify_notify (PulseaudioNotify *notify, gboolean mic)
                               icon);
   g_free (title);
 
-  if (notify->gauge_notifications)
-    {
-      notify_notification_set_hint (notification,
-                                    "value",
-                                    g_variant_new_int32 (MIN (100, volume_i)));
-      notify_notification_set_hint (notification,
-                                    "x-canonical-private-synchronous",
-                                    g_variant_new_string(""));
-    }
+  notify_notification_set_hint (notification,
+                                "value",
+                                g_variant_new_int32 (MIN (100, volume_i)));
 
   if (!notify_notification_show (notification, &error))
     {
