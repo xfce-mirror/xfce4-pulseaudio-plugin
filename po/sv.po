@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the xfce-panel-plugins.xfce4-pulseaudio-plugin package.
 # 
 # Translators:
+# Anders Jonsson <transifex@norsjovallen.se>, 2025
 # Arve Eriksson <031299870@telia.com>, 2017
 # Carlos Dz <cls567@tuta.io>, 2020
 # Luna Jernberg <droidbittin@gmail.com>, 2022-2023
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
 "POT-Creation-Date: 2024-04-07 12:54+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
-"Last-Translator: Luna Jernberg <droidbittin@gmail.com>, 2022-2023\n"
+"Last-Translator: Anders Jonsson <transifex@norsjovallen.se>, 2025\n"
 "Language-Team: Swedish (http://app.transifex.com/xfce/xfce-panel-plugins/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -63,7 +64,7 @@ msgstr "Aktiverar volymkontroll med multimediatangenter. Förvissa dig om att in
 
 #: panel-plugin/pulseaudio-dialog.glade:168
 msgid "Play system _sound when volume changes"
-msgstr "Spela system _ljud då volymen ändras"
+msgstr "Spela system_ljud då volymen ändras"
 
 #: panel-plugin/pulseaudio-dialog.glade:172
 msgid ""
@@ -76,7 +77,7 @@ msgstr "Visa alltid inspelnings _indikatorn"
 
 #: panel-plugin/pulseaudio-dialog.glade:208
 msgid "Show volume _notifications:"
-msgstr "Visa volym _notifikationer:"
+msgstr "Visa volym_notifikationer:"
 
 #: panel-plugin/pulseaudio-dialog.glade:222
 msgid "Mute/unmute is notified in all modes except \"None\""
@@ -88,7 +89,7 @@ msgstr "Stegstorlek som används vid justering av volym med mushjul eller snabbt
 
 #: panel-plugin/pulseaudio-dialog.glade:254
 msgid "_Volume step:"
-msgstr "_Volym steg:"
+msgstr "_Volymsteg:"
 
 #: panel-plugin/pulseaudio-dialog.glade:300
 msgid "M_aximum volume:"
@@ -192,7 +193,7 @@ msgstr "<b>Volume %d%% (tystad)</b>\n<small>%s</small>"
 msgid ""
 "<b>Volume %d%%</b>\n"
 "<small>%s</small>"
-msgstr "</b>Volym%d%%</b>\n<small>%s</small>"
+msgstr "<b>Volym%d%%</b>\n<small>%s</small>"
 
 #: panel-plugin/pulseaudio-menu.c:521
 msgid "Output"
