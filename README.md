@@ -32,17 +32,17 @@ See [NEWS](https://gitlab.xfce.org/panel-plugins/xfce4-pulseaudio-plugin/-/blob/
 From source code repository: 
 
     % cd xfce4-pulseaudio-plugin
-    % ./autogen.sh
-    % make
-    % make install
+    % meson setup build
+    % meson compile -C build
+    % meson install -C build
 
 From release tarball:
 
-    % tar xf xfce4-pulseaudio-plugin-<version>.tar.bz2
+    % tar xf xfce4-pulseaudio-plugin-<version>.tar.xz
     % cd xfce4-pulseaudio-plugin-<version>
-    % ./configure
-    % make
-    % make install
+    % meson setup build
+    % meson compile -C build
+    % meson install -C build
 
 See the file [INSTALL](https://gitlab.xfce.org/panel-plugins/xfce4-pulseaudio-plugin/-/blob/master/INSTALL) for detailed instructions on how to build and install Xfce PulseAudio Plugin.
 
