@@ -449,7 +449,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
   GtkWidget      *device_mi;
   gdouble         volume_max;
 
-  GList          *sources = NULL;
+  GList          *devices = NULL;
   GList          *list = NULL;
   guint           i = 0;
   gchar          *name;
@@ -501,8 +501,8 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
   volume_max = pulseaudio_config_get_volume_max (menu->config);
 
   /* Output Devices */
-  sources = pulseaudio_volume_get_output_list (menu->volume);
-  if (g_list_length (sources) > 0)
+  devices = pulseaudio_volume_get_output_list (menu->volume);
+  if (g_list_length (devices) > 0)
     {
       /* output volume slider */
       menu->output_scale = xfpa_scale_menu_item_new_with_range (0.0, volume_max, 1.0, -1.0);
@@ -516,10 +516,10 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
       gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu->output_scale);
 
       /* output device items */
-      if (g_list_length (sources) > 1)
+      if (g_list_length (devices) > 1)
         {
           device_mi = device_menu_item_new_with_label(_("Output"));
-          for (list = sources; list != NULL; list = g_list_next(list))
+          for (list = devices; list != NULL; list = g_list_next(list))
             {
               name = pulseaudio_volume_get_output_by_name(menu->volume, list->data, &available);
               device_menu_item_add_device(DEVICE_MENU_ITEM(device_mi), (gchar *)list->data, name, available);
@@ -538,11 +538,11 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
       gtk_widget_show (mi);
       gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
     }
-  g_list_free (sources);
+  g_list_free (devices);
 
   /* Input Devices */
-  sources = pulseaudio_volume_get_input_list (menu->volume);
-  if (g_list_length (sources) > 0)
+  devices = pulseaudio_volume_get_input_list (menu->volume);
+  if (g_list_length (devices) > 0)
     {
       /* input volume slider */
       menu->input_scale = xfpa_scale_menu_item_new_with_range (0.0, volume_max, 1.0, pulseaudio_volume_get_base_volume_mic (menu->volume) * 100.0);
@@ -556,10 +556,10 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
       gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu->input_scale);
 
       /* input device items */
-      if (g_list_length(sources) > 1)
+      if (g_list_length(devices) > 1)
         {
           device_mi = device_menu_item_new_with_label(_("Input"));
-          for (list = sources; list != NULL; list = g_list_next(list))
+          for (list = devices; list != NULL; list = g_list_next(list))
             {
               name = pulseaudio_volume_get_input_by_name(menu->volume, list->data, &available);
               device_menu_item_add_device(DEVICE_MENU_ITEM(device_mi), (gchar *)list->data, name, available);
@@ -578,7 +578,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
       gtk_widget_show(mi);
       gtk_menu_shell_append(GTK_MENU_SHELL(menu), mi);
     }
-  g_list_free (sources);
+  g_list_free (devices);
 
   /* MPRIS2 */
 #ifdef HAVE_MPRIS2
