@@ -35,6 +35,14 @@ G_BEGIN_DECLS
 typedef struct          _PulseaudioVolume                         PulseaudioVolume;
 typedef struct          _PulseaudioVolumeClass                    PulseaudioVolumeClass;
 
+typedef struct
+{
+  gchar                *name;
+  gchar                *description;
+  gboolean              available;
+  gboolean              active;
+} PulseAudioPortInfo;
+
 GType                   pulseaudio_volume_get_type                (void) G_GNUC_CONST;
 
 PulseaudioVolume       *pulseaudio_volume_new                     (PulseaudioPlugin *plugin,
@@ -67,19 +75,30 @@ GList                  *pulseaudio_volume_get_output_list         (PulseaudioVol
 gchar                  *pulseaudio_volume_get_output_by_name      (PulseaudioVolume *volume,
                                                                    const gchar      *name,
                                                                    gboolean         *available);
+const PulseAudioPortInfo *pulseaudio_volume_get_output_ports_by_name (PulseaudioVolume *volume,
+                                                                      const gchar      *name,
+                                                                      guint            *count);
 const gchar            *pulseaudio_volume_get_default_output      (PulseaudioVolume *volume);
 void                    pulseaudio_volume_set_default_output      (PulseaudioVolume *volume,
                                                                    const gchar      *name,
                                                                    gboolean          make_default);
+void                    pulseaudio_volume_set_active_output_port  (PulseaudioVolume *volume,
+                                                                   const gchar      *port);
 
 GList                  *pulseaudio_volume_get_input_list          (PulseaudioVolume *volume);
 gchar                  *pulseaudio_volume_get_input_by_name       (PulseaudioVolume *volume,
                                                                    const gchar      *name,
                                                                    gboolean         *available);
+const PulseAudioPortInfo *pulseaudio_volume_get_input_ports_by_name (PulseaudioVolume *volume,
+                                                                     const gchar      *name,
+                                                                     guint            *count);
 const gchar            *pulseaudio_volume_get_default_input       (PulseaudioVolume *volume);
 void                    pulseaudio_volume_set_default_input       (PulseaudioVolume *volume,
                                                                    const gchar      *name,
                                                                    gboolean          make_default);
+void                    pulseaudio_volume_set_active_input_port   (PulseaudioVolume *volume,
+                                                                   const gchar      *port);
+
 gboolean                pulseaudio_volume_get_show_notifications  (PulseaudioVolume *volume,
                                                                    guint direction);
 

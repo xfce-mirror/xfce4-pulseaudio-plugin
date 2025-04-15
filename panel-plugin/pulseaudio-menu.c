@@ -173,6 +173,18 @@ pulseaudio_menu_default_output_changed (PulseaudioMenu *menu,
 
 
 static void
+pulseaudio_menu_active_output_port_changed (PulseaudioMenu *menu,
+                                            gchar          *name,
+                                            DeviceMenuItem *menu_item)
+{
+  g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
+
+  pulseaudio_volume_set_active_output_port (menu->volume, name);
+}
+
+
+
+static void
 pulseaudio_menu_default_input_changed (PulseaudioMenu *menu,
                                        gchar          *name,
                                        DeviceMenuItem *menu_item)
@@ -180,6 +192,18 @@ pulseaudio_menu_default_input_changed (PulseaudioMenu *menu,
   g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
 
   pulseaudio_volume_set_default_input (menu->volume, name, TRUE);
+}
+
+
+
+static void
+pulseaudio_menu_active_input_port_changed (PulseaudioMenu *menu,
+                                           gchar          *name,
+                                           DeviceMenuItem *menu_item)
+{
+  g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
+
+  pulseaudio_volume_set_active_input_port (menu->volume, name);
 }
 
 
@@ -435,7 +459,42 @@ item_destroy_cb (GtkWidget  *widget,
 }
 #endif
 
-
+static void
+pulseaudio_menu_maybe_append_ports (PulseaudioMenu *menu,
+                                    gboolean        output_ports,
+                                    const gchar    *default_device_name,
+                                    GCallback       callback)
+{
+  guint ports_count = 0;
+  const PulseAudioPortInfo *ports = output_ports
+                                    ? pulseaudio_volume_get_output_ports_by_name (menu->volume, default_device_name, &ports_count)
+                                    : pulseaudio_volume_get_input_ports_by_name (menu->volume, default_device_name, &ports_count);
+  if (ports_count > 1 && G_LIKELY (ports))
+    {
+      guint ports_count_avail = 0;
+      guint i;
+      for (i = 0; i < ports_count; ++i)
+        {
+          if (ports[i].available || ports[i].active)
+            ++ports_count_avail;
+        }
+      if (ports_count_avail > 1)
+        {
+          GtkWidget *menu_item = device_menu_item_new_with_label (_("Port"));
+          for (i = 0; i < ports_count; ++i)
+            {
+              device_menu_item_add_device (DEVICE_MENU_ITEM (menu_item), ports[i].name, ports[i].description, ports[i].available);
+              if (ports[i].active)
+                {
+                  device_menu_item_set_device_by_name (DEVICE_MENU_ITEM (menu_item), ports[i].name);
+                }
+            }
+          gtk_widget_show (menu_item);
+          g_signal_connect_swapped (G_OBJECT (menu_item), "device-changed", callback, menu);
+          gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
+        }
+    }
+}
 
 PulseaudioMenu *
 pulseaudio_menu_new (PulseaudioVolume *volume,
@@ -504,6 +563,8 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
   devices = pulseaudio_volume_get_output_list (menu->volume);
   if (g_list_length (devices) > 0)
     {
+      const gchar *default_name = pulseaudio_volume_get_default_output (menu->volume);
+
       /* output volume slider */
       menu->output_scale = xfpa_scale_menu_item_new_with_range (0.0, volume_max, 1.0, -1.0);
       xfpa_scale_menu_item_set_base_icon_name (XFPA_SCALE_MENU_ITEM (menu->output_scale), "audio-volume");
@@ -515,6 +576,8 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
       gtk_widget_show_all (menu->output_scale);
       gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu->output_scale);
 
+      pulseaudio_menu_maybe_append_ports (menu, TRUE, default_name, G_CALLBACK (pulseaudio_menu_active_output_port_changed));
+
       /* output device items */
       if (g_list_length (devices) > 1)
         {
@@ -525,7 +588,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
               device_menu_item_add_device(DEVICE_MENU_ITEM(device_mi), (gchar *)list->data, name, available);
             }
 
-          device_menu_item_set_device_by_name(DEVICE_MENU_ITEM(device_mi), pulseaudio_volume_get_default_output(menu->volume));
+          device_menu_item_set_device_by_name(DEVICE_MENU_ITEM(device_mi), default_name);
           gtk_widget_show(device_mi);
 
           g_signal_connect_swapped(G_OBJECT(device_mi), "device-changed", G_CALLBACK(pulseaudio_menu_default_output_changed), menu);
@@ -544,6 +607,8 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
   devices = pulseaudio_volume_get_input_list (menu->volume);
   if (g_list_length (devices) > 0)
     {
+      const gchar *default_name = pulseaudio_volume_get_default_input (menu->volume);
+
       /* input volume slider */
       menu->input_scale = xfpa_scale_menu_item_new_with_range (0.0, volume_max, 1.0, pulseaudio_volume_get_base_volume_mic (menu->volume) * 100.0);
       xfpa_scale_menu_item_set_base_icon_name (XFPA_SCALE_MENU_ITEM (menu->input_scale), "microphone-sensitivity");
@@ -555,6 +620,8 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
       gtk_widget_show_all (menu->input_scale);
       gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu->input_scale);
 
+      pulseaudio_menu_maybe_append_ports (menu, FALSE, default_name, G_CALLBACK (pulseaudio_menu_active_input_port_changed));
+
       /* input device items */
       if (g_list_length(devices) > 1)
         {
@@ -565,7 +632,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
               device_menu_item_add_device(DEVICE_MENU_ITEM(device_mi), (gchar *)list->data, name, available);
             }
 
-          device_menu_item_set_device_by_name(DEVICE_MENU_ITEM(device_mi), pulseaudio_volume_get_default_input(menu->volume));
+          device_menu_item_set_device_by_name(DEVICE_MENU_ITEM(device_mi), default_name);
           gtk_widget_show(device_mi);
 
           g_signal_connect_swapped(G_OBJECT(device_mi), "device-changed", G_CALLBACK(pulseaudio_menu_default_input_changed), menu);
