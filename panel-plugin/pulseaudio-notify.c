@@ -119,6 +119,9 @@ pulseaudio_notify_init (PulseaudioNotify *notify)
 
   notify_init ("Xfce volume control");
 
+  // Call synchronous function, otherwise we don't see icon in first notification popup...
+  notify_get_server_info (NULL, NULL, NULL, NULL);
+
   notify->notification = notify_notification_new ("xfce4-pulseaudio-plugin", NULL, NULL);
   notify_notification_set_timeout (notify->notification, 2000);
   notify_notification_set_hint (notify->notification, "transient", g_variant_new_boolean (TRUE));
