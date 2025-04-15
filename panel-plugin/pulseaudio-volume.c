@@ -110,6 +110,8 @@ typedef struct
 {
   gchar                *description;
   gboolean              available;
+  guint                 n_ports;
+  PulseAudioPortInfo   *port_info;
 } PulseAudioDeviceInfo;
 
 
@@ -138,6 +140,12 @@ pulseaudio_volume_free_device_info (gpointer data)
   if (device_info)
     {
       g_free (device_info->description);
+      for (guint i = 0; i < device_info->n_ports; ++i)
+        {
+          g_free (device_info->port_info[i].name);
+          g_free (device_info->port_info[i].description);
+        }
+      g_free (device_info->port_info);
       g_free (device_info);
     }
 }
@@ -466,6 +474,19 @@ pulseaudio_volume_subscribe_cb (pa_context                   *context,
 
 
 
+#define PULSEAUDIO_FILL_PORTS(device_info,i) \
+  device_info->n_ports = i->n_ports; \
+  device_info->port_info = g_new (PulseAudioPortInfo, device_info->n_ports); \
+  for (guint j = 0; j < device_info->n_ports; ++j) \
+    { \
+      device_info->port_info[j].name = g_strdup (i->ports[j]->name); \
+      device_info->port_info[j].description = g_strdup (i->ports[j]->description); \
+      device_info->port_info[j].available = (i->ports[j]->available != PA_PORT_AVAILABLE_NO); \
+      device_info->port_info[j].active = (i->active_port == i->ports[j]); \
+    }
+
+
+
 static void
 pulseaudio_volume_get_sink_list_cb (pa_context         *context,
                                     const pa_sink_info *i,
@@ -484,6 +505,7 @@ pulseaudio_volume_get_sink_list_cb (pa_context         *context,
   device_info = g_new (PulseAudioDeviceInfo, 1);
   device_info->description = g_strdup (i->description);
   device_info->available = (!i->active_port || i->active_port->available != PA_PORT_AVAILABLE_NO);
+  PULSEAUDIO_FILL_PORTS (device_info, i);
   g_hash_table_insert (volume->sinks, g_strdup (i->name), device_info);
 }
 
@@ -533,6 +555,7 @@ pulseaudio_volume_get_source_output_info_cb (pa_context                  *contex
 }
 
 
+
 static void
 pulseaudio_volume_get_source_list_cb (pa_context           *context,
                                       const pa_source_info *i,
@@ -557,6 +580,7 @@ pulseaudio_volume_get_source_list_cb (pa_context           *context,
   device_info = g_new (PulseAudioDeviceInfo, 1);
   device_info->description = g_strdup (i->description);
   device_info->available = (!i->active_port || i->active_port->available != PA_PORT_AVAILABLE_NO);
+  PULSEAUDIO_FILL_PORTS (device_info, i);
   g_hash_table_insert (volume->sources, g_strdup (i->name), device_info);
 }
 
@@ -1083,6 +1107,27 @@ sort_device_list (gchar *a,
 
 
 
+static const PulseAudioPortInfo *
+pulseaudio_volume_get_ports (GHashTable  *hash_table,
+                             const gchar *key,
+                             guint       *count)
+{
+  if (G_LIKELY (key))
+    {
+      PulseAudioDeviceInfo *device_info = g_hash_table_lookup (hash_table, key);
+      if (device_info)
+        {
+          *count = device_info->n_ports;
+          return device_info->port_info;
+        }
+    }
+
+  *count = 0;
+  return NULL;
+}
+
+
+
 GList *
 pulseaudio_volume_get_output_list (PulseaudioVolume *volume)
 {
@@ -1110,6 +1155,17 @@ pulseaudio_volume_get_output_by_name (PulseaudioVolume *volume,
 
 
 
+const PulseAudioPortInfo *
+pulseaudio_volume_get_output_ports_by_name (PulseaudioVolume *volume,
+                                            const gchar      *name,
+                                            guint            *count)
+{
+  g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), NULL);
+  return pulseaudio_volume_get_ports (volume->sinks, name, count);
+}
+
+
+
 GList *
 pulseaudio_volume_get_input_list (PulseaudioVolume *volume)
 {
@@ -1133,6 +1189,17 @@ pulseaudio_volume_get_input_by_name (PulseaudioVolume *volume,
 {
   g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), NULL);
   return pulseaudio_volume_get_description (volume->sources, name, available);
+}
+
+
+
+const PulseAudioPortInfo *
+pulseaudio_volume_get_input_ports_by_name (PulseaudioVolume *volume,
+                                           const gchar      *name,
+                                           guint            *count)
+{
+  g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), NULL);
+  return pulseaudio_volume_get_ports (volume->sources, name, count);
 }
 
 
@@ -1180,6 +1247,30 @@ pulseaudio_volume_set_default_output (PulseaudioVolume *volume,
 
 
 void
+pulseaudio_volume_set_active_output_port (PulseaudioVolume *volume,
+                                          const gchar      *port)
+{
+  guint ports_count = 0;
+  const PulseAudioPortInfo *ports = pulseaudio_volume_get_output_ports_by_name (volume, volume->default_sink_name, &ports_count);
+  for (guint i = 0; i < ports_count; ++i)
+    {
+      if (g_strcmp0 (ports[i].name, port) != 0)
+        continue;
+
+      if (ports[i].available && !ports[i].active)
+        {
+          pa_operation *op = pa_context_set_sink_port_by_index (volume->pa_context, volume->sink_index, port, NULL, NULL);
+          if (op)
+            pa_operation_unref (op);
+        }
+
+      break;
+    }
+}
+
+
+
+void
 pulseaudio_volume_set_default_input (PulseaudioVolume *volume,
                                      const gchar      *name,
                                      gboolean          make_default)
@@ -1203,6 +1294,30 @@ pulseaudio_volume_set_default_input (PulseaudioVolume *volume,
 
       /* Update recording state here, because it uses the "default_source_name" and it's also called on context ready */
       pulseaudio_volume_update_recording_state (volume, volume->pa_context);
+    }
+}
+
+
+
+void
+pulseaudio_volume_set_active_input_port (PulseaudioVolume *volume,
+                                         const gchar      *port)
+{
+  guint ports_count = 0;
+  const PulseAudioPortInfo *ports = pulseaudio_volume_get_input_ports_by_name (volume, volume->default_source_name, &ports_count);
+  for (guint i = 0; i < ports_count; ++i)
+    {
+      if (g_strcmp0 (ports[i].name, port) != 0)
+        continue;
+
+      if (ports[i].available && !ports[i].active)
+        {
+          pa_operation *op = pa_context_set_source_port_by_index (volume->pa_context, volume->source_index, port, NULL, NULL);
+          if (op)
+            pa_operation_unref (op);
+        }
+
+      break;
     }
 }
 
