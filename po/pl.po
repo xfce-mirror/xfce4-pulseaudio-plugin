@@ -4,17 +4,17 @@
 # 
 # Translators:
 # marcin mikołajczak <me@mkljczk.pl>, 2017
-# Marek Adamski, 2022-2024
+# Marek Adamski, 2022-2025
 # Marek Adamski, 2020
 # Marek Adamski, 2017-2018
-# Piotr Strębski <strebski@gmail.com>, 2015
+# Piotr Strebski <strebski@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2024-04-07 12:54+0200\n"
+"POT-Creation-Date: 2025-04-16 12:51+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
-"Last-Translator: Marek Adamski, 2022-2024\n"
+"Last-Translator: Marek Adamski, 2022-2025\n"
 "Language-Team: Polish (http://app.transifex.com/xfce/xfce-panel-plugins/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,7 +27,7 @@ msgid "PulseAudio Plugin"
 msgstr "Wtyczka PulseAudio"
 
 #: panel-plugin/pulseaudio.desktop.in.in:6
-#: panel-plugin/pulseaudio-plugin.c:258
+#: panel-plugin/pulseaudio-plugin.c:277
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "Regulacja głośności dźwięku systemu PulseAudio"
 
@@ -53,14 +53,14 @@ msgstr "Wtyczka panelowa PulseAudio"
 
 #: panel-plugin/pulseaudio-dialog.glade:151
 msgid "Enable keyboard _shortcuts for volume control"
-msgstr "Włącz _skróty klawiszowe do kontroli głośności"
+msgstr "Włącz _skróty klawiszowe do regulacji głośności"
 
 #: panel-plugin/pulseaudio-dialog.glade:155
 msgid ""
 "Enables volume control using multimedia keys. Make sure no other application"
 " that listens to these keys (e.g. xfce4-volumed) is running in the "
 "background."
-msgstr "Umożliwia regulację głośności za pomocą przycisków multimedialnych. Upewnij się, że żaden inny program, który nasłuchuje tych klawiszy (np. xfce4-volumed) nie jest uruchomiony w tle."
+msgstr "Umożliwia regulację głośności za pomocą przycisków multimedialnych. Upewnij się, że żaden inny program nasłuchujący tych klawiszy (np. xfce4-volumed) nie działa w tle."
 
 #: panel-plugin/pulseaudio-dialog.glade:168
 msgid "Play system _sound when volume changes"
@@ -77,7 +77,7 @@ msgstr "Zawsze wyświetlaj _wskaźnik nagrywania"
 
 #: panel-plugin/pulseaudio-dialog.glade:208
 msgid "Show volume _notifications:"
-msgstr "Pokaż _powiadomienia o głośności:"
+msgstr "Pokaż _powiadomienia o głośności:"
 
 #: panel-plugin/pulseaudio-dialog.glade:222
 msgid "Mute/unmute is notified in all modes except \"None\""
@@ -107,7 +107,7 @@ msgstr "_Mikser dźwięku"
 msgid ""
 "Audio mixer command that can be executed from the context menu, e.g. "
 "\"pavucontrol\", \"unity-control-center sound\"."
-msgstr "Polecenie miksera dźwięku, które może zostać wykonane z menu kontekstowego, np. „pavucontrol”, „unity-control-center sound”."
+msgstr "Polecenie miksera dźwięku, które może zostać wykonane z menu kontekstowego, np. „pavucontrol”, „unity-control-center sound”."
 
 #: panel-plugin/pulseaudio-dialog.glade:405
 msgid "_Run Audio Mixer..."
@@ -165,7 +165,7 @@ msgstr "Znane odtwarzacze multimedialne"
 msgid "Media Players"
 msgstr "Odtwarzacze multimedialne"
 
-#: panel-plugin/pulseaudio-dialog.c:142 panel-plugin/pulseaudio-menu.c:251
+#: panel-plugin/pulseaudio-dialog.c:140 panel-plugin/pulseaudio-menu.c:275
 #, c-format
 msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
@@ -173,56 +173,60 @@ msgid ""
 "%s"
 msgstr "<big><b>Błąd wykonania polecenia „%s”.</b></big>\n\n%s"
 
-#: panel-plugin/pulseaudio-dialog.c:145 panel-plugin/pulseaudio-menu.c:254
+#: panel-plugin/pulseaudio-dialog.c:143 panel-plugin/pulseaudio-menu.c:278
 msgid "Error"
 msgstr "Błąd"
 
-#: panel-plugin/pulseaudio-button.c:339 panel-plugin/pulseaudio-notify.c:199
+#: panel-plugin/pulseaudio-button.c:351 panel-plugin/pulseaudio-notify.c:188
 msgid "Not connected to the PulseAudio server"
 msgstr "Nie połączono z serwerem PulseAudio"
 
-#: panel-plugin/pulseaudio-button.c:357
+#: panel-plugin/pulseaudio-button.c:369
 #, c-format
 msgid ""
 "<b>Volume %d%% (muted)</b>\n"
 "<small>%s</small>"
 msgstr "<b>Głośność %d%% (wyciszono)</b>\n<small>%s</small>"
 
-#: panel-plugin/pulseaudio-button.c:359
+#: panel-plugin/pulseaudio-button.c:371
 #, c-format
 msgid ""
 "<b>Volume %d%%</b>\n"
 "<small>%s</small>"
 msgstr "<b>Głośność %d%%</b>\n<small>%s</small>"
 
-#: panel-plugin/pulseaudio-menu.c:521
+#: panel-plugin/pulseaudio-menu.c:483
+msgid "Port"
+msgstr "Port"
+
+#: panel-plugin/pulseaudio-menu.c:584
 msgid "Output"
 msgstr "Wyjście"
 
-#: panel-plugin/pulseaudio-menu.c:561
+#: panel-plugin/pulseaudio-menu.c:628
 msgid "Input"
 msgstr "Wejście"
 
-#: panel-plugin/pulseaudio-menu.c:663
+#: panel-plugin/pulseaudio-menu.c:730
 msgid "Choose Playlist"
 msgstr "Wybierz listę odtwarzania"
 
 #. Audio mixers
-#: panel-plugin/pulseaudio-menu.c:698
+#: panel-plugin/pulseaudio-menu.c:765
 msgid "_Audio mixer..."
 msgstr "Mikser _dźwięku..."
 
-#: panel-plugin/pulseaudio-notify.c:201
+#: panel-plugin/pulseaudio-notify.c:190
 #, c-format
 msgid "Volume %d%c (muted)"
 msgstr "Głośność %d%c (wyciszono)"
 
-#: panel-plugin/pulseaudio-notify.c:203
+#: panel-plugin/pulseaudio-notify.c:192
 #, c-format
 msgid "Volume %d%c"
 msgstr "Głośność %d%c"
 
-#: panel-plugin/mprismenuitem.c:375 panel-plugin/mprismenuitem.c:448
-#: panel-plugin/mprismenuitem.c:803
+#: panel-plugin/mprismenuitem.c:382 panel-plugin/mprismenuitem.c:455
+#: panel-plugin/mprismenuitem.c:810
 msgid "Not currently playing"
 msgstr "Obecnie nieodtwarzające."
