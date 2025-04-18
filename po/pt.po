@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Alexandre Fidalgo <alexandremagnos15@gmail.com>, 2018
-# Hugo Carvalho <hugokarvalho@hotmail.com>, 2022-2023
+# Hugo Carvalho <hugokarvalho@hotmail.com>, 2022-2023,2025
 # José Vieira <jvieira33@sapo.pt>, 2017-2018,2020
 # Nuno Miguel <nunomgue@gmail.com>, 2015-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2024-04-07 12:54+0200\n"
+"POT-Creation-Date: 2025-04-16 12:51+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
-"Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>, 2022-2023\n"
+"Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>, 2022-2023,2025\n"
 "Language-Team: Portuguese (http://app.transifex.com/xfce/xfce-panel-plugins/language/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,7 +26,7 @@ msgid "PulseAudio Plugin"
 msgstr "Plugin PulseAudio"
 
 #: panel-plugin/pulseaudio.desktop.in.in:6
-#: panel-plugin/pulseaudio-plugin.c:258
+#: panel-plugin/pulseaudio-plugin.c:277
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "Ajustar o volume do sistema de som PulseAudio"
 
@@ -164,7 +164,7 @@ msgstr "Reprodutores multimédia conhecidos"
 msgid "Media Players"
 msgstr "Reprodutores multimédia"
 
-#: panel-plugin/pulseaudio-dialog.c:142 panel-plugin/pulseaudio-menu.c:251
+#: panel-plugin/pulseaudio-dialog.c:140 panel-plugin/pulseaudio-menu.c:275
 #, c-format
 msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
@@ -172,56 +172,60 @@ msgid ""
 "%s"
 msgstr "<big><b>Incapaz de executar o comando \"%s\".</b></big>\n\n%s"
 
-#: panel-plugin/pulseaudio-dialog.c:145 panel-plugin/pulseaudio-menu.c:254
+#: panel-plugin/pulseaudio-dialog.c:143 panel-plugin/pulseaudio-menu.c:278
 msgid "Error"
 msgstr "Erro"
 
-#: panel-plugin/pulseaudio-button.c:339 panel-plugin/pulseaudio-notify.c:199
+#: panel-plugin/pulseaudio-button.c:351 panel-plugin/pulseaudio-notify.c:188
 msgid "Not connected to the PulseAudio server"
 msgstr "Não ligado ao servidor PulseAudio"
 
-#: panel-plugin/pulseaudio-button.c:357
+#: panel-plugin/pulseaudio-button.c:369
 #, c-format
 msgid ""
 "<b>Volume %d%% (muted)</b>\n"
 "<small>%s</small>"
 msgstr "<b>Volume %d%% (emudecido)</b>\n<small>%s</small>"
 
-#: panel-plugin/pulseaudio-button.c:359
+#: panel-plugin/pulseaudio-button.c:371
 #, c-format
 msgid ""
 "<b>Volume %d%%</b>\n"
 "<small>%s</small>"
 msgstr "<b>Volume %d%%</b>\n<small>%s</small>"
 
-#: panel-plugin/pulseaudio-menu.c:521
+#: panel-plugin/pulseaudio-menu.c:483
+msgid "Port"
+msgstr "Porta"
+
+#: panel-plugin/pulseaudio-menu.c:584
 msgid "Output"
 msgstr "Saída"
 
-#: panel-plugin/pulseaudio-menu.c:561
+#: panel-plugin/pulseaudio-menu.c:628
 msgid "Input"
 msgstr "Entrada"
 
-#: panel-plugin/pulseaudio-menu.c:663
+#: panel-plugin/pulseaudio-menu.c:730
 msgid "Choose Playlist"
 msgstr "Escolher lista de reprodução"
 
 #. Audio mixers
-#: panel-plugin/pulseaudio-menu.c:698
+#: panel-plugin/pulseaudio-menu.c:765
 msgid "_Audio mixer..."
 msgstr "_Misturador áudio..."
 
-#: panel-plugin/pulseaudio-notify.c:201
+#: panel-plugin/pulseaudio-notify.c:190
 #, c-format
 msgid "Volume %d%c (muted)"
 msgstr "Volume %d%c (emudecido)"
 
-#: panel-plugin/pulseaudio-notify.c:203
+#: panel-plugin/pulseaudio-notify.c:192
 #, c-format
 msgid "Volume %d%c"
 msgstr "Volume %d%c"
 
-#: panel-plugin/mprismenuitem.c:375 panel-plugin/mprismenuitem.c:448
-#: panel-plugin/mprismenuitem.c:803
+#: panel-plugin/mprismenuitem.c:382 panel-plugin/mprismenuitem.c:455
+#: panel-plugin/mprismenuitem.c:810
 msgid "Not currently playing"
 msgstr "Não está a ser reproduzido atualmente"
