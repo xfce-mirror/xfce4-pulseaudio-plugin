@@ -1,3 +1,12 @@
+0.5.1 (2025-04-24)
+=====
+- Add device ports selector to the menu
+- Fix missing icon in first notification popup
+- Translation Updates:
+  Bulgarian, Catalan, Chinese (China), Chinese (Taiwan), Czech, Dutch,
+  Estonian, French, German, Italian, Japanese, Polish, Portuguese
+  (Brazil), Portuguese, Romanian, Serbian
+
 0.5.0 (2025-04-11)
 =====
 Meson has been added as a build system in this release, and the
