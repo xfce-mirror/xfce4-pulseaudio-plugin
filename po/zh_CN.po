@@ -187,14 +187,14 @@ msgstr "未连接到 PulseAudio 服务"
 msgid ""
 "<b>Volume %d%% (muted)</b>\n"
 "<small>%s</small>"
-msgstr "音量 %d%% (已静音)\n</b><small>%s</small>"
+msgstr "<b>音量 %d%% (已静音)</b>\n<small>%s</small>"
 
 #: panel-plugin/pulseaudio-button.c:371
 #, c-format
 msgid ""
 "<b>Volume %d%%</b>\n"
 "<small>%s</small>"
-msgstr "音量 %d%%\n</b><small>%s</small>"
+msgstr "<b>音量 %d%%</b>\n<small>%s</small>"
 
 #: panel-plugin/pulseaudio-menu.c:483
 msgid "Port"
