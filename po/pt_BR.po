@@ -30,7 +30,7 @@ msgstr ""
 
 #: panel-plugin/pulseaudio.desktop.in.in:5
 msgid "PulseAudio Plugin"
-msgstr "Plug-in do PulseAudio"
+msgstr "Plug-in para PulseAudio"
 
 #: panel-plugin/pulseaudio.desktop.in.in:6
 #: panel-plugin/pulseaudio-plugin.c:277
@@ -55,27 +55,27 @@ msgstr "Apenas entrada"
 
 #: panel-plugin/pulseaudio-dialog.glade:66
 msgid "PulseAudio Panel Plugin"
-msgstr "Plug-in do painel para PulseAudio"
+msgstr "Plug-in de painel para PulseAudio"
 
 #: panel-plugin/pulseaudio-dialog.glade:151
 msgid "Enable keyboard _shortcuts for volume control"
-msgstr "Habilitar tecla_s de atalho para o controle do volume"
+msgstr "Habilitar _atalhos de teclado para controle de volume"
 
 #: panel-plugin/pulseaudio-dialog.glade:155
 msgid ""
 "Enables volume control using multimedia keys. Make sure no other application"
 " that listens to these keys (e.g. xfce4-volumed) is running in the "
 "background."
-msgstr "Permite o controle do volume usando teclas de multimídia. Verifique se nenhum outro aplicativo que monitore estas teclas (ex. xfce4-volumed) está em execução em segundo plano."
+msgstr "Habilita o controle de volume usando teclas multimídia. Certifique-se de que nenhum outro aplicativo que ouça essas teclas (por exemplo, xfce4-volumed) esteja em execução em segundo plano."
 
 #: panel-plugin/pulseaudio-dialog.glade:168
 msgid "Play system _sound when volume changes"
-msgstr "Tocar _som do sistema quando o volume for alterado"
+msgstr "Reproduzir _som do sistema quando o volume for alterado"
 
 #: panel-plugin/pulseaudio-dialog.glade:172
 msgid ""
 "Enables audio feedback when using multimedia keys to change the volume."
-msgstr "Habilitar o feedback por áudio quando forem utilizadas teclas multimídia para alterar o volume."
+msgstr "Habilita o feedback de áudio ao usar as teclas multimídia para alterar o volume."
 
 #: panel-plugin/pulseaudio-dialog.glade:185
 msgid "Always display the recording _indicator"
@@ -83,15 +83,15 @@ msgstr "Sempre exibir o _indicador de gravação"
 
 #: panel-plugin/pulseaudio-dialog.glade:208
 msgid "Show volume _notifications:"
-msgstr "Mostrar as _notificações do volume:"
+msgstr "Mostrar _notificações de volume:"
 
 #: panel-plugin/pulseaudio-dialog.glade:222
 msgid "Mute/unmute is notified in all modes except \"None\""
-msgstr "Silenciar/ativar o som é notificado em todos os modos exceto \"Nenhum\""
+msgstr "A notificação de silenciar/ativar o som é feita em todos os modos, exceto \"Nenhum\"."
 
 #: panel-plugin/pulseaudio-dialog.glade:248
 msgid "Step size used when adjusting volume with mouse wheel or hotkeys."
-msgstr "Tamanho do incremento utilizado ao ajustar o volume com a roda do mouse ou as teclas de atalho."
+msgstr "Tamanho do ajuste ao mudar o volume com a roda do mouse ou atalhos de teclado."
 
 #: panel-plugin/pulseaudio-dialog.glade:254
 msgid "_Volume step:"
@@ -113,7 +113,7 @@ msgstr "_Mixer de áudio"
 msgid ""
 "Audio mixer command that can be executed from the context menu, e.g. "
 "\"pavucontrol\", \"unity-control-center sound\"."
-msgstr "Comando do mixer de áudio que pode ser executado do menu de contexto, ex. \"pavucontrol\", \"unity-control-center sound\"."
+msgstr "Comando do mixer de áudio que pode ser executado a partir do menu de contexto, ex. \"pavucontrol\", \"unity-control-center sound\"."
 
 #: panel-plugin/pulseaudio-dialog.glade:405
 msgid "_Run Audio Mixer..."
@@ -129,19 +129,19 @@ msgstr "Geral"
 
 #: panel-plugin/pulseaudio-dialog.glade:478
 msgid "Control Playback of Media Players"
-msgstr "Controle de reprodução de reprodutores de mídia"
+msgstr "Controlar a reprodução de reprodutores de mídia"
 
 #: panel-plugin/pulseaudio-dialog.glade:521
 msgid "Enable multimedia keys for playback control"
-msgstr "Habilitar controle de reprodução com teclas multimídia"
+msgstr "Habilitar teclas multimídia para controle de reprodução"
 
 #: panel-plugin/pulseaudio-dialog.glade:536
 msgid "Send multimedia keys to all players"
-msgstr "Enviar comandos multimídia para todos os reprodutores"
+msgstr "Enviar teclas multimídia para todos os reprodutores"
 
 #: panel-plugin/pulseaudio-dialog.glade:551
 msgid "Enable experimental window focus support"
-msgstr "Habilitar suporte experimental a foco de janela"
+msgstr "Habilitar suporte experimental ao foco da janela"
 
 #: panel-plugin/pulseaudio-dialog.glade:629
 msgid "Name"
@@ -161,7 +161,7 @@ msgstr "Limpar itens conhecidos"
 
 #: panel-plugin/pulseaudio-dialog.glade:694
 msgid "Please restart the players to make them visible again."
-msgstr "Reiniciar os reprodutores para torná-los visíveis novamente."
+msgstr "Reinicie os reprodutores para torná-los visíveis novamente."
 
 #: panel-plugin/pulseaudio-dialog.glade:717
 msgid "Known Media Players"
@@ -177,7 +177,7 @@ msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
 "\n"
 "%s"
-msgstr "<big><b>Falha ao executar comando \"%s\".</b></big>\n\n%s"
+msgstr "<big><b>Falha ao executar o comando \"%s\".</b></big>\n\n%s"
 
 #: panel-plugin/pulseaudio-dialog.c:143 panel-plugin/pulseaudio-menu.c:278
 msgid "Error"
@@ -220,7 +220,7 @@ msgstr "Escolha a lista de reprodução"
 #. Audio mixers
 #: panel-plugin/pulseaudio-menu.c:765
 msgid "_Audio mixer..."
-msgstr "Mixer de áudio..."
+msgstr "Mixer de _áudio..."
 
 #: panel-plugin/pulseaudio-notify.c:190
 #, c-format
