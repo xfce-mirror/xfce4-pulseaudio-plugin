@@ -310,12 +310,13 @@ pulseaudio_button_scroll_event (GtkWidget *widget, GdkEventScroll *event)
   gboolean          is_mic      = pulseaudio_button_mic_icon_under_pointer (button, event->x, event->y);
   gdouble           volume      = is_mic ? pulseaudio_volume_get_volume_mic (button->volume) : pulseaudio_volume_get_volume (button->volume);
   gdouble           volume_step = pulseaudio_config_get_volume_step (button->config) / 100.0;
+  gdouble           max_volume  = pulseaudio_config_get_volume_max (button->config) / 100.0;
   gdouble           new_volume;
 
   if (event->direction == 1)  // decrease volume
     new_volume = volume - volume_step;
   else if (event->direction == 0)  // increase volume
-    new_volume = MIN (volume + volume_step, MAX (volume, 1.0));
+    new_volume = MIN (volume + volume_step, max_volume);
   else
     new_volume = volume;
 
