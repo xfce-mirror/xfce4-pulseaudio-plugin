@@ -4,14 +4,14 @@
 # 
 # Translators:
 # Steve Harris <steve@jbs.ca>, 2020
-# Steve Harris <steve@jbs.ca>, 2023
+# Steve Harris <steve@jbs.ca>, 2023,2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2024-04-07 12:54+0200\n"
+"POT-Creation-Date: 2025-04-16 12:51+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
-"Last-Translator: Steve Harris <steve@jbs.ca>, 2023\n"
+"Last-Translator: Steve Harris <steve@jbs.ca>, 2023,2025\n"
 "Language-Team: English (Canada) (http://app.transifex.com/xfce/xfce-panel-plugins/language/en_CA/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,7 +24,7 @@ msgid "PulseAudio Plugin"
 msgstr "PulseAudio Plugin"
 
 #: panel-plugin/pulseaudio.desktop.in.in:6
-#: panel-plugin/pulseaudio-plugin.c:258
+#: panel-plugin/pulseaudio-plugin.c:277
 msgid "Adjust the audio volume of the PulseAudio sound system"
 msgstr "Adjust the audio volume of the PulseAudio sound system"
 
@@ -38,11 +38,11 @@ msgstr "All"
 
 #: panel-plugin/pulseaudio-dialog.glade:57
 msgid "Output only"
-msgstr ""
+msgstr "Output only"
 
 #: panel-plugin/pulseaudio-dialog.glade:60
 msgid "Input only"
-msgstr ""
+msgstr "Input only"
 
 #: panel-plugin/pulseaudio-dialog.glade:66
 msgid "PulseAudio Panel Plugin"
@@ -70,27 +70,27 @@ msgstr "Enables audio feedback when using multimedia keys to change the volume."
 
 #: panel-plugin/pulseaudio-dialog.glade:185
 msgid "Always display the recording _indicator"
-msgstr ""
+msgstr "Always display the recording _indicator"
 
 #: panel-plugin/pulseaudio-dialog.glade:208
 msgid "Show volume _notifications:"
-msgstr ""
+msgstr "Show volume _notifications:"
 
 #: panel-plugin/pulseaudio-dialog.glade:222
 msgid "Mute/unmute is notified in all modes except \"None\""
-msgstr ""
+msgstr "Mute/unmute is notified in all modes except \"None\""
 
 #: panel-plugin/pulseaudio-dialog.glade:248
 msgid "Step size used when adjusting volume with mouse wheel or hotkeys."
-msgstr ""
+msgstr "Step size used when adjusting volume with mouse wheel or hotkeys."
 
 #: panel-plugin/pulseaudio-dialog.glade:254
 msgid "_Volume step:"
-msgstr ""
+msgstr "_Volume step:"
 
 #: panel-plugin/pulseaudio-dialog.glade:300
 msgid "M_aximum volume:"
-msgstr ""
+msgstr "M_aximum volume:"
 
 #: panel-plugin/pulseaudio-dialog.glade:345
 msgid "Behaviour"
@@ -128,7 +128,7 @@ msgstr "Enable multimedia keys for playback control"
 
 #: panel-plugin/pulseaudio-dialog.glade:536
 msgid "Send multimedia keys to all players"
-msgstr ""
+msgstr "Send multimedia keys to all players"
 
 #: panel-plugin/pulseaudio-dialog.glade:551
 msgid "Enable experimental window focus support"
@@ -140,11 +140,11 @@ msgstr "Name"
 
 #: panel-plugin/pulseaudio-dialog.glade:641
 msgid "Persistent"
-msgstr ""
+msgstr "Persistent"
 
 #: panel-plugin/pulseaudio-dialog.glade:652
 msgid "Ignored"
-msgstr ""
+msgstr "Ignored"
 
 #: panel-plugin/pulseaudio-dialog.glade:672
 msgid "Clear Known Items"
@@ -152,7 +152,7 @@ msgstr "Clear Known Items"
 
 #: panel-plugin/pulseaudio-dialog.glade:694
 msgid "Please restart the players to make them visible again."
-msgstr ""
+msgstr "Please restart the players to make them visible again."
 
 #: panel-plugin/pulseaudio-dialog.glade:717
 msgid "Known Media Players"
@@ -162,7 +162,7 @@ msgstr "Known Media Players"
 msgid "Media Players"
 msgstr "Media Players"
 
-#: panel-plugin/pulseaudio-dialog.c:142 panel-plugin/pulseaudio-menu.c:251
+#: panel-plugin/pulseaudio-dialog.c:140 panel-plugin/pulseaudio-menu.c:275
 #, c-format
 msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
@@ -170,56 +170,60 @@ msgid ""
 "%s"
 msgstr "<big><b>Failed to execute command \"%s\".</b></big>\n\n%s"
 
-#: panel-plugin/pulseaudio-dialog.c:145 panel-plugin/pulseaudio-menu.c:254
+#: panel-plugin/pulseaudio-dialog.c:143 panel-plugin/pulseaudio-menu.c:278
 msgid "Error"
 msgstr "Error"
 
-#: panel-plugin/pulseaudio-button.c:339 panel-plugin/pulseaudio-notify.c:199
+#: panel-plugin/pulseaudio-button.c:351 panel-plugin/pulseaudio-notify.c:188
 msgid "Not connected to the PulseAudio server"
 msgstr "Not connected to the PulseAudio server"
 
-#: panel-plugin/pulseaudio-button.c:357
+#: panel-plugin/pulseaudio-button.c:369
 #, c-format
 msgid ""
 "<b>Volume %d%% (muted)</b>\n"
 "<small>%s</small>"
-msgstr ""
+msgstr "<b>Volume %d%% (muted)</b>\n<small>%s</small>"
 
-#: panel-plugin/pulseaudio-button.c:359
+#: panel-plugin/pulseaudio-button.c:371
 #, c-format
 msgid ""
 "<b>Volume %d%%</b>\n"
 "<small>%s</small>"
-msgstr ""
+msgstr "<b>Volume %d%%</b>\n<small>%s</small>"
 
-#: panel-plugin/pulseaudio-menu.c:521
+#: panel-plugin/pulseaudio-menu.c:483
+msgid "Port"
+msgstr "Port"
+
+#: panel-plugin/pulseaudio-menu.c:584
 msgid "Output"
 msgstr "Output"
 
-#: panel-plugin/pulseaudio-menu.c:561
+#: panel-plugin/pulseaudio-menu.c:628
 msgid "Input"
 msgstr "Input"
 
-#: panel-plugin/pulseaudio-menu.c:663
+#: panel-plugin/pulseaudio-menu.c:730
 msgid "Choose Playlist"
 msgstr "Choose Playlist"
 
 #. Audio mixers
-#: panel-plugin/pulseaudio-menu.c:698
+#: panel-plugin/pulseaudio-menu.c:765
 msgid "_Audio mixer..."
 msgstr "_Audio mixer..."
 
-#: panel-plugin/pulseaudio-notify.c:201
+#: panel-plugin/pulseaudio-notify.c:190
 #, c-format
 msgid "Volume %d%c (muted)"
 msgstr "Volume %d%c (muted)"
 
-#: panel-plugin/pulseaudio-notify.c:203
+#: panel-plugin/pulseaudio-notify.c:192
 #, c-format
 msgid "Volume %d%c"
 msgstr "Volume %d%c"
 
-#: panel-plugin/mprismenuitem.c:375 panel-plugin/mprismenuitem.c:448
-#: panel-plugin/mprismenuitem.c:803
+#: panel-plugin/mprismenuitem.c:382 panel-plugin/mprismenuitem.c:455
+#: panel-plugin/mprismenuitem.c:810
 msgid "Not currently playing"
 msgstr "Not currently playing"
