@@ -17,10 +17,6 @@
 
 
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
-
 #include <gio/gio.h>
 #include <gio/gdesktopappinfo.h>
 #include <glib.h>

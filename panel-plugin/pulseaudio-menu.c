@@ -24,10 +24,6 @@
  *
  */
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
-
 #include <glib.h>
 #include <gtk/gtk.h>
 #include <libxfce4panel/libxfce4panel.h>
