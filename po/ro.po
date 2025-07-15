@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Xfce
-# This file is distributed under the same license as the xfce-panel-plugins.xfce4-pulseaudio-plugin package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
 # Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2024-2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
-"Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2025-04-16 12:51+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-15 00:51+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2024-2025\n"
 "Language-Team: Romanian (http://app.transifex.com/xfce/xfce-panel-plugins/language/ro/)\n"
@@ -18,150 +18,146 @@ msgstr ""
 "Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
-#: panel-plugin/pulseaudio.desktop.in.in:5
-msgid "PulseAudio Plugin"
-msgstr "Modul PulseAudio"
-
-#: panel-plugin/pulseaudio.desktop.in.in:6
-#: panel-plugin/pulseaudio-plugin.c:277
-msgid "Adjust the audio volume of the PulseAudio sound system"
-msgstr "Ajustează volumul audio al sistemului de sunet PulseAudio"
-
-#: panel-plugin/pulseaudio-dialog.glade:51
+#: ../panel-plugin/pulseaudio-dialog.glade.h:1
 msgid "None"
 msgstr "Niciuna"
 
-#: panel-plugin/pulseaudio-dialog.glade:54
+#: ../panel-plugin/pulseaudio-dialog.glade.h:2
 msgid "All"
 msgstr "Toate"
 
-#: panel-plugin/pulseaudio-dialog.glade:57
+#: ../panel-plugin/pulseaudio-dialog.glade.h:3
 msgid "Output only"
 msgstr "Doar de ieșire"
 
-#: panel-plugin/pulseaudio-dialog.glade:60
+#: ../panel-plugin/pulseaudio-dialog.glade.h:4
 msgid "Input only"
 msgstr "Doar de iintrare"
 
-#: panel-plugin/pulseaudio-dialog.glade:66
+#: ../panel-plugin/pulseaudio-dialog.glade.h:5
 msgid "PulseAudio Panel Plugin"
 msgstr "Modul PulseAudio pentru panoul Xfce"
 
-#: panel-plugin/pulseaudio-dialog.glade:151
+#: ../panel-plugin/pulseaudio-dialog.glade.h:6
 msgid "Enable keyboard _shortcuts for volume control"
 msgstr "Activează comenzile rapide de la ta_statură pentru controlul volumului"
 
-#: panel-plugin/pulseaudio-dialog.glade:155
+#: ../panel-plugin/pulseaudio-dialog.glade.h:7
 msgid ""
 "Enables volume control using multimedia keys. Make sure no other application"
 " that listens to these keys (e.g. xfce4-volumed) is running in the "
 "background."
 msgstr "Activează controlul volumului utilizând tastele multimedia. Asigurați-vă că nicio altă aplicație care „ascultă și răspunde” la comenzile transmise de aceste taste (de exemplu, «xfce4-volumed») nu rulează în fundal."
 
-#: panel-plugin/pulseaudio-dialog.glade:168
+#: ../panel-plugin/pulseaudio-dialog.glade.h:8
 msgid "Play system _sound when volume changes"
 msgstr "Redă _sunetul sistemului la modificarea volumului"
 
-#: panel-plugin/pulseaudio-dialog.glade:172
+#: ../panel-plugin/pulseaudio-dialog.glade.h:9
 msgid ""
 "Enables audio feedback when using multimedia keys to change the volume."
 msgstr "Activează răspunsul audio atunci când se utilizează tastele multimedia pentru a modifica volumul."
 
-#: panel-plugin/pulseaudio-dialog.glade:185
+#: ../panel-plugin/pulseaudio-dialog.glade.h:10
 msgid "Always display the recording _indicator"
 msgstr "Afișează întotdeauna _indicatorul de înregistrare"
 
-#: panel-plugin/pulseaudio-dialog.glade:208
+#: ../panel-plugin/pulseaudio-dialog.glade.h:11
 msgid "Show volume _notifications:"
 msgstr "Afișează _notificările de modificare a volumului:"
 
-#: panel-plugin/pulseaudio-dialog.glade:222
+#: ../panel-plugin/pulseaudio-dialog.glade.h:12
 msgid "Mute/unmute is notified in all modes except \"None\""
 msgstr "Dezactivarea/activarea sunetului este notificată în toate modurile, cu excepția «Niciuna»"
 
-#: panel-plugin/pulseaudio-dialog.glade:248
+#: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "Step size used when adjusting volume with mouse wheel or hotkeys."
 msgstr "Dimensiunea pasului utilizat la ajustarea volumului cu rotița mouse-ului sau cu tastele rapide."
 
-#: panel-plugin/pulseaudio-dialog.glade:254
+#: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "_Volume step:"
 msgstr "Pasul _volumului:"
 
-#: panel-plugin/pulseaudio-dialog.glade:300
+#: ../panel-plugin/pulseaudio-dialog.glade.h:15
 msgid "M_aximum volume:"
 msgstr "Volumul m_axim:"
 
-#: panel-plugin/pulseaudio-dialog.glade:345
+#: ../panel-plugin/pulseaudio-dialog.glade.h:16
 msgid "Behaviour"
 msgstr "Comportament"
 
-#: panel-plugin/pulseaudio-dialog.glade:380
+#: ../panel-plugin/pulseaudio-dialog.glade.h:17
 msgid "Audio _Mixer"
 msgstr "_Mixer audio"
 
-#: panel-plugin/pulseaudio-dialog.glade:392
+#: ../panel-plugin/pulseaudio-dialog.glade.h:18
 msgid ""
 "Audio mixer command that can be executed from the context menu, e.g. "
 "\"pavucontrol\", \"unity-control-center sound\"."
 msgstr "Comanda mixerului audio care poate fi executată din meniul contextual, de exemplu «pavucontrol», «unity-control-center sound»."
 
-#: panel-plugin/pulseaudio-dialog.glade:405
+#: ../panel-plugin/pulseaudio-dialog.glade.h:19
 msgid "_Run Audio Mixer..."
 msgstr "Lansează mixe_rul audio..."
 
-#: panel-plugin/pulseaudio-dialog.glade:427
+#: ../panel-plugin/pulseaudio-dialog.glade.h:20
 msgid "Sound Settings"
 msgstr "Configurări sunet"
 
-#: panel-plugin/pulseaudio-dialog.glade:446
+#: ../panel-plugin/pulseaudio-dialog.glade.h:21
 msgid "General"
 msgstr "General"
 
-#: panel-plugin/pulseaudio-dialog.glade:478
+#: ../panel-plugin/pulseaudio-dialog.glade.h:22
 msgid "Control Playback of Media Players"
 msgstr "Controlează redarea efectuată de reproducătoarele media"
 
-#: panel-plugin/pulseaudio-dialog.glade:521
+#: ../panel-plugin/pulseaudio-dialog.glade.h:23
 msgid "Enable multimedia keys for playback control"
 msgstr "Activează tastele multimedia pentru controlul redării"
 
-#: panel-plugin/pulseaudio-dialog.glade:536
+#: ../panel-plugin/pulseaudio-dialog.glade.h:24
 msgid "Send multimedia keys to all players"
 msgstr "Trimite taste multimedia tuturor reproducătoarelor"
 
-#: panel-plugin/pulseaudio-dialog.glade:551
+#: ../panel-plugin/pulseaudio-dialog.glade.h:25
 msgid "Enable experimental window focus support"
 msgstr "Activează suportul experimental pentru focalizarea ferestrei"
 
-#: panel-plugin/pulseaudio-dialog.glade:629
+#: ../panel-plugin/pulseaudio-dialog.glade.h:26
 msgid "Name"
 msgstr "Nume"
 
-#: panel-plugin/pulseaudio-dialog.glade:641
+#: ../panel-plugin/pulseaudio-dialog.glade.h:27
 msgid "Persistent"
 msgstr "Persistent"
 
-#: panel-plugin/pulseaudio-dialog.glade:652
+#: ../panel-plugin/pulseaudio-dialog.glade.h:28
 msgid "Ignored"
 msgstr "Ignorat"
 
-#: panel-plugin/pulseaudio-dialog.glade:672
+#: ../panel-plugin/pulseaudio-dialog.glade.h:29
 msgid "Clear Known Items"
 msgstr "Ștergeți elementele cunoscute"
 
-#: panel-plugin/pulseaudio-dialog.glade:694
+#: ../panel-plugin/pulseaudio-dialog.glade.h:30
 msgid "Please restart the players to make them visible again."
 msgstr "Vă rugăm să reporniți reproducătoarele media pentru a le face vizibile din nou."
 
-#: panel-plugin/pulseaudio-dialog.glade:717
+#: ../panel-plugin/pulseaudio-dialog.glade.h:31
 msgid "Known Media Players"
 msgstr "Reproducătoare media cunoscte"
 
-#: panel-plugin/pulseaudio-dialog.glade:739
+#: ../panel-plugin/pulseaudio-dialog.glade.h:32
 msgid "Media Players"
 msgstr "Reproducătoare media"
 
-#: panel-plugin/pulseaudio-dialog.c:140 panel-plugin/pulseaudio-menu.c:275
+#: ../panel-plugin/pulseaudio-plugin.c:277
+msgid "Adjust the audio volume of the PulseAudio sound system"
+msgstr "Ajustează volumul audio al sistemului de sunet PulseAudio"
+
+#: ../panel-plugin/pulseaudio-dialog.c:140
+#: ../panel-plugin/pulseaudio-menu.c:275
 #, c-format
 msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
@@ -169,60 +165,63 @@ msgid ""
 "%s"
 msgstr "<big><b>Execuția comenzii «%s» a eșuat.</b></big>\n\n%s"
 
-#: panel-plugin/pulseaudio-dialog.c:143 panel-plugin/pulseaudio-menu.c:278
+#: ../panel-plugin/pulseaudio-dialog.c:143
+#: ../panel-plugin/pulseaudio-menu.c:278
 msgid "Error"
 msgstr "Eroare"
 
-#: panel-plugin/pulseaudio-button.c:351 panel-plugin/pulseaudio-notify.c:188
+#: ../panel-plugin/pulseaudio-button.c:352
+#: ../panel-plugin/pulseaudio-notify.c:188
+#, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "Nu este conectat la serverul PulseAudio"
 
-#: panel-plugin/pulseaudio-button.c:369
+#: ../panel-plugin/pulseaudio-button.c:370
 #, c-format
 msgid ""
 "<b>Volume %d%% (muted)</b>\n"
 "<small>%s</small>"
 msgstr "<b>Volume %d%% (sunet dezactivat)</b>\n<small>%s</small>"
 
-#: panel-plugin/pulseaudio-button.c:371
+#: ../panel-plugin/pulseaudio-button.c:372
 #, c-format
 msgid ""
 "<b>Volume %d%%</b>\n"
 "<small>%s</small>"
 msgstr "<b>Volum %d%%</b>\n<small>%s</small>"
 
-#: panel-plugin/pulseaudio-menu.c:483
+#: ../panel-plugin/pulseaudio-menu.c:483
 msgid "Port"
 msgstr "Port"
 
-#: panel-plugin/pulseaudio-menu.c:584
+#: ../panel-plugin/pulseaudio-menu.c:584
 msgid "Output"
 msgstr "Ieșire"
 
-#: panel-plugin/pulseaudio-menu.c:628
+#: ../panel-plugin/pulseaudio-menu.c:628
 msgid "Input"
 msgstr "Intrare"
 
-#: panel-plugin/pulseaudio-menu.c:730
+#: ../panel-plugin/pulseaudio-menu.c:730
 msgid "Choose Playlist"
 msgstr "Alegeți lista de redare"
 
 #. Audio mixers
-#: panel-plugin/pulseaudio-menu.c:765
+#: ../panel-plugin/pulseaudio-menu.c:765
 msgid "_Audio mixer..."
 msgstr "Mixer _audio..."
 
-#: panel-plugin/pulseaudio-notify.c:190
+#: ../panel-plugin/pulseaudio-notify.c:190
 #, c-format
 msgid "Volume %d%c (muted)"
 msgstr "Volum %d%c (sunet dezactivat)"
 
-#: panel-plugin/pulseaudio-notify.c:192
+#: ../panel-plugin/pulseaudio-notify.c:192
 #, c-format
 msgid "Volume %d%c"
 msgstr "Volum %d%c"
 
-#: panel-plugin/mprismenuitem.c:382 panel-plugin/mprismenuitem.c:455
-#: panel-plugin/mprismenuitem.c:810
+#: ../panel-plugin/mprismenuitem.c:382 ../panel-plugin/mprismenuitem.c:455
+#: ../panel-plugin/mprismenuitem.c:810
 msgid "Not currently playing"
 msgstr "Nu se redă în acest moment"
