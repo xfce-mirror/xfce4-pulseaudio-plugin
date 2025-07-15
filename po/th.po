@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Xfce
-# This file is distributed under the same license as the xfce-panel-plugins.xfce4-pulseaudio-plugin package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
 # Theppitak Karoonboonyanan <theppitak@gmail.com>, 2016,2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
-"Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2024-04-07 12:54+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-15 00:51+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
 "Last-Translator: Theppitak Karoonboonyanan <theppitak@gmail.com>, 2016,2021\n"
 "Language-Team: Thai (http://app.transifex.com/xfce/xfce-panel-plugins/language/th/)\n"
@@ -18,150 +18,146 @@ msgstr ""
 "Language: th\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: panel-plugin/pulseaudio.desktop.in.in:5
-msgid "PulseAudio Plugin"
-msgstr "ปลั๊กอิน PulseAudio"
-
-#: panel-plugin/pulseaudio.desktop.in.in:6
-#: panel-plugin/pulseaudio-plugin.c:258
-msgid "Adjust the audio volume of the PulseAudio sound system"
-msgstr "ปรับความดังของระบบเสียง PulseAudio"
-
-#: panel-plugin/pulseaudio-dialog.glade:51
+#: ../panel-plugin/pulseaudio-dialog.glade.h:1
 msgid "None"
 msgstr "ไม่ใช้"
 
-#: panel-plugin/pulseaudio-dialog.glade:54
+#: ../panel-plugin/pulseaudio-dialog.glade.h:2
 msgid "All"
 msgstr "ทั้งหมด"
 
-#: panel-plugin/pulseaudio-dialog.glade:57
+#: ../panel-plugin/pulseaudio-dialog.glade.h:3
 msgid "Output only"
 msgstr "เสียงออกเท่านั้น"
 
-#: panel-plugin/pulseaudio-dialog.glade:60
+#: ../panel-plugin/pulseaudio-dialog.glade.h:4
 msgid "Input only"
 msgstr "เสียงเข้าเท่านั้น"
 
-#: panel-plugin/pulseaudio-dialog.glade:66
+#: ../panel-plugin/pulseaudio-dialog.glade.h:5
 msgid "PulseAudio Panel Plugin"
 msgstr "ปลั๊กอิน PulseAudio สำหรับพาเนล"
 
-#: panel-plugin/pulseaudio-dialog.glade:151
+#: ../panel-plugin/pulseaudio-dialog.glade.h:6
 msgid "Enable keyboard _shortcuts for volume control"
 msgstr "เปิดใช้ปุ่ม_ลัดแป้นพิมพ์สำหรับปรับความดังเสียง"
 
-#: panel-plugin/pulseaudio-dialog.glade:155
+#: ../panel-plugin/pulseaudio-dialog.glade.h:7
 msgid ""
 "Enables volume control using multimedia keys. Make sure no other application"
 " that listens to these keys (e.g. xfce4-volumed) is running in the "
 "background."
 msgstr "เปิดใช้การควบคุมความดังเสียงด้วยปุ่มสื่อผสม กรุณาตรวจสอบให้แน่ใจว่าไม่มีโปรแกรมอื่นที่เฝ้าจับปุ่มเหล่านี้ (เช่น xfce4-volumed) ทำงานเบื้องหลังอยู่"
 
-#: panel-plugin/pulseaudio-dialog.glade:168
+#: ../panel-plugin/pulseaudio-dialog.glade.h:8
 msgid "Play system _sound when volume changes"
 msgstr "เล่นเ_สียงของระบบเมื่อความดังเปลี่ยน"
 
-#: panel-plugin/pulseaudio-dialog.glade:172
+#: ../panel-plugin/pulseaudio-dialog.glade.h:9
 msgid ""
 "Enables audio feedback when using multimedia keys to change the volume."
 msgstr "เปิดใช้การส่งเสียงตอบสนองเมื่อมีการใช้ปุ่มควบคุมสื่อปรับความดัง"
 
-#: panel-plugin/pulseaudio-dialog.glade:185
+#: ../panel-plugin/pulseaudio-dialog.glade.h:10
 msgid "Always display the recording _indicator"
 msgstr "แสดงตัวบ่งชี้การ_อัดเสียงเสมอ"
 
-#: panel-plugin/pulseaudio-dialog.glade:208
+#: ../panel-plugin/pulseaudio-dialog.glade.h:11
 msgid "Show volume _notifications:"
 msgstr "แ_จ้งเหตุความดังเสียง:"
 
-#: panel-plugin/pulseaudio-dialog.glade:222
+#: ../panel-plugin/pulseaudio-dialog.glade.h:12
 msgid "Mute/unmute is notified in all modes except \"None\""
 msgstr "จะแจ้งเหตุการปิด/เปิดเสียงในทุกโหมด ยกเว้นโหมด \"ไม่ใช้\""
 
-#: panel-plugin/pulseaudio-dialog.glade:248
+#: ../panel-plugin/pulseaudio-dialog.glade.h:13
 msgid "Step size used when adjusting volume with mouse wheel or hotkeys."
 msgstr "ขนาดของระดับขั้นของการปรับความดังเสียงด้วยล้อเมาส์หรือปุ่มลัด"
 
-#: panel-plugin/pulseaudio-dialog.glade:254
+#: ../panel-plugin/pulseaudio-dialog.glade.h:14
 msgid "_Volume step:"
 msgstr "ระดับ_ขั้นความดัง:"
 
-#: panel-plugin/pulseaudio-dialog.glade:300
+#: ../panel-plugin/pulseaudio-dialog.glade.h:15
 msgid "M_aximum volume:"
 msgstr "ความดังสู_งสุด:"
 
-#: panel-plugin/pulseaudio-dialog.glade:345
+#: ../panel-plugin/pulseaudio-dialog.glade.h:16
 msgid "Behaviour"
 msgstr "พฤติกรรม"
 
-#: panel-plugin/pulseaudio-dialog.glade:380
+#: ../panel-plugin/pulseaudio-dialog.glade.h:17
 msgid "Audio _Mixer"
 msgstr "โปรแกรม_ควบคุมเสียง"
 
-#: panel-plugin/pulseaudio-dialog.glade:392
+#: ../panel-plugin/pulseaudio-dialog.glade.h:18
 msgid ""
 "Audio mixer command that can be executed from the context menu, e.g. "
 "\"pavucontrol\", \"unity-control-center sound\"."
 msgstr "คำสั่งสำหรับเรียกโปรแกรมควบคุมเสียงซึ่งสามารถเรียกทำงานผ่านเมนูบนพาเนลได้ เช่น \"pavucontrol\", \"unity-control-center sound\""
 
-#: panel-plugin/pulseaudio-dialog.glade:405
+#: ../panel-plugin/pulseaudio-dialog.glade.h:19
 msgid "_Run Audio Mixer..."
 msgstr "เ_รียกโปรแกรมควบคุมเสียง..."
 
-#: panel-plugin/pulseaudio-dialog.glade:427
+#: ../panel-plugin/pulseaudio-dialog.glade.h:20
 msgid "Sound Settings"
 msgstr "ตั้งค่าเสียง"
 
-#: panel-plugin/pulseaudio-dialog.glade:446
+#: ../panel-plugin/pulseaudio-dialog.glade.h:21
 msgid "General"
 msgstr "ทั่วไป"
 
-#: panel-plugin/pulseaudio-dialog.glade:478
+#: ../panel-plugin/pulseaudio-dialog.glade.h:22
 msgid "Control Playback of Media Players"
 msgstr "ควบคุมการเล่นของโปรแกรมเล่นสื่อต่างๆ"
 
-#: panel-plugin/pulseaudio-dialog.glade:521
+#: ../panel-plugin/pulseaudio-dialog.glade.h:23
 msgid "Enable multimedia keys for playback control"
 msgstr "เปิดใช้ปุ่มสื่อผสมสำหรับควบคุมการเล่นสื่อ"
 
-#: panel-plugin/pulseaudio-dialog.glade:536
+#: ../panel-plugin/pulseaudio-dialog.glade.h:24
 msgid "Send multimedia keys to all players"
 msgstr "ส่งการกดปุ่มควบคุมสื่อไปยังโปรแกรมเล่นสื่อทั้งหมด"
 
-#: panel-plugin/pulseaudio-dialog.glade:551
+#: ../panel-plugin/pulseaudio-dialog.glade.h:25
 msgid "Enable experimental window focus support"
 msgstr "เปิดใช้การรองรับการโฟกัสหน้าต่างที่ยังอยู่ในขั้นทดลอง"
 
-#: panel-plugin/pulseaudio-dialog.glade:629
+#: ../panel-plugin/pulseaudio-dialog.glade.h:26
 msgid "Name"
 msgstr "ชื่อ"
 
-#: panel-plugin/pulseaudio-dialog.glade:641
+#: ../panel-plugin/pulseaudio-dialog.glade.h:27
 msgid "Persistent"
 msgstr "ถาวร"
 
-#: panel-plugin/pulseaudio-dialog.glade:652
+#: ../panel-plugin/pulseaudio-dialog.glade.h:28
 msgid "Ignored"
 msgstr "ไม่สนใจ"
 
-#: panel-plugin/pulseaudio-dialog.glade:672
+#: ../panel-plugin/pulseaudio-dialog.glade.h:29
 msgid "Clear Known Items"
 msgstr "ล้างรายการที่รู้จัก"
 
-#: panel-plugin/pulseaudio-dialog.glade:694
+#: ../panel-plugin/pulseaudio-dialog.glade.h:30
 msgid "Please restart the players to make them visible again."
 msgstr "กรุณาเปิดโปรแกรมเล่นสื่อต่างๆ ใหม่เพื่อให้โปรแกรมเหล่านั้นปรากฏอีกครั้ง"
 
-#: panel-plugin/pulseaudio-dialog.glade:717
+#: ../panel-plugin/pulseaudio-dialog.glade.h:31
 msgid "Known Media Players"
 msgstr "โปรแกรมเล่นสื่อที่รู้จัก"
 
-#: panel-plugin/pulseaudio-dialog.glade:739
+#: ../panel-plugin/pulseaudio-dialog.glade.h:32
 msgid "Media Players"
 msgstr "โปรแกรมเล่นสื่อ"
 
-#: panel-plugin/pulseaudio-dialog.c:142 panel-plugin/pulseaudio-menu.c:251
+#: ../panel-plugin/pulseaudio-plugin.c:277
+msgid "Adjust the audio volume of the PulseAudio sound system"
+msgstr "ปรับความดังของระบบเสียง PulseAudio"
+
+#: ../panel-plugin/pulseaudio-dialog.c:140
+#: ../panel-plugin/pulseaudio-menu.c:275
 #, c-format
 msgid ""
 "<big><b>Failed to execute command \"%s\".</b></big>\n"
@@ -169,56 +165,63 @@ msgid ""
 "%s"
 msgstr "<big><b>เรียกคำสั่ง \"%s\" ไม่สำเร็จ</b></big>\n\n%s"
 
-#: panel-plugin/pulseaudio-dialog.c:145 panel-plugin/pulseaudio-menu.c:254
+#: ../panel-plugin/pulseaudio-dialog.c:143
+#: ../panel-plugin/pulseaudio-menu.c:278
 msgid "Error"
 msgstr "ข้อผิดพลาด"
 
-#: panel-plugin/pulseaudio-button.c:339 panel-plugin/pulseaudio-notify.c:199
+#: ../panel-plugin/pulseaudio-button.c:352
+#: ../panel-plugin/pulseaudio-notify.c:188
+#, c-format
 msgid "Not connected to the PulseAudio server"
 msgstr "ไม่มีการเชื่อมต่อกับเซิร์ฟเวอร์ PulseAudio"
 
-#: panel-plugin/pulseaudio-button.c:357
+#: ../panel-plugin/pulseaudio-button.c:370
 #, c-format
 msgid ""
 "<b>Volume %d%% (muted)</b>\n"
 "<small>%s</small>"
 msgstr "<b>ความดัง %d%% (ปิดเสียง)</b>\n<small>%s</small>"
 
-#: panel-plugin/pulseaudio-button.c:359
+#: ../panel-plugin/pulseaudio-button.c:372
 #, c-format
 msgid ""
 "<b>Volume %d%%</b>\n"
 "<small>%s</small>"
 msgstr "<b>ความดัง %d%%</b>\n<small>%s</small>"
 
-#: panel-plugin/pulseaudio-menu.c:521
+#: ../panel-plugin/pulseaudio-menu.c:483
+msgid "Port"
+msgstr ""
+
+#: ../panel-plugin/pulseaudio-menu.c:584
 msgid "Output"
 msgstr "เสียงออก"
 
-#: panel-plugin/pulseaudio-menu.c:561
+#: ../panel-plugin/pulseaudio-menu.c:628
 msgid "Input"
 msgstr "เสียงเข้า"
 
-#: panel-plugin/pulseaudio-menu.c:663
+#: ../panel-plugin/pulseaudio-menu.c:730
 msgid "Choose Playlist"
 msgstr "เลือกผังเล่น"
 
 #. Audio mixers
-#: panel-plugin/pulseaudio-menu.c:698
+#: ../panel-plugin/pulseaudio-menu.c:765
 msgid "_Audio mixer..."
 msgstr "โปรแกรม_ควบคุมเสียง..."
 
-#: panel-plugin/pulseaudio-notify.c:201
+#: ../panel-plugin/pulseaudio-notify.c:190
 #, c-format
 msgid "Volume %d%c (muted)"
 msgstr "ความดัง %d%c (ปิดเสียง)"
 
-#: panel-plugin/pulseaudio-notify.c:203
+#: ../panel-plugin/pulseaudio-notify.c:192
 #, c-format
 msgid "Volume %d%c"
 msgstr "ความดัง %d%c"
 
-#: panel-plugin/mprismenuitem.c:375 panel-plugin/mprismenuitem.c:448
-#: panel-plugin/mprismenuitem.c:803
+#: ../panel-plugin/mprismenuitem.c:382 ../panel-plugin/mprismenuitem.c:455
+#: ../panel-plugin/mprismenuitem.c:810
 msgid "Not currently playing"
 msgstr "ไม่ได้เล่นอยู่"
