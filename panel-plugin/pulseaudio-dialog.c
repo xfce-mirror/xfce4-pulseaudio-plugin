@@ -244,6 +244,7 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
     {
       dialog->dialog = gtk_builder_get_object (builder, "dialog");
       g_return_if_fail (XFCE_IS_TITLED_DIALOG (dialog->dialog));
+      g_object_add_weak_pointer (G_OBJECT (dialog->dialog), (gpointer *) &dialog->dialog);
 
       object = gtk_builder_get_object (builder, "close-button");
       g_return_if_fail (GTK_IS_BUTTON (object));
@@ -452,6 +453,12 @@ pulseaudio_dialog_show (PulseaudioDialog *dialog,
 {
   g_return_if_fail (IS_PULSEAUDIO_DIALOG (dialog));
   g_return_if_fail (GDK_IS_SCREEN (screen));
+
+  if (dialog->dialog != NULL)
+    {
+      gtk_window_present (GTK_WINDOW (dialog->dialog));
+      return;
+    }
 
   pulseaudio_dialog_build (PULSEAUDIO_DIALOG (dialog));
   gtk_widget_show (GTK_WIDGET (dialog->dialog));
