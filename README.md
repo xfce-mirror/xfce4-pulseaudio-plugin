@@ -44,8 +44,6 @@ From release tarball:
     % meson compile -C build
     % meson install -C build
 
-See the file [INSTALL](https://gitlab.xfce.org/panel-plugins/xfce4-pulseaudio-plugin/-/blob/master/INSTALL) for detailed instructions on how to build and install Xfce PulseAudio Plugin.
-
 ### Reporting Bugs
 
 Visit the [reporting bugs](https://docs.xfce.org/panel-plugins/xfce4-pulseaudio-plugin/bugs) page to view currently open bug reports and instructions on reporting new bugs or submitting bugfixes.
