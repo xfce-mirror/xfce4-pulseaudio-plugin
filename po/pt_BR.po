@@ -11,6 +11,7 @@
 # C. E., 2020
 # Michael Martins, 2017
 # Michael Martins, 2017
+# Michael Martins, 2025
 # Miguel V. S. Frasson <mvsfrasson@gmail.com>, 2017
 # The Cat, 2023
 # The Cat, 2023
@@ -20,7 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
 "POT-Creation-Date: 2025-07-18 11:07+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
-"Last-Translator: The Cat, 2023\n"
+"Last-Translator: Michael Martins, 2025\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/xfce/xfce-panel-plugins/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,7 +31,7 @@ msgstr ""
 
 #: panel-plugin/pulseaudio.desktop.in.in:5
 msgid "PulseAudio Plugin"
-msgstr "Plug-in para PulseAudio"
+msgstr "Plugin para PulseAudio"
 
 #: panel-plugin/pulseaudio.desktop.in.in:6
 #: panel-plugin/pulseaudio-plugin.c:274
@@ -59,14 +60,14 @@ msgstr "Plug-in de painel para PulseAudio"
 
 #: panel-plugin/pulseaudio-dialog.glade:151
 msgid "Enable keyboard _shortcuts for volume control"
-msgstr "Habilitar _atalhos de teclado para controle de volume"
+msgstr "Ativar _atalhos de teclado para controle de volume"
 
 #: panel-plugin/pulseaudio-dialog.glade:155
 msgid ""
 "Enables volume control using multimedia keys. Make sure no other application"
 " that listens to these keys (e.g. xfce4-volumed) is running in the "
 "background."
-msgstr "Habilita o controle de volume usando teclas multimídia. Certifique-se de que nenhum outro aplicativo que ouça essas teclas (por exemplo, xfce4-volumed) esteja em execução em segundo plano."
+msgstr "Ativa o controle de volume usando teclas multimídia. Certifique-se de que nenhum outro aplicativo que ouça essas teclas (por exemplo, xfce4-volumed) esteja em execução em segundo plano."
 
 #: panel-plugin/pulseaudio-dialog.glade:168
 msgid "Play system _sound when volume changes"
@@ -75,7 +76,7 @@ msgstr "Reproduzir _som do sistema quando o volume for alterado"
 #: panel-plugin/pulseaudio-dialog.glade:172
 msgid ""
 "Enables audio feedback when using multimedia keys to change the volume."
-msgstr "Habilita o feedback de áudio ao usar as teclas multimídia para alterar o volume."
+msgstr "Ativa o feedback de áudio ao usar as teclas multimídia para alterar o volume."
 
 #: panel-plugin/pulseaudio-dialog.glade:185
 msgid "Always display the recording _indicator"
@@ -133,7 +134,7 @@ msgstr "Controlar a reprodução de reprodutores de mídia"
 
 #: panel-plugin/pulseaudio-dialog.glade:521
 msgid "Enable multimedia keys for playback control"
-msgstr "Habilitar teclas multimídia para controle de reprodução"
+msgstr "Ativar teclas multimídia para controle de reprodução"
 
 #: panel-plugin/pulseaudio-dialog.glade:536
 msgid "Send multimedia keys to all players"
@@ -141,7 +142,7 @@ msgstr "Enviar teclas multimídia para todos os reprodutores"
 
 #: panel-plugin/pulseaudio-dialog.glade:551
 msgid "Enable experimental window focus support"
-msgstr "Habilitar suporte experimental ao foco da janela"
+msgstr "Ativar suporte experimental ao foco da janela"
 
 #: panel-plugin/pulseaudio-dialog.glade:629
 msgid "Name"
