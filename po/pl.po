@@ -29,7 +29,7 @@ msgstr "Wtyczka PulseAudio"
 #: panel-plugin/pulseaudio.desktop.in.in:6
 #: panel-plugin/pulseaudio-plugin.c:274
 msgid "Adjust the audio volume of the PulseAudio sound system"
-msgstr "Regulacja głośności dźwięku systemu PulseAudio"
+msgstr "Regulacja głośności dźwięku systemu PulseAudio."
 
 #: panel-plugin/pulseaudio-dialog.glade:51
 msgid "None"
