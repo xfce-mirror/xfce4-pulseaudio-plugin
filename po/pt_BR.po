@@ -31,7 +31,7 @@ msgstr ""
 
 #: panel-plugin/pulseaudio.desktop.in.in:5
 msgid "PulseAudio Plugin"
-msgstr "Plugin para PulseAudio"
+msgstr "Plugin para o PulseAudio"
 
 #: panel-plugin/pulseaudio.desktop.in.in:6
 #: panel-plugin/pulseaudio-plugin.c:274
@@ -56,7 +56,7 @@ msgstr "Apenas entrada"
 
 #: panel-plugin/pulseaudio-dialog.glade:66
 msgid "PulseAudio Panel Plugin"
-msgstr "Plug-in de painel para PulseAudio"
+msgstr "Plugin de painel para o PulseAudio"
 
 #: panel-plugin/pulseaudio-dialog.glade:151
 msgid "Enable keyboard _shortcuts for volume control"
