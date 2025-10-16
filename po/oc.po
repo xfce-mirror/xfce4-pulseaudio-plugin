@@ -5,6 +5,7 @@
 # Translators:
 # Cédric Valmary <cvalmary@yahoo.fr>, 2016
 # Quentin PAGÈS, 2022,2024
+# Quentin PAGÈS, 2022,2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
@@ -94,7 +95,7 @@ msgstr "Volum m_aximum :"
 
 #: panel-plugin/pulseaudio-dialog.glade:345
 msgid "Behaviour"
-msgstr "Comportament"
+msgstr "Compòrtament"
 
 #: panel-plugin/pulseaudio-dialog.glade:380
 msgid "Audio _Mixer"
@@ -190,11 +191,11 @@ msgstr ""
 msgid ""
 "<b>Volume %d%%</b>\n"
 "<small>%s</small>"
-msgstr ""
+msgstr "<b>Volum %d%%</b>\n<small>%s</small>"
 
 #: panel-plugin/pulseaudio-menu.c:479
 msgid "Port"
-msgstr ""
+msgstr "Pòrt"
 
 #: panel-plugin/pulseaudio-menu.c:580
 msgid "Output"
