@@ -48,7 +48,7 @@ msgstr "Només entrada"
 
 #: panel-plugin/pulseaudio-dialog.glade:66
 msgid "PulseAudio Panel Plugin"
-msgstr "Connector de tauler de PulseAudio"
+msgstr "Connector de panell de PulseAudio"
 
 #: panel-plugin/pulseaudio-dialog.glade:151
 msgid "Enable keyboard _shortcuts for volume control"
