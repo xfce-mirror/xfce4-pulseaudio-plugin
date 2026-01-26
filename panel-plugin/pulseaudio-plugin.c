@@ -618,10 +618,10 @@ pulseaudio_plugin_construct (XfcePanelPlugin *plugin)
     {
       /* Initialize libkeybinder */
       keybinder_init ();
-      g_signal_connect_swapped (G_OBJECT (pulseaudio_plugin->config), "notify::enable-keyboard-shortcuts",
-                                G_CALLBACK (pulseaudio_plugin_bind_keys_cb), pulseaudio_plugin);
-      g_signal_connect_swapped (G_OBJECT (pulseaudio_plugin->config), "notify::enable-multimedia-keys",
-                                G_CALLBACK (pulseaudio_plugin_bind_multimedia_keys_cb), pulseaudio_plugin);
+      g_signal_connect_object (G_OBJECT (pulseaudio_plugin->config), "notify::enable-keyboard-shortcuts",
+                               G_CALLBACK (pulseaudio_plugin_bind_keys_cb), pulseaudio_plugin, G_CONNECT_SWAPPED);
+      g_signal_connect_object (G_OBJECT (pulseaudio_plugin->config), "notify::enable-multimedia-keys",
+                               G_CALLBACK (pulseaudio_plugin_bind_multimedia_keys_cb), pulseaudio_plugin, G_CONNECT_SWAPPED);
       pulseaudio_plugin_bind_keys_cb (pulseaudio_plugin, NULL);
       pulseaudio_plugin_bind_multimedia_keys_cb (pulseaudio_plugin, NULL);
     }
