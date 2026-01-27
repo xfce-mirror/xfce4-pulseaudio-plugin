@@ -32,9 +32,6 @@ plugin_sources += gnome.compile_resources(
   'pulseaudio-dialog-resources',
   'pulseaudio-dialog.gresource.xml',
   export: false,
-  extra_args: [
-    '--manual-register',
-  ],
 )
 
 plugin_install_subdir = 'xfce4' / 'panel' / 'plugins'
