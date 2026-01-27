@@ -283,7 +283,7 @@ pulseaudio_config_class_init (PulseaudioConfigClass *klass)
 
 
   pulseaudio_config_signals[CONFIGURATION_CHANGED] =
-    g_signal_new (g_intern_static_string ("configuration-changed"),
+    g_signal_new (g_intern_string ("configuration-changed"),
                   G_TYPE_FROM_CLASS (gobject_class),
                   G_SIGNAL_RUN_LAST,
                   0, NULL, NULL,

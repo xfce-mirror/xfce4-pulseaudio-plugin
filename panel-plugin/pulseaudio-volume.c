@@ -158,7 +158,7 @@ pulseaudio_volume_class_init (PulseaudioVolumeClass *klass)
   gobject_class->finalize = pulseaudio_volume_finalize;
 
   pulseaudio_volume_signals[CONNECTION_CHANGED] =
-    g_signal_new (g_intern_static_string ("connection-changed"),
+    g_signal_new (g_intern_string ("connection-changed"),
                   G_TYPE_FROM_CLASS (gobject_class),
                   G_SIGNAL_RUN_LAST,
                   0, NULL, NULL,
@@ -166,7 +166,7 @@ pulseaudio_volume_class_init (PulseaudioVolumeClass *klass)
                   G_TYPE_NONE, 0);
 
   pulseaudio_volume_signals[VOLUME_CHANGED] =
-    g_signal_new (g_intern_static_string ("volume-changed"),
+    g_signal_new (g_intern_string ("volume-changed"),
                   G_TYPE_FROM_CLASS (gobject_class),
                   G_SIGNAL_RUN_LAST,
                   0, NULL, NULL,
@@ -174,14 +174,14 @@ pulseaudio_volume_class_init (PulseaudioVolumeClass *klass)
                   G_TYPE_NONE, 1, G_TYPE_BOOLEAN);
 
   pulseaudio_volume_signals[VOLUME_MIC_CHANGED] =
-    g_signal_new (g_intern_static_string ("volume-mic-changed"),
+    g_signal_new (g_intern_string ("volume-mic-changed"),
                   G_TYPE_FROM_CLASS (gobject_class),
                   G_SIGNAL_RUN_LAST,
                   0, NULL, NULL,
                   g_cclosure_marshal_VOID__BOOLEAN,
                   G_TYPE_NONE, 1, G_TYPE_BOOLEAN);
   pulseaudio_volume_signals[RECORDING_CHANGED] =
-    g_signal_new (g_intern_static_string ("recording-changed"),
+    g_signal_new (g_intern_string ("recording-changed"),
                   G_TYPE_FROM_CLASS (gobject_class),
                   G_SIGNAL_RUN_LAST,
                   0, NULL, NULL,
