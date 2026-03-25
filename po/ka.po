@@ -1,0 +1,229 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Xfce
+# This file is distributed under the same license as the xfce-panel-plugins.xfce4-pulseaudio-plugin package.
+# 
+# Translators:
+# ზურაბი დავითაშვილი <zurabi@tuta.io>, 2020
+# ზურაბი დავითაშვილი <zurabi@tuta.io>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Xfce Panel Plugins\n"
+"Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
+"POT-Creation-Date: 2025-07-18 11:07+0200\n"
+"PO-Revision-Date: 2015-10-05 20:18+0000\n"
+"Last-Translator: ზურაბი დავითაშვილი <zurabi@tuta.io>, 2020\n"
+"Language-Team: Georgian (http://app.transifex.com/xfce/xfce-panel-plugins/language/ka/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ka\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: panel-plugin/pulseaudio.desktop.in.in:5
+msgid "PulseAudio Plugin"
+msgstr "PulseAudio-ის დამატება"
+
+#: panel-plugin/pulseaudio.desktop.in.in:6
+#: panel-plugin/pulseaudio-plugin.c:274
+msgid "Adjust the audio volume of the PulseAudio sound system"
+msgstr "ხმის სისტემის PulseAudio ხმის დონის გასწორება"
+
+#: panel-plugin/pulseaudio-dialog.glade:51
+msgid "None"
+msgstr "არცერთი"
+
+#: panel-plugin/pulseaudio-dialog.glade:54
+msgid "All"
+msgstr "ყველა"
+
+#: panel-plugin/pulseaudio-dialog.glade:57
+msgid "Output only"
+msgstr "მხოლოდ გამომავალი"
+
+#: panel-plugin/pulseaudio-dialog.glade:60
+msgid "Input only"
+msgstr "მხოლოდ შეყვანა"
+
+#: panel-plugin/pulseaudio-dialog.glade:66
+msgid "PulseAudio Panel Plugin"
+msgstr "PulseAudio-ის პანელის დამატება"
+
+#: panel-plugin/pulseaudio-dialog.glade:151
+msgid "Enable keyboard _shortcuts for volume control"
+msgstr "კლავიატურის მალსახმობების დაშვება ხმის დონის კონტროლი_სთვის"
+
+#: panel-plugin/pulseaudio-dialog.glade:155
+msgid ""
+"Enables volume control using multimedia keys. Make sure no other application"
+" that listens to these keys (e.g. xfce4-volumed) is running in the "
+"background."
+msgstr ""
+
+#: panel-plugin/pulseaudio-dialog.glade:168
+msgid "Play system _sound when volume changes"
+msgstr "_სისტემური ხმის დაკვრა, როცა ხმის დონე იცვლება"
+
+#: panel-plugin/pulseaudio-dialog.glade:172
+msgid ""
+"Enables audio feedback when using multimedia keys to change the volume."
+msgstr "ჩართავს ხმოვან უკუკავშირს ხმის დონის შესაცვლელად მულტიმედია ღილაკების გამოყენებისას."
+
+#: panel-plugin/pulseaudio-dialog.glade:185
+msgid "Always display the recording _indicator"
+msgstr "ჩაწერის მაჩვენებლ_ის ყოველთვის ჩვენება"
+
+#: panel-plugin/pulseaudio-dialog.glade:208
+msgid "Show volume _notifications:"
+msgstr "ხმოვა_ნი გაფრთხილებების ჩვენება:"
+
+#: panel-plugin/pulseaudio-dialog.glade:222
+msgid "Mute/unmute is notified in all modes except \"None\""
+msgstr "დადუმება/დადუმების გაუქმება ყოველთვის აღინიშნება გარდა რეჟიმისა 'არცერთი'"
+
+#: panel-plugin/pulseaudio-dialog.glade:248
+msgid "Step size used when adjusting volume with mouse wheel or hotkeys."
+msgstr "ნაბიჯის ზომა ხმის დონის თაგუნას ბორბლით, ან მალსახმობებით შეცვლისას."
+
+#: panel-plugin/pulseaudio-dialog.glade:254
+msgid "_Volume step:"
+msgstr "ხმის ბი_ჯი:"
+
+#: panel-plugin/pulseaudio-dialog.glade:300
+msgid "M_aximum volume:"
+msgstr "მ_აქსიმალური ხმა:"
+
+#: panel-plugin/pulseaudio-dialog.glade:345
+msgid "Behaviour"
+msgstr "ქცევა"
+
+#: panel-plugin/pulseaudio-dialog.glade:380
+msgid "Audio _Mixer"
+msgstr "აუდიო_მიქსერი"
+
+#: panel-plugin/pulseaudio-dialog.glade:392
+msgid ""
+"Audio mixer command that can be executed from the context menu, e.g. "
+"\"pavucontrol\", \"unity-control-center sound\"."
+msgstr "აუდიომიქსერის ბრძანება, რომელიც კონტექსტური მენიუდან გაეშვება. მაგ: \"pavucontrol\", \"unity-control-center sound\"."
+
+#: panel-plugin/pulseaudio-dialog.glade:405
+msgid "_Run Audio Mixer..."
+msgstr "აუდიომიქსე_რის გაშვება..."
+
+#: panel-plugin/pulseaudio-dialog.glade:427
+msgid "Sound Settings"
+msgstr "ხმის მორგება"
+
+#: panel-plugin/pulseaudio-dialog.glade:446
+msgid "General"
+msgstr "ზოგადი"
+
+#: panel-plugin/pulseaudio-dialog.glade:478
+msgid "Control Playback of Media Players"
+msgstr "მართეთ მედიადამკვრელების დაკვრა"
+
+#: panel-plugin/pulseaudio-dialog.glade:521
+msgid "Enable multimedia keys for playback control"
+msgstr "მულტიმედია ღილაკების ჩართვა დაკვრის სამართავად"
+
+#: panel-plugin/pulseaudio-dialog.glade:536
+msgid "Send multimedia keys to all players"
+msgstr "მულტიმედია ღილაკების გაგზავნა ყველა დამკვრელისთვის"
+
+#: panel-plugin/pulseaudio-dialog.glade:551
+msgid "Enable experimental window focus support"
+msgstr "ექსპერიმენტული ფანჯრის ფოკუსის მხარდაჭერის ჩართვა"
+
+#: panel-plugin/pulseaudio-dialog.glade:629
+msgid "Name"
+msgstr "სახელი"
+
+#: panel-plugin/pulseaudio-dialog.glade:641
+msgid "Persistent"
+msgstr "მუდმივი"
+
+#: panel-plugin/pulseaudio-dialog.glade:652
+msgid "Ignored"
+msgstr "გამოტოვებულია"
+
+#: panel-plugin/pulseaudio-dialog.glade:672
+msgid "Clear Known Items"
+msgstr "ცნობილი ელემენტების გასუფთავება"
+
+#: panel-plugin/pulseaudio-dialog.glade:694
+msgid "Please restart the players to make them visible again."
+msgstr "დამკვრელების ისევ საჩვენებლად გაუშვით ისინი თავიდან."
+
+#: panel-plugin/pulseaudio-dialog.glade:717
+msgid "Known Media Players"
+msgstr "ცნობილი მედიის დამკვრელები"
+
+#: panel-plugin/pulseaudio-dialog.glade:739
+msgid "Media Players"
+msgstr "მედიადამკვრელები"
+
+#: panel-plugin/pulseaudio-dialog.c:136 panel-plugin/pulseaudio-menu.c:271
+#, c-format
+msgid ""
+"<big><b>Failed to execute command \"%s\".</b></big>\n"
+"\n"
+"%s"
+msgstr "<big><b>შესრულების შეცდომა ბრძანებისთვის \"%s\".</b></big>\n\n%s"
+
+#: panel-plugin/pulseaudio-dialog.c:139 panel-plugin/pulseaudio-menu.c:274
+msgid "Error"
+msgstr "შეცდომა"
+
+#: panel-plugin/pulseaudio-button.c:348 panel-plugin/pulseaudio-notify.c:184
+msgid "Not connected to the PulseAudio server"
+msgstr "PulseAudio-ის სერვერთან დაკავშირებული არაა"
+
+#: panel-plugin/pulseaudio-button.c:366
+#, c-format
+msgid ""
+"<b>Volume %d%% (muted)</b>\n"
+"<small>%s</small>"
+msgstr "<b>ხმა %d%% (დადუმებულია)</b>\n<small>%s</small>"
+
+#: panel-plugin/pulseaudio-button.c:368
+#, c-format
+msgid ""
+"<b>Volume %d%%</b>\n"
+"<small>%s</small>"
+msgstr "<b>ხმა %d%%</b>\n<small>%s</small>"
+
+#: panel-plugin/pulseaudio-menu.c:479
+msgid "Port"
+msgstr "პორტი"
+
+#: panel-plugin/pulseaudio-menu.c:580
+msgid "Output"
+msgstr "გამოტანა"
+
+#: panel-plugin/pulseaudio-menu.c:624
+msgid "Input"
+msgstr "შეყვანა"
+
+#: panel-plugin/pulseaudio-menu.c:726
+msgid "Choose Playlist"
+msgstr "აირჩიეთ დასაკრავის სია"
+
+#. Audio mixers
+#: panel-plugin/pulseaudio-menu.c:761
+msgid "_Audio mixer..."
+msgstr "_აუდიომიქსერი..."
+
+#: panel-plugin/pulseaudio-notify.c:186
+#, c-format
+msgid "Volume %d%c (muted)"
+msgstr "ხმა %d%c (დადუმებულია)"
+
+#: panel-plugin/pulseaudio-notify.c:188
+#, c-format
+msgid "Volume %d%c"
+msgstr "ხმა %d%c"
+
+#: panel-plugin/mprismenuitem.c:378 panel-plugin/mprismenuitem.c:451
+#: panel-plugin/mprismenuitem.c:806
+msgid "Not currently playing"
+msgstr "ამჟამად დაკვრა არ მიმდინარეობს"
