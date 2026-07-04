@@ -45,7 +45,7 @@ enum
   VOLUME_NOTIFICATIONS_COUNT,
 };
 
-GType              pulseaudio_config_get_type                       (void)                                       G_GNUC_CONST;
+GType              pulseaudio_config_get_type                       (void);
 
 PulseaudioConfig  *pulseaudio_config_new                            (const gchar          *property_base);
 

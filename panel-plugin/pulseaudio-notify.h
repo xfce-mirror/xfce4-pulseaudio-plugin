@@ -38,7 +38,7 @@ G_BEGIN_DECLS
 typedef struct          _PulseaudioNotify                 PulseaudioNotify;
 typedef struct          _PulseaudioNotifyClass            PulseaudioNotifyClass;
 
-GType                   pulseaudio_notify_get_type        (void) G_GNUC_CONST;
+GType                   pulseaudio_notify_get_type        (void);
 
 PulseaudioNotify       *pulseaudio_notify_new             (PulseaudioConfig *config,
                                                            PulseaudioVolume *volume,

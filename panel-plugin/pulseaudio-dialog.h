@@ -35,7 +35,7 @@ typedef struct _PulseaudioDialog      PulseaudioDialog;
 #define IS_PULSEAUDIO_DIALOG_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass),  TYPE_PULSEAUDIO_DIALOG))
 #define PULSEAUDIO_DIALOG_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj),  TYPE_PULSEAUDIO_DIALOG, PulseaudioDialogClass))
 
-GType               pulseaudio_dialog_get_type (void) G_GNUC_CONST;
+GType               pulseaudio_dialog_get_type (void);
 
 void                pulseaudio_dialog_show     (PulseaudioDialog  *dialog,
                                                 GdkScreen         *screen);

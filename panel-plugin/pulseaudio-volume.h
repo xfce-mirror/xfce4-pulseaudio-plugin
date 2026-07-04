@@ -43,7 +43,7 @@ typedef struct
   gboolean              active;
 } PulseAudioPortInfo;
 
-GType                   pulseaudio_volume_get_type                (void) G_GNUC_CONST;
+GType                   pulseaudio_volume_get_type                (void);
 
 PulseaudioVolume       *pulseaudio_volume_new                     (PulseaudioPlugin *plugin,
                                                                    PulseaudioConfig *config);

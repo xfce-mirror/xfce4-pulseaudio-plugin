@@ -33,7 +33,7 @@ typedef struct _PulseaudioPlugin      PulseaudioPlugin;
 #define IS_PULSEAUDIO_PLUGIN_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass),  TYPE_PULSEAUDIO_PLUGIN))
 #define PULSEAUDIO_PLUGIN_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj),  TYPE_PULSEAUDIO_PLUGIN, PulseaudioPluginClass))
 
-GType pulseaudio_plugin_get_type      (void) G_GNUC_CONST;
+GType pulseaudio_plugin_get_type      (void);
 
 void  pulseaudio_plugin_register_type (XfcePanelTypeModule *type_module);
 

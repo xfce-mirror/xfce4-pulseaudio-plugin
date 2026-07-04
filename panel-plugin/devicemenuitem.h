@@ -51,7 +51,7 @@ struct _DeviceMenuItemClass
 };
 
 
-GType        device_menu_item_get_type                 (void) G_GNUC_CONST;
+GType        device_menu_item_get_type                 (void);
 
 GtkWidget   *device_menu_item_new_with_label           (const gchar    *label);
 
