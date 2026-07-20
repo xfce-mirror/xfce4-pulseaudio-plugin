@@ -374,11 +374,7 @@ pulseaudio_button_menu_deactivate (PulseaudioButton *button,
   g_return_if_fail (IS_PULSEAUDIO_BUTTON (button));
   g_return_if_fail (GTK_IS_MENU_SHELL (menu));
 
-  if (button->deactivate_id)
-    {
-      g_signal_handler_disconnect (menu, button->deactivate_id);
-      button->deactivate_id = 0;
-    }
+  g_clear_signal_handler (&button->deactivate_id, menu);
 
   if (button->menu != NULL)
     {
