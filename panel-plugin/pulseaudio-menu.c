@@ -501,7 +501,6 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
 
   GList          *devices = NULL;
   GList          *list = NULL;
-  guint           i = 0;
   gchar          *name;
   gboolean        available;
 
@@ -646,7 +645,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
       if (players != NULL)
         {
           num_players = g_strv_length (players);
-          for (i = 0; i < num_players; i++)
+          for (guint i = 0; i < num_players; i++)
             {
               if (pulseaudio_config_player_ignored_lookup (menu->config, players[i]))
                 continue;
