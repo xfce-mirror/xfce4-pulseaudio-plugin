@@ -171,10 +171,10 @@ pulseaudio_notify_notify (PulseaudioNotify *notify, gboolean mic)
   volume_i = (gint) round (volume * 100);
 
   if (!connected)
-    volume_i = 0;
-
-  if (!connected)
-    title = g_strdup_printf (_("Not connected to the PulseAudio server"));
+    {
+      volume_i = 0;
+      title = g_strdup_printf (_("Not connected to the PulseAudio server"));
+    }
   else if (muted)
     title = g_strdup_printf (_("Volume %d%c (muted)"), volume_i, '%');
   else
