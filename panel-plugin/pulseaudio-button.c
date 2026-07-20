@@ -269,18 +269,8 @@ pulseaudio_button_button_press (GtkWidget      *widget,
              G_CALLBACK (pulseaudio_button_menu_deactivate), button);
         }
 
-#if LIBXFCE4PANEL_CHECK_VERSION (4, 17, 2)
       xfce_panel_plugin_popup_menu (XFCE_PANEL_PLUGIN (button->plugin), GTK_MENU (button->menu),
                                     widget, (GdkEvent *) event);
-#else
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-      gtk_menu_popup (GTK_MENU (button->menu),
-                      NULL, NULL,
-                      xfce_panel_plugin_position_menu, button->plugin,
-                      1,
-                      event->time);
-G_GNUC_END_IGNORE_DEPRECATIONS
-#endif
 
       return TRUE;
     }
