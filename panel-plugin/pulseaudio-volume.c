@@ -226,12 +226,8 @@ pulseaudio_volume_finalize (GObject *object)
   volume->plugin = NULL;
   volume->config = NULL;
 
-  if (volume->default_sink_name)
-    g_free (volume->default_sink_name);
-
-  if (volume->default_source_name)
-    g_free (volume->default_source_name);
-
+  g_free (volume->default_sink_name);
+  g_free (volume->default_source_name);
   g_hash_table_destroy (volume->sinks);
   g_hash_table_destroy (volume->sources);
   g_hash_table_destroy (volume->source_idx_to_name);

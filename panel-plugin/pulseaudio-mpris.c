@@ -267,8 +267,7 @@ pulseaudio_mpris_manage_players (PulseaudioMpris *mpris)
       g_hash_table_insert (mpris->players, g_strdup (players[i]), player);
     }
 
-  if (players != NULL)
-    g_strfreev (players);
+  g_strfreev (players);
 }
 
 

@@ -737,9 +737,7 @@ pulseaudio_mpris_player_find_desktop_entry (const gchar *player_name)
     }
 
   g_key_file_free (key_file);
-
-  if (file)
-    g_free (file);
+  g_free (file);
 
   return filename;
 }

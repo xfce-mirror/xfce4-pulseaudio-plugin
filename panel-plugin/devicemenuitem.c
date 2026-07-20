@@ -203,9 +203,7 @@ device_menu_item_finalize (GObject *object)
   item = DEVICE_MENU_ITEM (object);
   priv = device_menu_item_get_instance_private (item);
 
-  if (priv->title)
-    g_free (priv->title);
-
+  g_free (priv->title);
   g_object_unref (priv->submenu);
   g_object_unref (priv->label);
 
