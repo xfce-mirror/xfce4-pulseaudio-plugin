@@ -211,17 +211,8 @@ pulseaudio_mpris_player_parse_metadata (PulseaudioMprisPlayer *player,
 
   gchar **artists;
 
-  if (player->title != NULL)
-    {
-      g_free(player->title);
-      player->title = NULL;
-    }
-
-  if (player->artist != NULL)
-    {
-      g_free(player->artist);
-      player->artist = NULL;
-    }
+  g_clear_pointer (&player->title, g_free);
+  g_clear_pointer (&player->artist, g_free);
 
   g_variant_iter_init (&iter, dictionary);
   while (g_variant_iter_loop (&iter, "{sv}", &key, &value))
@@ -828,8 +819,7 @@ pulseaudio_mpris_player_dbus_connect (PulseaudioMprisPlayer *player)
   if (proxy == NULL)
     {
       g_printerr ("Error creating proxy: %s\n", gerror->message);
-      g_error_free (gerror);
-      gerror = NULL;
+      g_clear_error (&gerror);
     }
   else
     {
@@ -851,8 +841,7 @@ pulseaudio_mpris_player_dbus_connect (PulseaudioMprisPlayer *player)
   if (proxy == NULL)
     {
       g_printerr ("Error creating proxy: %s\n", gerror->message);
-      g_error_free (gerror);
-      gerror = NULL;
+      g_clear_error (&gerror);
     }
   else
     {
@@ -872,8 +861,7 @@ pulseaudio_mpris_player_dbus_connect (PulseaudioMprisPlayer *player)
   if (proxy == NULL)
     {
       g_printerr("Error creating proxy: %s\n", gerror->message);
-      g_error_free(gerror);
-      gerror = NULL;
+      g_clear_error (&gerror);
     }
   else
     {

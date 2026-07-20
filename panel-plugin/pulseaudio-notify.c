@@ -138,10 +138,8 @@ pulseaudio_notify_finalize (GObject *object)
 
   notify->config = NULL;
 
-  g_object_unref (G_OBJECT (notify->notification));
-  notify->notification = NULL;
-  g_object_unref (G_OBJECT (notify->notification_mic));
-  notify->notification_mic = NULL;
+  g_clear_object (&notify->notification);
+  g_clear_object (&notify->notification_mic);
   notify_uninit ();
 
   (*G_OBJECT_CLASS (pulseaudio_notify_parent_class)->finalize) (object);

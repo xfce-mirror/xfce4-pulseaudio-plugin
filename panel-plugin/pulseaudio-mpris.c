@@ -322,8 +322,7 @@ pulseaudio_mpris_get_player_snapshot (PulseaudioMpris  *mpris,
 
   if (*title && **title == '\0')
     {
-      g_free (*title);
-      *title = NULL;
+      g_clear_pointer (title, g_free);
     }
   if (*title == NULL)
     {
