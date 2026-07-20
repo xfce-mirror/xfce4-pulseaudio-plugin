@@ -23,17 +23,9 @@
 #include <libxfce4panel/libxfce4panel.h>
 
 G_BEGIN_DECLS
-typedef struct _PulseaudioPluginClass PulseaudioPluginClass;
-typedef struct _PulseaudioPlugin      PulseaudioPlugin;
 
-#define TYPE_PULSEAUDIO_PLUGIN            (pulseaudio_plugin_get_type ())
-#define PULSEAUDIO_PLUGIN(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), TYPE_PULSEAUDIO_PLUGIN, PulseaudioPlugin))
-#define PULSEAUDIO_PLUGIN_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass),  TYPE_PULSEAUDIO_PLUGIN, PulseaudioPluginClass))
-#define IS_PULSEAUDIO_PLUGIN(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TYPE_PULSEAUDIO_PLUGIN))
-#define IS_PULSEAUDIO_PLUGIN_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass),  TYPE_PULSEAUDIO_PLUGIN))
-#define PULSEAUDIO_PLUGIN_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj),  TYPE_PULSEAUDIO_PLUGIN, PulseaudioPluginClass))
-
-GType pulseaudio_plugin_get_type      (void);
+#define PULSEAUDIO_TYPE_PLUGIN (pulseaudio_plugin_get_type ())
+G_DECLARE_FINAL_TYPE (PulseaudioPlugin, pulseaudio_plugin, PULSEAUDIO, PLUGIN, XfcePanelPlugin)
 
 void  pulseaudio_plugin_register_type (XfcePanelTypeModule *type_module);
 

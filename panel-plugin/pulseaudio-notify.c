@@ -83,11 +83,6 @@ struct _PulseaudioNotify
   gulong                volume_mic_changed_id;
 };
 
-struct _PulseaudioNotifyClass
-{
-  GObjectClass          __parent__;
-};
-
 
 
 G_DEFINE_TYPE (PulseaudioNotify, pulseaudio_notify, G_TYPE_OBJECT)
@@ -160,8 +155,8 @@ pulseaudio_notify_notify (PulseaudioNotify *notify, gboolean mic)
   const char        **icons_array;
   const gchar        *icon = NULL;
 
-  g_return_if_fail (IS_PULSEAUDIO_NOTIFY (notify));
-  g_return_if_fail (IS_PULSEAUDIO_VOLUME (notify->volume));
+  g_return_if_fail (PULSEAUDIO_IS_NOTIFY (notify));
+  g_return_if_fail (PULSEAUDIO_IS_VOLUME (notify->volume));
 
   if (!pulseaudio_config_get_show_notifications (notify->config) ||
       pulseaudio_button_get_menu (notify->button) != NULL)
@@ -222,7 +217,7 @@ pulseaudio_notify_volume_changed (PulseaudioNotify  *notify,
                                   gboolean           should_notify,
                                   PulseaudioVolume  *volume)
 {
-  g_return_if_fail (IS_PULSEAUDIO_NOTIFY (notify));
+  g_return_if_fail (PULSEAUDIO_IS_NOTIFY (notify));
 
   if (should_notify)
     pulseaudio_notify_notify (notify, FALSE);
@@ -235,7 +230,7 @@ pulseaudio_notify_volume_mic_changed (PulseaudioNotify  *notify,
                                       gboolean           should_notify,
                                       PulseaudioVolume  *volume)
 {
-  g_return_if_fail (IS_PULSEAUDIO_NOTIFY (notify));
+  g_return_if_fail (PULSEAUDIO_IS_NOTIFY (notify));
 
   if (should_notify)
     pulseaudio_notify_notify (notify, TRUE);
@@ -250,11 +245,11 @@ pulseaudio_notify_new (PulseaudioConfig *config,
 {
   PulseaudioNotify *notify;
 
-  g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), NULL);
-  g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), NULL);
-  g_return_val_if_fail (IS_PULSEAUDIO_BUTTON (button), NULL);
+  g_return_val_if_fail (PULSEAUDIO_IS_CONFIG (config), NULL);
+  g_return_val_if_fail (PULSEAUDIO_IS_VOLUME (volume), NULL);
+  g_return_val_if_fail (PULSEAUDIO_IS_BUTTON (button), NULL);
 
-  notify = g_object_new (TYPE_PULSEAUDIO_NOTIFY, NULL);
+  notify = g_object_new (PULSEAUDIO_TYPE_NOTIFY, NULL);
 
   notify->config = config;
   notify->volume = volume;

@@ -117,11 +117,6 @@ struct _PulseaudioButton
   gulong                configuration_changed_id;
 };
 
-struct _PulseaudioButtonClass
-{
-  GtkToggleButtonClass __parent__;
-};
-
 
 
 G_DEFINE_TYPE (PulseaudioButton, pulseaudio_button, GTK_TYPE_TOGGLE_BUTTON)
@@ -371,7 +366,7 @@ static void
 pulseaudio_button_menu_deactivate (PulseaudioButton *button,
                                    GtkMenuShell     *menu)
 {
-  g_return_if_fail (IS_PULSEAUDIO_BUTTON (button));
+  g_return_if_fail (PULSEAUDIO_IS_BUTTON (button));
   g_return_if_fail (GTK_IS_MENU_SHELL (menu));
 
   g_clear_signal_handler (&button->deactivate_id, menu);
@@ -410,8 +405,8 @@ pulseaudio_button_update (PulseaudioButton *button,
   const gchar *icon_name;
   const gchar *recording_icon_name;
 
-  g_return_if_fail (IS_PULSEAUDIO_BUTTON (button));
-  g_return_if_fail (IS_PULSEAUDIO_VOLUME (button->volume));
+  g_return_if_fail (PULSEAUDIO_IS_BUTTON (button));
+  g_return_if_fail (PULSEAUDIO_IS_VOLUME (button->volume));
 
   volume = pulseaudio_volume_get_volume (button->volume);
   muted = pulseaudio_volume_get_muted (button->volume);
@@ -477,7 +472,7 @@ pulseaudio_button_set_size (PulseaudioButton *button,
                             gint              size,
                             gint              icon_size)
 {
-  g_return_if_fail (IS_PULSEAUDIO_BUTTON (button));
+  g_return_if_fail (PULSEAUDIO_IS_BUTTON (button));
   g_return_if_fail (size > 0);
 
   button->icon_size = icon_size;
@@ -498,7 +493,7 @@ void
 pulseaudio_button_set_orientation (PulseaudioButton *button,
                                    GtkOrientation    orientation)
 {
-  g_return_if_fail (IS_PULSEAUDIO_BUTTON (button));
+  g_return_if_fail (PULSEAUDIO_IS_BUTTON (button));
 
   gtk_orientable_set_orientation (GTK_ORIENTABLE (button->box), orientation);
 }
@@ -508,7 +503,7 @@ pulseaudio_button_set_orientation (PulseaudioButton *button,
 PulseaudioMenu *
 pulseaudio_button_get_menu (PulseaudioButton *button)
 {
-  g_return_val_if_fail (IS_PULSEAUDIO_BUTTON (button), NULL);
+  g_return_val_if_fail (PULSEAUDIO_IS_BUTTON (button), NULL);
 
   return button->menu;
 }
@@ -520,7 +515,7 @@ pulseaudio_button_recording_changed (PulseaudioButton *button,
                                      gboolean          recording,
                                      PulseaudioVolume *volume)
 {
-  g_return_if_fail (IS_PULSEAUDIO_BUTTON (button));
+  g_return_if_fail (PULSEAUDIO_IS_BUTTON (button));
 
   if (button->recording != recording)
     {
@@ -535,7 +530,7 @@ pulseaudio_button_volume_changed (PulseaudioButton  *button,
                                   gboolean           should_notify,
                                   PulseaudioVolume  *volume)
 {
-  g_return_if_fail (IS_PULSEAUDIO_BUTTON (button));
+  g_return_if_fail (PULSEAUDIO_IS_BUTTON (button));
 
   if (pulseaudio_volume_get_connected (button->volume))
     pulseaudio_button_update (button, FALSE);
@@ -571,7 +566,7 @@ static void
 pulseaudio_button_update2 (PulseaudioButton  *button,
                            PulseaudioVolume  *volume)
 {
-  g_return_if_fail (IS_PULSEAUDIO_BUTTON (button));
+  g_return_if_fail (PULSEAUDIO_IS_BUTTON (button));
 
   pulseaudio_button_update (button, FALSE);
 }
@@ -586,14 +581,14 @@ pulseaudio_button_new (PulseaudioPlugin *plugin,
 {
   PulseaudioButton *button;
 
-  g_return_val_if_fail (IS_PULSEAUDIO_PLUGIN (plugin), NULL);
-  g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), NULL);
+  g_return_val_if_fail (PULSEAUDIO_IS_PLUGIN (plugin), NULL);
+  g_return_val_if_fail (PULSEAUDIO_IS_CONFIG (config), NULL);
 #ifdef HAVE_MPRIS2
-  g_return_val_if_fail (IS_PULSEAUDIO_MPRIS (mpris), NULL);
+  g_return_val_if_fail (PULSEAUDIO_IS_MPRIS (mpris), NULL);
 #endif
-  g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), NULL);
+  g_return_val_if_fail (PULSEAUDIO_IS_VOLUME (volume), NULL);
 
-  button = g_object_new (TYPE_PULSEAUDIO_BUTTON, NULL);
+  button = g_object_new (PULSEAUDIO_TYPE_BUTTON, NULL);
 
   button->plugin = plugin;
   button->volume = volume;

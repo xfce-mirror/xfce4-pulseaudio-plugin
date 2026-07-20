@@ -74,11 +74,6 @@ static void                 pulseaudio_config_set_property   (GObject          *
 
 
 
-struct _PulseaudioConfigClass
-{
-  GObjectClass     __parent__;
-};
-
 struct _PulseaudioConfig
 {
   GObject          __parent__;
@@ -566,7 +561,7 @@ pulseaudio_config_set_property (GObject      *object,
 gboolean
 pulseaudio_config_get_enable_keyboard_shortcuts (PulseaudioConfig *config)
 {
-  g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), DEFAULT_ENABLE_KEYBOARD_SHORTCUTS);
+  g_return_val_if_fail (PULSEAUDIO_IS_CONFIG (config), DEFAULT_ENABLE_KEYBOARD_SHORTCUTS);
 
   return config->enable_keyboard_shortcuts;
 }
@@ -576,7 +571,7 @@ pulseaudio_config_get_enable_keyboard_shortcuts (PulseaudioConfig *config)
 gboolean
 pulseaudio_config_get_enable_multimedia_keys (PulseaudioConfig *config)
 {
-  g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), DEFAULT_ENABLE_MULTIMEDIA_KEYS);
+  g_return_val_if_fail (PULSEAUDIO_IS_CONFIG (config), DEFAULT_ENABLE_MULTIMEDIA_KEYS);
 
   return config->enable_multimedia_keys;
 }
@@ -586,7 +581,7 @@ pulseaudio_config_get_enable_multimedia_keys (PulseaudioConfig *config)
 gboolean
 pulseaudio_config_get_multimedia_keys_to_all (PulseaudioConfig *config)
 {
-  g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), DEFAULT_MULTIMEDIA_KEYS_TO_ALL);
+  g_return_val_if_fail (PULSEAUDIO_IS_CONFIG (config), DEFAULT_MULTIMEDIA_KEYS_TO_ALL);
 
   return config->multimedia_keys_to_all;
 }
@@ -596,7 +591,7 @@ pulseaudio_config_get_multimedia_keys_to_all (PulseaudioConfig *config)
 guint
 pulseaudio_config_get_show_notifications (PulseaudioConfig *config)
 {
-  g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), DEFAULT_SHOW_NOTIFICATIONS);
+  g_return_val_if_fail (PULSEAUDIO_IS_CONFIG (config), DEFAULT_SHOW_NOTIFICATIONS);
 
   return config->show_notifications;
 }
@@ -607,7 +602,7 @@ pulseaudio_config_get_show_notifications (PulseaudioConfig *config)
 gboolean
 pulseaudio_config_get_play_sound (PulseaudioConfig *config)
 {
-  g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), DEFAULT_PLAY_SOUND);
+  g_return_val_if_fail (PULSEAUDIO_IS_CONFIG (config), DEFAULT_PLAY_SOUND);
 
   return config->play_sound;
 }
@@ -618,7 +613,7 @@ pulseaudio_config_get_play_sound (PulseaudioConfig *config)
 gboolean
 pulseaudio_config_get_rec_indicator_persistent (PulseaudioConfig *config)
 {
-  g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), DEFAULT_REC_INDICATOR_PERSISTENT);
+  g_return_val_if_fail (PULSEAUDIO_IS_CONFIG (config), DEFAULT_REC_INDICATOR_PERSISTENT);
 
   return config->rec_indicator_persistent;
 }
@@ -628,7 +623,7 @@ pulseaudio_config_get_rec_indicator_persistent (PulseaudioConfig *config)
 guint
 pulseaudio_config_get_volume_step (PulseaudioConfig *config)
 {
-  g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), DEFAULT_VOLUME_STEP);
+  g_return_val_if_fail (PULSEAUDIO_IS_CONFIG (config), DEFAULT_VOLUME_STEP);
 
   return config->volume_step;
 }
@@ -638,7 +633,7 @@ pulseaudio_config_get_volume_step (PulseaudioConfig *config)
 guint
 pulseaudio_config_get_volume_max (PulseaudioConfig *config)
 {
-  g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), DEFAULT_VOLUME_MAX);
+  g_return_val_if_fail (PULSEAUDIO_IS_CONFIG (config), DEFAULT_VOLUME_MAX);
 
   return config->volume_max;
 }
@@ -648,7 +643,7 @@ pulseaudio_config_get_volume_max (PulseaudioConfig *config)
 const gchar *
 pulseaudio_config_get_mixer_command (PulseaudioConfig *config)
 {
-  g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), DEFAULT_MIXER_COMMAND);
+  g_return_val_if_fail (PULSEAUDIO_IS_CONFIG (config), DEFAULT_MIXER_COMMAND);
 
   return config->mixer_command;
 }
@@ -658,7 +653,7 @@ pulseaudio_config_get_mixer_command (PulseaudioConfig *config)
 gboolean
 pulseaudio_config_get_enable_mpris (PulseaudioConfig *config)
 {
-  g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), DEFAULT_ENABLE_MPRIS);
+  g_return_val_if_fail (PULSEAUDIO_IS_CONFIG (config), DEFAULT_ENABLE_MPRIS);
 
   return config->enable_mpris;
 }
@@ -668,7 +663,7 @@ pulseaudio_config_get_enable_mpris (PulseaudioConfig *config)
 gchar **
 pulseaudio_config_get_known_players (PulseaudioConfig *config)
 {
-  if (!IS_PULSEAUDIO_CONFIG (config))
+  if (!PULSEAUDIO_IS_CONFIG (config))
     {
       return g_strsplit (DEFAULT_KNOWN_PLAYERS, ";", 1);
     }
@@ -698,7 +693,7 @@ pulseaudio_config_set_mpris_players (PulseaudioConfig  *config,
   GSList *list = NULL;
   guint   num_players;
 
-  g_return_if_fail (IS_PULSEAUDIO_CONFIG (config));
+  g_return_if_fail (PULSEAUDIO_IS_CONFIG (config));
 
   num_players = g_strv_length (players);
 
@@ -766,7 +761,7 @@ pulseaudio_config_add_known_player (PulseaudioConfig *config,
 static gchar **
 pulseaudio_config_get_ignored_players (PulseaudioConfig *config)
 {
-  if (!IS_PULSEAUDIO_CONFIG (config))
+  if (!PULSEAUDIO_IS_CONFIG (config))
     {
       return g_strsplit (DEFAULT_IGNORED_PLAYERS, ";", 1);
     }
@@ -779,7 +774,7 @@ pulseaudio_config_get_ignored_players (PulseaudioConfig *config)
 static gchar **
 pulseaudio_config_get_persistent_players (PulseaudioConfig *config)
 {
-  if (!IS_PULSEAUDIO_CONFIG (config))
+  if (!PULSEAUDIO_IS_CONFIG (config))
     {
       return g_strsplit (DEFAULT_PERSISTENT_PLAYERS, ";", 1);
     }
@@ -802,7 +797,7 @@ pulseaudio_config_set_players (PulseaudioConfig  *config,
   GSList *list = NULL;
   guint   num_players;
 
-  g_return_if_fail (IS_PULSEAUDIO_CONFIG (config));
+  g_return_if_fail (PULSEAUDIO_IS_CONFIG (config));
 
   num_players = g_strv_length (players);
 
@@ -987,7 +982,7 @@ pulseaudio_config_clear_known_players (PulseaudioConfig *config)
   GValue  src = { 0, };
   gchar  *property;
 
-  g_return_if_fail (IS_PULSEAUDIO_CONFIG (config));
+  g_return_if_fail (PULSEAUDIO_IS_CONFIG (config));
 
   player_string = g_strdup ("");
 
@@ -1021,7 +1016,7 @@ pulseaudio_config_set_can_raise_wnck (PulseaudioConfig *config,
 {
   GValue src = { 0, };
 
-  g_return_if_fail(IS_PULSEAUDIO_CONFIG(config));
+  g_return_if_fail(PULSEAUDIO_IS_CONFIG(config));
 
   g_value_init (&src, G_TYPE_BOOLEAN);
   g_value_set_boolean (&src, can_raise);
@@ -1046,7 +1041,7 @@ pulseaudio_config_new (const gchar     *property_base)
   XfconfChannel       *channel;
   gchar               *property;
 
-  config = g_object_new (TYPE_PULSEAUDIO_CONFIG, NULL);
+  config = g_object_new (PULSEAUDIO_TYPE_CONFIG, NULL);
 
   if (xfconf_init (NULL))
     {

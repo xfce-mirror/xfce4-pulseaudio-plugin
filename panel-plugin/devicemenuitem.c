@@ -25,14 +25,19 @@
 
 
 
-struct _DeviceMenuItemPrivate {
+typedef struct _DeviceMenuItemPrivate {
   GtkWidget *submenu;
   GtkWidget *label;
   GSList    *group;
   gchar     *title;
+} DeviceMenuItemPrivate;
+
+struct _DeviceMenuItem
+{
+  GtkImageMenuItem parent_instance;
+
+  DeviceMenuItemPrivate *priv;
 };
-
-
 
 enum {
   DEVICE_CHANGED,
@@ -65,7 +70,7 @@ device_menu_item_new_with_label (const gchar *label)
 
   TRACE("entering");
 
-  device_item = DEVICE_MENU_ITEM (g_object_new (TYPE_DEVICE_MENU_ITEM, NULL));
+  device_item = DEVICE_MENU_ITEM (g_object_new (DEVICE_TYPE_MENU_ITEM, NULL));
 
   priv = device_menu_item_get_instance_private (device_item);
 
@@ -126,7 +131,7 @@ device_menu_item_set_device_by_name (DeviceMenuItem *item,
   GList                 *iter = NULL;
   gboolean               markup_set = FALSE;
 
-  g_return_if_fail (IS_DEVICE_MENU_ITEM (item));
+  g_return_if_fail (DEVICE_IS_MENU_ITEM (item));
 
   priv = device_menu_item_get_instance_private (item);
 
@@ -169,7 +174,7 @@ device_menu_item_class_init (DeviceMenuItemClass *item_class)
    * of user input.
    */
   signals[DEVICE_CHANGED] = g_signal_new ("device-changed",
-                                          TYPE_DEVICE_MENU_ITEM,
+                                          DEVICE_TYPE_MENU_ITEM,
                                           G_SIGNAL_RUN_LAST,
                                           0, NULL, NULL,
                                           g_cclosure_marshal_VOID__STRING,
@@ -216,7 +221,7 @@ static void
 device_menu_item_device_toggled (DeviceMenuItem   *item,
                                  GtkCheckMenuItem *menu_item)
 {
-  g_return_if_fail (IS_DEVICE_MENU_ITEM (item));
+  g_return_if_fail (DEVICE_IS_MENU_ITEM (item));
 
   if (gtk_check_menu_item_get_active (menu_item))
     {

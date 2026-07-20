@@ -50,11 +50,6 @@ static void              pulseaudio_dialog_run_mixer              (PulseaudioDia
 
 
 
-struct _PulseaudioDialogClass
-{
-  GtkBuilderClass   __parent__;
-};
-
 struct _PulseaudioDialog
 {
   GtkBuilder         __parent__;
@@ -97,7 +92,7 @@ pulseaudio_dialog_mixer_command_changed (PulseaudioDialog *dialog)
   gboolean sensitive = FALSE;
 
   g_return_if_fail (GTK_IS_BUILDER (dialog));
-  g_return_if_fail (IS_PULSEAUDIO_CONFIG (dialog->config));
+  g_return_if_fail (PULSEAUDIO_IS_CONFIG (dialog->config));
 
   object = gtk_builder_get_object (GTK_BUILDER (dialog), "button-run-mixer");
   g_return_if_fail (GTK_IS_BUTTON (object));
@@ -121,7 +116,7 @@ pulseaudio_dialog_run_mixer (PulseaudioDialog *dialog,
   GError    *error = NULL;
   GtkWidget *message_dialog;
 
-  g_return_if_fail (IS_PULSEAUDIO_DIALOG (dialog));
+  g_return_if_fail (PULSEAUDIO_IS_DIALOG (dialog));
   g_return_if_fail (GTK_IS_BUTTON (widget));
 
   if (!xfce_spawn_command_line (gtk_widget_get_screen (widget),
@@ -436,7 +431,7 @@ static void
 pulseaudio_dialog_help_button_clicked (PulseaudioDialog *dialog,
                                        GtkWidget        *button)
 {
-  g_return_if_fail (IS_PULSEAUDIO_DIALOG (dialog));
+  g_return_if_fail (PULSEAUDIO_IS_DIALOG (dialog));
   g_return_if_fail (GTK_IS_BUTTON (button));
   g_return_if_fail (GTK_IS_WINDOW (dialog->dialog));
 
@@ -449,7 +444,7 @@ void
 pulseaudio_dialog_show (PulseaudioDialog *dialog,
                         GdkScreen        *screen)
 {
-  g_return_if_fail (IS_PULSEAUDIO_DIALOG (dialog));
+  g_return_if_fail (PULSEAUDIO_IS_DIALOG (dialog));
   g_return_if_fail (GDK_IS_SCREEN (screen));
 
   if (dialog->dialog != NULL)
@@ -471,9 +466,9 @@ pulseaudio_dialog_new (PulseaudioConfig *config)
 {
   PulseaudioDialog *dialog;
 
-  g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), NULL);
+  g_return_val_if_fail (PULSEAUDIO_IS_CONFIG (config), NULL);
 
-  dialog = g_object_new (TYPE_PULSEAUDIO_DIALOG, NULL);
+  dialog = g_object_new (PULSEAUDIO_TYPE_DIALOG, NULL);
   dialog->config = config;
 
   return dialog;

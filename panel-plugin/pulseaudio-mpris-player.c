@@ -70,14 +70,6 @@ struct _PulseaudioMprisPlayer
   gint64            timestamp;
 };
 
-struct _PulseaudioMprisPlayerClass
-{
-  GObjectClass            __parent__;
-  void (*connection)      (PulseaudioMprisPlayer *player, gboolean        connected);
-  void (*playback_status) (PulseaudioMprisPlayer *player, PlaybackStatus  playback_status);
-  void (*metadata)        (PulseaudioMprisPlayer *player);
-};
-
 
 
 static void pulseaudio_mpris_player_finalize     (GObject               *object);
@@ -114,8 +106,7 @@ pulseaudio_mpris_player_class_init (PulseaudioMprisPlayerClass *klass)
     g_signal_new ("connection",
                   G_TYPE_FROM_CLASS (gobject_class),
                   G_SIGNAL_RUN_LAST,
-                  G_STRUCT_OFFSET (PulseaudioMprisPlayerClass, connection),
-                  NULL, NULL,
+                  0, NULL, NULL,
                   g_cclosure_marshal_VOID__BOOLEAN,
                   G_TYPE_NONE, 1, G_TYPE_BOOLEAN);
 
@@ -123,8 +114,7 @@ pulseaudio_mpris_player_class_init (PulseaudioMprisPlayerClass *klass)
     g_signal_new ("playback-status",
                   G_TYPE_FROM_CLASS (gobject_class),
                   G_SIGNAL_RUN_LAST,
-                  G_STRUCT_OFFSET (PulseaudioMprisPlayerClass, playback_status),
-                  NULL, NULL,
+                  0, NULL, NULL,
                   g_cclosure_marshal_VOID__ENUM,
                   G_TYPE_NONE, 1, G_TYPE_INT);
 
@@ -132,8 +122,7 @@ pulseaudio_mpris_player_class_init (PulseaudioMprisPlayerClass *klass)
     g_signal_new ("metadata",
                   G_TYPE_FROM_CLASS (gobject_class),
                   G_SIGNAL_RUN_LAST,
-                  G_STRUCT_OFFSET (PulseaudioMprisPlayerClass, metadata),
-                  NULL, NULL,
+                  0, NULL, NULL,
                   g_cclosure_marshal_VOID__VOID,
                   G_TYPE_NONE, 0);
 }
@@ -1066,7 +1055,7 @@ pulseaudio_mpris_player_new (gchar *name)
       return NULL;
     }
 
-  player = g_object_new (TYPE_PULSEAUDIO_MPRIS_PLAYER, NULL);
+  player = g_object_new (PULSEAUDIO_TYPE_MPRIS_PLAYER, NULL);
 
   player->dbus_connection = gconnection;
   player->player = g_strdup (name);

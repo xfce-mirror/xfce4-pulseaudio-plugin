@@ -25,17 +25,8 @@
 
 G_BEGIN_DECLS
 
-GType pulseaudio_mpris_get_type (void);
-
-#define TYPE_PULSEAUDIO_MPRIS            (pulseaudio_mpris_get_type())
-#define PULSEAUDIO_MPRIS(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj), TYPE_PULSEAUDIO_MPRIS, PulseaudioMpris))
-#define PULSEAUDIO_MPRIS_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass),  TYPE_PULSEAUDIO_MPRIS, PulseaudioMprisClass))
-#define IS_PULSEAUDIO_MPRIS(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), TYPE_PULSEAUDIO_MPRIS))
-#define IS_PULSEAUDIO_MPRIS_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass),  TYPE_PULSEAUDIO_MPRIS))
-#define PULSEAUDIO_MPRIS_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj),  TYPE_PULSEAUDIO_MPRIS, PulseaudioMprisClass))
-
-typedef struct          _PulseaudioMpris                       PulseaudioMpris;
-typedef struct          _PulseaudioMprisClass                  PulseaudioMprisClass;
+#define PULSEAUDIO_TYPE_MPRIS (pulseaudio_mpris_get_type())
+G_DECLARE_FINAL_TYPE (PulseaudioMpris, pulseaudio_mpris, PULSEAUDIO, MPRIS, GObject)
 
 PulseaudioMpris        *pulseaudio_mpris_new                   (PulseaudioConfig *config);
 
