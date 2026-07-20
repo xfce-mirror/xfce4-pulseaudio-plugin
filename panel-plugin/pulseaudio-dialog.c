@@ -221,11 +221,8 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
 {
   GtkBuilder   *builder = GTK_BUILDER (dialog);
   GObject      *object;
-  GtkListStore *liststore;
-  GtkTreeIter   iter;
   GError       *error = NULL;
   gchar       **players;
-  guint         i;
 
   if (xfce_titled_dialog_get_type () == 0)
     return;
@@ -344,12 +341,12 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
 
       /* Populate the liststore */
       dialog->treeview = GTK_WIDGET(gtk_builder_get_object(builder, "player_tree_view"));
-      liststore = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(dialog->treeview)));
+      GtkListStore *liststore = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(dialog->treeview)));
       players = pulseaudio_config_get_known_players (dialog->config);
       if (players != NULL)
         {
           const guint num_players = g_strv_length (players);
-          for (i = 0; i < num_players; i++)
+          for (guint i = 0; i < num_players; i++)
             {
               gchar *player_label = NULL;
               gchar *icon_name = NULL;
@@ -372,6 +369,7 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
                         icon = g_themed_icon_new_with_default_fallbacks ("audio-player");
                     }
 
+                  GtkTreeIter iter;
                   gtk_list_store_append (liststore, &iter);
                   gtk_list_store_set (liststore, &iter,
                                       0, icon,
