@@ -631,7 +631,7 @@ pulseaudio_plugin_construct (XfcePanelPlugin *plugin)
   pulseaudio_plugin->volume = pulseaudio_volume_new (pulseaudio_plugin,
                                                      pulseaudio_plugin->config);
 
-  g_signal_connect_swapped (pulseaudio_plugin->volume, "recording_changed", G_CALLBACK (pulseaudio_plugin_toggle_small), pulseaudio_plugin);
+  g_signal_connect_swapped (pulseaudio_plugin->volume, "recording-changed", G_CALLBACK (pulseaudio_plugin_toggle_small), pulseaudio_plugin);
 
   /* initialize mpris support */
 #ifdef HAVE_MPRIS2
