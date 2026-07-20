@@ -29,17 +29,8 @@
 
 G_BEGIN_DECLS
 
-GType pulseaudio_button_get_type (void);
-
-#define TYPE_PULSEAUDIO_BUTTON             (pulseaudio_button_get_type())
-#define PULSEAUDIO_BUTTON(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), TYPE_PULSEAUDIO_BUTTON, PulseaudioButton))
-#define PULSEAUDIO_BUTTON_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST((klass),  TYPE_PULSEAUDIO_BUTTON, PulseaudioButtonClass))
-#define IS_PULSEAUDIO_BUTTON(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), TYPE_PULSEAUDIO_BUTTON))
-#define IS_PULSEAUDIO_BUTTON_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE((klass),  TYPE_PULSEAUDIO_BUTTON))
-#define PULSEAUDIO_BUTTON_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS((obj),  TYPE_PULSEAUDIO_BUTTON, PulseaudioButtonClass))
-
-typedef struct          _PulseaudioButton              PulseaudioButton;
-typedef struct          _PulseaudioButtonClass         PulseaudioButtonClass;
+#define PULSEAUDIO_TYPE_BUTTON (pulseaudio_button_get_type())
+G_DECLARE_FINAL_TYPE (PulseaudioButton, pulseaudio_button, PULSEAUDIO, BUTTON, GtkToggleButton)
 
 PulseaudioButton       *pulseaudio_button_new         (PulseaudioPlugin *plugin,
                                                        PulseaudioConfig *config,

@@ -96,11 +96,6 @@ struct _PulseaudioVolume
   gchar                *default_source_name;
 };
 
-struct _PulseaudioVolumeClass
-{
-  GObjectClass          __parent__;
-};
-
 
 
 typedef struct
@@ -388,7 +383,7 @@ pulseaudio_volume_sink_source_check (PulseaudioVolume *volume,
 {
   pa_operation *op;
 
-  g_return_if_fail (IS_PULSEAUDIO_VOLUME (volume));
+  g_return_if_fail (PULSEAUDIO_IS_VOLUME (volume));
 
   op = pa_context_get_server_info (context, pulseaudio_volume_server_info_cb, volume);
   if (op)
@@ -668,7 +663,7 @@ pulseaudio_volume_connect (PulseaudioVolume *volume)
   pa_proplist  *proplist;
   gint          err;
 
-  g_return_if_fail (IS_PULSEAUDIO_VOLUME (volume));
+  g_return_if_fail (PULSEAUDIO_IS_VOLUME (volume));
   g_return_if_fail (!volume->connected);
 
   proplist = pa_proplist_new ();
@@ -704,7 +699,7 @@ pulseaudio_volume_reconnect_timeout  (gpointer userdata)
 gboolean
 pulseaudio_volume_get_connected (PulseaudioVolume *volume)
 {
-  g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), FALSE);
+  g_return_val_if_fail (PULSEAUDIO_IS_VOLUME (volume), FALSE);
 
   return volume->connected;
 }
@@ -718,7 +713,7 @@ pulseaudio_volume_v2d (PulseaudioVolume *volume,
   gdouble vol;
   gdouble vol_max;
 
-  g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), 0.0);
+  g_return_val_if_fail (PULSEAUDIO_IS_VOLUME (volume), 0.0);
 
   vol_max = pulseaudio_config_get_volume_max (volume->config) / 100.0;
 
@@ -737,7 +732,7 @@ pulseaudio_volume_d2v (PulseaudioVolume *volume,
 {
   pa_volume_t pa_volume;
 
-  g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), PA_VOLUME_MUTED);
+  g_return_val_if_fail (PULSEAUDIO_IS_VOLUME (volume), PA_VOLUME_MUTED);
 
   pa_volume = (pa_volume_t) ((PA_VOLUME_NORM - PA_VOLUME_MUTED) * vol);
   pa_volume = pa_volume + PA_VOLUME_MUTED;
@@ -751,7 +746,7 @@ pulseaudio_volume_d2v (PulseaudioVolume *volume,
 gboolean
 pulseaudio_volume_get_muted (PulseaudioVolume *volume)
 {
-  g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), FALSE);
+  g_return_val_if_fail (PULSEAUDIO_IS_VOLUME (volume), FALSE);
 
   return volume->muted;
 }
@@ -761,7 +756,7 @@ pulseaudio_volume_get_muted (PulseaudioVolume *volume)
 gboolean
 pulseaudio_volume_get_recording (PulseaudioVolume *volume)
 {
-  g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), FALSE);
+  g_return_val_if_fail (PULSEAUDIO_IS_VOLUME (volume), FALSE);
 
   return volume->recording;
 }
@@ -795,7 +790,7 @@ pulseaudio_volume_set_muted (PulseaudioVolume *volume,
 {
   pa_operation *op;
 
-  g_return_if_fail (IS_PULSEAUDIO_VOLUME (volume));
+  g_return_if_fail (PULSEAUDIO_IS_VOLUME (volume));
   g_return_if_fail (volume->pa_context != NULL);
   g_return_if_fail (pa_context_get_state (volume->pa_context) == PA_CONTEXT_READY);
 
@@ -813,7 +808,7 @@ pulseaudio_volume_set_muted (PulseaudioVolume *volume,
 void
 pulseaudio_volume_toggle_muted (PulseaudioVolume *volume)
 {
-  g_return_if_fail (IS_PULSEAUDIO_VOLUME (volume));
+  g_return_if_fail (PULSEAUDIO_IS_VOLUME (volume));
 
   pulseaudio_volume_set_muted (volume, !volume->muted);
 }
@@ -823,7 +818,7 @@ pulseaudio_volume_toggle_muted (PulseaudioVolume *volume)
 gboolean
 pulseaudio_volume_get_muted_mic (PulseaudioVolume *volume)
 {
-  g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), FALSE);
+  g_return_val_if_fail (PULSEAUDIO_IS_VOLUME (volume), FALSE);
 
   return volume->muted_mic;
 }
@@ -852,7 +847,7 @@ pulseaudio_volume_set_muted_mic (PulseaudioVolume *volume,
 {
   pa_operation *op;
 
-  g_return_if_fail (IS_PULSEAUDIO_VOLUME (volume));
+  g_return_if_fail (PULSEAUDIO_IS_VOLUME (volume));
   g_return_if_fail (volume->pa_context != NULL);
   g_return_if_fail (pa_context_get_state (volume->pa_context) == PA_CONTEXT_READY);
 
@@ -870,7 +865,7 @@ pulseaudio_volume_set_muted_mic (PulseaudioVolume *volume,
 void
 pulseaudio_volume_toggle_muted_mic (PulseaudioVolume *volume)
 {
-  g_return_if_fail (IS_PULSEAUDIO_VOLUME (volume));
+  g_return_if_fail (PULSEAUDIO_IS_VOLUME (volume));
 
   pulseaudio_volume_set_muted_mic (volume, !volume->muted_mic);
 }
@@ -880,7 +875,7 @@ pulseaudio_volume_toggle_muted_mic (PulseaudioVolume *volume)
 gdouble
 pulseaudio_volume_get_volume (PulseaudioVolume *volume)
 {
-  g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), 0.0);
+  g_return_val_if_fail (PULSEAUDIO_IS_VOLUME (volume), 0.0);
 
   return volume->volume;
 }
@@ -955,7 +950,7 @@ pulseaudio_volume_set_volume (PulseaudioVolume *volume,
   gdouble vol_max;
   gdouble vol_trim;
 
-  g_return_if_fail (IS_PULSEAUDIO_VOLUME (volume));
+  g_return_if_fail (PULSEAUDIO_IS_VOLUME (volume));
   g_return_if_fail (volume->pa_context != NULL);
   g_return_if_fail (pa_context_get_state (volume->pa_context) == PA_CONTEXT_READY);
 
@@ -976,7 +971,7 @@ pulseaudio_volume_set_volume (PulseaudioVolume *volume,
 gdouble
 pulseaudio_volume_get_volume_mic (PulseaudioVolume *volume)
 {
-  g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), 0.0);
+  g_return_val_if_fail (PULSEAUDIO_IS_VOLUME (volume), 0.0);
 
   return volume->volume_mic;
 }
@@ -986,7 +981,7 @@ pulseaudio_volume_get_volume_mic (PulseaudioVolume *volume)
 gdouble
 pulseaudio_volume_get_base_volume_mic (PulseaudioVolume *volume)
 {
-  g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), 0.0);
+  g_return_val_if_fail (PULSEAUDIO_IS_VOLUME (volume), 0.0);
 
   return volume->base_volume_mic;
 }
@@ -1043,7 +1038,7 @@ pulseaudio_volume_set_volume_mic (PulseaudioVolume *volume,
   gdouble vol_max;
   gdouble vol_trim;
 
-  g_return_if_fail (IS_PULSEAUDIO_VOLUME (volume));
+  g_return_if_fail (PULSEAUDIO_IS_VOLUME (volume));
   g_return_if_fail (volume->pa_context != NULL);
   g_return_if_fail (pa_context_get_state (volume->pa_context) == PA_CONTEXT_READY);
 
@@ -1127,7 +1122,7 @@ pulseaudio_volume_get_output_list (PulseaudioVolume *volume)
   GList *list;
   GList *sorted;
 
-  g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), NULL);
+  g_return_val_if_fail (PULSEAUDIO_IS_VOLUME (volume), NULL);
 
   list = g_hash_table_get_keys (volume->sinks);
   sorted = g_list_sort_with_data (list, (GCompareDataFunc) sort_device_list, volume->sinks);
@@ -1142,7 +1137,7 @@ pulseaudio_volume_get_output_by_name (PulseaudioVolume *volume,
                                       const gchar      *name,
                                       gboolean         *available)
 {
-  g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), NULL);
+  g_return_val_if_fail (PULSEAUDIO_IS_VOLUME (volume), NULL);
   return pulseaudio_volume_get_description (volume->sinks, name, available);
 }
 
@@ -1153,7 +1148,7 @@ pulseaudio_volume_get_output_ports_by_name (PulseaudioVolume *volume,
                                             const gchar      *name,
                                             guint            *count)
 {
-  g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), NULL);
+  g_return_val_if_fail (PULSEAUDIO_IS_VOLUME (volume), NULL);
   return pulseaudio_volume_get_ports (volume->sinks, name, count);
 }
 
@@ -1165,7 +1160,7 @@ pulseaudio_volume_get_input_list (PulseaudioVolume *volume)
   GList *list;
   GList *sorted;
 
-  g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), NULL);
+  g_return_val_if_fail (PULSEAUDIO_IS_VOLUME (volume), NULL);
 
   list = g_hash_table_get_keys (volume->sources);
   sorted = g_list_sort_with_data (list, (GCompareDataFunc) sort_device_list, volume->sources);
@@ -1180,7 +1175,7 @@ pulseaudio_volume_get_input_by_name (PulseaudioVolume *volume,
                                      const gchar      *name,
                                      gboolean         *available)
 {
-  g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), NULL);
+  g_return_val_if_fail (PULSEAUDIO_IS_VOLUME (volume), NULL);
   return pulseaudio_volume_get_description (volume->sources, name, available);
 }
 
@@ -1191,7 +1186,7 @@ pulseaudio_volume_get_input_ports_by_name (PulseaudioVolume *volume,
                                            const gchar      *name,
                                            guint            *count)
 {
-  g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), NULL);
+  g_return_val_if_fail (PULSEAUDIO_IS_VOLUME (volume), NULL);
   return pulseaudio_volume_get_ports (volume->sources, name, count);
 }
 
@@ -1333,9 +1328,9 @@ pulseaudio_volume_new (PulseaudioPlugin *plugin,
 {
   PulseaudioVolume *volume;
 
-  g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), NULL);
+  g_return_val_if_fail (PULSEAUDIO_IS_CONFIG (config), NULL);
 
-  volume = g_object_new (TYPE_PULSEAUDIO_VOLUME, NULL);
+  volume = g_object_new (PULSEAUDIO_TYPE_VOLUME, NULL);
   volume->plugin = plugin;
   volume->config = config;
 

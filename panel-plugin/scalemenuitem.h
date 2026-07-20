@@ -33,7 +33,8 @@
 G_BEGIN_DECLS
 
 #define XFPA_TYPE_SCALE_MENU_ITEM (xfpa_scale_menu_item_get_type ())
-#ifndef glib_autoptr_clear_GtkImageMenuItem
+#ifndef GTK_IMAGE_MENU_ITEM_AUTOPTR_CLEANUP_FUNC_ALREADY_DEFINED
+#define GTK_IMAGE_MENU_ITEM_AUTOPTR_CLEANUP_FUNC_ALREADY_DEFINED 1
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkImageMenuItem, g_object_unref)
 #endif
 G_DECLARE_FINAL_TYPE (XfpaScaleMenuItem, xfpa_scale_menu_item, XFPA, SCALE_MENU_ITEM, GtkImageMenuItem)

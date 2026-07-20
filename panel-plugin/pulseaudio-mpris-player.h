@@ -38,17 +38,8 @@ typedef enum {
   STOPPED
 } PlaybackStatus;
 
-GType pulseaudio_mpris_player_get_type (void);
-
-#define TYPE_PULSEAUDIO_MPRIS_PLAYER            (pulseaudio_mpris_player_get_type())
-#define PULSEAUDIO_MPRIS_PLAYER(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj), TYPE_PULSEAUDIO_MPRIS_PLAYER, PulseaudioMprisPlayer))
-#define PULSEAUDIO_MPRIS_PLAYER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass),  TYPE_PULSEAUDIO_MPRIS_PLAYER, PulseaudioMprisPlayerClass))
-#define IS_PULSEAUDIO_MPRIS_PLAYER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), TYPE_PULSEAUDIO_MPRIS_PLAYER))
-#define IS_PULSEAUDIO_MPRIS_PLAYER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass),  TYPE_PULSEAUDIO_MPRIS_PLAYER))
-#define PULSEAUDIO_MPRIS_PLAYER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj),  TYPE_PULSEAUDIO_MPRIS_PLAYER, PulseaudioMprisPlayerClass))
-
-typedef struct          _PulseaudioMprisPlayer                     PulseaudioMprisPlayer;
-typedef struct          _PulseaudioMprisPlayerClass                PulseaudioMprisPlayerClass;
+#define PULSEAUDIO_TYPE_MPRIS_PLAYER (pulseaudio_mpris_player_get_type())
+G_DECLARE_FINAL_TYPE (PulseaudioMprisPlayer, pulseaudio_mpris_player, PULSEAUDIO, MPRIS_PLAYER, GObject)
 
 PulseaudioMprisPlayer  *pulseaudio_mpris_player_new                (gchar *name);
 

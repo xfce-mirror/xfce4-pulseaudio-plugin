@@ -25,15 +25,8 @@
 
 G_BEGIN_DECLS
 
-#define TYPE_PULSEAUDIO_VOLUME             (pulseaudio_volume_get_type ())
-#define PULSEAUDIO_VOLUME(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), TYPE_PULSEAUDIO_VOLUME, PulseaudioVolume))
-#define PULSEAUDIO_VOLUME_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ((klass),  TYPE_PULSEAUDIO_VOLUME, PulseaudioVolumeClass))
-#define IS_PULSEAUDIO_VOLUME(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TYPE_PULSEAUDIO_VOLUME))
-#define IS_PULSEAUDIO_VOLUME_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass),  TYPE_PULSEAUDIO_VOLUME))
-#define PULSEAUDIO_VOLUME_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj),  TYPE_PULSEAUDIO_VOLUME, PulseaudioVolumeClass))
-
-typedef struct          _PulseaudioVolume                         PulseaudioVolume;
-typedef struct          _PulseaudioVolumeClass                    PulseaudioVolumeClass;
+#define PULSEAUDIO_TYPE_VOLUME (pulseaudio_volume_get_type ())
+G_DECLARE_FINAL_TYPE (PulseaudioVolume, pulseaudio_volume, PULSEAUDIO, VOLUME, GObject)
 
 typedef struct
 {
@@ -42,8 +35,6 @@ typedef struct
   gboolean              available;
   gboolean              active;
 } PulseAudioPortInfo;
-
-GType                   pulseaudio_volume_get_type                (void);
 
 PulseaudioVolume       *pulseaudio_volume_new                     (PulseaudioPlugin *plugin,
                                                                    PulseaudioConfig *config);

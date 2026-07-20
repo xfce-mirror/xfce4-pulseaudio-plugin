@@ -27,17 +27,8 @@
 
 G_BEGIN_DECLS
 
-GType pulseaudio_menu_get_type (void);
-
-#define TYPE_PULSEAUDIO_MENU             (pulseaudio_menu_get_type())
-#define PULSEAUDIO_MENU(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), TYPE_PULSEAUDIO_MENU, PulseaudioMenu))
-#define PULSEAUDIO_MENU_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST((klass),  TYPE_PULSEAUDIO_MENU, PulseaudioMenuClass))
-#define IS_PULSEAUDIO_MENU(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), TYPE_PULSEAUDIO_MENU))
-#define IS_PULSEAUDIO_MENU_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE((klass),  TYPE_PULSEAUDIO_MENU))
-#define PULSEAUDIO_MENU_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS((obj),  TYPE_PULSEAUDIO_MENU, PulseaudioMenuClass))
-
-typedef struct          _PulseaudioMenu              PulseaudioMenu;
-typedef struct          _PulseaudioMenuClass         PulseaudioMenuClass;
+#define PULSEAUDIO_TYPE_MENU (pulseaudio_menu_get_type())
+G_DECLARE_FINAL_TYPE (PulseaudioMenu, pulseaudio_menu, PULSEAUDIO, MENU, GtkMenu)
 
 PulseaudioMenu         *pulseaudio_menu_new         (PulseaudioVolume *volume,
                                                      PulseaudioConfig *config,
