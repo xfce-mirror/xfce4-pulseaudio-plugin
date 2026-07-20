@@ -72,8 +72,6 @@ typedef struct _MprisMenuItemPrivate {
 struct _MprisMenuItem
 {
   GtkImageMenuItem parent_instance;
-
-  MprisMenuItemPrivate *priv;
 };
 
 enum {

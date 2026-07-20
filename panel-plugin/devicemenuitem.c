@@ -35,8 +35,6 @@ typedef struct _DeviceMenuItemPrivate {
 struct _DeviceMenuItem
 {
   GtkImageMenuItem parent_instance;
-
-  DeviceMenuItemPrivate *priv;
 };
 
 enum {
