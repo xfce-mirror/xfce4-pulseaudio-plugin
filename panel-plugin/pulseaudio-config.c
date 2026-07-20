@@ -551,7 +551,10 @@ pulseaudio_config_set_property (GObject      *object,
       break;
 
     default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+      if (pspec != NULL)
+        G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+      else
+        g_warn_if_reached ();
       break;
     }
 }
