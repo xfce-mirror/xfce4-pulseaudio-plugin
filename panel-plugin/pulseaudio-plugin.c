@@ -419,7 +419,9 @@ pulseaudio_plugin_volume_key_pressed (const char            *keystring,
   gdouble           volume            = pulseaudio_volume_get_volume (pulseaudio_plugin->volume);
   gdouble           volume_step       = pulseaudio_config_get_volume_step (pulseaudio_plugin->config) / 100.0;
   gdouble           max_volume        = pulseaudio_config_get_volume_max (pulseaudio_plugin->config) / 100.0;
+#ifdef HAVE_LIBNOTIFY
   gboolean          notify            = pulseaudio_volume_get_show_notifications (pulseaudio_plugin->volume, VOLUME_NOTIFICATIONS_OUTPUT);
+#endif
 
   pulseaudio_debug ("%s pressed", keystring);
 
