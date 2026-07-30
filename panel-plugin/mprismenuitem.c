@@ -40,7 +40,7 @@
 /* for DBG/TRACE */
 #include <libxfce4util/libxfce4util.h>
 
-struct _MprisMenuItemPrivate {
+typedef struct _MprisMenuItemPrivate {
   GtkWidget *title_label;
   GtkWidget *artist_label;
 
@@ -67,9 +67,12 @@ struct _MprisMenuItemPrivate {
   GtkWidget *vbox;
   GtkWidget *hbox;
   GtkWidget *button_box;
+} MprisMenuItemPrivate;
+
+struct _MprisMenuItem
+{
+  GtkImageMenuItem parent_instance;
 };
-
-
 
 enum {
   MEDIA_NOTIFY,
@@ -127,7 +130,7 @@ mpris_menu_item_new_with_player (const gchar *player,
 
   TRACE("entering");
 
-  menu_item = MPRIS_MENU_ITEM (g_object_new (TYPE_MPRIS_MENU_ITEM, NULL));
+  menu_item = MPRIS_MENU_ITEM (g_object_new (MPRIS_TYPE_MENU_ITEM, NULL));
 
   priv = mpris_menu_item_get_instance_private (menu_item);
 
@@ -195,7 +198,7 @@ mpris_menu_item_get_player (MprisMenuItem *item)
 {
   MprisMenuItemPrivate *priv;
 
-  g_return_val_if_fail (IS_MPRIS_MENU_ITEM (item), NULL);
+  g_return_val_if_fail (MPRIS_IS_MENU_ITEM (item), NULL);
 
   priv = mpris_menu_item_get_instance_private (item);
 
@@ -210,7 +213,7 @@ mpris_menu_item_set_title (MprisMenuItem *item,
 {
   MprisMenuItemPrivate *priv;
 
-  g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
+  g_return_if_fail (MPRIS_IS_MENU_ITEM (item));
 
   priv = mpris_menu_item_get_instance_private (item);
 
@@ -228,7 +231,7 @@ mpris_menu_item_set_artist (MprisMenuItem *item,
 {
   MprisMenuItemPrivate *priv;
 
-  g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
+  g_return_if_fail (MPRIS_IS_MENU_ITEM (item));
 
   priv = mpris_menu_item_get_instance_private (item);
 
@@ -246,7 +249,7 @@ mpris_menu_item_set_can_go_previous (MprisMenuItem *item,
 {
   MprisMenuItemPrivate *priv;
 
-  g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
+  g_return_if_fail (MPRIS_IS_MENU_ITEM (item));
 
   priv = mpris_menu_item_get_instance_private (item);
 
@@ -266,7 +269,7 @@ mpris_menu_item_set_can_play (MprisMenuItem *item,
 {
   MprisMenuItemPrivate *priv;
 
-  g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
+  g_return_if_fail (MPRIS_IS_MENU_ITEM (item));
 
   priv = mpris_menu_item_get_instance_private (item);
 
@@ -291,7 +294,7 @@ mpris_menu_item_set_can_pause (MprisMenuItem *item,
 {
   MprisMenuItemPrivate *priv;
 
-  g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
+  g_return_if_fail (MPRIS_IS_MENU_ITEM (item));
 
   priv = mpris_menu_item_get_instance_private (item);
 
@@ -316,7 +319,7 @@ mpris_menu_item_set_can_go_next (MprisMenuItem *item,
 {
   MprisMenuItemPrivate *priv;
 
-  g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
+  g_return_if_fail (MPRIS_IS_MENU_ITEM (item));
 
   priv = mpris_menu_item_get_instance_private (item);
 
@@ -336,7 +339,7 @@ mpris_menu_item_set_can_raise (MprisMenuItem *item,
 {
   MprisMenuItemPrivate *priv;
 
-  g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
+  g_return_if_fail (MPRIS_IS_MENU_ITEM (item));
 
   priv = mpris_menu_item_get_instance_private (item);
 
@@ -351,7 +354,7 @@ mpris_menu_item_set_can_raise_wnck (MprisMenuItem *item,
 {
   MprisMenuItemPrivate *priv;
 
-  g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
+  g_return_if_fail (MPRIS_IS_MENU_ITEM (item));
 
   priv = mpris_menu_item_get_instance_private (item);
 
@@ -366,7 +369,7 @@ mpris_menu_item_set_is_running (MprisMenuItem *item,
 {
   MprisMenuItemPrivate *priv;
 
-  g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
+  g_return_if_fail (MPRIS_IS_MENU_ITEM (item));
 
   priv = mpris_menu_item_get_instance_private (item);
 
@@ -402,7 +405,7 @@ mpris_menu_item_set_is_playing (MprisMenuItem *item,
 {
   MprisMenuItemPrivate *priv;
 
-  g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
+  g_return_if_fail (MPRIS_IS_MENU_ITEM (item));
 
   priv = mpris_menu_item_get_instance_private (item);
 
@@ -434,7 +437,7 @@ mpris_menu_item_set_is_stopped (MprisMenuItem *item,
 {
   MprisMenuItemPrivate *priv;
 
-  g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
+  g_return_if_fail (MPRIS_IS_MENU_ITEM (item));
 
   priv = mpris_menu_item_get_instance_private (item);
 
@@ -473,7 +476,7 @@ mpris_menu_item_class_init (MprisMenuItemClass *item_class)
    * Emitted whenever a media button is clicked.
    */
   signals[MEDIA_NOTIFY] = g_signal_new ("media-notify",
-                                        TYPE_MPRIS_MENU_ITEM,
+                                        MPRIS_TYPE_MENU_ITEM,
                                         G_SIGNAL_RUN_LAST,
                                         0, NULL, NULL,
                                         g_cclosure_marshal_VOID__STRING,
@@ -523,7 +526,7 @@ mpris_menu_item_raise (MprisMenuItem *item)
 {
   MprisMenuItemPrivate *priv;
 
-  g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
+  g_return_if_fail (MPRIS_IS_MENU_ITEM (item));
 
   priv = mpris_menu_item_get_instance_private (item);
 
@@ -550,7 +553,7 @@ mpris_menu_item_launch (MprisMenuItem *item)
   MprisMenuItemPrivate *priv;
   GAppInfo             *app_info;
 
-  g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
+  g_return_if_fail (MPRIS_IS_MENU_ITEM (item));
 
   priv = mpris_menu_item_get_instance_private (item);
 
@@ -572,7 +575,7 @@ mpris_menu_item_raise_or_launch (MprisMenuItem *item)
 {
   MprisMenuItemPrivate *priv;
 
-  g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
+  g_return_if_fail (MPRIS_IS_MENU_ITEM (item));
 
   priv = mpris_menu_item_get_instance_private (item);
 
@@ -592,7 +595,7 @@ mpris_menu_item_get_widget_at_event (MprisMenuItem  *item,
   GtkAllocation         alloc;
   gint                  x, y;
 
-  g_return_val_if_fail (IS_MPRIS_MENU_ITEM (item), NULL);
+  g_return_val_if_fail (MPRIS_IS_MENU_ITEM (item), NULL);
 
   priv = mpris_menu_item_get_instance_private (item);
 
@@ -631,7 +634,7 @@ mpris_menu_item_button_press_event (GtkWidget      *menuitem,
 {
   GtkWidget            *widget;
 
-  g_return_val_if_fail (IS_MPRIS_MENU_ITEM (menuitem), FALSE);
+  g_return_val_if_fail (MPRIS_IS_MENU_ITEM (menuitem), FALSE);
 
   widget = mpris_menu_item_get_widget_at_event (MPRIS_MENU_ITEM (menuitem), event);
 
@@ -653,7 +656,7 @@ mpris_menu_item_button_release_event (GtkWidget      *menuitem,
 {
   GtkWidget            *widget;
 
-  g_return_val_if_fail (IS_MPRIS_MENU_ITEM (menuitem), FALSE);
+  g_return_val_if_fail (MPRIS_IS_MENU_ITEM (menuitem), FALSE);
 
   widget = mpris_menu_item_get_widget_at_event (MPRIS_MENU_ITEM (menuitem), event);
 
@@ -758,7 +761,7 @@ update_packing (MprisMenuItem *item)
   GtkBox               *button_box;
   GtkStyleContext      *ctx;
 
-  g_return_if_fail (IS_MPRIS_MENU_ITEM (item));
+  g_return_if_fail (MPRIS_IS_MENU_ITEM (item));
 
   priv = mpris_menu_item_get_instance_private (item);
 

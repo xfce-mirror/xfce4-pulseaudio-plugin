@@ -24,15 +24,8 @@
 
 G_BEGIN_DECLS
 
-typedef struct _PulseaudioConfigClass PulseaudioConfigClass;
-typedef struct _PulseaudioConfig      PulseaudioConfig;
-
-#define TYPE_PULSEAUDIO_CONFIG             (pulseaudio_config_get_type ())
-#define PULSEAUDIO_CONFIG(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), TYPE_PULSEAUDIO_CONFIG, PulseaudioConfig))
-#define PULSEAUDIO_CONFIG_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ((klass),  TYPE_PULSEAUDIO_CONFIG, PulseaudioConfigClass))
-#define IS_PULSEAUDIO_CONFIG(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TYPE_PULSEAUDIO_CONFIG))
-#define IS_PULSEAUDIO_CONFIG_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass),  TYPE_PULSEAUDIO_CONFIG))
-#define PULSEAUDIO_CONFIG_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj),  TYPE_PULSEAUDIO_CONFIG, PulseaudioConfigClass))
+#define PULSEAUDIO_TYPE_CONFIG (pulseaudio_config_get_type ())
+G_DECLARE_FINAL_TYPE (PulseaudioConfig, pulseaudio_config, PULSEAUDIO, CONFIG, GObject)
 
 enum
 {
@@ -44,8 +37,6 @@ enum
 
   VOLUME_NOTIFICATIONS_COUNT,
 };
-
-GType              pulseaudio_config_get_type                       (void);
 
 PulseaudioConfig  *pulseaudio_config_new                            (const gchar          *property_base);
 

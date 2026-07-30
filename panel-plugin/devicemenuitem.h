@@ -26,32 +26,12 @@
 
 G_BEGIN_DECLS
 
-#define TYPE_DEVICE_MENU_ITEM         (device_menu_item_get_type ())
-#define DEVICE_MENU_ITEM(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), TYPE_DEVICE_MENU_ITEM, DeviceMenuItem))
-#define DEVICE_MENU_ITEM_CLASS(c)     (G_TYPE_CHECK_CLASS_CAST ((c), TYPE_DEVICE_MENU_ITEM, DeviceMenuItemClass))
-#define IS_DEVICE_MENU_ITEM(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), TYPE_DEVICE_MENU_ITEM))
-#define IS_DEVICE_MENU_ITEM_CLASS(c)  (G_TYPE_CHECK_CLASS_TYPE ((c), TYPE_DEVICE_MENU_ITEM))
-#define DEVICE_MENU_ITEM_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), TYPE_DEVICE_MENU_ITEM, DeviceMenuItemClass))
-
-
-typedef struct _DeviceMenuItem        DeviceMenuItem;
-typedef struct _DeviceMenuItemClass   DeviceMenuItemClass;
-typedef struct _DeviceMenuItemPrivate DeviceMenuItemPrivate;
-
-struct _DeviceMenuItem
-{
-  GtkImageMenuItem parent_instance;
-
-  DeviceMenuItemPrivate *priv;
-};
-
-struct _DeviceMenuItemClass
-{
-  GtkImageMenuItemClass parent_class;
-};
-
-
-GType        device_menu_item_get_type                 (void);
+#define DEVICE_TYPE_MENU_ITEM (device_menu_item_get_type ())
+#ifndef GTK_IMAGE_MENU_ITEM_AUTOPTR_CLEANUP_FUNC_ALREADY_DEFINED
+#define GTK_IMAGE_MENU_ITEM_AUTOPTR_CLEANUP_FUNC_ALREADY_DEFINED 1
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkImageMenuItem, g_object_unref)
+#endif
+G_DECLARE_FINAL_TYPE (DeviceMenuItem, device_menu_item, DEVICE, MENU_ITEM, GtkImageMenuItem)
 
 GtkWidget   *device_menu_item_new_with_label           (const gchar    *label);
 

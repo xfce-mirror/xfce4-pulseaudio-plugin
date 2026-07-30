@@ -28,17 +28,8 @@
 
 G_BEGIN_DECLS
 
-#define TYPE_PULSEAUDIO_NOTIFY             (pulseaudio_notify_get_type ())
-#define PULSEAUDIO_NOTIFY(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), TYPE_PULSEAUDIO_NOTIFY, PulseaudioNotify))
-#define PULSEAUDIO_NOTIFY_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ((klass),  TYPE_PULSEAUDIO_NOTIFY, PulseaudioNotifyClass))
-#define IS_PULSEAUDIO_NOTIFY(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TYPE_PULSEAUDIO_NOTIFY))
-#define IS_PULSEAUDIO_NOTIFY_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass),  TYPE_PULSEAUDIO_NOTIFY))
-#define PULSEAUDIO_NOTIFY_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj),  TYPE_PULSEAUDIO_NOTIFY, PulseaudioNotifyClass))
-
-typedef struct          _PulseaudioNotify                 PulseaudioNotify;
-typedef struct          _PulseaudioNotifyClass            PulseaudioNotifyClass;
-
-GType                   pulseaudio_notify_get_type        (void);
+#define PULSEAUDIO_TYPE_NOTIFY (pulseaudio_notify_get_type ())
+G_DECLARE_FINAL_TYPE (PulseaudioNotify, pulseaudio_notify, PULSEAUDIO, NOTIFY, GObject)
 
 PulseaudioNotify       *pulseaudio_notify_new             (PulseaudioConfig *config,
                                                            PulseaudioVolume *volume,

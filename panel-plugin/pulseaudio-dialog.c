@@ -50,11 +50,6 @@ static void              pulseaudio_dialog_run_mixer              (PulseaudioDia
 
 
 
-struct _PulseaudioDialogClass
-{
-  GtkBuilderClass   __parent__;
-};
-
 struct _PulseaudioDialog
 {
   GtkBuilder         __parent__;
@@ -97,7 +92,7 @@ pulseaudio_dialog_mixer_command_changed (PulseaudioDialog *dialog)
   gboolean sensitive = FALSE;
 
   g_return_if_fail (GTK_IS_BUILDER (dialog));
-  g_return_if_fail (IS_PULSEAUDIO_CONFIG (dialog->config));
+  g_return_if_fail (PULSEAUDIO_IS_CONFIG (dialog->config));
 
   object = gtk_builder_get_object (GTK_BUILDER (dialog), "button-run-mixer");
   g_return_if_fail (GTK_IS_BUTTON (object));
@@ -121,7 +116,7 @@ pulseaudio_dialog_run_mixer (PulseaudioDialog *dialog,
   GError    *error = NULL;
   GtkWidget *message_dialog;
 
-  g_return_if_fail (IS_PULSEAUDIO_DIALOG (dialog));
+  g_return_if_fail (PULSEAUDIO_IS_DIALOG (dialog));
   g_return_if_fail (GTK_IS_BUTTON (widget));
 
   if (!xfce_spawn_command_line (gtk_widget_get_screen (widget),
@@ -226,11 +221,8 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
 {
   GtkBuilder   *builder = GTK_BUILDER (dialog);
   GObject      *object;
-  GtkListStore *liststore;
-  GtkTreeIter   iter;
   GError       *error = NULL;
   gchar       **players;
-  guint         i;
 
   if (xfce_titled_dialog_get_type () == 0)
     return;
@@ -349,12 +341,12 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
 
       /* Populate the liststore */
       dialog->treeview = GTK_WIDGET(gtk_builder_get_object(builder, "player_tree_view"));
-      liststore = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(dialog->treeview)));
+      GtkListStore *liststore = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(dialog->treeview)));
       players = pulseaudio_config_get_known_players (dialog->config);
       if (players != NULL)
         {
           const guint num_players = g_strv_length (players);
-          for (i = 0; i < num_players; i++)
+          for (guint i = 0; i < num_players; i++)
             {
               gchar *player_label = NULL;
               gchar *icon_name = NULL;
@@ -377,6 +369,7 @@ pulseaudio_dialog_build (PulseaudioDialog *dialog)
                         icon = g_themed_icon_new_with_default_fallbacks ("audio-player");
                     }
 
+                  GtkTreeIter iter;
                   gtk_list_store_append (liststore, &iter);
                   gtk_list_store_set (liststore, &iter,
                                       0, icon,
@@ -436,7 +429,7 @@ static void
 pulseaudio_dialog_help_button_clicked (PulseaudioDialog *dialog,
                                        GtkWidget        *button)
 {
-  g_return_if_fail (IS_PULSEAUDIO_DIALOG (dialog));
+  g_return_if_fail (PULSEAUDIO_IS_DIALOG (dialog));
   g_return_if_fail (GTK_IS_BUTTON (button));
   g_return_if_fail (GTK_IS_WINDOW (dialog->dialog));
 
@@ -449,7 +442,7 @@ void
 pulseaudio_dialog_show (PulseaudioDialog *dialog,
                         GdkScreen        *screen)
 {
-  g_return_if_fail (IS_PULSEAUDIO_DIALOG (dialog));
+  g_return_if_fail (PULSEAUDIO_IS_DIALOG (dialog));
   g_return_if_fail (GDK_IS_SCREEN (screen));
 
   if (dialog->dialog != NULL)
@@ -471,9 +464,9 @@ pulseaudio_dialog_new (PulseaudioConfig *config)
 {
   PulseaudioDialog *dialog;
 
-  g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), NULL);
+  g_return_val_if_fail (PULSEAUDIO_IS_CONFIG (config), NULL);
 
-  dialog = g_object_new (TYPE_PULSEAUDIO_DIALOG, NULL);
+  dialog = g_object_new (PULSEAUDIO_TYPE_DIALOG, NULL);
   dialog->config = config;
 
   return dialog;

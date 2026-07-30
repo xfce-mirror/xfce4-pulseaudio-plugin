@@ -70,14 +70,6 @@ struct _PulseaudioMprisPlayer
   gint64            timestamp;
 };
 
-struct _PulseaudioMprisPlayerClass
-{
-  GObjectClass            __parent__;
-  void (*connection)      (PulseaudioMprisPlayer *player, gboolean        connected);
-  void (*playback_status) (PulseaudioMprisPlayer *player, PlaybackStatus  playback_status);
-  void (*metadata)        (PulseaudioMprisPlayer *player);
-};
-
 
 
 static void pulseaudio_mpris_player_finalize     (GObject               *object);
@@ -114,8 +106,7 @@ pulseaudio_mpris_player_class_init (PulseaudioMprisPlayerClass *klass)
     g_signal_new ("connection",
                   G_TYPE_FROM_CLASS (gobject_class),
                   G_SIGNAL_RUN_LAST,
-                  G_STRUCT_OFFSET (PulseaudioMprisPlayerClass, connection),
-                  NULL, NULL,
+                  0, NULL, NULL,
                   g_cclosure_marshal_VOID__BOOLEAN,
                   G_TYPE_NONE, 1, G_TYPE_BOOLEAN);
 
@@ -123,8 +114,7 @@ pulseaudio_mpris_player_class_init (PulseaudioMprisPlayerClass *klass)
     g_signal_new ("playback-status",
                   G_TYPE_FROM_CLASS (gobject_class),
                   G_SIGNAL_RUN_LAST,
-                  G_STRUCT_OFFSET (PulseaudioMprisPlayerClass, playback_status),
-                  NULL, NULL,
+                  0, NULL, NULL,
                   g_cclosure_marshal_VOID__ENUM,
                   G_TYPE_NONE, 1, G_TYPE_INT);
 
@@ -132,8 +122,7 @@ pulseaudio_mpris_player_class_init (PulseaudioMprisPlayerClass *klass)
     g_signal_new ("metadata",
                   G_TYPE_FROM_CLASS (gobject_class),
                   G_SIGNAL_RUN_LAST,
-                  G_STRUCT_OFFSET (PulseaudioMprisPlayerClass, metadata),
-                  NULL, NULL,
+                  0, NULL, NULL,
                   g_cclosure_marshal_VOID__VOID,
                   G_TYPE_NONE, 0);
 }
@@ -211,17 +200,8 @@ pulseaudio_mpris_player_parse_metadata (PulseaudioMprisPlayer *player,
 
   gchar **artists;
 
-  if (player->title != NULL)
-    {
-      g_free(player->title);
-      player->title = NULL;
-    }
-
-  if (player->artist != NULL)
-    {
-      g_free(player->artist);
-      player->artist = NULL;
-    }
+  g_clear_pointer (&player->title, g_free);
+  g_clear_pointer (&player->artist, g_free);
 
   g_variant_iter_init (&iter, dictionary);
   while (g_variant_iter_loop (&iter, "{sv}", &key, &value))
@@ -737,9 +717,7 @@ pulseaudio_mpris_player_find_desktop_entry (const gchar *player_name)
     }
 
   g_key_file_free (key_file);
-
-  if (file)
-    g_free (file);
+  g_free (file);
 
   return filename;
 }
@@ -830,8 +808,7 @@ pulseaudio_mpris_player_dbus_connect (PulseaudioMprisPlayer *player)
   if (proxy == NULL)
     {
       g_printerr ("Error creating proxy: %s\n", gerror->message);
-      g_error_free (gerror);
-      gerror = NULL;
+      g_clear_error (&gerror);
     }
   else
     {
@@ -853,8 +830,7 @@ pulseaudio_mpris_player_dbus_connect (PulseaudioMprisPlayer *player)
   if (proxy == NULL)
     {
       g_printerr ("Error creating proxy: %s\n", gerror->message);
-      g_error_free (gerror);
-      gerror = NULL;
+      g_clear_error (&gerror);
     }
   else
     {
@@ -874,8 +850,7 @@ pulseaudio_mpris_player_dbus_connect (PulseaudioMprisPlayer *player)
   if (proxy == NULL)
     {
       g_printerr("Error creating proxy: %s\n", gerror->message);
-      g_error_free(gerror);
-      gerror = NULL;
+      g_clear_error (&gerror);
     }
   else
     {
@@ -1080,7 +1055,7 @@ pulseaudio_mpris_player_new (gchar *name)
       return NULL;
     }
 
-  player = g_object_new (TYPE_PULSEAUDIO_MPRIS_PLAYER, NULL);
+  player = g_object_new (PULSEAUDIO_TYPE_MPRIS_PLAYER, NULL);
 
   player->dbus_connection = gconnection;
   player->player = g_strdup (name);

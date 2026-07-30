@@ -55,11 +55,6 @@ struct _PulseaudioMenu
   gulong                volume_mic_changed_id;
 };
 
-struct _PulseaudioMenuClass
-{
-  GtkMenuClass        __parent__;
-};
-
 
 
 static void             pulseaudio_menu_finalize         (GObject       *object);
@@ -119,7 +114,7 @@ pulseaudio_menu_output_range_scroll (GtkWidget        *widget,
   gdouble         volume_step;
   GdkEventScroll *scroll_event;
 
-  g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
+  g_return_if_fail (PULSEAUDIO_IS_MENU (menu));
   volume =  pulseaudio_volume_get_volume (menu->volume);
   volume_step = pulseaudio_config_get_volume_step (menu->config) / 100.0;
 
@@ -137,7 +132,7 @@ pulseaudio_menu_output_range_value_changed (PulseaudioMenu   *menu,
 {
   gdouble  new_volume;
 
-  g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
+  g_return_if_fail (PULSEAUDIO_IS_MENU (menu));
 
   new_volume = xfpa_scale_menu_item_get_value (XFPA_SCALE_MENU_ITEM (menu->output_scale)) / 100.0;
   pulseaudio_volume_set_volume (menu->volume, new_volume);
@@ -149,7 +144,7 @@ static void
 pulseaudio_menu_mute_output_item_toggled (PulseaudioMenu   *menu,
                                           XfpaScaleMenuItem    *menu_item)
 {
-  g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
+  g_return_if_fail (PULSEAUDIO_IS_MENU (menu));
 
   pulseaudio_volume_set_muted (menu->volume, xfpa_scale_menu_item_get_muted (menu_item));
 }
@@ -161,7 +156,7 @@ pulseaudio_menu_default_output_changed (PulseaudioMenu *menu,
                                         gchar          *name,
                                         DeviceMenuItem *menu_item)
 {
-  g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
+  g_return_if_fail (PULSEAUDIO_IS_MENU (menu));
 
   pulseaudio_volume_set_default_output (menu->volume, name, TRUE);
 }
@@ -173,7 +168,7 @@ pulseaudio_menu_active_output_port_changed (PulseaudioMenu *menu,
                                             gchar          *name,
                                             DeviceMenuItem *menu_item)
 {
-  g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
+  g_return_if_fail (PULSEAUDIO_IS_MENU (menu));
 
   pulseaudio_volume_set_active_output_port (menu->volume, name);
 }
@@ -185,7 +180,7 @@ pulseaudio_menu_default_input_changed (PulseaudioMenu *menu,
                                        gchar          *name,
                                        DeviceMenuItem *menu_item)
 {
-  g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
+  g_return_if_fail (PULSEAUDIO_IS_MENU (menu));
 
   pulseaudio_volume_set_default_input (menu->volume, name, TRUE);
 }
@@ -197,7 +192,7 @@ pulseaudio_menu_active_input_port_changed (PulseaudioMenu *menu,
                                            gchar          *name,
                                            DeviceMenuItem *menu_item)
 {
-  g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
+  g_return_if_fail (PULSEAUDIO_IS_MENU (menu));
 
   pulseaudio_volume_set_active_input_port (menu->volume, name);
 }
@@ -214,7 +209,7 @@ pulseaudio_menu_input_range_scroll (GtkWidget        *widget,
   gdouble         volume_step;
   GdkEventScroll *scroll_event;
 
-  g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
+  g_return_if_fail (PULSEAUDIO_IS_MENU (menu));
   volume_mic =  pulseaudio_volume_get_volume_mic (menu->volume);
   volume_step = pulseaudio_config_get_volume_step (menu->config) / 100.0;
 
@@ -232,7 +227,7 @@ pulseaudio_menu_input_range_value_changed (PulseaudioMenu   *menu,
 {
   gdouble  new_volume_mic;
 
-  g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
+  g_return_if_fail (PULSEAUDIO_IS_MENU (menu));
 
   new_volume_mic = xfpa_scale_menu_item_get_value (XFPA_SCALE_MENU_ITEM (menu->input_scale)) / 100.0;
   pulseaudio_volume_set_volume_mic (menu->volume, new_volume_mic);
@@ -244,7 +239,7 @@ static void
 pulseaudio_menu_mute_input_item_toggled (PulseaudioMenu   *menu,
                                          XfpaScaleMenuItem    *menu_item)
 {
-  g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
+  g_return_if_fail (PULSEAUDIO_IS_MENU (menu));
 
   pulseaudio_volume_set_muted_mic (menu->volume, xfpa_scale_menu_item_get_muted (menu_item));
 }
@@ -258,7 +253,7 @@ pulseaudio_menu_run_audio_mixer (PulseaudioMenu   *menu,
   GError    *error = NULL;
   GtkWidget *message_dialog;
 
-  g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
+  g_return_if_fail (PULSEAUDIO_IS_MENU (menu));
 
   if (!xfce_spawn_command_line (gtk_widget_get_screen (GTK_WIDGET (menu)),
                                 pulseaudio_config_get_mixer_command (menu->config),
@@ -287,7 +282,7 @@ pulseaudio_menu_activate_playlist (PulseaudioMenu *menu,
   gchar *player;
   gchar *playlist;
 
-  g_return_if_fail(IS_PULSEAUDIO_MENU(menu));
+  g_return_if_fail(PULSEAUDIO_IS_MENU(menu));
 
   player = g_strdup (g_object_get_data (G_OBJECT (menu_item), "player"));
   playlist = g_strdup (g_object_get_data (G_OBJECT (menu_item), "playlist"));
@@ -304,7 +299,7 @@ static void
 pulseaudio_menu_connection_changed (PulseaudioMenu   *menu,
                                     PulseaudioVolume *volume)
 {
-  g_return_if_fail(IS_PULSEAUDIO_MENU(menu));
+  g_return_if_fail(PULSEAUDIO_IS_MENU(menu));
 
   if (menu->volume_changed_id != 0)
     {
@@ -328,8 +323,8 @@ pulseaudio_menu_volume_changed (PulseaudioMenu   *menu,
                                 gboolean          should_notify,
                                 PulseaudioVolume *volume)
 {
-  g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
-  g_return_if_fail (IS_PULSEAUDIO_VOLUME (volume));
+  g_return_if_fail (PULSEAUDIO_IS_MENU (menu));
+  g_return_if_fail (PULSEAUDIO_IS_VOLUME (volume));
 
   if (menu->output_scale != NULL)
     {
@@ -370,8 +365,8 @@ media_notify_cb (GtkWidget  *widget,
 {
   PulseaudioMenu *menu = user_data;
 
-  g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
-  g_return_if_fail (IS_MPRIS_MENU_ITEM (widget));
+  g_return_if_fail (PULSEAUDIO_IS_MENU (menu));
+  g_return_if_fail (MPRIS_IS_MENU_ITEM (widget));
 
   pulseaudio_mpris_notify_player (menu->mpris, mpris_menu_item_get_player (MPRIS_MENU_ITEM (widget)), message);
 }
@@ -395,8 +390,8 @@ mpris_update_cb (PulseaudioMpris *mpris,
   gboolean        can_go_next;
   gboolean        can_raise;
 
-  g_return_if_fail (IS_PULSEAUDIO_MPRIS (mpris));
-  g_return_if_fail (IS_MPRIS_MENU_ITEM (menu_item));
+  g_return_if_fail (PULSEAUDIO_IS_MPRIS (mpris));
+  g_return_if_fail (MPRIS_IS_MENU_ITEM (menu_item));
 
   if (mpris_menu_item_get_player (menu_item) == NULL)
     return;
@@ -448,8 +443,8 @@ item_destroy_cb (GtkWidget  *widget,
 {
   PulseaudioMenu *menu = user_data;
 
-  g_return_if_fail (IS_PULSEAUDIO_MENU (menu));
-  g_return_if_fail (IS_MPRIS_MENU_ITEM (widget));
+  g_return_if_fail (PULSEAUDIO_IS_MENU (menu));
+  g_return_if_fail (MPRIS_IS_MENU_ITEM (widget));
 
   g_signal_handlers_disconnect_by_func (G_OBJECT (menu->mpris), G_CALLBACK (mpris_update_cb), widget);
 }
@@ -506,7 +501,6 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
 
   GList          *devices = NULL;
   GList          *list = NULL;
-  guint           i = 0;
   gchar          *name;
   gboolean        available;
 
@@ -527,8 +521,8 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
   GtkWidget      *submenu = NULL;
 #endif
 
-  g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), NULL);
-  g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), NULL);
+  g_return_val_if_fail (PULSEAUDIO_IS_VOLUME (volume), NULL);
+  g_return_val_if_fail (PULSEAUDIO_IS_CONFIG (config), NULL);
   g_return_val_if_fail (GTK_IS_WIDGET (widget), NULL);
 
   if (gtk_widget_has_screen (widget))
@@ -536,7 +530,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
   else
     gscreen = gdk_display_get_default_screen (gdk_display_get_default ());
 
-  menu = g_object_new (TYPE_PULSEAUDIO_MENU, NULL);
+  menu = g_object_new (PULSEAUDIO_TYPE_MENU, NULL);
   gtk_menu_set_screen (GTK_MENU (menu), gscreen);
 
   menu->volume = volume;
@@ -651,7 +645,7 @@ pulseaudio_menu_new (PulseaudioVolume *volume,
       if (players != NULL)
         {
           num_players = g_strv_length (players);
-          for (i = 0; i < num_players; i++)
+          for (guint i = 0; i < num_players; i++)
             {
               if (pulseaudio_config_player_ignored_lookup (menu->config, players[i]))
                 continue;

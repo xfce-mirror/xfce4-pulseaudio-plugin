@@ -107,11 +107,6 @@ static void             pulseaudio_plugin_next_key_pressed                 (cons
 
 
 
-struct _PulseaudioPluginClass
-{
-  XfcePanelPluginClass __parent__;
-};
-
 /* plugin structure */
 struct _PulseaudioPlugin
 {
@@ -264,7 +259,7 @@ pulseaudio_plugin_show_about (XfcePanelPlugin *plugin)
       NULL
     };
 
-  g_return_if_fail (IS_PULSEAUDIO_PLUGIN (plugin));
+  g_return_if_fail (PULSEAUDIO_IS_PLUGIN (plugin));
 
   gtk_show_about_dialog (NULL,
                          "logo-icon-name", "xfce4-pulseaudio-plugin",
@@ -374,7 +369,7 @@ static void
 pulseaudio_plugin_bind_keys_cb (PulseaudioPlugin      *pulseaudio_plugin,
                                 PulseaudioConfig      *pulseaudio_config)
 {
-  g_return_if_fail (IS_PULSEAUDIO_PLUGIN (pulseaudio_plugin));
+  g_return_if_fail (PULSEAUDIO_IS_PLUGIN (pulseaudio_plugin));
 
   if (pulseaudio_config_get_enable_keyboard_shortcuts (pulseaudio_plugin->config))
     pulseaudio_plugin_bind_keys (pulseaudio_plugin);
@@ -388,7 +383,7 @@ static gboolean
 pulseaudio_plugin_bind_keys (PulseaudioPlugin      *pulseaudio_plugin)
 {
   gboolean success = TRUE;
-  g_return_val_if_fail (IS_PULSEAUDIO_PLUGIN (pulseaudio_plugin), FALSE);
+  g_return_val_if_fail (PULSEAUDIO_IS_PLUGIN (pulseaudio_plugin), FALSE);
   pulseaudio_debug ("Grabbing volume control keys");
 
   success &= keybinder_bind (PULSEAUDIO_PLUGIN_LOWER_VOLUME_KEY, pulseaudio_plugin_volume_key_pressed, pulseaudio_plugin);
@@ -407,7 +402,7 @@ pulseaudio_plugin_bind_keys (PulseaudioPlugin      *pulseaudio_plugin)
 static void
 pulseaudio_plugin_unbind_keys (PulseaudioPlugin      *pulseaudio_plugin)
 {
-  g_return_if_fail (IS_PULSEAUDIO_PLUGIN (pulseaudio_plugin));
+  g_return_if_fail (PULSEAUDIO_IS_PLUGIN (pulseaudio_plugin));
   pulseaudio_debug ("Releasing volume control keys");
 
   keybinder_unbind (PULSEAUDIO_PLUGIN_LOWER_VOLUME_KEY, pulseaudio_plugin_volume_key_pressed);
@@ -424,7 +419,9 @@ pulseaudio_plugin_volume_key_pressed (const char            *keystring,
   gdouble           volume            = pulseaudio_volume_get_volume (pulseaudio_plugin->volume);
   gdouble           volume_step       = pulseaudio_config_get_volume_step (pulseaudio_plugin->config) / 100.0;
   gdouble           max_volume        = pulseaudio_config_get_volume_max (pulseaudio_plugin->config) / 100.0;
+#ifdef HAVE_LIBNOTIFY
   gboolean          notify            = pulseaudio_volume_get_show_notifications (pulseaudio_plugin->volume, VOLUME_NOTIFICATIONS_OUTPUT);
+#endif
 
   pulseaudio_debug ("%s pressed", keystring);
 
@@ -477,7 +474,7 @@ static void
 pulseaudio_plugin_bind_multimedia_keys_cb (PulseaudioPlugin      *pulseaudio_plugin,
                                            PulseaudioConfig      *pulseaudio_config)
 {
-  g_return_if_fail (IS_PULSEAUDIO_PLUGIN (pulseaudio_plugin));
+  g_return_if_fail (PULSEAUDIO_IS_PLUGIN (pulseaudio_plugin));
 
   if (pulseaudio_config_get_enable_multimedia_keys (pulseaudio_plugin->config))
     pulseaudio_plugin_bind_multimedia_keys (pulseaudio_plugin);
@@ -491,7 +488,7 @@ static gboolean
 pulseaudio_plugin_bind_multimedia_keys (PulseaudioPlugin      *pulseaudio_plugin)
 {
   gboolean success = TRUE;
-  g_return_val_if_fail (IS_PULSEAUDIO_PLUGIN (pulseaudio_plugin), FALSE);
+  g_return_val_if_fail (PULSEAUDIO_IS_PLUGIN (pulseaudio_plugin), FALSE);
   pulseaudio_debug ("Grabbing multimedia control keys");
 
   success &= keybinder_bind (PULSEAUDIO_PLUGIN_PLAY_KEY, pulseaudio_plugin_play_key_pressed, pulseaudio_plugin);
@@ -510,7 +507,7 @@ pulseaudio_plugin_bind_multimedia_keys (PulseaudioPlugin      *pulseaudio_plugin
 static void
 pulseaudio_plugin_unbind_multimedia_keys (PulseaudioPlugin      *pulseaudio_plugin)
 {
-  g_return_if_fail (IS_PULSEAUDIO_PLUGIN (pulseaudio_plugin));
+  g_return_if_fail (PULSEAUDIO_IS_PLUGIN (pulseaudio_plugin));
   pulseaudio_debug ("Releasing multimedia control keys");
 
   keybinder_unbind (PULSEAUDIO_PLUGIN_PLAY_KEY, pulseaudio_plugin_play_key_pressed);
@@ -631,7 +628,7 @@ pulseaudio_plugin_construct (XfcePanelPlugin *plugin)
   pulseaudio_plugin->volume = pulseaudio_volume_new (pulseaudio_plugin,
                                                      pulseaudio_plugin->config);
 
-  g_signal_connect_swapped (pulseaudio_plugin->volume, "recording_changed", G_CALLBACK (pulseaudio_plugin_toggle_small), pulseaudio_plugin);
+  g_signal_connect_swapped (pulseaudio_plugin->volume, "recording-changed", G_CALLBACK (pulseaudio_plugin_toggle_small), pulseaudio_plugin);
 
   /* initialize mpris support */
 #ifdef HAVE_MPRIS2

@@ -83,11 +83,6 @@ struct _PulseaudioNotify
   gulong                volume_mic_changed_id;
 };
 
-struct _PulseaudioNotifyClass
-{
-  GObjectClass          __parent__;
-};
-
 
 
 G_DEFINE_TYPE (PulseaudioNotify, pulseaudio_notify, G_TYPE_OBJECT)
@@ -138,10 +133,8 @@ pulseaudio_notify_finalize (GObject *object)
 
   notify->config = NULL;
 
-  g_object_unref (G_OBJECT (notify->notification));
-  notify->notification = NULL;
-  g_object_unref (G_OBJECT (notify->notification_mic));
-  notify->notification_mic = NULL;
+  g_clear_object (&notify->notification);
+  g_clear_object (&notify->notification_mic);
   notify_uninit ();
 
   (*G_OBJECT_CLASS (pulseaudio_notify_parent_class)->finalize) (object);
@@ -162,8 +155,8 @@ pulseaudio_notify_notify (PulseaudioNotify *notify, gboolean mic)
   const char        **icons_array;
   const gchar        *icon = NULL;
 
-  g_return_if_fail (IS_PULSEAUDIO_NOTIFY (notify));
-  g_return_if_fail (IS_PULSEAUDIO_VOLUME (notify->volume));
+  g_return_if_fail (PULSEAUDIO_IS_NOTIFY (notify));
+  g_return_if_fail (PULSEAUDIO_IS_VOLUME (notify->volume));
 
   if (!pulseaudio_config_get_show_notifications (notify->config) ||
       pulseaudio_button_get_menu (notify->button) != NULL)
@@ -178,10 +171,10 @@ pulseaudio_notify_notify (PulseaudioNotify *notify, gboolean mic)
   volume_i = (gint) round (volume * 100);
 
   if (!connected)
-    volume_i = 0;
-
-  if (!connected)
-    title = g_strdup_printf (_("Not connected to the PulseAudio server"));
+    {
+      volume_i = 0;
+      title = g_strdup_printf (_("Not connected to the PulseAudio server"));
+    }
   else if (muted)
     title = g_strdup_printf (_("Volume %d%c (muted)"), volume_i, '%');
   else
@@ -224,7 +217,7 @@ pulseaudio_notify_volume_changed (PulseaudioNotify  *notify,
                                   gboolean           should_notify,
                                   PulseaudioVolume  *volume)
 {
-  g_return_if_fail (IS_PULSEAUDIO_NOTIFY (notify));
+  g_return_if_fail (PULSEAUDIO_IS_NOTIFY (notify));
 
   if (should_notify)
     pulseaudio_notify_notify (notify, FALSE);
@@ -237,7 +230,7 @@ pulseaudio_notify_volume_mic_changed (PulseaudioNotify  *notify,
                                       gboolean           should_notify,
                                       PulseaudioVolume  *volume)
 {
-  g_return_if_fail (IS_PULSEAUDIO_NOTIFY (notify));
+  g_return_if_fail (PULSEAUDIO_IS_NOTIFY (notify));
 
   if (should_notify)
     pulseaudio_notify_notify (notify, TRUE);
@@ -252,11 +245,11 @@ pulseaudio_notify_new (PulseaudioConfig *config,
 {
   PulseaudioNotify *notify;
 
-  g_return_val_if_fail (IS_PULSEAUDIO_CONFIG (config), NULL);
-  g_return_val_if_fail (IS_PULSEAUDIO_VOLUME (volume), NULL);
-  g_return_val_if_fail (IS_PULSEAUDIO_BUTTON (button), NULL);
+  g_return_val_if_fail (PULSEAUDIO_IS_CONFIG (config), NULL);
+  g_return_val_if_fail (PULSEAUDIO_IS_VOLUME (volume), NULL);
+  g_return_val_if_fail (PULSEAUDIO_IS_BUTTON (button), NULL);
 
-  notify = g_object_new (TYPE_PULSEAUDIO_NOTIFY, NULL);
+  notify = g_object_new (PULSEAUDIO_TYPE_NOTIFY, NULL);
 
   notify->config = config;
   notify->volume = volume;

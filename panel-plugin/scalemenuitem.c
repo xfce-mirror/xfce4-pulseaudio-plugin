@@ -201,9 +201,7 @@ xfpa_scale_menu_item_set_base_icon_name (XfpaScaleMenuItem *item,
 {
   g_return_if_fail (XFPA_IS_SCALE_MENU_ITEM (item));
 
-  if (item->icon_name)
-    g_free (item->icon_name);
-
+  g_free (item->icon_name);
   item->icon_name = g_strdup (base_icon_name);
 }
 
@@ -304,9 +302,7 @@ xfpa_scale_menu_item_finalize (GObject *object)
 {
   XfpaScaleMenuItem        *self = XFPA_SCALE_MENU_ITEM (object);
 
-  if (self->icon_name)
-    g_free (self->icon_name);
-
+  g_free (self->icon_name);
   g_object_unref (self->scale);
   g_object_unref (self->image);
   g_object_unref (self->mute_toggle);

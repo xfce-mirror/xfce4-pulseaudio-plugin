@@ -25,17 +25,8 @@
 
 G_BEGIN_DECLS
 
-typedef struct _PulseaudioDialogClass PulseaudioDialogClass;
-typedef struct _PulseaudioDialog      PulseaudioDialog;
-
-#define TYPE_PULSEAUDIO_DIALOG            (pulseaudio_dialog_get_type ())
-#define PULSEAUDIO_DIALOG(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), TYPE_PULSEAUDIO_DIALOG, PulseaudioDialog))
-#define PULSEAUDIO_DIALOG_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass),  TYPE_PULSEAUDIO_DIALOG, PulseaudioDialogClass))
-#define IS_PULSEAUDIO_DIALOG(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TYPE_PULSEAUDIO_DIALOG))
-#define IS_PULSEAUDIO_DIALOG_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass),  TYPE_PULSEAUDIO_DIALOG))
-#define PULSEAUDIO_DIALOG_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj),  TYPE_PULSEAUDIO_DIALOG, PulseaudioDialogClass))
-
-GType               pulseaudio_dialog_get_type (void);
+#define PULSEAUDIO_TYPE_DIALOG (pulseaudio_dialog_get_type ())
+G_DECLARE_FINAL_TYPE (PulseaudioDialog, pulseaudio_dialog, PULSEAUDIO, DIALOG, GtkBuilder)
 
 void                pulseaudio_dialog_show     (PulseaudioDialog  *dialog,
                                                 GdkScreen         *screen);

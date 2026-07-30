@@ -32,32 +32,12 @@
 
 G_BEGIN_DECLS
 
-#define TYPE_MPRIS_MENU_ITEM         (mpris_menu_item_get_type ())
-#define MPRIS_MENU_ITEM(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), TYPE_MPRIS_MENU_ITEM, MprisMenuItem))
-#define MPRIS_MENU_ITEM_CLASS(c)     (G_TYPE_CHECK_CLASS_CAST ((c), TYPE_MPRIS_MENU_ITEM, MprisMenuItemClass))
-#define IS_MPRIS_MENU_ITEM(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), TYPE_MPRIS_MENU_ITEM))
-#define IS_MPRIS_MENU_ITEM_CLASS(c)  (G_TYPE_CHECK_CLASS_TYPE ((c), TYPE_MPRIS_MENU_ITEM))
-#define MPRIS_MENU_ITEM_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), TYPE_MPRIS_MENU_ITEM, MprisMenuItemClass))
-
-
-typedef struct _MprisMenuItem        MprisMenuItem;
-typedef struct _MprisMenuItemClass   MprisMenuItemClass;
-typedef struct _MprisMenuItemPrivate MprisMenuItemPrivate;
-
-struct _MprisMenuItem
-{
-  GtkImageMenuItem parent_instance;
-
-  MprisMenuItemPrivate *priv;
-};
-
-struct _MprisMenuItemClass
-{
-  GtkImageMenuItemClass parent_class;
-};
-
-
-GType        mpris_menu_item_get_type              (void);
+#define MPRIS_TYPE_MENU_ITEM (mpris_menu_item_get_type ())
+#ifndef GTK_IMAGE_MENU_ITEM_AUTOPTR_CLEANUP_FUNC_ALREADY_DEFINED
+#define GTK_IMAGE_MENU_ITEM_AUTOPTR_CLEANUP_FUNC_ALREADY_DEFINED 1
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkImageMenuItem, g_object_unref)
+#endif
+G_DECLARE_FINAL_TYPE (MprisMenuItem, mpris_menu_item, MPRIS, MENU_ITEM, GtkImageMenuItem)
 
 GtkWidget   *mpris_menu_item_new_from_player_name  (const gchar *player);
 
