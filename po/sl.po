@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the xfce-panel-plugins.xfce4-pulseaudio-plugin package.
 # 
 # Translators:
+# Dejweed, 2026
 # Arnold Marko <arnold.marko@gmail.com>, 2019-2024
-# Kernc, 2017
+# K, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Panel Plugins\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
 "POT-Creation-Date: 2025-07-18 11:07+0200\n"
 "PO-Revision-Date: 2015-10-05 20:18+0000\n"
-"Last-Translator: Arnold Marko <arnold.marko@gmail.com>, 2019-2024\n"
+"Last-Translator: Dejweed, 2026\n"
 "Language-Team: Slovenian (http://app.transifex.com/xfce/xfce-panel-plugins/language/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -50,7 +51,7 @@ msgstr "PulseAudio vtičnik za pano"
 
 #: panel-plugin/pulseaudio-dialog.glade:151
 msgid "Enable keyboard _shortcuts for volume control"
-msgstr "Omogoči bližnjice na tipkovnici za prilagajanje gla_snosti"
+msgstr "Omogoči _bližnjice na tipkovnici za prilagajanje glasnosti"
 
 #: panel-plugin/pulseaudio-dialog.glade:155
 msgid ""
@@ -82,7 +83,7 @@ msgstr "Tiho/glasno se obvešča v vseh načinih, razen pri \"brez\""
 
 #: panel-plugin/pulseaudio-dialog.glade:248
 msgid "Step size used when adjusting volume with mouse wheel or hotkeys."
-msgstr "Velikost koraka pri spreminjanju glasnosti s kolescem miške."
+msgstr "Velikost koraka pri spreminjanju glasnosti z miškinim koleščkom ali preko bližnjičnih tipk."
 
 #: panel-plugin/pulseaudio-dialog.glade:254
 msgid "_Volume step:"
@@ -90,7 +91,7 @@ msgstr "_Korak glasnosti:"
 
 #: panel-plugin/pulseaudio-dialog.glade:300
 msgid "M_aximum volume:"
-msgstr "N_ajvečja glasnost:"
+msgstr "_Največja glasnost:"
 
 #: panel-plugin/pulseaudio-dialog.glade:345
 msgid "Behaviour"
@@ -98,7 +99,7 @@ msgstr "Obnašanje"
 
 #: panel-plugin/pulseaudio-dialog.glade:380
 msgid "Audio _Mixer"
-msgstr "Mešalnik zvoka"
+msgstr "_Mešalnik zvoka"
 
 #: panel-plugin/pulseaudio-dialog.glade:392
 msgid ""
@@ -108,7 +109,7 @@ msgstr "Ukaz za mešanje zvoka, ki je lahko zagnan iz kontekstualnega menija, np
 
 #: panel-plugin/pulseaudio-dialog.glade:405
 msgid "_Run Audio Mixer..."
-msgstr "_Zaženi mešalnik zvoka..."
+msgstr "Zaž_eni mešalnik zvoka ..."
 
 #: panel-plugin/pulseaudio-dialog.glade:427
 msgid "Sound Settings"
@@ -140,7 +141,7 @@ msgstr "Ime"
 
 #: panel-plugin/pulseaudio-dialog.glade:641
 msgid "Persistent"
-msgstr "Obstojno"
+msgstr "Trajno"
 
 #: panel-plugin/pulseaudio-dialog.glade:652
 msgid "Ignored"
@@ -194,7 +195,7 @@ msgstr "<b>Glasnost %d%%</b>\n<small>%s</small>"
 
 #: panel-plugin/pulseaudio-menu.c:479
 msgid "Port"
-msgstr ""
+msgstr "Vrata"
 
 #: panel-plugin/pulseaudio-menu.c:580
 msgid "Output"
@@ -211,7 +212,7 @@ msgstr "Izberi seznam predvajanja"
 #. Audio mixers
 #: panel-plugin/pulseaudio-menu.c:761
 msgid "_Audio mixer..."
-msgstr "Meš_alnik zvoka"
+msgstr "Meš_alnik zvoka ..."
 
 #: panel-plugin/pulseaudio-notify.c:186
 #, c-format
