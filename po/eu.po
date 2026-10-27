@@ -3,8 +3,10 @@
 # This file is distributed under the same license as the xfce-panel-plugins.xfce4-pulseaudio-plugin package.
 # 
 # Translators:
+# beriain, 2019,2021
 # beriain, 2019
 # beriain, 2021
+# Eder Etxebarria Rojo, 2024
 # Eder Etxebarria Rojo, 2024
 msgid ""
 msgstr ""
@@ -27,7 +29,7 @@ msgstr "PulseAudio plugina"
 #: panel-plugin/pulseaudio.desktop.in.in:6
 #: panel-plugin/pulseaudio-plugin.c:274
 msgid "Adjust the audio volume of the PulseAudio sound system"
-msgstr "PulseAudio soinu sistemaren bolumena doitu"
+msgstr "Doitu PulseAudio soinu-sistemaren bolumena"
 
 #: panel-plugin/pulseaudio-dialog.glade:51
 msgid "None"
@@ -47,51 +49,51 @@ msgstr "Sarrera soilik"
 
 #: panel-plugin/pulseaudio-dialog.glade:66
 msgid "PulseAudio Panel Plugin"
-msgstr "PulseAudio panel plugina"
+msgstr "PulseAudio panel-plugina"
 
 #: panel-plugin/pulseaudio-dialog.glade:151
 msgid "Enable keyboard _shortcuts for volume control"
-msgstr "Gaitu teklatu lasterbideak bolumena kontrolatzeko"
+msgstr "Gaitu teklatuko _lasterbideak bolumena kontrolatzeko"
 
 #: panel-plugin/pulseaudio-dialog.glade:155
 msgid ""
 "Enables volume control using multimedia keys. Make sure no other application"
 " that listens to these keys (e.g. xfce4-volumed) is running in the "
 "background."
-msgstr "Bolumena multimedia teklekin kontrolatzea baimentzen du. Egiaztatu ezazu tekla hauek entzuten dituen beste aplikaziorik (adib. xfce4-volumed) atzeko planoan ez dela exekutatzen ari."
+msgstr "Bolumena multimedia-teklekin kontrolatzea gaitzen du. Ziurtatu tekla horiei entzuten dien beste aplikaziorik (adib. xfce4-volumed) ez dela atzeko planoan exekutatzen ari."
 
 #: panel-plugin/pulseaudio-dialog.glade:168
 msgid "Play system _sound when volume changes"
-msgstr "Erreproduzitu sistemaren soinua bolumena aldatzen denean"
+msgstr "Erreproduzitu sistemaren _soinua bolumena aldatzean"
 
 #: panel-plugin/pulseaudio-dialog.glade:172
 msgid ""
 "Enables audio feedback when using multimedia keys to change the volume."
-msgstr "Bolumena aldatzeko multimedia teklak erabiltzen dituzunean, audioaren monitorizazioa gaitzen da."
+msgstr "Soinu bidezko erantzuna gaitzen du multimedia-teklekin bolumena aldatzean."
 
 #: panel-plugin/pulseaudio-dialog.glade:185
 msgid "Always display the recording _indicator"
-msgstr "Erakutsi beti grabazioaren adierazlea"
+msgstr "Erakutsi beti grabazioaren _adierazlea"
 
 #: panel-plugin/pulseaudio-dialog.glade:208
 msgid "Show volume _notifications:"
-msgstr "Erakutsi bolumenaren jakinarazpenak:"
+msgstr "Erakutsi bolumenaren _jakinarazpenak:"
 
 #: panel-plugin/pulseaudio-dialog.glade:222
 msgid "Mute/unmute is notified in all modes except \"None\""
-msgstr "Mutu/desmutu modu guztietan jakinarazten da, \"Ezer ez\" moduan izan ezik"
+msgstr "Isiltzea eta soinua berreskuratzea modu guztietan jakinarazten da, \"Bat ere ez\" moduan izan ezik"
 
 #: panel-plugin/pulseaudio-dialog.glade:248
 msgid "Step size used when adjusting volume with mouse wheel or hotkeys."
-msgstr "Saguaren gurpilarekin edo laster-teklarekin bolumena doitzean erabiltzen den urratsaren tamaina."
+msgstr "Saguaren gurpilarekin edo laster-teklekin bolumena doitzean erabiltzen den urratsaren tamaina."
 
 #: panel-plugin/pulseaudio-dialog.glade:254
 msgid "_Volume step:"
-msgstr "Bolumen maila:"
+msgstr "_Bolumen-urratsa:"
 
 #: panel-plugin/pulseaudio-dialog.glade:300
 msgid "M_aximum volume:"
-msgstr "Gehienezko bolumena:"
+msgstr "_Gehienezko bolumena:"
 
 #: panel-plugin/pulseaudio-dialog.glade:345
 msgid "Behaviour"
@@ -99,17 +101,17 @@ msgstr "Portaera"
 
 #: panel-plugin/pulseaudio-dialog.glade:380
 msgid "Audio _Mixer"
-msgstr "Audio nahasgailua"
+msgstr "Audio-_nahasgailua"
 
 #: panel-plugin/pulseaudio-dialog.glade:392
 msgid ""
 "Audio mixer command that can be executed from the context menu, e.g. "
 "\"pavucontrol\", \"unity-control-center sound\"."
-msgstr "Testuinguru menutik exekutatu daitekeen audio nahasgailu komandoa, adib. \"pavucontrol\", \"unity-control-center sound\"."
+msgstr "Laster-menutik exekuta daitekeen audio-nahasgailuaren komandoa, adib. \"pavucontrol\", \"unity-control-center sound\"."
 
 #: panel-plugin/pulseaudio-dialog.glade:405
 msgid "_Run Audio Mixer..."
-msgstr "Audio nahasgailua exekutatu..."
+msgstr "_Exekutatu audio-nahasgailua..."
 
 #: panel-plugin/pulseaudio-dialog.glade:427
 msgid "Sound Settings"
@@ -121,19 +123,19 @@ msgstr "Orokorra"
 
 #: panel-plugin/pulseaudio-dialog.glade:478
 msgid "Control Playback of Media Players"
-msgstr "Media erreproduzitzaileen erreprodukzioa kontrolatu"
+msgstr "Kontrolatu multimedia-erreproduzitzaileen erreprodukzioa"
 
 #: panel-plugin/pulseaudio-dialog.glade:521
 msgid "Enable multimedia keys for playback control"
-msgstr "Gaitu multimedia teklak erreprodukzioa kontrolatzeko"
+msgstr "Gaitu multimedia-teklak erreprodukzioa kontrolatzeko"
 
 #: panel-plugin/pulseaudio-dialog.glade:536
 msgid "Send multimedia keys to all players"
-msgstr "Multimedia gakoak bidali erreproduzitzaile guztiei"
+msgstr "Bidali multimedia-teklak erreproduzitzaile guztiei"
 
 #: panel-plugin/pulseaudio-dialog.glade:551
 msgid "Enable experimental window focus support"
-msgstr "Gaitu leiho fokuaren onartze esperimentala"
+msgstr "Gaitu leiho-fokuaren euskarri esperimentala"
 
 #: panel-plugin/pulseaudio-dialog.glade:629
 msgid "Name"
@@ -145,23 +147,23 @@ msgstr "Iraunkorra"
 
 #: panel-plugin/pulseaudio-dialog.glade:652
 msgid "Ignored"
-msgstr "Ez ikusiarena egin zaio"
+msgstr "Baztertua"
 
 #: panel-plugin/pulseaudio-dialog.glade:672
 msgid "Clear Known Items"
-msgstr "Elementu ezagunak ezabatu"
+msgstr "Garbitu elementu ezagunak"
 
 #: panel-plugin/pulseaudio-dialog.glade:694
 msgid "Please restart the players to make them visible again."
-msgstr "Berrabiarazi erreproduzitzaileak, mesedez, hauek ikusgarriak bilakatzeko."
+msgstr "Berrabiarazi erreproduzitzaileak berriro ikusgai egon daitezen."
 
 #: panel-plugin/pulseaudio-dialog.glade:717
 msgid "Known Media Players"
-msgstr "Media erreproduzitzaile ezagunak"
+msgstr "Multimedia-erreproduzitzaile ezagunak"
 
 #: panel-plugin/pulseaudio-dialog.glade:739
 msgid "Media Players"
-msgstr "Media erreproduzitzaileak"
+msgstr "Multimedia-erreproduzitzaileak"
 
 #: panel-plugin/pulseaudio-dialog.c:136 panel-plugin/pulseaudio-menu.c:271
 #, c-format
@@ -177,25 +179,25 @@ msgstr "Errorea"
 
 #: panel-plugin/pulseaudio-button.c:348 panel-plugin/pulseaudio-notify.c:184
 msgid "Not connected to the PulseAudio server"
-msgstr "Ez zaude PulseAudio zerbitzarira konektatuta"
+msgstr "Ez dago PulseAudio zerbitzarira konektatuta"
 
 #: panel-plugin/pulseaudio-button.c:366
 #, c-format
 msgid ""
 "<b>Volume %d%% (muted)</b>\n"
 "<small>%s</small>"
-msgstr "<b>Bolumena %d%% (mututa)</b>\n<small>%s</small>"
+msgstr "<b>Bolumena %%%d (isilduta)</b>\n<small>%s</small>"
 
 #: panel-plugin/pulseaudio-button.c:368
 #, c-format
 msgid ""
 "<b>Volume %d%%</b>\n"
 "<small>%s</small>"
-msgstr "<b>Bolumena %d%%</b>\n<small>%s</small>"
+msgstr "<b>Bolumena %%%d</b>\n<small>%s</small>"
 
 #: panel-plugin/pulseaudio-menu.c:479
 msgid "Port"
-msgstr ""
+msgstr "Ataka"
 
 #: panel-plugin/pulseaudio-menu.c:580
 msgid "Output"
@@ -207,12 +209,12 @@ msgstr "Sarrera"
 
 #: panel-plugin/pulseaudio-menu.c:726
 msgid "Choose Playlist"
-msgstr "Erreprodukzio-zerrenda hautatu"
+msgstr "Hautatu erreprodukzio-zerrenda"
 
 #. Audio mixers
 #: panel-plugin/pulseaudio-menu.c:761
 msgid "_Audio mixer..."
-msgstr "_Audio nahasgailua..."
+msgstr "_Audio-nahasgailua..."
 
 #: panel-plugin/pulseaudio-notify.c:186
 #, c-format
@@ -227,4 +229,4 @@ msgstr "Bolumena %d%c"
 #: panel-plugin/mprismenuitem.c:378 panel-plugin/mprismenuitem.c:451
 #: panel-plugin/mprismenuitem.c:806
 msgid "Not currently playing"
-msgstr "Ez da orain erreproduzitzen"
+msgstr "Ez da ezer erreproduzitzen ari"
