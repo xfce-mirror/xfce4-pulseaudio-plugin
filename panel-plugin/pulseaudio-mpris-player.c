@@ -598,7 +598,7 @@ pulseaudio_mpris_player_on_dbus_property_signal (GDBusProxy *proxy,
 
   PulseaudioMprisPlayer *player = user_data;
 
-  if (g_ascii_strcasecmp (signal_name, "PropertiesChanged"))
+  if (g_ascii_strcasecmp (signal_name, "PropertiesChanged") != 0)
     return;
 
   g_variant_iter_init (&iter, parameters);
